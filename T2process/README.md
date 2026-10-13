@@ -28,9 +28,17 @@ All high-level pipelines export files under this convention:
 Examples:
 
 - `SimulationDecay__nnls_spectrum.xlsx`
+- `SimulationDecay__nnls_fit.xlsx`
 - `SimulationDecay__nnls_summary.csv`
 - `SimulationDecay__lcurve_metrics.xlsx`
+- `SimulationDecay__lcurve_fit.xlsx`
 - `SimulationDecay__gaussian_summary.xlsx`
+
+The NNLS and L-curve fit workbooks place the inversion-sampled decay,
+fitted amplitude, and residual noise in adjacent columns. The
+`noise_amplitude` column is the signed pointwise residual
+`decay_amplitude - fit_amplitude`; `residual` is retained as a compatibility
+alias.
 
 ## Backward compatibility
 

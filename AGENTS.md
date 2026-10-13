@@ -215,6 +215,10 @@ Generated artifacts:
 - `*_nnls_summary.csv`
 - `*_nnls_summary.xlsx`
 
+The fit workbook keeps the inversion-sampled decay, fitted amplitude, and
+signed residual noise in adjacent columns. The legacy `residual` column is
+retained as an alias of `noise_amplitude`.
+
 ### L-Curve Regularization Selection
 
 Main callable workflow:
@@ -256,6 +260,7 @@ Generated artifacts:
 - `*_lcurve_spectrum.xlsx`
 - `*_lcurve_metrics.xlsx`
 - `*_lcurve_trimmed_decay.xlsx`
+- `*_lcurve_fit.xlsx`
 - `*_lcurve_summary.csv`
 - `*_lcurve_summary.xlsx`
 - L-curve diagnostic figures.

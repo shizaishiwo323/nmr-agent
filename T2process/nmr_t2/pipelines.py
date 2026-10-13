@@ -63,6 +63,26 @@ def _selected_alpha_filename_token(values: list[float]) -> str:
     )
 
 
+def _build_decay_fit_noise_frame(
+    fit_time_ms: np.ndarray,
+    fit_amplitude: np.ndarray,
+    residual: np.ndarray,
+) -> pd.DataFrame:
+    """Return inversion-sampled decay, fit, and residual noise in one table."""
+
+    fit = np.asarray(fit_amplitude, dtype=float)
+    noise = np.asarray(residual, dtype=float)
+    return pd.DataFrame(
+        {
+            "fit_time_ms": np.asarray(fit_time_ms, dtype=float),
+            "decay_amplitude": fit + noise,
+            "fit_amplitude": fit,
+            "noise_amplitude": noise,
+            "residual": noise,
+        }
+    )
+
+
 def _prepare_signal_for_inversion(
     signal_name: str,
     time_ms: np.ndarray,
@@ -158,12 +178,10 @@ def run_nnls_workbook(
         trimmed_frame.loc[: trimmed.trimmed_amplitude.size - 1, "trimmed_amplitude"] = trimmed.trimmed_amplitude
         trimmed_sheets[signal_name] = trimmed_frame
 
-        fit_sheets[signal_name] = pd.DataFrame(
-            {
-                "fit_time_ms": inversion.fit_time_ms,
-                "fit_amplitude": inversion.fit_amplitude,
-                "residual": inversion.residual,
-            }
+        fit_sheets[signal_name] = _build_decay_fit_noise_frame(
+            inversion.fit_time_ms,
+            inversion.fit_amplitude,
+            inversion.residual,
         )
 
         summary_rows.append(
@@ -231,6 +249,7 @@ def run_lcurve_workbook(
     spectrum_sheets: Dict[str, pd.DataFrame] = {}
     metrics_sheets: Dict[str, pd.DataFrame] = {}
     trimmed_sheets: Dict[str, pd.DataFrame] = {}
+    fit_sheets: Dict[str, pd.DataFrame] = {}
     summary_rows: list[dict] = []
 
     for idx, signal_name in enumerate(signal_names):
@@ -282,6 +301,12 @@ def run_lcurve_workbook(
         trimmed_frame.loc[: trimmed.trimmed_amplitude.size - 1, "trimmed_amplitude"] = trimmed.trimmed_amplitude
         trimmed_sheets[signal_name] = trimmed_frame
 
+        fit_sheets[signal_name] = _build_decay_fit_noise_frame(
+            result.fit_time_ms,
+            result.fit_amplitude,
+            result.residual,
+        )
+
         alpha_token = _regularization_filename_token(result.best_regularization)
         figure_path = _build_output_path(
             figure_dir,
@@ -316,12 +341,14 @@ def run_lcurve_workbook(
     spectrum_path = _build_output_path(output_dir, dataset_name, f"lcurve_spectrum__{alpha_token}", "xlsx")
     metrics_path = _build_output_path(output_dir, dataset_name, f"lcurve_metrics__{alpha_token}", "xlsx")
     trimmed_path = _build_output_path(output_dir, dataset_name, f"lcurve_trimmed_decay__{alpha_token}", "xlsx")
+    fit_path = _build_output_path(output_dir, dataset_name, f"lcurve_fit__{alpha_token}", "xlsx")
     summary_csv = _build_output_path(output_dir, dataset_name, f"lcurve_summary__{alpha_token}", "csv")
     summary_xlsx = _build_output_path(output_dir, dataset_name, f"lcurve_summary__{alpha_token}", "xlsx")
 
     export_sheet_map_to_excel(spectrum_sheets, spectrum_path)
     export_sheet_map_to_excel(metrics_sheets, metrics_path)
     export_sheet_map_to_excel(trimmed_sheets, trimmed_path)
+    export_sheet_map_to_excel(fit_sheets, fit_path)
 
     summary_df = pd.DataFrame(summary_rows)
     summary_df.to_csv(summary_csv, index=False, encoding="utf-8-sig")
@@ -331,6 +358,7 @@ def run_lcurve_workbook(
         "spectrum_xlsx": spectrum_path,
         "metrics_xlsx": metrics_path,
         "trimmed_xlsx": trimmed_path,
+        "fit_xlsx": fit_path,
         "summary_csv": summary_csv,
         "summary_xlsx": summary_xlsx,
         "figure_dir": figure_dir,
