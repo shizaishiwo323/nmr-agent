@@ -217,7 +217,9 @@ Generated artifacts:
 
 The fit workbook keeps the inversion-sampled decay, fitted amplitude, and
 signed residual noise in adjacent columns. The legacy `residual` column is
-retained as an alias of `noise_amplitude`.
+retained as an alias of `noise_amplitude`. The trimmed-decay workbook includes
+the full-resolution fitted amplitude and the moving-average detrended noise
+vector used to estimate inversion weights.
 
 ### L-Curve Regularization Selection
 

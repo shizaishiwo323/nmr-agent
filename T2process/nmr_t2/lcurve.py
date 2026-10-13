@@ -133,7 +133,7 @@ def invert_single_signal_lcurve(
     best_alpha = float(alpha_values_arr[best_index])
     best_spectrum = model_matrix[best_index, :]
 
-    _, best_synthetic, _ = solve_t2_nnls_matlab_compatible(
+    best_model, best_synthetic, _ = solve_t2_nnls_matlab_compatible(
         data=y_valid,
         time_ms=t_valid,
         noise=noise,
@@ -164,5 +164,8 @@ def invert_single_signal_lcurve(
         metadata={
             "slope_reciprocal_target": float(cfg.slope_reciprocal_target),
             "slope_reciprocal_valid_range": tuple(float(v) for v in cfg.slope_reciprocal_valid_range),
+            "baseline_amplitude": float(best_model[int(cfg.num_bins)])
+            if best_model.size > int(cfg.num_bins)
+            else 0.0,
         },
     )

@@ -28,7 +28,7 @@ from .io_utils import (
 )
 from .lcurve import invert_single_signal_lcurve
 from .models import TrimmedSignal
-from .nnls import invert_single_signal_nnls
+from .nnls import estimate_noise_vector, invert_single_signal_nnls
 
 
 def _build_output_path(output_dir: Path, dataset_name: str, artifact_name: str, suffix: str) -> Path:
@@ -81,6 +81,28 @@ def _build_decay_fit_noise_frame(
             "residual": noise,
         }
     )
+
+
+def _add_inversion_fit_and_noise(
+    frame: pd.DataFrame,
+    trimmed: TrimmedSignal,
+    *,
+    t2_bins_ms: np.ndarray,
+    spectrum: np.ndarray,
+    baseline_amplitude: float,
+) -> None:
+    """Add full-resolution fit and the noise estimate used for weighting."""
+
+    time_ms = np.asarray(trimmed.trimmed_time_ms, dtype=float)
+    amplitude = np.asarray(trimmed.trimmed_amplitude, dtype=float)
+    fitted = np.exp(-time_ms[:, None] / np.asarray(t2_bins_ms, dtype=float)[None, :]) @ np.asarray(
+        spectrum,
+        dtype=float,
+    )
+    fitted += float(baseline_amplitude)
+    noise = estimate_noise_vector(amplitude)
+    frame.loc[: time_ms.size - 1, "trimmed_fit_amplitude"] = fitted
+    frame.loc[: time_ms.size - 1, "trimmed_inversion_noise"] = noise
 
 
 def _prepare_signal_for_inversion(
@@ -176,6 +198,13 @@ def run_nnls_workbook(
         )
         trimmed_frame.loc[: trimmed.trimmed_time_ms.size - 1, "trimmed_time_ms"] = trimmed.trimmed_time_ms
         trimmed_frame.loc[: trimmed.trimmed_amplitude.size - 1, "trimmed_amplitude"] = trimmed.trimmed_amplitude
+        _add_inversion_fit_and_noise(
+            trimmed_frame,
+            trimmed,
+            t2_bins_ms=inversion.t2_bins_ms,
+            spectrum=inversion.spectrum,
+            baseline_amplitude=float(inversion.metadata.get("baseline_amplitude", 0.0)),
+        )
         trimmed_sheets[signal_name] = trimmed_frame
 
         fit_sheets[signal_name] = _build_decay_fit_noise_frame(
@@ -299,6 +328,13 @@ def run_lcurve_workbook(
         )
         trimmed_frame.loc[: trimmed.trimmed_time_ms.size - 1, "trimmed_time_ms"] = trimmed.trimmed_time_ms
         trimmed_frame.loc[: trimmed.trimmed_amplitude.size - 1, "trimmed_amplitude"] = trimmed.trimmed_amplitude
+        _add_inversion_fit_and_noise(
+            trimmed_frame,
+            trimmed,
+            t2_bins_ms=result.t2_bins_ms,
+            spectrum=result.spectrum,
+            baseline_amplitude=float(result.metadata.get("baseline_amplitude", 0.0)),
+        )
         trimmed_sheets[signal_name] = trimmed_frame
 
         fit_sheets[signal_name] = _build_decay_fit_noise_frame(

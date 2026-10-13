@@ -40,6 +40,11 @@ fitted amplitude, and residual noise in adjacent columns. The
 `decay_amplitude - fit_amplitude`; `residual` is retained as a compatibility
 alias.
 
+The corresponding trimmed-decay workbooks also include
+`trimmed_fit_amplitude` and `trimmed_inversion_noise`. The latter is the
+moving-average detrended noise vector used to estimate the inversion weights;
+it is distinct from the post-fit residual above.
+
 ## Backward compatibility
 
 The legacy modules are preserved as compatibility layers:

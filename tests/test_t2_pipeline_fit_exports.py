@@ -25,6 +25,14 @@ def _assert_fit_export(path: Path) -> None:
     np.testing.assert_allclose(frame["noise_amplitude"], frame["residual"])
 
 
+def _assert_trimmed_export(path: Path) -> None:
+    frame = pd.read_excel(path)
+    assert "trimmed_fit_amplitude" in frame
+    assert "trimmed_inversion_noise" in frame
+    assert frame["trimmed_fit_amplitude"].notna().all()
+    assert frame["trimmed_inversion_noise"].notna().all()
+
+
 def test_nnls_and_lcurve_export_decay_fit_and_noise(tmp_path: Path) -> None:
     source = tmp_path / "decay.xlsx"
     _write_decay_workbook(source)
@@ -44,3 +52,5 @@ def test_nnls_and_lcurve_export_decay_fit_and_noise(tmp_path: Path) -> None:
 
     _assert_fit_export(nnls["fit_xlsx"])
     _assert_fit_export(lcurve["fit_xlsx"])
+    _assert_trimmed_export(nnls["trimmed_xlsx"])
+    _assert_trimmed_export(lcurve["trimmed_xlsx"])

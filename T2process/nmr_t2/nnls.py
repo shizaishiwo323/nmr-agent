@@ -310,5 +310,10 @@ def invert_single_signal_nnls(
         regularization=float(cfg.regularization),
         residual_norm=residual_norm,
         roughness_norm=roughness_norm,
-        metadata={"num_bins": int(cfg.num_bins), "t2_min_ms": float(cfg.t2_min_ms), "t2_max_ms": float(cfg.t2_max_ms)},
+        metadata={
+            "num_bins": int(cfg.num_bins),
+            "t2_min_ms": float(cfg.t2_min_ms),
+            "t2_max_ms": float(cfg.t2_max_ms),
+            "baseline_amplitude": float(model[int(cfg.num_bins)]) if model.size > int(cfg.num_bins) else 0.0,
+        },
     )
