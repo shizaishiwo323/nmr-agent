@@ -6,6 +6,10 @@ tool layer for bundled ideal-triangle simulation, PNG phase-map simulation, pyGI
 decay solving, data diagnosis, workbook repair, T2 inversion, visualization,
 Gaussian peak decomposition, result interpretation, and report generation.
 
+## Live App
+
+[Open the deployed NMR Simulation and T2 Inversion Agent](https://t2-inversion-agent.streamlit.app/)
+
 ## What It Does
 
 - Guides beginner users through T2 inversion choices in plain language.
