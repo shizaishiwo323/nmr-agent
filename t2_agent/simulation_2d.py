@@ -8,7 +8,7 @@ import re
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 import matplotlib
 
@@ -37,6 +37,9 @@ except Exception:
 OUTSIDE = np.uint8(0)
 WATER = np.uint8(1)
 SOLID = np.uint8(2)
+# Gas/air phase used by segmented CT label images. Red/yellow/white PNG phase
+# maps never produce it.
+AIR = np.uint8(3)
 PHASE_RGB_COLORS = np.asarray(
     [
         [255, 255, 255],
@@ -765,7 +768,18 @@ def classify_boundary_edge(labels: np.ndarray, midpoint: np.ndarray, params: Sim
     return "gas"
 
 
-def assemble_triangular_operator(labels: np.ndarray, params: Simulation2DParams):
+def assemble_triangular_operator(
+    labels: np.ndarray,
+    params: Simulation2DParams,
+    edge_classifier: Callable[[np.ndarray, np.ndarray, Simulation2DParams], str] | None = None,
+):
+    """Assemble FEM matrices for the water domain.
+
+    ``edge_classifier`` returns ``"solid"``, ``"gas"`` or ``"noflux"`` for a
+    boundary-edge midpoint. ``noflux`` edges get no surface relaxation.
+    """
+
+    classify = edge_classifier or classify_boundary_edge
     mesh = build_triangular_water_mesh(labels, params)
     points = mesh["points"]
     triangles = mesh["triangles"]
@@ -801,19 +815,27 @@ def assemble_triangular_operator(labels: np.ndarray, params: Simulation2DParams)
 
     solid_length = 0.0
     gas_length = 0.0
+    noflux_length = 0.0
+    boundary_edges: dict[str, list[tuple[int, int]]] = {"solid": [], "gas": [], "noflux": []}
     for (a, bidx), count in edge_counts.items():
         if count != 1:
             continue
         midpoint = (points[a] + points[bidx]) / 2.0
         length = float(np.linalg.norm(points[a] - points[bidx]))
-        if classify_boundary_edge(labels, midpoint, params) == "solid":
+        kind = classify(labels, midpoint, params)
+        if kind == "solid":
             solid_robin[a] += length / 2.0
             solid_robin[bidx] += length / 2.0
             solid_length += length
+        elif kind == "noflux":
+            noflux_length += length
         else:
+            kind = "gas"
             gas_robin[a] += length / 2.0
             gas_robin[bidx] += length / 2.0
             gas_length += length
+        boundary_edges[kind].append((int(a), int(bidx)))
+    mesh["boundary_edges"] = boundary_edges
 
     stiffness = csr_matrix((data, (rows, cols)), shape=(n, n))
     stats = {
@@ -825,6 +847,7 @@ def assemble_triangular_operator(labels: np.ndarray, params: Simulation2DParams)
         "triangle_max_area_um2": float(mesh.get("triangle_max_area_um2", np.nan)),
         "solid_liquid_boundary_length_um": float(solid_length),
         "gas_liquid_boundary_length_um": float(gas_length),
+        "noflux_boundary_length_um": float(noflux_length),
         "mesh_bulk_size_um": float(params.mesh_bulk_size_um),
         "mesh_boundary_size_um": float(params.mesh_boundary_size_um),
     }
@@ -965,6 +988,19 @@ def solve_decay_triangular(
     if mesh_quality_hist_path is not None:
         save_mesh_quality_histogram(quality_frame, mesh_quality_hist_path)
 
+    times, amplitude = time_step_triangular_decay(stiffness, mass, solid_robin, gas_robin, params)
+    return times, amplitude, stats
+
+
+def time_step_triangular_decay(
+    stiffness,
+    mass: np.ndarray,
+    solid_robin: np.ndarray,
+    gas_robin: np.ndarray,
+    params: Simulation2DParams,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Implicit-Euler Bloch-Torrey decay on an assembled triangular mesh."""
+
     dt = params.dt_ms
     mass_matrix = diags(mass, format="csr")
     lhs = (
@@ -981,7 +1017,7 @@ def solve_decay_triangular(
     for i in range(times.size):
         amplitude[i] = float(np.dot(mass, magnetization))
         magnetization = solve(mass * magnetization)
-    return times, amplitude, stats
+    return times, amplitude
 
 
 def solve_decay_pixel(labels: np.ndarray, params: Simulation2DParams) -> tuple[np.ndarray, np.ndarray, dict[str, float]]:

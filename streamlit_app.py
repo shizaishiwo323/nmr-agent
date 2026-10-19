@@ -12,7 +12,9 @@ from uuid import uuid4
 import pandas as pd
 import streamlit as st
 
+from t2_agent import ct_ui
 from t2_agent.agent import AgentRuntimeContext, execute_agent_tool, run_deepseek_agent_turn
+from t2_agent.ct_workflow import is_ct_upload
 from t2_agent.deepseek import get_deepseek_api_key_source
 from t2_agent.i18n import t
 from t2_agent.interactive_lcurve import alpha_path_figure, lcurve_metric_figure, selected_alpha_from_plotly_selection, t2_spectrum_figure
@@ -36,6 +38,14 @@ DEFAULT_THINKING_ENABLED = True
 INTRO_QUERY_KEY = "hide_t2_agent_intro"
 TURN_ARTIFACT_EXPANDER_MARKER_CLASS = "t2-turn-artifact-expander-marker"
 TURN_RESULT_EXPANDER_MARKER_CLASS = "t2-turn-result-expander-marker"
+CT_STAGE_TITLES = {
+    "ct_geometry": ("几何：相态映射与裁剪", "Geometry: phase mapping and crop"),
+    "ct_mesh": ("PyGIMLi 网格划分", "PyGIMLi meshing"),
+    "ct_decay": ("NMR 衰减求解", "NMR decay solve"),
+    "ct_t2_inversion": ("T2 反演", "T2 inversion"),
+    "ct_gaussian": ("高斯分峰", "Gaussian decomposition"),
+    "ct_interpretation": ("结果解释", "Interpretation"),
+}
 
 
 def stop_if_runtime_environment_invalid(status: RuntimeEnvironmentStatus | None = None) -> None:
@@ -908,7 +918,12 @@ def render_context_outputs(context: AgentRuntimeContext | None, language: str) -
     if context and context.uploaded_path:
         st.info(t(language, "current_file", filename=Path(context.uploaded_path).name))
         active_suffix = Path(context.uploaded_path).suffix.lower()
-        st.caption(t(language, "png_upload_hint") if active_suffix == ".png" else t(language, "upload_hint"))
+        if active_suffix in {".tif", ".tiff"}:
+            st.caption(t(language, "ct_upload_hint"))
+        else:
+            st.caption(t(language, "png_upload_hint") if active_suffix == ".png" else t(language, "upload_hint"))
+        ct_ui.render_ct_panel(context, language, on_background_answer=record_ct_background_answer)
+        st.session_state["ct_progress_placeholder"] = st.empty()
 
     render_artifact_rail(context, language)
     st.markdown("<div class='t2-section-divider'></div>", unsafe_allow_html=True)
@@ -1689,6 +1704,85 @@ def enhance_report_with_conversation(report: AgentToolResult | None, messages: l
     return True
 
 
+def record_ct_background_answer(result: AgentToolResult) -> None:
+    """Store the background-button answer as a visible chat turn."""
+
+    language = st.session_state.get("language", "中文")
+    state = (current_context().ct_state if current_context() else {}) or {}
+    has_background = bool(state.get("has_background"))
+    if language == "English":
+        user_text = "[UI answer] The image " + ("contains" if has_background else "does not contain") + " background pixels."
+        reply = "Recorded. " + (
+            "The phase preview is ready: check the AI markers on the CT image, drag any wrong marker onto the right region, then confirm."
+            if result.status == "needs_confirmation"
+            else result.message
+        )
+    else:
+        user_text = "【界面回答】图像" + ("含有" if has_background else "不含") + "背景像素。"
+        reply = "已记录。" + (
+            "相态预览已生成：请在弹出的窗口中检查 AI 在 CT 图像上的相态标记，标错的拖到正确区域，然后确认。"
+            if result.status == "needs_confirmation"
+            else result.message
+        )
+    context = current_context()
+    if context is not None:
+        context.tool_history.append(result)
+    st.session_state.display_messages.extend([("user", user_text), ("assistant", reply)])
+    st.session_state.display_traces.extend([[], []])
+    st.session_state.display_artifacts.extend([[], collect_turn_artifacts([result])])
+    st.session_state.display_tool_results.extend([[], [result]])
+    save_current_file_state()
+
+
+def _ct_stage_images(result: AgentToolResult) -> list[Path]:
+    return [Path(item) for item in result.artifacts if Path(item).suffix.lower() in IMAGE_SUFFIXES and Path(item).exists()]
+
+
+def render_ct_progress(stage_results: list[AgentToolResult], language: str) -> None:
+    """Widget-free progress view, safe to redraw many times in one script run."""
+
+    with st.container(border=True):
+        st.markdown("**CT 流程进度**" if language != "English" else "**CT workflow progress**")
+        for item in stage_results:
+            zh, en = CT_STAGE_TITLES.get(str(item.summary.get("stage")), (str(item.summary.get("stage")), str(item.summary.get("stage"))))
+            icon = "✅" if item.status == "success" else "❌"
+            st.markdown(f"{icon} **{zh if language != 'English' else en}**")
+        if stage_results:
+            images = _ct_stage_images(stage_results[-1])
+            if images:
+                st.image(str(images[0]), caption=images[0].name, width="stretch")
+
+
+def make_ct_stage_callback(language: str):
+    stage_results: list[AgentToolResult] = []
+
+    def on_stage(stage_result: AgentToolResult) -> None:
+        stage_results.append(stage_result)
+        zh, en = CT_STAGE_TITLES.get(str(stage_result.summary.get("stage")), ("", ""))
+        title = zh if language != "English" else en
+        icon = "✅" if stage_result.status == "success" else "❌"
+        st.markdown(f"{icon} **{title}** — {stage_result.message.splitlines()[0] if stage_result.message else ''}")
+        if stage_result.error:
+            st.code(stage_result.error)
+        for image in _ct_stage_images(stage_result)[:2]:
+            st.image(str(image), caption=image.name, width="stretch")
+        placeholder = st.session_state.get("ct_progress_placeholder")
+        if placeholder is not None:
+            try:
+                with placeholder.container():
+                    render_ct_progress(stage_results, language)
+            except Exception:
+                pass
+
+    return on_stage
+
+
+def ct_confirmed_run_prompt(language: str) -> str:
+    if language == "English":
+        return "[UI confirmation] Phase markers and run parameters are confirmed. Please run the segmented-CT simulation workflow and explain the results."
+    return "【界面确认】相态标记与运行参数已确认，请执行 CT 分割图模拟全流程并解释结果。"
+
+
 def run_agent_prompt(
     prompt: str,
     api_key: str,
@@ -1732,17 +1826,38 @@ def run_agent_prompt(
                     render_context_outputs(context, language)
 
         with st.status(t(language, "running_status"), expanded=True) as status:
-            result = run_deepseek_agent_turn(
-                api_key=api_key,
-                model=model,
-                thinking_enabled=thinking_enabled,
-                user_message=prompt,
-                context=context,
-                prior_messages=st.session_state.agent_messages,
-                on_trace=show_live_trace,
-                on_tool_result=show_live_tool_result,
-                response_language=language,
-            )
+            context.stage_callback = make_ct_stage_callback(language)
+            try:
+                result = run_deepseek_agent_turn(
+                    api_key=api_key,
+                    model=model,
+                    thinking_enabled=thinking_enabled,
+                    user_message=prompt,
+                    context=context,
+                    prior_messages=st.session_state.agent_messages,
+                    on_trace=show_live_trace,
+                    on_tool_result=show_live_tool_result,
+                    response_language=language,
+                )
+                if prompt == ct_confirmed_run_prompt(language) and (context.ct_state or {}).get("step") == "ready":
+                    # The model did not start the confirmed run; execute it deterministically.
+                    fallback = execute_agent_tool("run_ct_simulation_workflow", {}, context, response_language=language)
+                    context.tool_history.append(fallback)
+                    result.tool_results.append(fallback)
+                    result.trace.append(
+                        {
+                            "kind": "tool_result",
+                            "tool_name": "run_ct_simulation_workflow",
+                            "status": fallback.status,
+                            "message": fallback.message,
+                            "error": fallback.error,
+                            "summary_keys": sorted(fallback.summary.keys()),
+                            "artifact_count": len(fallback.artifacts),
+                        }
+                    )
+                    result.assistant_message = (result.assistant_message + "\n\n" + fallback.message).strip()
+            finally:
+                context.stage_callback = None
             st.session_state.agent_messages = result.messages
             st.session_state.display_messages.append(("assistant", result.assistant_message))
             st.session_state.display_traces.append(result.trace)
@@ -1978,24 +2093,21 @@ def main() -> None:
 
         api_key = user_api_key.strip() or stored_api_key
         prompt = st.chat_input(t(language, "chat_placeholder"))
-        if prompt:
-            if not api_key:
-                st.session_state.display_messages.append(("user", prompt))
-                st.session_state.display_traces.append([])
-                st.session_state.display_artifacts.append([])
-                st.session_state.display_tool_results.append([])
-                missing_key_message = (
-                    "请先输入 DeepSeek API key，公网版本的所有 Agent 运行都会通过 API key 调用模型。"
-                    if language != "English"
-                    else "Please enter a DeepSeek API key first. The public version runs all Agent turns through the configured API key."
-                )
-                st.session_state.display_messages.append(("assistant", missing_key_message))
-                st.session_state.display_traces.append([])
-                st.session_state.display_artifacts.append([])
-                st.session_state.display_tool_results.append([])
-                st.warning(missing_key_message)
-                st.rerun()
-            run_agent_prompt(prompt, api_key, model, thinking_enabled, live_chat_container=live_chat_container)
+        if prompt and not api_key:
+            st.session_state.display_messages.append(("user", prompt))
+            st.session_state.display_traces.append([])
+            st.session_state.display_artifacts.append([])
+            st.session_state.display_tool_results.append([])
+            missing_key_message = (
+                "请先输入 DeepSeek API key，公网版本的所有 Agent 运行都会通过 API key 调用模型。"
+                if language != "English"
+                else "Please enter a DeepSeek API key first. The public version runs all Agent turns through the configured API key."
+            )
+            st.session_state.display_messages.append(("assistant", missing_key_message))
+            st.session_state.display_traces.append([])
+            st.session_state.display_artifacts.append([])
+            st.session_state.display_tool_results.append([])
+            st.warning(missing_key_message)
             st.rerun()
 
     with right:
@@ -2003,7 +2115,7 @@ def main() -> None:
         with st.container(border=False, key="t2_results_scroll_panel"):
             uploaded_files = st.file_uploader(
                 t(language, "uploader"),
-                type=["xlsx", "xls", "csv", "pea", "txt", "dat", "png"],
+                type=["xlsx", "xls", "csv", "pea", "txt", "dat", "png", "tif", "tiff"],
                 accept_multiple_files=True,
             )
             register_uploaded_files(uploaded_files or [])
@@ -2023,6 +2135,54 @@ def main() -> None:
 
             context = current_context()
             render_context_outputs(context, language)
+
+    context = current_context()
+    if prompt and api_key:
+        # Handled after the right panel exists so CT stage progress can update it.
+        with left:
+            run_agent_prompt(prompt, api_key, model, thinking_enabled, live_chat_container=live_chat_container)
+        st.rerun()
+
+    if context is not None and is_ct_upload(context.uploaded_path):
+
+        def run_ct_now() -> None:
+            # Runs inside the open dialog so the stage-by-stage progress is visible
+            # there instead of behind a stale modal; the dialog closes on rerun.
+            st.markdown("#### 正在执行 CT 模拟流程…" if language != "English" else "#### Running the CT workflow…")
+            if api_key:
+                run_agent_prompt(ct_confirmed_run_prompt(language), api_key, model, thinking_enabled)
+            else:
+                run_ct_without_model(context, language)
+
+        ct_ui.open_pending_dialog(context, language, on_ready_to_run=run_ct_now)
+
+
+def run_ct_without_model(context: AgentRuntimeContext, language: str, live_chat_container=None) -> None:
+    """Run a confirmed CT workflow when no DeepSeek key is configured."""
+
+    prompt = ct_confirmed_run_prompt(language)
+    st.session_state.display_messages.append(("user", prompt))
+    st.session_state.display_traces.append([])
+    st.session_state.display_artifacts.append([])
+    st.session_state.display_tool_results.append([])
+    surface = live_chat_container.container() if live_chat_container is not None else st.container()
+    with surface:
+        with st.chat_message("user"):
+            st.markdown(prompt)
+        with st.status(t(language, "running_status"), expanded=True) as status:
+            context.stage_callback = make_ct_stage_callback(language)
+            try:
+                result = execute_agent_tool("run_ct_simulation_workflow", {}, context, response_language=language)
+            finally:
+                context.stage_callback = None
+            context.tool_history.append(result)
+            st.session_state.display_messages.append(("assistant", result.message))
+            st.session_state.display_traces.append([])
+            st.session_state.display_artifacts.append(collect_turn_artifacts([result]))
+            st.session_state.display_tool_results.append([result])
+            refresh_zip_from_context(context)
+            save_current_file_state()
+            status.update(label=t(language, "done_status"), state="complete" if result.status == "success" else "error")
 
 
 if __name__ == "__main__":

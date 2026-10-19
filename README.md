@@ -47,6 +47,34 @@ simulation, or D-T2. The local ideal-triangle demo is implemented inside this
 repository; public deployments do not need a separately cloned NMR project or
 Git submodule.
 
+## Segmented CT TIF Workflow
+
+Upload a segmented CT slice as a single-channel TIF/TIFF with one integer label
+per phase (for example `0` outside, `102` water, `153` air, `255` solid):
+
+```text
+TIF labels -> background question (only if needed) -> draggable phase markers
+-> parameter confirmation -> pyGIMLi mesh -> decay -> L-curve / fixed NNLS -> Gaussian peaks
+```
+
+- Images with two pixel values (solid + water) never trigger the background
+  question. With three or four values the agent asks whether background pixels
+  exist unless the prompt already says so.
+- The AI first guess (background = border value, solid = largest phase, water =
+  the wetting pore phase with more area and solid contact, air = the other pore
+  phase) is shown as draggable markers on the real CT image. Dragging a marker
+  onto another region reassigns that pixel value; phases swap automatically.
+  A dropdown fallback and keyboard nudging are available.
+- If the prompt does not give the CT resolution, simulation core parameters,
+  the L-curve/smoothing-factor choice and the Gaussian choice, a confirmation
+  dialog opens. Defaults: 1 um/pixel, L-curve on, Gaussian decomposition on.
+- Boundaries: solid-water edges use `rho_solid`, air-water edges use `rho_gas`
+  (default 0), and background/image edges are no-flux. The simulated time axis
+  is set from the fast-diffusion estimate `1/T2 = 1/T2_bulk + rho * S/V`.
+- Every run writes a run-specific folder with the phase mapping JSON (AI guess,
+  user corrections), cropped phase image, mesh, decay, inversion, Gaussian and
+  interpretation artifacts.
+
 ## Local Run
 
 ```bash

@@ -155,6 +155,22 @@ workflow. The app should expose only the necessary mesh parameters at first and
 keep advanced settings hidden unless the user asks for them or a validation
 problem requires them.
 
+### Segmented CT Label Images (TIF)
+
+Segmented CT slices arrive as single-channel TIF/TIFF label images with 2-4
+integer values (solid, water, optional air, optional background). Use
+`t2_agent/ct_phase.py` and `t2_agent/ct_workflow.py`:
+
+- Ask whether background pixels exist only when the image has 3+ values and the
+  prompt did not say; never ask for two-value images.
+- Show the AI phase guess as draggable markers on the CT image and wait for the
+  user to confirm before meshing. Only the user confirms phases.
+- Open the parameter confirmation dialog when resolution, simulation core
+  parameters, smoothing/L-curve choice or Gaussian choice are missing.
+  Defaults: 1 um/pixel, L-curve on, Gaussian on.
+- Air-water edges use `rho_gas_um_per_ms`; background and image edges are
+  no-flux. The inversion uses the normalized decay M(t)/M(0).
+
 ### Image-Based Geometry Input
 
 The user may upload a two-dimensional binary image, preferably PNG. The agent

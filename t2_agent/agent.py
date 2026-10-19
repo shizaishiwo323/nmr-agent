@@ -14,6 +14,7 @@ from .deepseek import DEEPSEEK_BASE_URL
 from .guidance import build_parameter_guidance, infer_requested_plan
 from .models import AgentToolResult
 from .skills import render_skill_prompt
+from .ct_workflow import inspect_ct_phase_image, is_ct_upload, request_ct_run
 from .tools import (
     generate_report,
     inspect_2d_geometry_input,
@@ -50,6 +51,8 @@ class AgentRuntimeContext:
     tool_history: list[AgentToolResult] = field(default_factory=list)
     report: AgentToolResult | None = None
     last_user_goal: str = ""
+    ct_state: dict[str, Any] = field(default_factory=dict)
+    stage_callback: Callable[[AgentToolResult], None] | None = None
 
 
 @dataclass
@@ -66,6 +69,68 @@ def build_tool_specs() -> list[dict[str, Any]]:
     """Return OpenAI-compatible tool schemas for DeepSeek."""
 
     return [
+        {
+            "type": "function",
+            "function": {
+                "name": "inspect_ct_phase_image",
+                "description": "Inspect an uploaded segmented CT label image (TIF/TIFF, one integer label per phase such as 0/102/153/255). Counts pixel values, decides whether the background question is needed, makes the AI first guess of solid/water/air/background, and opens the user's draggable phase-marker preview. Call this first for any TIF upload that should be simulated.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "has_background": {"type": "boolean", "description": "Only pass when the user explicitly stated whether the image contains background (outside-the-sample) pixels, in this or an earlier message. Never guess."},
+                        "phase_labels": {
+                            "type": "object",
+                            "description": "Only when the user explicitly stated label values, e.g. {\"solid\": 255, \"water\": 102, \"air\": 153, \"background\": 0}.",
+                            "properties": {
+                                "solid": {"type": "integer"},
+                                "water": {"type": "integer"},
+                                "air": {"type": "integer"},
+                                "background": {"type": "integer"},
+                            },
+                            "additionalProperties": False,
+                        },
+                        "pixel_size_um": {"type": "number", "description": "CT resolution in micrometers per pixel, only if the user stated it."},
+                        "run_lcurve": {"type": "boolean", "description": "Only if the user stated whether to use L-curve."},
+                        "regularization": {"type": "number", "description": "Fixed smoothing factor, only if the user stated one."},
+                        "run_gaussian": {"type": "boolean", "description": "Only if the user stated whether to run Gaussian peak decomposition."},
+                        "peak_count": {"type": "integer", "minimum": 1, "maximum": 8},
+                        "diffusion_um2_per_ms": {"type": "number"},
+                        "bulk_t2_ms": {"type": "number"},
+                        "rho_solid_um_per_ms": {"type": "number"},
+                        "rho_gas_um_per_ms": {"type": "number"},
+                        "defaults_accepted": {"type": "boolean", "description": "True only when the user said the remaining parameters may use defaults."},
+                    },
+                    "required": [],
+                    "additionalProperties": False,
+                },
+            },
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "run_ct_simulation_workflow",
+                "description": "Run the segmented-CT workflow after the user confirmed the phase markers: phase-mapped geometry and crop, pyGIMLi triangular mesh, NMR decay solve, T2 inversion (L-curve or fixed smoothing factor), optional Gaussian decomposition, and interpretation. Returns needs_confirmation while the background answer, phase confirmation, or parameter dialog is still pending.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "pixel_size_um": {"type": "number"},
+                        "run_lcurve": {"type": "boolean"},
+                        "regularization": {"type": "number"},
+                        "run_gaussian": {"type": "boolean"},
+                        "peak_count": {"type": "integer", "minimum": 1, "maximum": 8},
+                        "diffusion_um2_per_ms": {"type": "number"},
+                        "bulk_t2_ms": {"type": "number"},
+                        "rho_solid_um_per_ms": {"type": "number"},
+                        "rho_gas_um_per_ms": {"type": "number"},
+                        "t_max_ms": {"type": "number"},
+                        "dt_ms": {"type": "number"},
+                        "defaults_accepted": {"type": "boolean"},
+                    },
+                    "required": [],
+                    "additionalProperties": False,
+                },
+            },
+        },
         {
             "type": "function",
             "function": {
@@ -427,7 +492,13 @@ def _active_upload_context_prompt(context: AgentRuntimeContext) -> str:
     if active is not None:
         active_path = Path(active)
         suffix = active_path.suffix.lower()
-        kind = "PNG phase map" if suffix == ".png" else "spreadsheet/table or spectrum data"
+        kind = (
+            "PNG phase map"
+            if suffix == ".png"
+            else "segmented CT label image (TIF)"
+            if suffix in {".tif", ".tiff"}
+            else "spreadsheet/table or spectrum data"
+        )
         lines.append(f"- active uploaded file: {active_path.name}")
         lines.append(f"- active upload kind: {kind}")
         lines.append(f"- active upload suffix: {suffix or '(none)'}")
@@ -439,6 +510,27 @@ def _active_upload_context_prompt(context: AgentRuntimeContext) -> str:
             lines.append(
                 "- If the user asks for PNG meshing or full 2D NMR simulation, first make sure they supplied the cropped sample width and height or explicit pixel size. If not, ask for that scale instead of starting simulation with defaults."
             )
+        if suffix in {".tif", ".tiff"}:
+            lines.append("- This TIF is a segmented CT label image. Use inspect_ct_phase_image / run_ct_simulation_workflow, never spreadsheet or PNG tools.")
+            state = context.ct_state or {}
+            if state and state.get("image_path") == str(active_path):
+                lines.append(
+                    "- CT workflow state: "
+                    + json.dumps(
+                        {
+                            "step": state.get("step"),
+                            "values": state.get("values"),
+                            "has_background": state.get("has_background"),
+                            "assignment": state.get("assignment"),
+                            "phase_confirmed": state.get("phase_confirmed"),
+                            "params_confirmed": state.get("params_confirmed"),
+                            "params_prefill": state.get("prefill"),
+                            "missing_fields": state.get("missing_fields"),
+                        },
+                        ensure_ascii=False,
+                        default=str,
+                    )
+                )
     if uploads:
         names = ", ".join(Path(path).name for path in uploads[:10])
         lines.append(f"- uploaded file count: {len(uploads)}")
@@ -618,6 +710,17 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
         result = process_uploaded_files_batch(args, context, response_language=response_language)
         context.results.append(result)
         return result
+
+    if name == "inspect_ct_phase_image":
+        result = inspect_ct_phase_image(context, args, language=response_language)
+        context.results.append(result)
+        return result
+
+    if name == "run_ct_simulation_workflow":
+        if not is_ct_upload(context.uploaded_path):
+            message = "Upload a segmented CT TIF first." if _is_english(response_language) else "请先上传分割好的 CT TIF 图像。"
+            return AgentToolResult("failed", message, error="not_ct_tif")
+        return request_ct_run(context, args, language=response_language, on_stage=context.stage_callback)
 
     if name == "inspect_2d_geometry_input":
         result = inspect_2d_geometry_input(
@@ -1061,6 +1164,14 @@ def run_deepseek_agent_turn(
     system_content = (
         "You are an NMR 2D simulation and T2 inversion agent that can call real tools. "
         "For 2D simulation requests, use the simulation tools instead of spreadsheet validation tools. "
+        "Segmented CT TIF route: if the active upload is a .tif/.tiff label image, call inspect_ct_phase_image first (not spreadsheet or PNG tools). "
+        "Pass has_background only if the user explicitly said whether outside/background pixels exist; never infer it from file names. Pass phase_labels only for label values the user explicitly stated, and pixel_size_um / run_lcurve / regularization / run_gaussian / peak_count only when stated. "
+        "If inspect_ct_phase_image returns error needs_background_answer, ask the user one short question: does the image contain background (outside-sample) pixels? Explain that the extra pixel value could be air or background. Do not run anything else that turn. "
+        "If it returns needs_phase_confirmation, briefly explain the AI first guess (value -> phase, reasoning and confidence), compare it with any labels the user stated, and tell the user to check the draggable markers in the CT phase preview window and press confirm; meshing waits for that confirmation. The app continues automatically after the confirm button (parameter dialog or run), so do not ask the user to type a confirmation in chat. "
+        "After phase confirmation the app opens a parameter confirmation dialog when resolution, simulation core parameters, smoothing/L-curve choice or Gaussian choice were not all given; defaults are 1 um/pixel, L-curve on, Gaussian decomposition on. "
+        "Call run_ct_simulation_workflow when the user asks to run; if it returns needs_confirmation, tell the user which confirmation is pending instead of claiming results. Never invent CT results. "
+        "When explaining CT results, relate mesh quality, decay length, the selected smoothing factor, T2 peaks and, if air is present, the reduced water saturation; warn that a 2D slice is not a 3D pore network. "
+        "For pore-size statements use the reported decay.surface_to_volume_per_um and bulk_t2_ms (1/T2 = 1/T2_bulk + rho*S/V); do not back-calculate pore radius from T2 while ignoring bulk relaxation. "
         "If the user uploads a PNG or asks for red/yellow phase-map simulation, call inspect_2d_geometry_input and then run_2d_mesh_and_decay or run_2d_simulation_full_workflow with geometry_mode='png'. "
         "For PNG phase maps with white margins, keep the original upload, enable normalize_phase_colors when edge or antialiasing colors may be present, and rely on the PNG workflow to crop the white border before meshing. "
         "For PNG simulation or full PNG simulation-to-inversion, physical scale is required before meshing. If the user has not provided physical_size_x_um/physical_size_y_um or explicit pixel_size values, ask for the cropped sample width and height instead of guessing default dimensions. "
