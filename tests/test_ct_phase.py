@@ -195,3 +195,29 @@ def test_confirmed_ct_workflow_runs_all_stages(tmp_path: Path):
     assert Path(result.summary["spectrum_xlsx"]).exists()
     assert result.summary.get("metrics_xlsx")
     assert context.ct_state["step"] == "done"
+
+
+CT_TEST_DATA = Path(__file__).resolve().parents[1] / "testData" / "ct_tif"
+REAL_CT_CASES = [
+    ("solid_water_2phase.tif", None, {"125": "water", "255": "solid"}),
+    ("solid_water_air_3phase.tif", False, {"102": "water", "153": "air", "255": "solid"}),
+    ("solid_water_back3phase.tif", True, {"0": "background", "125": "water", "255": "solid"}),
+    ("solid_water_air_back4phase.tif", True, {"0": "background", "102": "water", "153": "air", "255": "solid"}),
+]
+
+
+@pytest.mark.parametrize(("name", "has_background", "expected"), REAL_CT_CASES)
+def test_real_ct_tifs_background_rule_and_ai_guess(tmp_path: Path, name: str, has_background, expected):
+    tif = CT_TEST_DATA / name
+    context = AgentRuntimeContext(workspace=tmp_path / "ws", uploaded_path=tif, uploaded_paths=[tif])
+    context.last_user_goal = "用这张CT图跑NMR模拟"
+
+    first = execute_agent_tool("inspect_ct_phase_image", {}, context)
+    if has_background is None:
+        assert first.error == "needs_phase_confirmation"
+    else:
+        assert first.error == "needs_background_answer"
+        first = set_background_answer(context, has_background)
+        assert first.error == "needs_phase_confirmation"
+    assert context.ct_state["assignment"] == expected
+    assert context.ct_state["ai_confidence"] == "high"
