@@ -15,8 +15,23 @@ from typing import Any, Callable
 import streamlit as st
 import streamlit.components.v1 as components
 
-from . import ct_phase as ct
 from .ct_workflow import confirm_phase_assignment, confirm_run_parameters, is_ct_upload, set_background_answer
+
+
+class _LazyCtPhase:
+    """Import ``ct_phase`` (and the simulation stack) only when a CT widget needs it.
+
+    The app must still start for T2-only deployments where the optional
+    simulation dependencies cannot be imported.
+    """
+
+    def __getattr__(self, name: str) -> Any:
+        from . import ct_phase
+
+        return getattr(ct_phase, name)
+
+
+ct = _LazyCtPhase()
 
 _COMPONENT_DIR = Path(__file__).resolve().parent / "components" / "phase_marker"
 _phase_marker = components.declare_component("ct_phase_marker", path=str(_COMPONENT_DIR))
@@ -359,6 +374,18 @@ def render_ct_panel(context, language: str, on_background_answer: Callable[[Any]
     """CT workflow status card in the right-hand result panel."""
 
     if context is None or not is_ct_upload(context.uploaded_path):
+        return
+    try:
+        ct.PHASES
+    except Exception as exc:
+        st.error(
+            _L(
+                language,
+                "CT 分割图模拟模块无法加载（缺少或版本不匹配的模拟依赖）。T2 反演功能不受影响。",
+                "The segmented-CT simulation module could not be loaded (missing or mismatched simulation dependencies). T2 inversion still works.",
+            )
+        )
+        st.caption(str(exc))
         return
     state = context.ct_state or {}
     with st.container(border=True):

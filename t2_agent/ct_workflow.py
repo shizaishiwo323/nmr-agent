@@ -54,8 +54,14 @@ def _english(language: str) -> bool:
 
 
 def _ct():
-    from . import ct_phase
-
+    try:
+        from . import ct_phase
+    except ImportError as exc:
+        raise RuntimeError(
+            "The segmented-CT simulation workflow is unavailable because the simulation "
+            f"modules could not be imported ({exc}). Install the full conda/Docker environment "
+            "or restart the app after an update; T2 inversion workflows still work."
+        ) from exc
     return ct_phase
 
 
@@ -134,7 +140,11 @@ def inspect_ct_phase_image(
 ) -> AgentToolResult:
     """Analyse an uploaded segmented CT label TIF and set up phase confirmation."""
 
-    ct = _ct()
+    try:
+        ct = _ct()
+    except RuntimeError as exc:
+        message = "CT simulation modules are unavailable." if _english(language) else "CT 模拟模块不可用。"
+        return AgentToolResult("failed", message, error=str(exc))
     if not is_ct_upload(context.uploaded_path):
         message = (
             "The active upload is not a TIF/TIFF segmented CT image."

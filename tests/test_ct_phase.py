@@ -245,3 +245,23 @@ def test_real_ct_mesh_covers_whole_water_domain(name: str, has_background, expec
         assert stats["noflux_boundary_length_um"] > 0
     if "air" in expected.values():
         assert stats["gas_liquid_boundary_length_um"] > 0
+
+
+def test_app_imports_do_not_load_simulation_stack():
+    """T2-only deployments must start even if the simulation modules cannot load."""
+
+    import subprocess
+    import sys
+
+    code = (
+        "import sys; import t2_agent.ct_ui, t2_agent.agent; "
+        "print('t2_agent.ct_phase' in sys.modules, 't2_agent.simulation_2d' in sys.modules)"
+    )
+    output = subprocess.run(
+        [sys.executable, "-c", code],
+        cwd=Path(__file__).resolve().parents[1],
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.strip().splitlines()[-1]
+    assert output == "False False"
