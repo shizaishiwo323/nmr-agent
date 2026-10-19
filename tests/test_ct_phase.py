@@ -221,3 +221,27 @@ def test_real_ct_tifs_background_rule_and_ai_guess(tmp_path: Path, name: str, ha
         assert first.error == "needs_phase_confirmation"
     assert context.ct_state["assignment"] == expected
     assert context.ct_state["ai_confidence"] == "high"
+
+
+@pytest.mark.skipif(not pygimli_available(), reason="pyGIMLi is required for meshing")
+@pytest.mark.parametrize(("name", "has_background", "expected"), REAL_CT_CASES)
+def test_real_ct_mesh_covers_whole_water_domain(name: str, has_background, expected):
+    """Water touching the image edge must be meshed, not dropped (open-contour regression)."""
+
+    from t2_agent import simulation_2d as sim
+
+    array, _meta = ct.load_label_image(CT_TEST_DATA / name)
+    labels = ct.apply_phase_assignment(array, expected)
+    if has_background:
+        labels, _bbox = ct.crop_to_sample(labels)
+    params, _estimate = ct.simulation_params_for(ct.CtRunConfig(pixel_size_um=4.6), labels)
+    _mesh, _k, mass, solid_robin, gas_robin, stats = sim.assemble_triangular_operator(labels, params, ct.ct_edge_classifier)
+
+    water_area = np.count_nonzero(labels == sim.WATER) * params.pixel_size_x_um * params.pixel_size_y_um
+    assert float(np.sum(mass)) / water_area > 0.97
+    assert stats["solid_liquid_boundary_length_um"] > 0
+    if not has_background:
+        # Pores cut by the image edge get reflecting (no-flux) boundaries.
+        assert stats["noflux_boundary_length_um"] > 0
+    if "air" in expected.values():
+        assert stats["gas_liquid_boundary_length_um"] > 0

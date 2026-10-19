@@ -720,6 +720,18 @@ def ct_edge_classifier(labels: np.ndarray, midpoint: np.ndarray, params: Simulat
     background or image edge -> reflecting (no-flux) boundary.
     """
 
+    width_um = labels.shape[1] * params.pixel_size_x_um
+    height_um = labels.shape[0] * params.pixel_size_y_um
+    tol_x = 0.25 * params.pixel_size_x_um
+    tol_y = 0.25 * params.pixel_size_y_um
+    if (
+        float(midpoint[0]) <= tol_x
+        or float(midpoint[0]) >= width_um - tol_x
+        or float(midpoint[1]) <= tol_y
+        or float(midpoint[1]) >= height_um - tol_y
+    ):
+        # Edge of the image/crop: the slice was cut here, so the boundary is reflecting.
+        return "noflux"
     row, col = xy_to_row_col(labels, float(midpoint[0]), float(midpoint[1]), params)
     r0, r1 = max(0, row - 2), min(labels.shape[0], row + 3)
     c0, c1 = max(0, col - 2), min(labels.shape[1], col + 3)

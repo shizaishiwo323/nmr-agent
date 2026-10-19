@@ -573,9 +573,24 @@ def xy_to_row_col(labels: np.ndarray, x_um: float, y_um: float, params: Simulati
 
 
 def contour_to_xy(contour: np.ndarray, params: Simulation2DParams, n_rows: int) -> np.ndarray:
-    x = contour[:, 1] * params.pixel_size_x_um
-    y = (n_rows - contour[:, 0]) * params.pixel_size_y_um
+    # Pixel (row, col) covers x in [col, col + 1) and y in [n_rows - row - 1, n_rows - row)
+    # (see xy_to_row_col), so contour index c sits at physical coordinate c + 0.5.
+    x = (contour[:, 1] + 0.5) * params.pixel_size_x_um
+    y = (n_rows - contour[:, 0] - 0.5) * params.pixel_size_y_um
     return np.column_stack([x, y])
+
+
+def closed_water_contours(water: np.ndarray) -> list[np.ndarray]:
+    """Iso-contours of the water mask that are always closed.
+
+    Water touching the image edge would otherwise give open contours; closing
+    them with a straight chord produces wrong polygons and drops most of the
+    connected pore network from the mesh. Padding with one non-water pixel
+    makes those contours run along the image edge instead.
+    """
+
+    padded = np.pad(np.asarray(water, dtype=float), 1, mode="constant", constant_values=0.0)
+    return [contour - 1.0 for contour in measure.find_contours(padded, 0.5)]
 
 
 def resample_polyline(points: np.ndarray, spacing_um: float) -> np.ndarray:
@@ -689,7 +704,7 @@ def build_triangular_water_mesh(labels: np.ndarray, params: Simulation2DParams) 
     if not np.any(water):
         raise ValueError("No red water/liquid pixels were found after classification.")
 
-    contours = measure.find_contours(water.astype(float), 0.5)
+    contours = closed_water_contours(water)
     polygons = []
     for contour in contours:
         xy = contour_to_xy(contour, params, labels.shape[0])
