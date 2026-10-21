@@ -521,7 +521,7 @@ def run_ideal_pipeline(
         }
         for item in stage_results:
             # Literature-based findings and AGU references from the interpretation stage.
-            for key in ("literature_findings", "literature_references"):
+            for key in ("literature_findings", "literature_references", "simulation_report_figure", "local_pore_diameter_um"):
                 if item.summary.get(key):
                     compact[key] = item.summary[key]
         for item in stage_results:

@@ -35,6 +35,25 @@ PALETTE = {
 }
 
 FIGURE_SIZE_MM = (183.0, 112.0)
+FONT_CANDIDATES = ("Arial", "Helvetica", "Liberation Sans", "DejaVu Sans")
+_FONT_CACHE: list[str] = []
+
+
+def publication_font() -> str:
+    """First installed sans-serif font; avoids per-glyph lookup warnings on Linux hosts without Arial."""
+
+    if not _FONT_CACHE:
+        from .plotting import pick_font_family
+
+        _FONT_CACHE.append(pick_font_family(FONT_CANDIDATES))
+    return _FONT_CACHE[0]
+
+
+def publication_font_family() -> list[str]:
+    """Preferred font plus DejaVu Sans, which supplies glyphs such as the subscript in T₂."""
+
+    font = publication_font()
+    return [font] if font == "DejaVu Sans" else [font, "DejaVu Sans"]
 _MM_PER_INCH = 25.4
 
 
@@ -133,7 +152,7 @@ def build_inversion_report_figure(data: InversionReportData) -> Figure:
     """Draw the four-panel figure and return it without saving."""
 
     rc = {
-        "font.family": ["Arial", "DejaVu Sans"],
+        "font.family": publication_font_family(),
         "font.size": 7,
         "axes.labelsize": 7,
         "xtick.labelsize": 6.5,

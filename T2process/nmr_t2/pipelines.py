@@ -528,6 +528,8 @@ def run_gaussian_decomposition_on_spectrum_workbook(
                     "area_fraction": float(row["area_fraction"]),
                     "objective_value": float(result.objective_value),
                     "gaussian_figure": str(figure_path),
+                    "requested_peak_count": int(result.requested_peak_count),
+                    "dropped_component_count": 0 if result.dropped_components is None else int(len(result.dropped_components)),
                 }
             )
 

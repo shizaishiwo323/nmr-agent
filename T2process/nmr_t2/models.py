@@ -78,3 +78,5 @@ class GaussianDecompositionResult:
     component_matrix: np.ndarray
     peak_table: pd.DataFrame
     trial_errors: np.ndarray
+    requested_peak_count: int = 0
+    dropped_components: pd.DataFrame | None = None

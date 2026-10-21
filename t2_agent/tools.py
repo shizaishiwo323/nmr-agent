@@ -635,8 +635,69 @@ def _literature_section(
         if item.summary.get("stage") == "ct_geometry":
             facts.ct = {"water_saturation_2d": item.summary.get("water_saturation_2d")}
         if item.summary.get("stage") == "ct_decay":
-            facts.bulk_t2_ms = (item.summary.get("params_used") or {}).get("bulk_t2_ms")
+            used = item.summary.get("params_used") or {}
+            facts.bulk_t2_ms = used.get("bulk_t2_ms")
+            facts.rho_um_per_ms = used.get("rho_solid_um_per_ms")
+            facts.diffusion_um2_per_ms = used.get("diffusion_um2_per_ms")
+    facts.pore_diameter_um = summary.get("local_pore_diameter_um")
     return render_section(build_findings(facts, language), language)
+
+
+def _add_simulation_report_figure(
+    results: list[AgentToolResult],
+    output_dir: Path,
+    lines: list[str],
+    summary: dict[str, Any],
+    gaussian_runs: list[dict[str, Any]],
+    english: bool,
+) -> str | None:
+    """Five-panel figure for CT or ideal-structure runs: phases, water domain, pore sizes, decay, T2."""
+
+    stage = {str(item.summary.get("stage")): item.summary for item in results}
+    geometry = stage.get("ct_geometry") or stage.get("ideal_geometry")
+    inversion = stage.get("ct_t2_inversion") or stage.get("ideal_t2_inversion")
+    if not geometry or not inversion or not inversion.get("spectrum_xlsx"):
+        return None
+    gaussian = stage.get("ct_gaussian") or stage.get("ideal_gaussian") or {}
+    try:
+        from . import simulation_figure as sf
+
+        decay = inversion.get("simulation_decay_xlsx")
+        series = sf.load_inversion_series(
+            Path(str(decay)),
+            Path(str(inversion["spectrum_xlsx"])),
+            Path(str(inversion["fit_xlsx"])) if inversion.get("fit_xlsx") else None,
+            Path(str(inversion["summary_csv"])) if inversion.get("summary_csv") else None,
+            Path(str(gaussian["fit_xlsx"])) if gaussian.get("fit_xlsx") else None,
+        )
+        series["inversion_label"] = "L-curve" if inversion.get("inversion_mode", "lcurve") == "lcurve" else "Fixed NNLS"
+        if gaussian_runs:
+            series["gaussian_positions_ms"] = [float(peak["position_ms"]) for peak in gaussian_runs[-1]["peaks"] if peak.get("position_ms") is not None]
+        if "ct_geometry" in stage:
+            data = sf.ct_figure_data(Path(str(geometry["labels_npy"])), float(geometry["pixel_size_um"]), series)
+        else:
+            data = sf.ideal_figure_data(geometry["ideal_config"], series, geometry.get("estimated_t2_ms", {}))
+        figure_path = sf.save_simulation_figure(data, Path(output_dir) / timestamped_name("simulation_report", "png"))
+    except Exception as exc:  # the figure must never block the written interpretation
+        summary["simulation_report_figure_error"] = str(exc)
+        return None
+    summary["simulation_report_figure"] = str(figure_path)
+    if data.pore_diameter_um is not None and data.pore_diameter_um.size:
+        summary["local_pore_diameter_um"] = {
+            "pore_space_median": float(np.median(data.pore_diameter_um)),
+            "water_domain_median": float(np.median(data.water_diameter_um)) if data.water_diameter_um is not None and data.water_diameter_um.size else None,
+        }
+    lines.append("## Simulation Overview Figure" if english else "## 模拟总览图")
+    lines.append(f"![{'Simulation overview' if english else '模拟总览'}]({figure_path.name})")
+    lines.append(
+        "Top: three-phase map, water-filled domain used by the forward model, and area-weighted local pore diameter (largest inscribed disk) of the pore space and the water domain. "
+        "Bottom: simulated echo envelope with the spectral reconstruction, and the peak-normalized T2 spectrum; the T2 axis shows the non-zero part of the inversion grid plus one decade."
+        if english
+        else "上排：三相分布、正演使用的含水域，以及孔隙空间与含水域的局部孔径分布（最大内切圆直径，按面积加权）。"
+        "下排：模拟回波包络与谱重建，以及按峰值归一化的 T2 谱；T2 轴显示反演网格中幅值非零的范围并向两侧各延伸一个十进位。"
+    )
+    lines.append("")
+    return str(figure_path)
 
 
 def _lcurve_report_inputs(results: list[AgentToolResult]) -> dict[str, Path] | None:
@@ -728,7 +789,8 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
         )
         if lcurve_spectrum_path is None and nnls_spectrum_path is None and spectrum_candidates:
             lcurve_spectrum_path = spectrum_candidates[0]
-        gaussian_summary_paths = _find_artifacts(results, "gaussian_summary", (".csv", ".xlsx"))
+        # Long run folders shorten file names to "..._gaussian_sum__..."; match both forms.
+        gaussian_summary_paths = _find_artifacts(results, "gaussian_sum", (".csv", ".xlsx"))
 
         inversion_summary_path = lcurve_summary_path or nnls_summary_path
         spectrum_path = lcurve_spectrum_path or nnls_spectrum_path
@@ -895,7 +957,10 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
                             lines.append(f"- 峰 {peak['peak_id']}：位置约 `{position:.4g} ms`，面积占比约 `{fraction:.1%}`。")
                 lines.append("")
 
-        report_figure = _add_inversion_report_figure(results, output_dir, lines, summary, english)
+        # Simulated runs get the five-panel simulation figure; measured data the inversion overview.
+        report_figure = _add_simulation_report_figure(results, output_dir, lines, summary, gaussian_runs, english)
+        if report_figure is None:
+            report_figure = _add_inversion_report_figure(results, output_dir, lines, summary, english)
 
         if spectrum_t2 is not None:
             try:
@@ -1835,10 +1900,18 @@ def run_gaussian_peaks(spectrum_workbook: Path, output_dir: Path, params: dict[s
         artifacts = _as_artifacts({key: value for key, value in result.items() if key != "figure_dir"})
         artifacts.extend(_summary_column_artifacts(result.get("summary_csv"), "gaussian_figure"))
         summary = {key: str(value) for key, value in result.items()} | {"peak_count": peak_count, "output_dir": str(run_output_dir)}
+        dropped = 0
+        table = _read_first_table(Path(result["summary_csv"])) if result.get("summary_csv") else None
+        if table is not None and "dropped_component_count" in table.columns and not table.empty:
+            dropped = int(table.groupby("signal_name")["dropped_component_count"].first().sum())
+            summary["kept_peak_count"] = int(len(table))
+            summary["dropped_component_count"] = dropped
+        note_en = f" {dropped} component(s) below 1% of the area were dropped." if dropped else ""
+        note_zh = f"已自动剔除 {dropped} 个面积占比低于 1% 的分量。" if dropped else ""
         message = (
-            f"Gaussian peak decomposition completed with {peak_count} peaks. Outputs are grouped in {run_output_dir.name}."
+            f"Gaussian peak decomposition completed with {peak_count} peaks.{note_en} Outputs are grouped in {run_output_dir.name}."
             if english
-            else f"Gaussian 分峰完成，使用 {peak_count} 个峰。结果已归入 {run_output_dir.name}。"
+            else f"Gaussian 分峰完成，使用 {peak_count} 个峰。{note_zh}结果已归入 {run_output_dir.name}。"
         )
         return AgentToolResult(
             "success",

@@ -42,7 +42,7 @@ IDEAL_CASES = {
 
 # Ordered rules on the file name; the first match wins.
 CATEGORIES = [
-    ("interpretation", "解释报告与总览图", lambda n: n.startswith(("interpretation", "inversion_report"))),
+    ("interpretation", "解释报告与总览图", lambda n: n.startswith(("interpretation", "inversion_report", "simulation_report"))),
     ("report", "汇总报告", lambda n: n.startswith("report")),
     ("gaussian", "高斯分峰", lambda n: "gaussian" in n),
     ("lcurve", "L-curve 诊断", lambda n: "lcurve_metri" in n or "lcurve_summa" in n or n.startswith("alpha_") or "__lcurve__alpha" in n),

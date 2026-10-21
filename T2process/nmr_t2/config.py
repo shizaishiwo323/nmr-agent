@@ -57,6 +57,9 @@ class GaussianConfig:
     peak_count: int = 3
     max_function_evals: int = 20000
     max_iterations: int = 2000
+    # Components below this share of the fitted area are dropped after the fit;
+    # they lie inside the non-uniqueness of the inversion (0 keeps all).
+    min_area_fraction: float = 0.01
 
 
 @dataclass(frozen=True)

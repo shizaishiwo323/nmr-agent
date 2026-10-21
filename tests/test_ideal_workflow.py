@@ -91,4 +91,6 @@ def test_confirmed_ideal_workflow_runs_all_stages(tmp_path: Path):
     assert context.ideal_state["params_confirmed"] is False  # the next request asks again
     # The model receives the literature findings and AGU references in the aggregate summary.
     assert result.summary["literature_findings"] and result.summary["literature_references"]
+    assert result.summary["simulation_report_figure"].endswith(".png")
+    assert result.summary["local_pore_diameter_um"]["pore_space_median"] > 0
     assert any("et al., " in finding or ", 19" in finding for finding in result.summary["literature_findings"])

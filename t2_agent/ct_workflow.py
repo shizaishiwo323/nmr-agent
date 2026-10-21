@@ -506,7 +506,7 @@ def run_ct_pipeline(
         }
         for item in stage_results:
             # Literature-based findings and AGU references from the interpretation stage.
-            for key in ("literature_findings", "literature_references"):
+            for key in ("literature_findings", "literature_references", "simulation_report_figure", "local_pore_diameter_um"):
                 if item.summary.get(key):
                     compact[key] = item.summary[key]
         for item in stage_results:
@@ -571,6 +571,7 @@ def run_ct_pipeline(
             "water_saturation_2d": counts["water"] / max(1, counts["water"] + counts["air"]),
             "pixel_size_um": config.pixel_size_um,
             "physical_size_um": [labels.shape[1] * config.pixel_size_um, labels.shape[0] * config.pixel_size_um],
+            "labels_npy": str(geometry_dir / "simulation_labels.npy"),
             "simulation_stages": {"geometry": [str(full_png), str(cropped_png)]},
         }
         message = (

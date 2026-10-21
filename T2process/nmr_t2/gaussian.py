@@ -73,6 +73,39 @@ def _auto_initial_guess(t2_log10: np.ndarray, peak_count: int) -> np.ndarray:
     return guess
 
 
+def _spectrum_initial_guess(t2_log10: np.ndarray, amplitude: np.ndarray, peak_count: int) -> Optional[np.ndarray]:
+    """Start the centres at the detected spectral maxima (largest first).
+
+    A grid-based guess spreads the centres over the whole T2 grid; when the
+    spectrum occupies one or two decades the optimizer then parks components
+    far from the signal and they collapse to zero area.
+    """
+
+    from scipy.signal import find_peaks
+
+    amp = np.clip(np.asarray(amplitude, dtype=float), 0.0, None)
+    if amp.size < 3 or amp.max() <= 0:
+        return None
+    index, _ = find_peaks(np.concatenate([[0.0], amp, [0.0]]), prominence=0.01 * amp.max())
+    index = index - 1
+    index = index[np.argsort(amp[index])[::-1]][:peak_count]
+    centres = sorted(float(t2_log10[i]) for i in index)
+    weights = amp / amp.sum()
+    mean = float(np.sum(weights * t2_log10))
+    spread = float(np.sqrt(np.sum(weights * (t2_log10 - mean) ** 2))) or 0.1
+    offsets = [1.0, -1.0, 2.0, -2.0, 3.0, -3.0, 4.0, -4.0]
+    for offset in offsets:
+        if len(centres) >= peak_count:
+            break
+        centres.append(mean + offset * spread)
+    span = float(t2_log10.max() - t2_log10.min())
+    width = float(np.clip(spread / max(1, len(index)), span / 100.0, span / max(peak_count, 1)))
+    guess = np.zeros(2 * peak_count, dtype=float)
+    for idx, centre in enumerate(sorted(centres[:peak_count])):
+        guess[2 * idx : 2 * idx + 2] = [centre, width]
+    return guess
+
+
 def decompose_spectrum_as_gaussians(
     t2_bins_ms: np.ndarray,
     spectrum: np.ndarray,
@@ -100,7 +133,9 @@ def decompose_spectrum_as_gaussians(
     span = max_t - min_t
 
     if manual_initial_guess is None:
-        start = _auto_initial_guess(t2_log, int(cfg.peak_count))
+        start = _spectrum_initial_guess(t2_log, amp, int(cfg.peak_count))
+        if start is None:
+            start = _auto_initial_guess(t2_log, int(cfg.peak_count))
     else:
         start = np.asarray(manual_initial_guess, dtype=float).ravel()
         if start.size != 2 * int(cfg.peak_count):
@@ -174,20 +209,36 @@ def decompose_spectrum_as_gaussians(
     total_area = float(trapezoid_area(fitted, t2_log))
     area_fraction = np.zeros(int(cfg.peak_count), dtype=float) if total_area <= 0 else area_each / total_area
 
-    peak_table = pd.DataFrame(
+    full_table = pd.DataFrame(
         {
-            "peak_id": np.arange(1, int(cfg.peak_count) + 1, dtype=int),
             "height": height,
             "position_ms": 10**parameter[0::2],
             "width_log10": parameter[1::2],
             "area": area_each,
             "area_fraction": area_fraction,
         }
-    ).sort_values("position_ms", ascending=True, kind="mergesort").reset_index(drop=True)
+    )
+
+    # Drop negligible components (e.g. a zero-area peak parked at the grid edge
+    # when a unimodal spectrum is fitted with two peaks).
+    keep = area_fraction >= float(cfg.min_area_fraction)
+    dropped = full_table.loc[~keep].copy() if keep.any() and not keep.all() else full_table.iloc[0:0].copy()
+    if keep.any() and not keep.all():
+        component_matrix = component_matrix[keep, :]
+        fitted = component_matrix.sum(axis=0)
+        parameter = np.concatenate([parameter[2 * idx : 2 * idx + 2] for idx in np.flatnonzero(keep)])
+        full_table = full_table.loc[keep].copy()
+        total_area = float(trapezoid_area(fitted, t2_log))
+        full_table["area_fraction"] = full_table["area"] / total_area if total_area > 0 else 0.0
+
+    peak_table = full_table.sort_values("position_ms", ascending=True, kind="mergesort").reset_index(drop=True)
+    peak_table.insert(0, "peak_id", np.arange(1, len(peak_table) + 1, dtype=int))
 
     return GaussianDecompositionResult(
         signal_name=signal_name,
-        peak_count=int(cfg.peak_count),
+        peak_count=int(len(peak_table)),
+        requested_peak_count=int(cfg.peak_count),
+        dropped_components=dropped.reset_index(drop=True),
         parameter=parameter,
         objective_value=objective_value,
         t2_bins_ms=t2_arr,

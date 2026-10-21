@@ -188,6 +188,7 @@ def test_confirmed_ct_workflow_runs_all_stages(tmp_path: Path):
     assert result.status == "success", result.error
     assert seen == ["ct_geometry", "ct_mesh", "ct_decay", "ct_t2_inversion", "ct_gaussian", "ct_interpretation"]
     assert all(item["status"] == "success" for item in result.summary["stage_status"])
+    assert result.summary["simulation_report_figure"].endswith(".png")
     assert result.summary["mesh"]["gas_liquid_boundary_length_um"] > 0
     assert result.summary["mesh"]["solid_liquid_boundary_length_um"] > 0
     decay = pd.read_excel(result.summary["simulation_decay_xlsx"])

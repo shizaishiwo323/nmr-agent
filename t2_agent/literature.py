@@ -66,6 +66,9 @@ class AnalysisFacts:
     ideal: dict[str, Any] | None = None
     ct: dict[str, Any] | None = None
     bulk_t2_ms: float | None = None
+    pore_diameter_um: dict[str, float | None] | None = None
+    rho_um_per_ms: float | None = None
+    diffusion_um2_per_ms: float | None = None
 
 
 def _zh(language: str) -> bool:
@@ -256,6 +259,31 @@ def build_findings(facts: AnalysisFacts, language: str = "中文") -> list[Findi
             (f"主峰 {_fmt(facts.main_peak_ms)} ms 已接近体弛豫 T2,bulk = {_fmt(bulk)} ms，表面弛豫只贡献约 {surface_share:.0%} 的弛豫速率；此时 T2 对孔径不敏感，孔径差异主要被体弛豫掩盖，若要分辨孔隙尺寸需更高表面弛豫率或更小孔隙 {in_text(keys)}。"
              if zh else
              f"The main peak at {_fmt(facts.main_peak_ms)} ms is close to the bulk value T2,bulk = {_fmt(bulk)} ms, so surface relaxation supplies only about {surface_share:.0%} of the relaxation rate; T2 is then insensitive to pore size, which bulk relaxation largely masks {in_text(keys)}."),
+            keys,
+        ))
+
+    sizes = facts.pore_diameter_um or {}
+    if facts.ct and sizes.get("pore_space_median") and facts.rho_um_per_ms and facts.diffusion_um2_per_ms:
+        radius = 0.5 * float(sizes["pore_space_median"])
+        regime = facts.rho_um_per_ms * radius / facts.diffusion_um2_per_ms
+        keys = ["BrownsteinTarr1979", "MullerPetke2015DiffusionRegimes"]
+        water_median = sizes.get("water_domain_median")
+        water_zh = f"含水域的局部孔径中位数为 {_fmt(water_median)} μm，小于孔隙空间，说明水优先占据较窄的孔隙与孔壁附近，含水区的 S/V 相应升高。" if water_median and water_median < 0.95 * sizes["pore_space_median"] else ""
+        water_en = f" The water domain has a smaller median local diameter ({_fmt(water_median)} μm): water occupies the narrower pores and the wall regions, so its S/V is higher." if water_median and water_median < 0.95 * sizes["pore_space_median"] else ""
+        # Brownstein & Tarr (1979): fast diffusion for rho*a/D << 1, slow diffusion for >> 1.
+        if regime < 0.1:
+            state_zh, state_en = "远小于 1，处于快扩散区制", "far below 1 (fast-diffusion regime)"
+        elif regime < 1.0:
+            state_zh, state_en = "小于 1，仍属快扩散区制，但已接近其上限，较大孔隙的 T2-孔径换算会有偏差", "below 1, still fast diffusion but near its limit, so the T2-to-size conversion of the larger pores is biased"
+        elif regime < 10.0:
+            state_zh, state_en = "介于 1 与 10 之间，处于中间区制，快扩散换算孔径会有明显偏差", "between 1 and 10 (intermediate regime; fast-diffusion pore sizes are clearly biased)"
+        else:
+            state_zh, state_en = "远大于 1，处于慢扩散区制", "far above 1 (slow-diffusion regime)"
+        out.append(Finding(
+            "fast_diffusion_assumption_breakdown",
+            (f"孔隙空间的局部孔径（最大内切圆直径）中位数为 {_fmt(sizes['pore_space_median'])} μm，对应 ρ·r/D = {regime:.3f}，{state_zh} {in_text(keys)}。{water_zh}"
+             if zh else
+             f"The median local pore diameter (largest inscribed disk) of the pore space is {_fmt(sizes['pore_space_median'])} μm, giving ρ·r/D = {regime:.3f}, {state_en} {in_text(keys)}.{water_en}"),
             keys,
         ))
 
