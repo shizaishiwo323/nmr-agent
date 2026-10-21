@@ -1,0 +1,1040 @@
+--- PAGE 1 ---
+JOURNAL OF MAGNETIC RESONANCE, Series A 123, 95–104 (1996)
+ARTICLE NO. 0218
+Effect of Paramagnetic Ions on NMR Relaxation of Fluids
+at Solid Surfaces
+I. FOLEY, S. A. FAROOQUI, AND R. L. KLEINBERG*
+Schlumberger–Doll Research, Ridgeﬁeld, Connecticut 06877
+Received July 5, 1996
+Proton NMR longitudinal and transverse relaxation times of
+be partially averaged away by a molecular rotation which is
+water-saturated powder packs have been measured. The powders
+not hindered by the presence of the surface. They also ex-
+were a series of synthetic calcium silicates with known concentra-
+tended the theory of Korringa et al. to the transverse relax-
+tions of iron or manganese paramagnetic ions. The rate of water
+ation rate, 1/T2. In doing so, they had to explicitly handle
+proton relaxation has been found to be linearly proportional to
+the question of the residence time of temporarily adsorbed
+the concentration of paramagnetic ion. The constant of propor-
+ﬂuid molecules.
+tionality is used to determine the electron relaxation time of ions
+Natural sedimentary rocks are a particularly challenging
+at the ﬂuid–solid interface. A substantial relaxivity is found in
+group of materials to which to apply these theories. These
+the absence of paramagnetic ions. Thus the oxide surface itself is
+rocks are generally composed of grains, which are cemented
+an unexpectedly good relaxer of ﬂuid-borne nuclear spins. The
+results answer some long-standing questions connected with the
+together as a result of burial at elevated temperature and
+NMR properties of ﬂuid-saturated sedimentary rocks.
+q 1996
+pressure over an extended period of time. Nonetheless, the
+Academic Press, Inc.
+pore space can account for as much as 30% of the volume.
+A small piece of rock that appears homogeneous to the eye
+usually contains diverse minerals which make up the grains,
+INTRODUCTION
+or are overgrowths on the grains. The paramagnetic ion con-
+tent of rocks varies widely, but is frequently in the range of
+The nuclear-magnetic-resonance properties of ﬂuids in po-
+a few tenths of a percent to a few percent, almost all of that
+rous media are determined to a large extent by the interac-
+being iron (4).
+tions which occur at the pore–grain interface. It has long
+Clay minerals, which are common constituents of sand-
+been known that longitudinal and transverse magnetic relax-
+stones, are lamellar minerals which have very large surface
+ation rates of nuclei resident in gas or liquid molecules are
+areas, with which considerable pore water can be intimately
+enhanced in the presence of high-surface-area media (1).
+associated. Clay completely dominates measurements of the
+Korringa, Seevers, and Torrey (2) provided a phenomeno-
+internal surface area of soils and rocks (5). However, clay
+logical outline of the nature of NMR relaxation of ﬂuids at
+appears not to play a major role in determining the surface-
+solid surfaces. In their model, ﬂuid molecules diffuse to and
+mediated NMR relaxation rates of rocks (6).
+are temporarily adsorbed by a surface. The surface consists
+Despite the difﬁculties of characterizing rock materials,
+of two types of adsorption sites, one nonmagnetic and the
+there have been considerable efforts made in recent years
+other magnetic. The contributions of the magnetic and non-
+to understand the NMR properties of ﬂuids in them. It has
+magnetic sites are weighted by their relative abundance, and
+been found that a number of rock properties of practical
+by the respective relaxation rates of the adsorbed molecule.
+interest are correlated with NMR amplitude and relaxation
+The bulk relaxation of the ﬂuid operates in parallel.
+time. These include porosity, pore-size distribution, hy-
+One case of interest is that of the solid in which there is
+draulic permeability, and the identity of pore ﬂuids (7, 8).
+a low concentration of paramagnetic impurities which, due
+As a result of those laboratory studies, novel ‘‘inside-
+to the strong coupling between the electron and nuclear mag-
+out’’ NMR instruments have been built and are used in
+netic moments, dominate the relaxation rate. Kleinberg, Ken-
+oil exploration (8–10).
+yon, and Mitra (3) examined the electron–nuclear interac-
+The purpose of this work is to better understand the mech-
+tion at the surface in some detail, pointing out how it was
+anisms that control the NMR properties of porous rocks. To
+composed of scalar and dipolar contributions; the latter can
+that end we have synthesized granular oxides with known
+chemical compositions, have fully characterized their sur-
+face geometries, and have measured longitudinal and trans-
+* To whom correspondence should be addressed.
+95
+1064-1858/96 $18.00
+Copyright q 1996 by Academic Press, Inc.
+All rights of reproduction in any form reserved.
+
+--- PAGE 2 ---
+96
+FOLEY, FAROOQUI, AND KLEINBURG
+verse relaxation times of their water-saturated powder packs.
+the relaxation time of a liquid molecule coordinated to a
+nonmagnetic site on the solid surface, T1M is the relaxation
+These materials are similar, although not identical, to natural
+rocks. The most important difference is that they are free of
+time of a liquid molecule coordinated to a magnetic site on
+the surface, and tN and tM are the residence times of a
+clays and other high-surface-area minerals. Surprisingly,
+their NMR properties have proved to be rather similar to
+liquid molecule at nonmagnetic and magnetic surface sites,
+respectively. N is the total number of ﬂuid molecules in the
+those of sandstones. The results provide important and useful
+insights into rock properties, and resolve some long-standing
+pore, NN and NM are the number of nonmagnetic and mag-
+netic surface sites, respectively, and NN / NM is assumed to
+petrophysical questions.
+be small compared to N.
+THEORY
+While NM may be very much smaller than NN, the strong
+magnetic interaction between a paramagnetic spin and a
+NMR relaxation rates of ﬂuids in many porous media are
+nearby nucleus usually leads to a large value of 1/T1M. Thus
+strongly inﬂuenced by the ﬂuid–solid interaction (1, 11).
+paramagnetic ions on the surface can dominate the relaxation
+Fluid molecules diffuse, eventually reaching a grain surface
+of ﬂuid protons even if they are dilute. Both the bulk relax-
+where there is a ﬁnite probability that they are relaxed. The
+ation of water and its residence time on a solid surface have
+rate-limiting step can either be the relaxation process at the
+a strong dependence on temperature so, in the absence of
+surface or the rate at which unrelaxed spins can be trans-
+temperature dependence, T1B can be neglected (although it
+ported to the surface (12).
+is simple to take into account in data reduction in any event),
+If the rate-limiting step is relaxation at the surface, the
+and T1M satisﬁes the inequalities
+rate of magnetization decay in an individual pore is monoex-
+T1N @ T1M @ tM.
+[2]
+ponential and depends on the surface-to-volume ratio but
+not the pore shape. This is referred to as the ‘‘fast-diffusion’’
+Therefore
+or ‘‘surface-limited’’ regime. In the opposite case, magnetic
+relaxation occurs at the grain surface but the decay of macro-
+1
+T1
+ÅS
+Sh
+V DS
+nM
+T1MD Å r1S
+S
+VD
+pore
+.
+[3]
+scopic magnetization is controlled by the transport of mole-
+cules to the surface. This is likely to be the case when pores
+are relatively large and/or surface relaxation is strong. This
+S and V are the surface area and volume of the pore, h is
+is called the ‘‘slow-diffusion’’ or ‘‘diffusion-limited’’ re-
+the thickness of a monolayer of water, and nM is the propor-
+gime. In this regime there is a time-dependent, spatially
+tion of surface sites occupied by paramagnetic metal ions.
+nonuniform distribution of magnetization in the pore. This
+All material constants are included in the surface relaxivity
+gives rise to a magnetization decay which even in a single
+parameter r1.
+pore has multiexponential character, and which depends on
+The lack of temperature dependence has the further effect
+the shape of the pore.
+of allowing a simpliﬁcation of the theory of transverse relax-
+In the diffusion-limited case, relaxation times are in-
+ation (3), which was not discussed by Korringa, Seevers,
+versely proportional to the diffusion coefﬁcient of the liquid.
+and Torrey:
+Thus diffusion-limited relaxation is characterized by a strong
+temperature dependence of the relaxation times. NMR relax-
+1
+T2
+ÅS
+Sh
+V DS
+nM
+T2MD Å r2S
+S
+VD
+pore
+.
+[4]
+ation of water in sedimentary rocks is only weakly dependent
+on temperature over the range studied (13), thus indicating
+that the relaxation must be surface limited. As we shall see,
+The symbols are analogous to those of Eq. [3].
+the same is true of the artiﬁcial materials which are the
+The surface relaxation times T1M and T2M are determined
+subject of this study.
+by the microscopic interaction between a nuclear spin on a
+The Korringa, Seevers, and Torrey theory (2) is a surface-
+ﬂuid molecule and the electron spin of a paramagnetic ion
+limited theory, and therefore serves as a starting point for
+on the solid surface (3, 14),
+understanding our results. In their theory, the observed longi-
+tudinal relaxation time is given by
+1
+T1M
+ÅS
+aAd
+\ D
+2 S(S / 1)
+15
+1
+T1
+1F
+6tc1
+1 / (vItc1) 2 /
+14tc2
+1 / (vStc2) 2G
+ÅS
+1
+T1BD /S
+NN
+N
+1
+T1N / tND /S
+NM
+N
+1
+T1M / tMD .
+[1]
+/S
+As
+\D
+2 S(S / 1)
+3 F
+2tc2
+1 / (vStc2) 2G
+[5]
+Here T1B is the relaxation time of the liquid in bulk, T1N is
+
+--- PAGE 3 ---
+97
+PARAMAGNETIC RELAXATION OF FLUIDS AT SURFACES
+and
+this may be the case (16), but the simple model is adequate
+for describing the data presented here.
+These equations are more readily compared to experimen-
+1
+T2M
+ÅS
+aAd
+\ D
+2 S(S / 1)
+15
+tal data when As is eliminated from the equations. We ob-
+serve that when vItc1 ! 1, and vstc2 @ 1 or tc1 @ tc2 (which
+are tested below), the ratio As/aAd can be determined from
+T1M/T2M:
+1F4tc1 /
+3tc1
+1 / (vItc1) 2 /
+13tc2
+1 / (vStc2) 2G
+T1M
+T2M
+Å 7
+6 / 5
+6S
+As
+aAdD
+2
+.
+[10]
+/S
+As
+\D
+2 S(S / 1)
+3 Ftc1 /
+tc2
+1 / (vStc2) 2G , [6]
+This theory predicts that the observed longitudinal and
+where
+transverse relaxation rates of ﬂuid in a porous medium will
+be linearly proportional to the concentration of paramagnetic
+ions at the solid surface. The constants of proportionality will
+Ad Å gIgS\ 2
+r 3
+.
+[7]
+depend on the thickness of the relaxing layer, the electron
+relaxation times, the electron–nuclear distance, the scalar
+coupling constant, and the rotational anisotropy factor a.
+Ad and As are the dipolar and scalar coupling constants, and
+a is a factor that accounts for anisotropic motion of the
+PREVIOUS DETERMINATIONS
+adsorbed molecule (3). S is the electron spin, vI and vS are
+OF SURFACE RELAXIVITY
+the Larmor frequencies of the nucleus and electron, gI and
+gS are the gyromagnetic ratios of the nucleus and electron,
+A number of studies have been made of the relaxivity of
+and r is the distance between the electron and nucleus during
+solid surfaces in contact with ﬂuids. Most frequently, the
+the interaction. The correlation times are
+ﬂuid has been water. The measurement of relaxivity requires
+a measurement of NMR relaxation time (T1 or T2), and a
+measurement of pore space surface-to-volume ratio. Artiﬁ-
+1
+tc1
+Å 1
+tM
+/ 1
+ts1
+[8]
+cial packings of uniformly sized grains produce narrow pore-
+size distributions. Such porous media are generally charac-
+terized by single-exponential magnetization decays and a
+and
+single surface-to-volume ratio which characterizes the entire
+sample (17, 18). Various methods of measuring S/V produce
+consistent results. In imperfect packings, if diffusion allows
+1
+tc2
+Å 1
+tM
+/ 1
+ts2
+.
+[9]
+ﬂuid molecules to visit pores of different sizes during the
+relaxation time, a distribution of pore sizes can be averaged,
+tM is the residence time of water at a magnetic surface site,
+resulting in a single-exponential decay (19). This situation
+and ts1 and ts2 are the longitudinal and transverse relaxation
+is most likely to occur in well-mixed synthetic materials,
+times of the electron. When the relaxation rates are tempera-
+but is unlikely in natural porous materials such as rocks
+ture independent, 1/tM cannot be signiﬁcant, and ts1 and ts2
+(20). The results of studies of artiﬁcial packings are tabu-
+must not depend on temperature over the range investigated.
+lated in Ref. (6); the longitudinal relaxivity r1 has been
+A number of factors can make the theory more compli-
+reported to be in the range 1–13 mm/s for a variety of
+cated. Commonly, magnetic ions have g factors that deviate
+materials. In a recent study (21), calcium carbonate and
+signiﬁcantly from the free-electron value of 2.0023, and that
+silica were modiﬁed by deposition of iron and manganese
+are anisotropic. However, since Fe3/ and Mn 2/ have spin S
+from solution, and r1 at 10 MHz was found to vary between
+Å 5
+2, their g factors are normally isotropic and close to the
+1 and 22 mm/s, generally increasing with paramagnetic ion
+content.
+free-electron value (15). Therefore gS/gI Å vS/vI Å 658.
+We neglect the possible consequences of zero-ﬁeld splitting
+(15), which we have no way to assess for the ions at the
+MATERIALS
+ﬂuid–solid interface.
+Equations [5] and [6] are valid when the electron longitu-
+The powders used were calcium silicates (CaSiO3) in the
+alpha (pseudowollastonite) crystallographic phase. Pseudo-
+dinal and transverse magnetization decays are simple expo-
+nential functions of time. If this is not true, the terms con-
+wollastonite was used because (1) unlike other cementitious
+materials, it is not hydratable; (2) Fe2O3 and MnO form
+taining ts1 and ts2 must be generalized. We anticipate that
+
+--- PAGE 4 ---
+98
+FOLEY, FAROOQUI, AND KLEINBURG
+solid solutions with it over very wide ranges of concentra-
+tions, which allow the ions to exist in their desired oxidation
+states: iron as Fe3/ and manganese as Mn 2/; (3) the oxide
+surface is a reasonable (although not exact) analogue of the
+silica surface commonly found in rocks; and (4) the synthe-
+sis is well known.
+Each sample was synthesized with a known concentration
+of either iron or manganese (Construction Technology Labo-
+ratories, Skokie, Illinois). Solid calcium silicate hydrate was
+mixed with aqueous solutions of Fe3/ and Mn 2/ and then
+dehydrated at 14007C to form the doped pseudowollastonite.
+The manganese and iron series were prepared from different
+batches of starting materials. The iron materials were ﬁred
+in an oxygen atmosphere to ensure formation of Fe2O3 while
+the manganese materials were ﬁred in a nitrogen atmosphere
+to prevent formation of Mn2O3.
+The range of iron and manganese concentrations used in
+this investigation is coincident with concentrations found in
+many sandstones and carbonates (4), but excluding those
+rocks which contain large amounts of iron-rich minerals such
+FIG. 1.
+Volumetric magnetic susceptibility versus concentrations (by
+as siderite, magnetite, chlorite, or glauconite, or manganese-
+weight) of iron and manganese as determined by ICP analysis. The straight
+line is the Curie law prediction, with no adjustable parameters. The zero
+rich minerals such as rhodochrosite.
+intercept is the expected susceptibility of undoped CaSiO3.
+The pseudowollastonite was received in the form of milli-
+meter-sized chunks. The material was friable and was readily
+reduced to a very ﬁne powder. Gentle grinding followed by
+sieving produced powders in the ranges 10–106 and 106–
+The Curie law in SI units is
+150 mm. The material was white, tending to tan with higher
+concentrations of iron. The purest material we obtained, 85
+xv Å nvm0n 2
+Bm2
+B
+3kT
+,
+[12]
+ppm Fe and 2 ppm Mn, had a distinct bluish tinge before
+being ground. The ions at the grain surfaces are expected to
+be oxidized to Fe3/ and Mn 2/ as a result of their contact
+where nv is the number of ions per cubic meter; m0 Å 4p 1
+with air and water.
+10 07 H/m; mB is the Bohr magneton, 9.27 1 10 024 Arm2;
+Upon grinding, it was discovered that there was a small
+nBmB is the magnetic moment of the ion; k is Boltzmann’s
+proportion of reddish-brown to black specks in the materials
+constant, 1.38 1 10 023 J/K; and T is the absolute tempera-
+with the higher iron concentrations. Energy-dispersive X-ray
+ture. For both Fe3/ and Mn 2/ the magnetic moment is 5.9
+(EDX) spectroscopy revealed that these specks had elevated
+Bohr magnetons (22).
+concentrations of iron. A magnetic separator removed these
+The number of ions of metal M per unit volume, nv, is
+particles to the maximum extent possible.
+related to the concentration of M in parts per million by
+MATERIAL CHARACTERIZATION
+weight, [M]ppm through
+A number of methods were used to measure the concentra-
+tion of paramagnetic ions. Inductively coupled plasma (ICP)
+nv Å [M]ppm
+10 6
+rCaSiO3
+MWM
+A,
+[13]
+spectrometry (XRAL Laboratories, Don Mills, Ontario)
+found iron and manganese concentrations consistent with
+that expected from the starting materials. No other magnetic
+where rCaSiO3 is the density of the solid (23), 2905 kg/m 3
+ions were found above trace levels.
+(almost unaffected by the presence of the small concentra-
+Magnetic susceptibility was measured with a force bal-
+tions of metal used in these experiments); MWM is the
+ance. The balance was calibrated with powder calibration
+atomic weight of the metal (kg/mol); and A is Avogadro’s
+samples covering a wide range of magnetic susceptibilities.
+number, 6.02 1 10 23 mol 01. For iron nv Å [Fe]ppm 1 3.13
+The measured cgs gram susceptibility was converted to (di-
+1 10 22 ions/m 3. The corresponding value for manganese is
+mensionless) SI volumetric susceptibility,
+2% higher.
+The computed slopes Dxv/D[M]ppm for the iron and man-
+xv(SI) Å 4pxv(cgs) Å 4prCaSiO3xg(cgs),
+[11]
+ganese pseudowollastonites are shown in Fig. 1. The com-
+where rCaSiO3 is the density of the powder.
+monality of magnetic moment and atomic weight allows a
+
+--- PAGE 5 ---
+99
+PARAMAGNETIC RELAXATION OF FLUIDS AT SURFACES
+single line to represent the predicted values for both ions.
+{[W —1807—trj—(907){—TE/2—
+There is a positive deviation from linearity at large [Fe]. The
+(1807—TE/2—echoi—TE/2)i ]j}k.
+[15]
+zero-concentration intercept is an estimate of the magnetic
+susceptibility of pure CaSiO3, the average of the volume
+At each recovery time, i Å 100 echoes were acquired, the
+susceptibilities of CaO and SiO2 (23): xv(SI) Å 013.7
+ﬁrst eight of which were averaged for subsequent processing;
+1 10 06.
+the echo spacing TE Å 0.16 ms; the wait time W Å 10 s; j
+Accurate determination of surface area is of principal im-
+Å 29 recovery times, tr, were employed. They were logarith-
+portance in this investigation. The speciﬁc surface areas of
+mically spaced, six per decade, ranging from 0.08 to 3710
+all samples were measured by the BET technique (24). Sur-
+ms. Phase alternation of the 907 pulse was used to null offsets
+prisingly, the various sieved fractions showed only minor
+(25); the measurements were stacked k Å 2 1 10 times,
+differences in surface area, all determinations of which were
+the resulting signal-to-noise ratio being about 50:1. Total
+in the range 0.6–1.7 m2/g. Examination of the powders in
+measurement time was approximately 2 hours for each
+a scanning electron microscope revealed why there is no
+sample.
+consistent difference in the surface area per gram for pow-
+Transverse relaxation times were measured using the
+ders that were sieved into distinct particle size fractions.
+CPMG sequence
+Each particle appeared to be composed of lightly sintered
+[W —(907){—TE/2—
+microparticles having a characteristic size around 1 mm. This
+ﬁnding explains the friability of the starting material. It also
+(1807—TE/2—echoi—TE/2)i ]k.
+[16]
+explains why all size fractions had BET surface areas of
+i Å 4095 echoes were detected, with echo spacing TE Å
+around 1 m2/g, which corresponds to an equivalent particle
+0.16 ms. The wait time W Å 5 s. Phase alternation of the
+radius of 1 mm:
+907 pulse was used to null offsets; the measurements were
+stacked k Å 2 1 40 times, the resulting signal-to-noise ratio
+r Å
+3
+rCaSiO3SBET
+.
+[14]
+being about 100:1. Total measurement time was approxi-
+mately 7 minutes for each sample.
+Porous media can have broad distributions of pore sizes.
+For example, mercury injection porosimetry of natural rock
+In this equation, rCaSiO3 is the density of the powder and SBET
+reveals that pore openings range over several orders of mag-
+is the surface area per unit mass.
+nitude (26). In such materials, nuclear-magnetic-resonance
+magnetization decays are nonexponential and may be char-
+SAMPLE PREPARATION
+acterized by a sum of exponential decays (27). For longitu-
+dinal relaxation measured by inversion recovery,
+To make a water-saturated sample, an excess of degassed
+water was thoroughly mixed with a weighed amount of pow-
+M(t) Å ∑
+i
+miF1 0 2 expS0
+t
+T1iDG ,
+[17]
+der in a weighed sample tube. The sample was sonicated to
+remove bubbles and then packed by being brieﬂy centri-
+fuged. The supernatant liquid was decanted, and a ﬁnal
+and for transverse relaxation,
+weight was obtained; the weight of water was obtained by
+difference. To minimize any possible alteration of the sam-
+M(t) Å ∑
+i
+miexpS0
+t
+T2iD .
+[18]
+ples by dissolution or hydration of the solid, each sample
+was prepared immediately before NMR measurements, and
+dried immediately afterward in a 707C oven.
+In these equations, the mi are proportional to volumes of
+ﬂuid relaxing at rates 1/T1i and 1/T2i , respectively. In water-
+NMR CHARACTERIZATION
+saturated samples in which relaxation at grain surfaces is
+the dominant mechanism of longitudinal and transverse re-
+All proton NMR measurements were made at a frequency
+laxation, the relaxation times are
+of 2 MHz. This is the frequency at which many rock mea-
+surements have been made, and it is in the frequency range
+1
+T1i
+Å r1S
+S
+VD
+i
+[19]
+of the borehole NMR instruments (8). The principal advan-
+tage of 2 MHz measurements is that the transverse surface
+relaxivity is usually not masked by the diffusion of water in
+and
+the internal magnetic ﬁeld gradients of the porous media.
+Longitudinal relaxation was measured by the echo-de-
+1
+T2i
+Å r2S
+S
+VD
+i
+,
+[20]
+tected inversion-recovery technique
+
+--- PAGE 6 ---
+100
+FOLEY, FAROOQUI, AND KLEINBURG
+with those found by measurement and simulation of NMR
+relaxation of water in packs of mono-sized glass beads (32).
+The glass beads also occasionally display satellite peaks,
+which are signal-processing artifacts. In the present work,
+the relaxation time at the center of the main peak was used
+to compute the relaxivity.
+The stretched exponential function is also a way of charac-
+terizing nonexponential decays (33):
+M(t) Å M0H1 0 2 expF0S
+t
+T1aD
+a1GJ
+[21]
+M(t) Å M0expF0S
+t
+T2aD
+a2G .
+[22]
+When a Å 1, the decay is monoexponential.
+In order to quantify how well the decays could be repre-
+sented by single exponentials, the data were also analyzed
+FIG. 2.
+The T2 distribution for water-saturated calcium silicate powder,
+[Fe] Å 9000 ppm. The main peak is consistent with monoexponential decay,
+as stretched-exponential decays. Except for a few cases, a1
+given the signal-to-noise ratio of the data and the processing algorithm
+and a2 are near unity, indicating predominantly single-expo-
+used. The satellite peak is due to a visible layer of ﬁne powder at the top
+nential character. The data included the signal from the thin
+of the sample, and is disregarded in the computation of the relaxivity.
+layer of ﬁne powder at the top of the sample. Relaxation
+times determined from the stretched-exponential analysis
+and from the main peak of the corresponding distribution
+where (S/V )i is the surface-to-volume ratio of pores relaxing
+typically differed by a few percent.
+at rates 1/T1i and 1/T2i , respectively.
+Determination of the values of mi is difﬁcult. The decom-
+TEMPERATURE DEPENDENCE
+position of a magnetization decay into a sum of exponentials
+OF THE RELAXATION TIMES
+is an ill-posed problem, in the mathematical sense, and is
+nontrivial. However, there are now a number of techniques
+Two samples were chosen to study the temperature depen-
+dence of the relaxation times. One contained about 1% Fe
+(28–30) which use regularization to obtain stable, reproduc-
+ible distributions of mi . We have used one such technique
+and the other less than 200 ppm Fe. Unlike the room-temper-
+ature measurements, which were performed in a conven-
+to analyze our data (31). Regularization tends to artiﬁcially
+broaden relaxation time distributions. The extent of the
+tional NMR apparatus, the measurements at elevated temper-
+atures were performed using an ‘‘inside-out’’ NMR appara-
+broadening depends on the number of data points and the
+signal-to-noise ratio.
+tus, where the sample is external to the magnets and
+radiofrequency antenna (10). The Larmor frequency was
+A typical example of the relaxation time distributions ob-
+tained in this investigation is shown in Fig. 2. There is a
+approximately 2 MHz.
+The apparatus described by Latour et al. (13) was used
+small satellite to the left of the main peak, which is a result
+of the sample-preparation method. Each powder pack was
+to thermostat the samples. A hot-air ﬂow loop regulated
+the temperature to within 0.27C between 25 and 1757C. All
+stirred in degassed water until no more bubbles were visible
+and then centrifuged. Particles clouding the supernatant liq-
+construction materials were nonmetallic, completely free of
+a discernible hydrogen signal over the entire temperature
+uid settled in a thin layer on top. This layer, which was
+visibly different, has smaller pores than the main body of
+range of interest, and dimensionally stable. There were no
+shifts in sensitivity as the samples were heated. The tempera-
+the pack. When the thin top layer was removed and the
+sample remeasured, the satellite peak disappeared. Satellite
+ture of the magnets and the antenna was stabilized at 357C;
+the surface temperature of the antenna varied by less than
+peaks never represented more than a few percent of the
+signal.
+17C and the rest of the assembly varied even less.
+The samples were sealed inside a pressure vessel con-
+The main peaks of the transverse relaxation distributions
+were typically a third of a decade wide at half-maximum.
+sisting of a ceramic cylinder and two threaded ceramic end
+caps. A piston seal was formed on the walls of the cylinder
+The longitudinal relaxation data typically produced some-
+what wider main peaks due to the much smaller number of
+by Viton O-rings, trapping any vapor inside the vessel. The
+vessel was capable of withstanding 1.5 MPa (225 psi), the
+time samples. The widths of the main peaks are consistent
+
+--- PAGE 7 ---
+101
+PARAMAGNETIC RELAXATION OF FLUIDS AT SURFACES
+manganese concentrations in Figs. 3 and 4. For at least the
+iron materials, the NMR measurements probably do not con-
+tribute to the scatter, since the T1/T2 ratios vary smoothly
+with composition, as shown below. We believe that the scat-
+ter is primarily due to uncertainties in the determination of
+the water volume. The reduced scatter in the manganese data
+can be attributed to experience gained in sample preparation,
+as these samples were measured last.
+In all cases, the data are adequately described by a linear
+dependence of relaxivity on paramagnetic concentration, as
+predicted by theory:
+r1 Å 4.05 mm/s / (0.000819 mm/s/ppm) [Fe]ppm
+r2 Å 3.96 mm/s / (0.00227 mm/s/ppm) [Fe]ppm
+r1 Å 0.406 mm/s / (0.000919 mm/s/ppm) [Mn]ppm
+r2 Å 2.01 mm/s / (0.00106 mm/s/ppm) [Mn]ppm,
+[24]
+FIG. 3.
+Longitudinal (open squares) and transverse (solid circles) sur-
+where the concentration of metal ion is measured in weight
+face relaxivities for the iron-doped materials. The straight lines are least-
+ppm. The quantity nM used in Eqs. [3] and [4] is the frac-
+squares ﬁts to the data.
+tional composition. To convert from ppm by weight to frac-
+tional composition, we employ the conversion
+vapor pressure of water at 2007C. A small air space allowed
+nM Å [M]ppm
+10 6
+MWCaSiO3
+MWM
+,
+[25]
+for the thermal expansion of the liquid, which otherwise
+could have broken the vessel. The ceramic and O-rings had
+no NMR signal under measurement conditions. Thermome-
+where MWCaSiO3 is the formula weight of calcium silicate
+ter probes were taped to the outside surface of the ceramic
+and MWM is the formula weight of the metal ion. [M]ppm Å
+vessel. A half hour was sufﬁcient for the temperature of the
+4.81 1 10 5rnFe for iron and 4.72 1 10 5rnMn for manganese.
+pressure vessel to stabilize after each temperature change.
+The temperature was increased in steps from 25 to 1757C.
+The signal amplitude obeyed the Curie law, indicating that
+no water was lost as a result of heating. After the measure-
+ment at 1757C, the sample was allowed to cool back to room
+temperature and the initial measurement was repeated. A
+comparison of the signal amplitudes from the ﬁrst and last
+measurements additionally veriﬁed that there was no loss of
+water from the sample.
+RESULTS
+Values of surface relaxivities r1 and r2 for each sample
+were determined from BET measurements of surface area
+per unit mass, SBET, the mass of the powder, Ms, the volume
+of water, Vw, the bulk-water relaxation times, T1B and T2B,
+and the relaxation times at the maxima of the relaxation time
+distributions, T1,peak and T2,peak:
+r(1,2) Å T(1,2)B 0 T(1,2)peak
+T(1,2)BT(1,2)peak
+Vw
+SBETMs
+.
+[23]
+FIG. 4.
+Longitudinal (open squares) and transverse (solid circles) sur-
+face relaxivities for the manganese-doped materials. The straight lines are
+least-squares ﬁts to the data.
+Resulting values of r1 and r2 are plotted against iron and
+
+--- PAGE 8 ---
+102
+FOLEY, FAROOQUI, AND KLEINBURG
+Dr1
+DnM
+Å h 6
+15S
+aAd
+\ D
+2
+S(S / 1)ts1
+[27]
+and the ratio of the slopes on a relaxivity-composition plot
+is
+Dr2/DnM
+Dr1/DnM
+Å 7
+6 / 5
+6S
+As
+aAdD
+2
+.
+[28]
+The following quantities are unknown: (1) h, the thickness
+of the layer of water at the ﬂuid–solid interface; (2) a, the
+molecular-rotational anisotropy factor; (3) r, the metal–
+proton distance, which is the only unknown parameter in
+FIG. 5.
+The temperature dependence of the transverse relaxation time
+Ad; (4) As, the scalar coupling constant; and (5) ts1, the
+for samples with low and high concentrations of iron.
+electron longitudinal relaxation time.
+Somewhat arbitrarily, we shall assume values for three of
+the parameters and determine the other two from the data.
+Note that the relaxivities of the iron and manganese series
+We assume that h Å 3.5 1 10 08 cm, the diameter of the
+extrapolate to different values at zero dopant concentration.
+water molecule; a Å 1, since a must be of the order of
+This apparent paradox is discussed below.
+unity; and r Å 2.9 1 10 08 cm, the metal–proton distance
+The temperature dependence of T2 of two iron-doped sam-
+in aqueous solutions of both iron and manganese (15).
+ples is shown in Fig. 5. There is little or no effect of tempera-
+Therefore the dipolar coupling constant Ad is the same for
+ture. According to the theory of Kleinberg et al. (3), this
+iron and manganese since they have the same value of g
+observation eliminates from consideration any relaxation
+(35). We ﬁnd that ts1 Å 0.8 ns for both ions, and As/h Å 4.5
+mechanisms that depend on diffusion, molecular motion, or
+MHz for iron and As/h Å 0 for manganese. These compare to
+the residence time of the ﬂuid molecule on the surface. Such
+the corresponding solution values of 1.2 MHz for iron and
+processes are thermally activated, and so are expected to
+0.6–1.0 MHz for manganese (15).
+have large temperature dependences. This is consistent with
+We now must assess the adequacy of the assumptions that
+the linear dependence of the relaxivity on paramagnetic ion
+were used to derive Eqs. [27] and [28]. We have established
+concentration: relaxation must be controlled by temperature-
+independent magnetic interactions at the surface, across the
+full range of paramagnetic ion concentrations.
+The ratio of longitudinal to transverse relaxation times for
+the iron-bearing samples is shown in Fig. 6. It increases
+monotonically but not linearly with paramagnetic ion con-
+centration. T1/T2 must be greater than unity, and in the
+context of the paramagnetic relaxation theory presented
+above should be greater than 7/6. This condition is satisﬁed
+except for the sample with the lowest paramagnetic ion con-
+tent. The values are in the range that has been observed in
+sedimentary rocks (34).
+DISCUSSION
+For the purposes of estimating the principal parameters
+of the theory, we simplify Eqs. [5] and [6] by assuming
+that vItc1 ! 1, and vstc2 @ 1 or tc1 @ tc2, which will be
+justiﬁed below. The longitudinal surface relaxivity is
+FIG. 6.
+The ratio of relaxation times versus concentration for the iron-
+r1 Å nMh
+T1M
+[26]
+doped samples.
+
+--- PAGE 9 ---
+103
+PARAMAGNETIC RELAXATION OF FLUIDS AT SURFACES
+that the correlation times in Eqs. [8] and [9] are dominated
+can be populated by localized unpaired electron spins which
+are paramagnetic sites (35). Paramagnetic defect sites, F
+by the electron relaxation times ts1 and ts2, respectively.
+The measurements were performed at a proton resonance
+centers and V centers, have been studied extensively in bulk
+solids by electron spin resonance. It is probably not possible
+frequency vI/2p Å 2 MHz. For S Å 5
+2 ions, g is normally
+to study analogous sites on the surface of micrometer-sized
+equal to its free-electron value (35), so vs/vI Å 658. In
+particles by the same means because the ESR signal from
+many cases the ESR linewidth of transition metal ions is
+the surface would be overwhelmed by the signal from the
+dominated by lifetime broadening (35), which implies that
+bulk. Electron spins resident on the solid surface are perhaps
+ts1 is approximately equal to ts2, and therefore vItc1 Å 0.01
+most sensitively probed by the hyperﬁne-enhanced magnetic
+and vstc2 Å 7. The alternative is that ts1 ú ts2. As long as
+relaxation rate of ﬂuid protons.
+ts1 is equal to either ts2 or at least an order of magnitude
+We hypothesize, but cannot prove, that paramagnetic crys-
+larger than it, the assumptions used to derive Eqs. [27] and
+tal-defect sites exist in sufﬁcient abundance on pseudowol-
+[28] are satisﬁed.
+lastonite surfaces to explain the observed relaxation values.
+The relatively large value of relaxivity when the paramag-
+If the value of ts1/r 6 for such sites were the same as that
+netic ion concentration is extrapolated to zero is surprising.
+of iron, then they would exist at a concentration of order
+The observed relaxivity in the limit [M] Å 0 is probably
+10 3 ppm. However, since free-electron relaxation times are
+not due to slowed rotation of water adsorbed on the solid
+usually quite long, it is very likely that their population is
+surface. Let us make the usual assumption that in the absence
+much smaller than this estimate would indicate.
+of a paramagnetic center, the strongest magnetic interaction
+The paramagnetic defect model may explain why the
+experienced by a proton in a water molecule is due to the
+MnrCaSiO3 series has a different relaxivity at [Mn] Å 0
+intramolecular and intermolecular dipole–dipole coupling
+than the FerCaSiO3 series has at [Fe] Å 0. Whereas the
+with other protons. Then T1 is a minimum when the motional
+iron series was synthesized at 14007C under oxidizing condi-
+correlation time of the water molecule is approximately
+tions, the manganese series was synthesized under nitrogen.
+equal to the proton Larmor frequency. When that condition
+This makes it likely that the number and kind of defects are
+is satisﬁed (14)
+substantially different in the two series.
+T1min Å
+1.05v
+g 2
+I »DH 2… ,
+[29]
+CONCLUSIONS
+The results of this investigation lend conﬁdence to the
+where »DH 2… is the second moment of the proton–proton
+hypothesis that the oxide surface of pseudowollastonite is a
+dipolar interaction (14):
+good model of the oxide surface of sandstones, when investi-
+gating the NMR properties of ﬂuids in porous media. The
+T1/T2 ratios found here coincide with the values observed
+»DH 2… Å 1
+N ∑
+N
+iÅ1
+9
+20 g 2
+I \ 2 ∑
+N
+kxiS
+1
+rikD
+6
+.
+[30]
+in rock studies. Lack of temperature dependence is further
+evidence of correspondence between the pseudowollastonite
+materials and natural rocks. For the relaxation times of ﬂuids
+in porous media to be independent of temperature, all of
+For ice, the proton second moment has the value (36) »DH 2…
+Å 32.1 G 2, which is surely an overestimate of the dipolar
+the following conditions must be satisﬁed: (1) magnetic
+relaxation of ﬂuid protons must be limited by the rate of
+interactions a water molecule might experience on a calcium
+silicate surface. Thus at 2 MHz, T1min Å 5.7 1 10 04 s, so
+relaxation at the surface, not by the rate of molecular diffu-
+sion to the surface; (2) relaxation at the surface cannot be
+for a surface layer thickness h Å 3.5 1 10 08 cm, the surface
+relaxivity can be no larger than 0.6 mm/s. This is consider-
+dominated by any thermally activated process, such as ad-
+sorption, motion along the surface, or slowed molecular rota-
+ably smaller than the observed value of approximately 3 mm/
+s found for the iron series. However, this upper bound is
+tion at the surface; and (3) the electron relaxation times
+must be independent of temperature over the temperature
+consistent with the zero-concentration intercept of the man-
+ganese r1 data. We note that at 10 MHz, r1max Å 0.1 mm/
+range investigated. All these conditions are evidently satis-
+ﬁed in both natural rocks and the synthetic materials studied
+s, which is substantially lower than the value Kenyon and
+Kolleeny (21) found for very pure calcium carbonate.
+here, over the entire ranges of temperature and composition
+investigated.
+The lack of temperature dependence of relaxation time at
+negligible paramagnetic ion concentrations further indicates
+From the standpoint of understanding the NMR properties
+of ﬂuids in rocks, it is very encouraging to see that the ranges
+that even in this limit the relaxation mechanism is paramag-
+netic in nature. A point defect is formed when an atom is
+of r1 and r2 found in this study overlap measurements of
+surface relaxivity of rocks (38, 39). They also are consistent
+lost from a solid surface. Such defects are known to be
+relatively common on oxide surfaces (37). These defects
+with the consensus value of r2 derived from comparisons of
+
+--- PAGE 10 ---
+104
+FOLEY, FAROOQUI, AND KLEINBURG
+12. K. R. Brownstein and C. E. Tarr, Phys. Rev. A 19, 2446 (1979).
+NMR relaxation time with capillary pressure measurements
+13. L. L. Latour, R. L. Kleinberg, and A. Sezginer, J. Colloid Interface
+based on mercury porosimetry and water desaturation tech-
+Sci. 150, 535 (1992).
+niques (6). This is true even though the materials studied
+14. H. Pfeifer, in ‘‘NMR: Basic Principles and Progress’’ (P. Diehl et
+here are completely devoid of clay or other high-surface-
+al., Eds.), Springer-Verlag, New York, 1972.
+area minerals, while sandstones have a large clay content.
+15. I. Bertini and C. Luchinat, ‘‘NMR of Paramagnetic Molecules in
+This tends to substantiate the hypothesis (6) that, despite its
+Biological Systems,’’ Benjamin/Cummings, Menlo Park, California,
+very large BET surface area, clay does not play a role in
+1986.
+the relaxation of water in the bodies of sandstone pores.
+16. M. Rubinstein, A. Baram, and Z. Luz, Mol. Phys. 20, 67 (1971).
+Clay-bound water does not mix with pore water, but relaxes
+17. W. P. Halperin, F. D’Orazio, S. Bhattacharja, and J. C. Tarczon, in
+‘‘Molecular Dynamics in Restricted Geometries’’ (J. Klafter and
+independently of it, and therefore occupies a distinct range
+J. M. Drake, Eds.), Chap. 11, Wiley, New York, 1989.
+in the T2 distribution.
+18. G. C. Borgia, R. J. S. Brown, P. Fantazzini, E. Mesini, and G. Valdre,
+It is also noteworthy that over the entire range of iron
+Nuovo Cimento 14D, 745 (1992).
+concentrations, r2 varies only by a factor of six. This may
+19. K. R. McCall, D. L. Johnson, and R. A. Guyer, Phys. Rev. B 44,
+explain the heretofore surprising success of the correlation
+7344 (1991).
+of NMR relaxation time with hydraulic permeability (33).
+20. L. L. Latour, R. L. Kleinberg, P. P. Mitra, and C. H. Sotak, J. Magn.
+This correlation depends on the relative constancy of the
+Reson. A 112, 83 (1995).
+surface relaxation in a wide variety of sandstones, which
+21. W. E. Kenyon and J. A. Kolleeny, J. Colloid Interface Sci. 170, 502
+(1995).
+have a signiﬁcant range of iron concentrations and clay con-
+22. F. A. Cotton and G. Wilkinson, ‘‘Advanced Inorganic Chemistry,’’
+tents. Figure 3 appears to resolve a long-standing mystery.
+Chap. 19, Interscience, New York, 1972.
+23. R. C. Weast and M. J. Astle (Eds.), ‘‘CRC Handbook of Chemistry
+ACKNOWLEDGMENTS
+and Physics,’’ 63rd ed., CRC Press, Boca Raton, Florida, 1982.
+24. S. Lowell and J. E. Shields, ‘‘Powder Surface Area and Porosity,’’
+Drs. T. Jones, W. Halperin, and P. West offered valued advice on the
+Chapman & Hall, New York, 1984.
+use of cementitious materials in this investigation. The materials were syn-
+25. A. Sezginer, R. L. Kleinberg, M. Fukuhara, and L. L. Latour, J.
+thesized under the direction of Dr. West. We beneﬁted from discussions
+Magn. Reson. 92, 504 (1991).
+with Drs. S. Greenbaum, D. Woessner, C. Straley, and M. Hurlimann on
+26. C. L. Vavra, J. G. Kaldi, and R. M. Sneider, Am. Assoc. Petrol.
+NMR and ESR technique and interpretation. I.F. thanks Dr. Greenbaum
+Geol. Bull. 76, 840 (1992).
+and Dr. R. Marino for encouragement and guidance.
+27. D. P. Gallegos and D. M. Smith, J. Colloid Interface Sci. 122, 143
+(1988).
+REFERENCES
+28. S. W. Provencher, Comput. Phys. Commun. 27, 213 (1982).
+29. M. G. Prammer, Soc. Petrol. Eng. Paper No. 28368 (1994).
+1. F. Bloch, Phys. Rev. 83, 1062 (1951).
+30. R. Freedman, U.S. Patent 5,291,137 (1994).
+2. J. Korringa, D. O. Seevers, and H. C. Torrey, Phys. Rev. 127, 1143
+31. E. J. Fordham, A. Sezginer, and L. D. Hall, J. Magn. Reson. A 113,
+(1962).
+139 (1995).
+3. R. L. Kleinberg, W. E. Kenyon, and P. P. Mitra, J. Magn. Reson. A
+32. C. Straley and L. M. Schwartz, Magn. Reson. Imaging, in press.
+108, 206 (1994).
+33. W. E. Kenyon, P. I. Day, C. Straley, and J. F. Willemsen, Soc. Petrol.
+4. K. F. Clark, in ‘‘Handbook of Physical Properties of Rocks’’ (R. S.
+Eng. Form. Eval. 3, 622 (1988); erratum: Soc. Petrol. Eng. Form.
+Carmichael, Ed.), Vol. 1, Chap. 1, CRC Press, Boca Raton, Florida,
+Eval. 4, 8 (1989).
+1982.
+34. R. L. Kleinberg, S. A. Farooqui, and M. A. Horsﬁeld, J. Colloid
+5. G. Sposito, ‘‘The Surface Chemistry of Soils,’’ Oxford Univ. Press,
+Interface Sci. 158, 195 (1993).
+London, 1984.
+35. J. E. Wertz and J. R. Bolton, ‘‘Electron Spin Resonance,’’ McGraw–
+6. R. L. Kleinberg, Magn. Reson. Imaging, in press.
+Hill, New York, 1972.
+7. W. E. Kenyon, Nucl. Geophys. 6, 153 (1992).
+36. J. A. Glasel, in ‘‘Water, a Comprehensive Treatise’’ (F. Franks, Ed.),
+8. R. L. Kleinberg, Well digging, in ‘‘Encyclopedia of Nuclear Magnetic
+Vol. 1, Chap. 6, Plenum, New York, 1972.
+Resonance,’’ Wiley, New York, 1996.
+37. V. E. Henrich and P. A. Cox, ‘‘The Surface Science of Metal Ox-
+9. Z. Taicher, G. Coates, Y. Gitartz, and L. Berman, Magn. Reson.
+ides,’’ Cambridge Univ. Press, London, 1994.
+Imaging 12, 285 (1994).
+38. M. D. Hurlimann, K. G. Helmer, L. L. Latour, and C. H. Sotak, J.
+10. R. L. Kleinberg, A. Sezginer, D. D. Grifﬁn, and M. Fukuhara, J.
+Magn. Reson. A 111, 169 (1994).
+Magn. Reson. 97, 466 (1992).
+39. G. C. Borgia, R. J. S. Brown, and P. Fantazzini, J. Appl. Phys. 79,
+3656 (1996).
+11. R. J. S. Brown and I. Fatt, Pet. Trans. AIME 207, 262 (1956).

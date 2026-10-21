@@ -1,0 +1,817 @@
+--- PAGE 1 ---
+A laboratory study to determine the effect of
+iron oxides on proton NMR measurements
+Kristina Keating1 and Rosemary Knight1
+ABSTRACT
+Using laboratory methods, we investigate the effect of the
+presence and mineralogic form of iron on measured proton
+nuclear magnetic resonance NMR relaxation rates. Five
+samples of quartz sand were coated with ferrihydrite, goe-
+thite, hematite, lepidocrocite, and magnetite. The relaxation
+rates for these iron-oxide-coated sands saturated with water
+were measured and compared to the relaxation rate of quartz
+sand saturated with water. We found that the presence of the
+iron oxides led to increases in the relaxation rates by increas-
+ing the surface relaxation rate. The magnitude of the surface
+relaxation rate was different for the various iron-oxide miner-
+als because of changes in both the surface-area-to-volume ra-
+tio of the pore space, and the surface relaxivity. The relax-
+ation rate of the magnetite-coated sand was further increased
+because of internal magnetic ﬁeld gradients caused by the
+presence of magnetite. We conclude that both the concentra-
+tion and mineralogical form of iron can have a signiﬁcant im-
+pact on NMR relaxation behavior.
+INTRODUCTION
+Proton nuclear magnetic resonance NMR has been widely used
+in the geophysical and medical communities to detect the presence
+of hydrogen nuclei  1H and determine their physiochemical envi-
+ronment. NMR measurements in the earth sciences can be made in
+the laboratory, or in the ﬁeld using a well-logging device or a system
+deployed at the earth’s surface. NMR logging has been employed in
+the oil industry to quantify water and hydrocarbon content and to es-
+timate pore size and permeability e.g., Seevers, 1966; Timur, 1969;
+Korb et al., 2003. The surface-based system, referred to as MRS
+magnetic resonance sounding, has been used to estimate the water
+content and the permeability of the top 100 m of earth e.g., Shusha-
+kov, 1996; Legchenko et al., 2002. The use of NMR to determine
+the permeability of water-saturated geologic materials is the applica-
+tion of interest in our research.
+If we consider a water-saturated geologic material, the NMR ex-
+periment in the laboratory or in the ﬁeld consists of measuring the
+rate at which the bulk nuclear magnetization of the water within the
+sampled volume of material returns relaxes to equilibrium after be-
+ing perturbed by a radio-frequency pulse. The measured relaxation
+rate is related to the surface-area-to-volume ratio of the water-ﬁlled
+pore space; this is the link that allows the use of NMR data to esti-
+mate pore sizes e.g., Timur, 1969; Yaramanci et al., 2002 and per-
+meability e.g., Vogeley and Moses, 1992; Legchenko et al., 2002.
+A complicating factor in the interpretation of NMR relaxation
+rates is the effect of FeIII, a paramagnetic species commonly found
+in geologic material. Previous laboratory studies Foley et al., 1996;
+Bryar et al., 2000 have shown conclusively that an increase in the
+concentration of FeIII, in the solid phase of a geologic material,
+will cause an increase in the NMR relaxation rate.What has not been
+investigated, however, is the role of the mineralogic form of the
+FeIII. That is, is it simply the concentration of FeIII that deter-
+mines the effect of FeIII on NMR data, or must the mineralogic
+form of FeIII also be considered?
+Publications in the medical literature clearly show that the chemi-
+cal form of iron affects proton NMR relaxation rates Yilmaz et al.,
+1990; Babes et al., 1998; Gossuin et al., 2002. It has been suggested,
+based on theoretical modeling, that differences in relaxation rates re-
+sulting from changes in the form of the iron can be attributed to the
+size of the particles containing the paramagnetic species, the dis-
+tance of the paramagnetic species from the relaxing protons, and the
+distribution and concentration of the paramagnetic species Gillis
+and Koenig, 1987. These results and discussion in the medical liter-
+ature led us to hypothesize that the mineralogic form of FeIII
+would affect the NMR relaxation rates of water-saturated geologic
+materials.
+Although iron can be found in many forms, we limited this study
+to iron-oxide minerals. We compared NMR relaxation rates for wa-
+ter in sands coated with known concentrations of FeIII in the form
+Manuscript received by the Editor March 23, 2006; revised manuscript received September 2, 2006; published online December 29, 2006.
+1Stanford University, Department of Geophysics, Mitchell Building, Stanford, California 94304. E-mail: kkeat@pangea.stanford.edu; rknight@
+pangea.stanford.edu.
+© 2007 Society of Exploration Geophysicists.All rights reserved.
+GEOPHYSICS,VOL. 72, NO. 1 JANUARY-FEBRUARY 2007; P. E27–E32, 2 FIGS., 2TABLES.
+10.1190/1.2399445
+E27
+Downloaded 11/02/14 to 193.140.151.85. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/
+
+--- PAGE 2 ---
+of ferrihydrite FeOH3·nH2O, goethite -FeOOH, hematite
+-Fe2O3, lepidocrocite -FeOOH, and magnetite Fe3O4.
+These iron oxides were chosen to represent a variety of FeIII-bear-
+ing, naturally occurring iron minerals. The selected iron oxides are
+pure FeIII minerals, with the exception of magnetite which con-
+tains both FeIII and FeII. Understanding the effect of these iron
+minerals is essential if we are to use NMR data, in the laboratory or
+the ﬁeld, to obtain accurate information about the permeability of
+geologic materials.
+NMR RELAXATION THEORY
+All atoms with an odd number of protons or neutrons possess a nu-
+clear spin angular momentum. In many geologic applications, the
+hydrogen atom  1H with a single proton is of interest because of its
+presence in water. In a static magnetic ﬁeld B0, the nuclear spins in
+the water align with the ﬁeld, resulting in a net magnetization M0
+which is proportional to the number of 1H in the sample. M0 process-
+es at the Larmor frequency f0, which is related to B0 by
+f0 = 1
+2B0,
+1
+where  is the gyromagnetic ratio for hydrogen protons in water
+molecules  = 0.267 rad/nT·s. For MRS instruments, f0 ranges
+from 0.8 to 2.8 kHz; for NMR well-logging instruments, f0 ranges
+from 0.5 to 2 MHz; and for laboratory instruments, f0 ranges from
+0.01 to 900 MHz. If a magnetic ﬁeld oscillating at f0 is applied for a
+short time, the nuclear spins move away from, and then relax to, their
+equilibrium position. This results in a measurable signal from the
+bulk nuclear magnetization M, which can be described in terms of
+a transverse magnetization Mxy, and a longitudinal magnetization
+Mz. Parameters that describe the observed relaxation of Mxy are de-
+noted with the subscript 2, and those describing the observed relax-
+ation of Mz are denoted with the subscript 1. In this study we mea-
+sured Mxy, which is the parameter detected by most well-logging and
+surface-based NMR instruments.
+For bulk ﬂuids, the return or relaxation to equilibrium over time
+t behaves as an exponential decay:
+Mxyt = M0e−t/T2B,
+2
+where T2B is the bulk ﬂuid relaxation time; the inverse, T2B
+−1, is re-
+ferred to as the bulk ﬂuid relaxation rate and results from dipole-di-
+pole molecular interactions. The magnitude of T2B
+−1 for a ﬂuid de-
+pends on the viscosity via the reduction of rotational mobility, the
+concentration of dissolved paramagnetic species such as dissolved
+oxygen, Mn2+ ions, or Fe3+ ions, and pH Bloembergen et al., 1948;
+Bryar et al., 2000.
+The relaxation rate of water in a porous material is generally
+found to be greater than T2B
+−1 because of two other mechanisms that
+can enhance relaxation. The relaxation rate of water in a pore T2−1
+where T2 is the relaxation time, is described as a sum of three relax-
+ation rates Brownstein andTarr, 1979:
+T 2
+−1 = T 2B
+−1 + T 2s
+−1 + T 2D
+−1 ,
+3
+where T 2S
+−1 is the surface relaxation rate and T 2D
+−1 is the diffusion re-
+laxation rate T2S and T2D are the surface and diffusion relaxation
+times. The surface relaxation rate is determined by the interaction
+that occurs between the water protons and paramagnetic sites on the
+solid surface of the pore space. In the case of fast diffusion, which as-
+sumes that all protons travel to and relax at the solid surface in the
+time interval of the NMR experiment, the surface relaxation rate is
+given by Senturia and Robinson, 1970; Brownstein andTarr, 1979
+T 2s
+−1 = 2
+S
+V ,
+4
+where S/V is the surface-area-to-volume ratio of the water-ﬁlled
+pore and 2 is the surface relaxivity. The diffusion relaxation rate is
+determined by the effect of the magnetic properties of the solid on
+the diffusing water molecules. The diffusion relaxation rate T 2D
+−1 is
+related to the average internal gradient of the magnetic ﬁeld G and
+the diffusion coefﬁcient of water D by
+T 2D
+−1 = D
+12 GtE2,
+5
+where  is the gyromagnetic ratio, and tE is the echo time—a rephas-
+ing parameter used during the Carr-Purcell-Meiboom-Gill CPMG
+pulse sequence. The CPMG pulse sequence Carr and Purcell, 1954;
+Meiboom and Gill, 1958 was developed to rephase proton spins in a
+solid in the presence of nonuniform magnetic ﬁelds. The average in-
+ternal gradient of the magnetic ﬁeld is caused by the magnetic sus-
+ceptibility of each phase in the geologic material, and by the differ-
+ences in susceptibility between the phases. Ferrihydrite, goethite,
+hematite, and lepidocrocite are antiferromagnetic minerals with
+magnetic susceptibilities ranging from 0.510−3 to 4010−3 SI.
+Magnetate is a ferrimagnetic mineral with a magnetic susceptibility
+ranging from 100010−3 to 570010−3 SI. Quartz and water are
+both diamagnetic, with the magnetic susceptibility of quartz ranging
+from −1310−6 to −1710−6 SI, and the magnetic susceptibility of
+water equal to −910−6 SI Hunt et al., 1995; Cornell and Schwert-
+mann, 2003.
+When water saturates a geological material with a range of pore
+sizes, a multiexponential decay is observed,
+Mt = 
+i
+mie−t/T2i,
+6
+where mi is proportional to the number of moles of 1H relaxing with
+rate T2i−1 and M0 is proportional to the total moles of 1H. The values
+of mi versus T2i are often plotted to show the distribution of relax-
+ation times. In studies of the NMR response of porous materials, the
+arithmetic mean of log T2 T2ML is typically calculated from the dis-
+tribution of relaxation times and used to represent the relaxation be-
+havior. Equation 3 then becomes
+T 2ML
+−1
+= T 2B
+−1 + T 2s
+−1 + T 2D
+−1 ,
+7
+where T 2B
+−1, T 2s
+−1, T 2D
+−1 are now taken to be average values for the entire
+pore space of the sample material instead of a single pore. T 2S
+−1 is still
+described by equation 4, but 2 and S/V are average values. Current
+NMR theory associates the average 2 with the paramagnetic species
+i.e., unpaired electrons on the surface of the pore space within the
+sampled material Brownstein and Tarr, 1979; Godefroy et al.,
+2001.
+To investigate the effect of the mineralogic form of FeIII on the
+NMR response of a geologic material, we conducted a laboratory
+study to compare the magnitude of the ﬁve averaged parameters
+T 2ML
+−1 , T 2B
+−1, T 2s
+−1, T 2D
+−1, and 2, for water-saturated samples containing
+pure quartz and ﬁve different iron oxides, with known concentra-
+tions of FeIII. This allowed us to quantify changes in T 2ML
+−1
+with
+E28
+Keating and Knight
+Downloaded 11/02/14 to 193.140.151.85. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/
+
+--- PAGE 3 ---
+changes in mineralogy and determine which relaxation mechanism
+bulk ﬂuid, surface, or diffusion was responsible for any observed
+change in T 2ML
+−1 .
+METHODS AND MATERIALS
+Materials and NMR sample preparation
+In order to determine the NMR response of the selected iron ox-
+ides, we prepared samples of quartz sand coated with the iron oxides.
+This allowed us to control the concentration of iron in the samples
+and prevented the iron oxides from forming aggregates. Quartz sand
+99.995%, 40 mesh, silicon IV dioxide, Alfa Aesar was used in
+this study as an analog for a naturally occurring mineral surface. The
+quartz sand was rinsed with 10% HCl deionized water 18 M·cm
+to remove paramagnetic species, then coated with the iron oxides:
+ferrihydrite, goethite, hematite, lepidocrocite, and magnetite.
+The same general procedure was used to prepare quartz sand coat-
+ed with ferrihydrite, goethite, hematite and lepidocrocite. First, the
+iron oxide was synthesized. Ferrihydrite was synthesized by the ti-
+tration of FeNO33·9H2O 0.4 mol/L with 1 mol/L NaOH to pH 7
+Hansel et al., 2003; goethite was synthesized by the slow oxidation
+of FeCl2·4H2O solution Schwertmann and Cornell, 2000; hema-
+tite was synthesized by the forced hydrolysis of FeNO33·9H2O
+0.4 mol/L solution Schwertmann and Cornell, 2000; and lepi-
+docrocite was synthesized by the hydrolysis of FeCl2·4H2O
+0.2 mol/L kept at ph 6.7, using 1 mol/L NaOH Schwertmann and
+Cornell, 2000. The synthesized iron oxides were then washed with
+deionized water to remove excess salts. Slurries composed of the
+synthesized iron oxides and deionized water were mixed with sand
+to obtain a mixture containing 1% iron by weight calculated stoichi-
+ometrically; this mixture was allowed to dry. The iron-coated sands
+were subsequently washed three times with deionized water. Once
+coated, the mineral compositions of the synthesized iron oxides
+were conﬁrmed using X-ray diffraction spectrometry.
+Powdered, synthetic magnetite, in the form of synthetic iron oxide
+100% Fe3O4, Fisher Scientiﬁc, was chosen as an analog for natu-
+rally occurring magnetite. Then we followed the same procedure
+used with the other iron oxides to obtain quartz sands coated with
+magnetite. Initially, the magnetite and sand were mixed to contain
+1% iron by weight; however, the relaxation time of the 1% mixture
+was found to be too short to measure. A mixture of magnetite and
+sand containing 0.65% iron by weight was prepared and used in this
+study.
+NMR measurement procedures
+Two samples of each type of sand pure quartz and iron-coated
+were packed into cylindrical Teﬂon sample holders of interior diam-
+eter 2.1 cm and height 6 cm. The porosity of each sample, packed in
+the container, was measured with a Coberly-Steven Helium Pyc-
+nometer. Once the porosity had been measured, the sample was satu-
+rated under pressure with deionized water; this process took approx-
+imately 30 minutes. NMR measurements were made approximately
+1 hour after the saturation of the samples.
+NMR relaxation data were collected using a 2.2 MHz Maran Ul-
+tra NMR Core Analyzer Resonance Instruments using a CPMG
+pulse sequence. A single data point was obtained at each echo in the
+CPMG pulse sequence; 32,000 echoes were used. Data were collect-
+ed at four echo times, tE = 300, 400, 600, and 800 s, resulting in to-
+tal times for each pulse sequence of 9.6, 12.8, 19.2, and 25.6 s. The
+data were stacked 100 times to improve the signal-to-noise ratio.The
+delay time between each pulse sequence was 10 s to ensure that the
+sample had returned to thermal equilibrium prior to the start of the
+pulse sequence. Measurements were consistently made at 30 °C.
+Once the NMR measurements had been completed on the saturat-
+ed samples, the pore water was removed from each sample by centri-
+fuging and used to measure T 2B
+−1. It was only necessary to measure
+T 2B
+−1 at one value of tE because no internal magnetic ﬁeld gradient is
+present in ﬂuids; we chose tE = 300 s as a representative echo
+spacing.Then, the NMR samples were dried overnight.
+Three subsamples of each type of iron-coated sand were taken for
+surface area analysis; two of the subsamples from one NMR sample
+and one subsample from the other. Surface area measurements were
+also made on three samples of the quartz sand. The speciﬁc surface
+area Ss of each sand, deﬁned as the surface area normalized by
+the mass of the sample, was measured using a Beckman-Coulter
+SA3100Analyzer, which produces accurate results for samples with
+a total surface area of 3 m2 or higher. For samples where Ss was less
+then 0.2 m2/g, the Ss measurement was repeated using a Micromerit-
+ics ASAP 2020 Accelerated Surface Area and Porosimetry System,
+which produces accurate results for samples with a total surface area
+as low as 1 m2.All samples were measured using the Brunauer-Em-
+mett-Teller BET adsorption method with N2g as the adsorbate.
+DATA ANALYSIS AND RESULTS
+Porosity and surface area
+The measured porosity and speciﬁc surface area for each sample
+are given in Table 1. The porosity ranged from 0.46 for the hematite-
+coated sand to 0.50 for the goethite-coated sand.These values are the
+same, within experimental error, as the porosity of the quartz sand
+sample 0.48 indicating that the addition of the iron coatings did not
+signiﬁcantly change the porosity. For the sands coated with ferrihy-
+drite, goethite, hematite, and lepidocrocite, the surface area in-
+creased signiﬁcantly with the addition of the iron coating. The ferri-
+hydrite-coated sand has a much higher surface area than the other
+iron-coated sands because of its amorphous crystal structure. The
+speciﬁc surface area of the quartz sand was not changed signiﬁcantly
+by the addition of magnetite. S/V, also in Table 1, was calculated
+from
+Table 1. Physical property measurements porosity „…,
+speciﬁc surface area „Ss…, and the calculated surface-
+area-to-volume ratio „S/V….
+Material
+
+Ss
+m2/g
+S/V
+1/m
+Quartz sand
+0.48 ± 0.02
+0.15 ± 0.02
+0.48 ± 0.06
+Goethite-coated sand
+0.50 ± 0.02
+0.58 ± 0.09
+1.6 ± 0.2
+Lepidocrocite-coated
+sand
+0.49 ± 0.02
+0.27 ± 0.03
+0.75 ± 0.08
+Ferrihydrite-coated sand
+0.49 ± 0.02
+2.5 ± 0.5
+7.3 ± 0.5
+Hematite-coated sand
+0.46 ± 0.02
+0.35 ± 0.03
+1.09 ± 0.09
+Magnetite-coated sand
+0.48 ± 0.02
+0.19 ± 0.02
+0.48 ± 0.02
+The effect of iron oxides on proton NMR
+E29
+Downloaded 11/02/14 to 193.140.151.85. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/
+
+--- PAGE 4 ---
+S
+V = msSs
+1
+Vp,
+8
+where ms is the total mass of the solid component, and Vp is the vol-
+ume of the pore space. Vp was obtained from gravimetric measure-
+ments of the sample prior to and following saturation. Errors in the
+surface areas were calculated from repeated measurements and are
+attributed to the variability between samples of the same material.
+Sand sample relaxation rates, T 2ML
+−1
+Each NMR data set, from all the sand samples, displayed a multi-
+exponential decay of magnetization as described by equation 6.
+The data were ﬁt to a distribution of 200 exponentially spaced T2 val-
+ues ranging from 1 ms to 10 s using the regularized nonnegative
+least-squares inversion routine developed by Whittall et al. 1991.
+This approach gives a less biased interpretation of the data than other
+commonly used ﬁts e.g., single-exponential, stretched-exponential,
+or double-exponential because it does not specify the number of re-
+laxation times, but instead allows any number of relaxation times be-
+tween 0 and 200.The residual of each ﬁt was examined to ensure that
+the noise was Gaussian and the data had not been overﬁt.
+The T2 distributions for the quartz sand and the iron-coated sands
+are shown in Figure 1 for te = 300 s. The quartz sand T2 distribu-
+tion is a single, narrow peak; the T2 distributions for the iron-coated
+sands are broader.The distributions for goethite-, lepidocrocite-, and
+ferrihydrite-coated sand are very similar in form with one dominant
+peak and other smaller peaks. The distribution of the hematite-coat-
+ed sand is similar in form, but the peaks are not well resolved, and the
+amplitude of the dominant peak is lower than seen for the other three
+sands. The magnetite-coated sand has multiple unresolved peaks
+spread over several decades but does not contain a clear dominant
+peak.
+The relaxation time distributions were used to determine T 2ML
+−1 for
+the samples. These values for tE = 300 s are given in Table 2. As
+expected, the presence of iron in a sample always results in a value
+for T 2ML
+−1
+greater than T 2ML
+−1
+for the pure quartz sand. However, as
+seen in Table 2, it is not simply the amount of iron present that can
+explain the magnitude of T 2ML
+−1 . The ferrihydrite-, goethite-, hema-
+tite-, and lepidocrocite-coated sands all contained the same amount
+of iron, but have markedly different values for T 2ML
+−1 .And the magne-
+tite-coated sand, which contained the least amount of iron, has the
+greatest relaxation rate. In the following sections, we compare the
+averaged values T 2B
+−1, T 2D
+−1, and T 2S
+−1 to determine the mechanism
+bulk ﬂuid, surface, or diffusion by which the change in the mineral-
+ogy of the samples has affected T 2ML
+−1 .
+Bulk ﬂuid relaxation rates, T 2B
+−1
+The NMR relaxation rates for the bulk ﬂuids, extracted from the
+samples, are given in Table 2. To obtain these values of T 2B
+−1, the
+NMR relaxation data for the extracted bulk ﬂuids were ﬁt to a single-
+exponential decay using a least-squares algorithm. Analysis of the
+residuals indicated that a single-exponential decay was a valid as-
+sumption. The relaxation rate for deionized water was found to be
+0.328 s−1. The values of T 2B
+−1 for the ﬂuids from the quartz sand, the
+goethite-coated sand, and the hematite-coated sand were the same,
+within experimental error, as T 2B
+−1 of deionized water. The T 2B
+−1 values
+for the ﬂuids from the ferrihydrite-coated sand, the lepidocrocite-
+coated sand, and the magnetite sand were 0.411 s−1, 0.344 s−1, and
+0.90 s−1, respectively.The increase inT 2B
+−1 from that of deionized wa-
+ter is most likely because of the presence of dissolved paramagnetic
+species or suspended mineral particles.
+0.5
+0.45
+0.4
+0.35
+0.3
+0.25
+0.2
+0.15
+0.1
+0.05
+0.07
+0.06
+0.05
+0.04
+0.03
+0.02
+0.01
+0
+0.07
+0.06
+0.05
+0.04
+0.03
+0.02
+0.01
+0
+0.07
+0.06
+0.05
+0.04
+0.03
+0.02
+0.01
+0
+0.07
+0.06
+0.05
+0.04
+0.03
+0.02
+0.01
+0
+0.07
+0.06
+0.05
+0.04
+0.03
+0.02
+0.01
+0
+–4         –3         –2         –1            0          1
+–4         –3         –2         –1            0          1
+–4         –3         –2         –1            0          1
+–4         –3         –2         –1            0          1
+–4         –3         –2         –1            0          1
+–4         –3         –2         –1            0          1
+Quartz sand
+Ferrihydrite-coated sand
+Hematite-coated sand
+Magnetite- coated sand
+Lepidocrocite-coated sand
+Goethite-coated sand
+Normalized magnetization
+Normalized magnetization
+Normalized magnetization
+Normalized magnetization
+Normalized magnetization
+Normalized magnetization
+log (T2)
+log (T2)
+log (T2)
+log (T2)
+log (T2)
+log (T2)
+Figure 1. Normalized relaxation time distributions for quartz sand, ferrihydrite-coated sand, goethite-coated sand, hematite-coated sand, lepi-
+docrocite-coated sand, and magnetite-coated sand.
+E30
+Keating and Knight
+Downloaded 11/02/14 to 193.140.151.85. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/
+
+--- PAGE 5 ---
+Diffusion relaxation rates, T 2D
+−1
+The magnitude of the diffusion relaxation
+term, T 2D
+−1, in the NMR response of a sample can
+be determined by measuring the dependence of
+T 2ML
+−1 on echo time tE. As can be seen from equa-
+tions 5 and 7, a plot of T 2ML
+−1 versus the square of
+the echo time tE2 will yield a straight line with
+slope equal to DG2/12. Figure 2 shows this
+plot for one sample of each of the iron-coated
+sands. The value of T 2ML
+−1
+for the sands coated
+with ferrihydrite, goethite, hematite, and lepi-
+docrocite shows negligible dependence on tE2, in-
+dicating that DG2/12 from equation 5 is zero,
+within experimental error. Given that D and  are
+nonzero, this means that G = 0 i.e., there are no
+internal gradients in the magnetic ﬁeld. The val-
+ue of T 2D
+−1 for these samples, as given in Table 2, is
+zero.
+T 2ML
+−1
+for sand coated with magnetite shows a
+signiﬁcant dependence on tE2. This indicates that
+the presence of magnetite causes internal gradi-
+ents in the magnetic ﬁeld G0, as expected
+given its high magnetic susceptibility. The value
+of DG2/12, obtained from the least squares ﬁt
+of T 2ML
+−1
+versus tE2, was used to calculate T 2D
+−1 ac-
+cording to equation 5. At tE = 300 s, the value
+of T 2D
+−1 was 17 s−1 as shown in Table 2. It is clear
+from this that the presence of magnetite will re-
+sult in a signiﬁcant contribution to the measured
+relaxation rate from the diffusion relaxation
+mechanism.
+Surface relaxation rates, T 2s
+−1
+The ﬁnal parameter to be assessed is the sur-
+face relaxation rate. The values of T 2s
+−1 deter-
+mined using equation 7 for all samples are shown
+in Table 2. For the ferrihydrite-, goethite-, hema-
+tite-, and lepidocrocite-coated sands, and the
+quartz sand, T 2s
+−1 was calculated from equation 7
+with T 2D
+−1 = 0. For the magnetite-coated sand, the
+relaxation rate extrapolated to tE2 = 0 where T 2ML
+−1
+= T 2B
+−1 + T 2s
+−1
+was used to calculate T 2s
+−1. Values of T 2s
+−1 for the samples range from
+0.16 s−1 for quartz sand to 125 s−1 for the magnetite-coated sand.As
+can be seen by reviewing these values in Table 2, it is the variation in
+this term that is responsible for the variation seen in the NMR relax-
+ation rates for the samples. In fact, the magnitude of this term is very
+close to the magnitude of T 2ML
+−1 for the ferrihydrite-, goethite-, hema-
+tite-, and lepidocrocite-coated sands.
+The value of T 2s
+−1 for a material is determined by both S/V and the
+surface relaxivity 2. The values of S/V are given in Table 1, and the
+values of 2, computed from T 2s
+−1 using equation 4, are given in Table
+2. The values of 2 range from 0.31 m/s for quartz sand to
+327 m/s for magnetite-coated sand. The small 2 for the quartz
+sand indicates that there are little to no paramagnetic species in this
+sand. Of speciﬁc interest is the observed variation in 2 for the iron-
+coated sands. In this study, the variations in 2 cannot be attributed to
+variation in the concentration of iron. The ferrihydrite-, goethite-,
+hematite-, and lepidocrocite-coated sands all contained an iron con-
+centration of 1%. The magnetite-coated sand contained 0.65% mag-
+netite and, despite its lower iron content, has a very large 2 value.
+The variation in 2 most likely reﬂects a difference in parameters
+such as the density and distribution of paramagnetic species on the
+surface of the pores, the distance between the relaxing protons and
+the paramagnetic species, and the spin quantum number associated
+with the paramagnetic species. These parameters have been previ-
+ously shown to have an effect on 2 Godefroy et al., 2001. Identify-
+ing and quantifying the parameters that are the fundamental cause of
+these variations is a topic of ongoing research, and requires charac-
+terizing the hydrated surface structure of each iron-oxide mineral.
+CONCLUSIONS
+The measurements from this study show conclusively that the
+NMR relaxation rate of a water-saturated sand is affected by both the
+presence and the mineralogical form of iron. The dominant effect of
+ferrihydrite, goethite, hematite, lepidocrocite, and magnetite was to
+increase T 2S
+−1, the magnitude of which is determined by S/V and 2.
+Table 2. NMR relaxation rates and calculated relaxation parameters. Both
+T 2ML
+−1
+and T 2D
+−1 for magnetite were calculated at tE = 300 s.
+Material
+T 2ML
+−1
+s−1
+T 2B
+−1
+s−1
+T 2S
+−1
+s−1
+T 2D
+−1
+s−1
+2 m/s
+Quartz sand
+0.49 ± 0.02
+0.328 ± 0.005
+0.16 ± 0.02
+0
+0.31 ± 0.04
+Goethite-
+coated sand
+2.9 ± 0.1
+0.326 ± 0.006
+2.57 ± 0.05
+0
+1.61 ± 0.03
+Lepidocrocite-
+coated sand
+4.4 ± 0.1
+0.344 ± 0.006
+4.1 ± 0.2
+0
+5.4 ± 0.2
+Ferrihydrite-
+coated sand
+16 ± 1
+0.411 ± 0.008
+16 ± 2
+0
+2.2 ± 0.3
+Hematite-
+coated sand
+20 ± 2
+0.329 ± 0.006
+19 ± 2
+0
+17.9 ± 0.5
+Magnetite-
+coated sand
+143 ± 19
+0.90 ± 0.04
+125 ± 15
+17 ± 2
+292 ± 5
+0
+1
+2
+3
+4
+5
+6
+7 x105
+0
+50
+100
+150
+200
+250
+300
+1% Goethite-coated sand
+1% Hematite-coated sand
+1% Iepidocrocite-coated sand
+0.65% Magnetite-coated sand
+1% Ferrihydrite-coated sand
+1/T2m (1/s)
+tE
+2 (µs)
+Figure 2. Plot of the transverse relaxation rate T 2ML
+−1  as a function of the square of the
+echo-time tE2 for ferrihydrite-coated sand, goethite-coated sand, lepidocrocite-coated
+sand, hematite-coated sand, and magnetite-coated sand.
+The effect of iron oxides on proton NMR
+E31
+Downloaded 11/02/14 to 193.140.151.85. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/
+
+--- PAGE 6 ---
+We found that the value of 2 was very different for the different iron
+oxides; with additional research needed to determine the fundamen-
+tal cause of these observed differences. The addition of magnetite to
+the quartz sand resulted in internal gradients and a contribution to
+T 2ML
+−1 from the diffusion relaxation mechanism.
+In order to use NMR relaxation rates to obtain accurate estimates
+of permeability in geologic materials, we need to be able to account
+for the effects of iron-oxide minerals.Although this laboratory study
+has been a start, we believe that it is necessary to explore a larger
+range of iron minerals and to further investigate the mechanisms
+controlling the changes in relaxation behavior that we observed.
+Quantifying the physical properties of minerals that lead to varia-
+tions in relaxation rates will enhance our fundamental understanding
+of NMR relaxation and ultimately provide improved interpretation
+of NMR data.
+ACKNOWLEDGMENTS
+We would like to thank Jim Leckie and Gordon Brown for the use
+of their surface area analyzers, and Kate Tufano and Matt Ginder-
+Vogel of the Stanford Environmental Soil and Biogeochemistry
+group for providing XRD measurements. We would also like to
+thank the associate editor for his/her handling of this paper, and the
+reviewers for their helpful comments. This work was supported in
+full by funding to Rosemary Knight under grant DE-FG02-
+03ER15382-A0003 from the U.S. Department of Energy.
+REFERENCES
+Babes, L., B. Denizot, G. Tanguy, J. J. Le Jeune, and P. Jallet, 1998, Synthesis
+of iron oxide nanoparticles used as MRI contrast agents: A parametric
+study: Journal of Colloid and Interface Science, 212, 474–482.
+Bloembergen, N., E. M. Purcell, and R. V. Pound, 1948, Relaxation effects in
+nuclear magnetic resonance absorption: Physical Review, 73, 679–715.
+Brownstein, K. R., and C. E. Tarr, 1979, Importance of classical diffusion in
+NMR studies of water in biological cells: Physical Review A, 19, 2446–
+2453.
+Bryar, T. R., C. J. Daughney, and R. J. Knight, 2000, Paramagnetic effects of
+ironIII species on nuclear magnetic relaxation of ﬂuid protons in porous
+media: Journal of Magnetic Resonance, 142, 74–85.
+Carr, H. Y., and E. M. Purcell, 1954, Effects of diffusion on free precession in
+nuclear magnetic resonance experiments: Physical Review, 94, 630–638.
+Cornell, R. M., and U. Schwertmann, 2003, The iron oxides: Properties, reac-
+tions, occurrences and uses:Wiley-VCH.
+Foley, I., S. A. Farooqui, and R. L. Kleinberg, 1996, Effect of paramagnetic
+ions on NMR relaxation of ﬂuids at solid surfaces: Journal of Magnetic
+Resonance, 123, 95–104.
+Gillis, P., and S. H. Koenig, 1987, Transverse relaxation of solvent protons
+induced by magnetized spheres: Application to ferritin, erythrocytes and
+magnetite: Magnetic Resonance in Medicine, 5, 323–345.
+Godefroy, S., J. P. Korb, M. Fleury, and R. G. Bryant, 2001, Surface nuclear
+magnetic relaxation and dynamics of water and oil in macroporous media:
+Physical Review E, 64, 21605-1–13.
+Gossuin, Y., A. Roch, R. N. Muller, P. Gillis, and F. Lo Bue, 2002, Anoma-
+lous nuclear magnetic relaxation of aqueous solutions of ferritin: An un-
+precedented ﬁrst-order mechanism: Magnetic Resonance in Medicine, 48,
+959–964.
+Hansel, C. M., S. G. Benner, J. Neiss, A. Dohnalkova, R. K. Kukadapu, and
+S. Fendorf, 2003, Secondary mineralization pathways induced by dissimi-
+latory iron reduction of ferrihydrite under advective ﬂow: Geochimica et
+CosmochimicaActa, 67, 2977–2992.
+Hunt, C. P., B. M. Moskowitz, and S. K. Banerjee, 1995, Magnetic properties
+of rocks and minerals, in T. J. Ahrens, ed., Rock physics and phase rela-
+tions:Ahandbook of physical constants:AGU Books Board, 189–204.
+Korb, J. P., S. Godefroy, and M. Fleury, 2003, Surface nuclear magnetic re-
+laxation and dynamics of water and oil in granular packings and rocks:
+Magnetic Resonance Imaging, 21, 193–199.
+Legchenko, A., J. M. Baltassat, A. Beauce, and J. Bernard, 2002, Nuclear
+magnetic resonance as a geophysical tool for hydrogeologists: Journal of
+Applied Geophysics, 50, 21–46.
+Meiboom, S., and D. Gill, 1958, Modiﬁed spin-echo method for measuring
+nuclear relaxation times: Review of Scientiﬁc Instruments, 29, 688–691.
+Schwertmann, U., and R. M. Cornell, 2000, Iron oxides in the laboratory:
+Preparation and characterization:Wiley-VCH.
+Seevers, D. O., 1966, Anuclear magnetic method for determining the perme-
+ability of sandstones: Transactions of the SPWLA 7th Annual Logging
+Symposium, Paper L.
+Senturia, S. D., and J. D. Robinson, 1970, Nuclear spin-lattice relaxation of
+liquids conﬁned in porous solids: Society of Petroleum Engineers Journal,
+10, 237–244.
+Shushakov, O. A., 1996, Groundwater NMR in conductive water: Geophys-
+ics, 61, 998–1006.
+Timur, A., 1969, Pulsed nuclear magnetic resonance studies of porosity,
+movable ﬂuid, and permeability of sandstone: Journal of Petroleum Tech-
+nology, 21, 755–786.
+Vogeley, J. R., and C. O. Moses, 1992, 1H NMR relaxation and rock perme-
+ability: Geochimica et CosmochimicaActa, 56, 2947–2953.
+Whittall, K. P., M. J. Bronskill, and R. M. Henkelman, 1991, Investigation of
+analysis techniques for complicated NMR relaxation data: Journal of
+Magnetic Resonance, 95, 221–234.
+Yaramanci, U., G. Lange, and M. Hertrich, 2002, Aquifer characterization
+using surface NMR jointly with other geophysical techniques at the
+Nauen/Berlin test site: Journal ofApplied Geophysics, 50, 47–65.
+Yilmaz, A., M. Bucciolini, G. Longo, F. Franciolini, L. Ciraolo, and R. Renzi,
+1990, Determination of dependence of spin-lattice relaxation rate in serum
+upon concentration of added Fe by MRI: Clinical Physics and Physiology
+Measurements, 11, 343–439.
+E32
+Keating and Knight
+Downloaded 11/02/14 to 193.140.151.85. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/

@@ -15,11 +15,17 @@
 - Prefer 2 citations per explanation: one foundational paper and one method/scenario-specific paper.
 - Do not cite Whittall/Coates as Gaussian decomposition method papers; use them only for inversion/relaxation spectrum interpretation caution.
 - Do not cite BrownsteinTarr1979 for regularization or L-curve; use it for surface relaxation, restricted diffusion, and geometry/eigenmode mechanisms.
+- Cite Hansen1992LCurve for the L-curve concept only. The agent selects the factor whose slope reciprocal is closest to 0.25, which is not Hansen's maximum-curvature corner; do not attribute that rule to Hansen.
+- Cite Borgia1998UniformPenalty as a warning about fixed-smoothing artefacts; the agent does not implement uniform-penalty (UPEN) inversion.
+- Hurlimann1998EffectiveGradients and KleinbergHorsfield1990TransverseRelaxation explain measured data only; the agent's 2D forward model has no internal-gradient term.
+- Each new card carries a `reference_agu` entry in the enriched manifest for the reference list.
 
 ## High-priority foundational citations
 
 - Surface relaxation and restricted diffusion: [@BrownsteinTarr1979], [@MullerPetke2015DiffusionRegimes], [@Mohnke2015TriangularPores].
-- Inversion/regularization: [@Whittall1991NNLS], [@Coates1999NMRLogging].
+- Inversion/regularization: [@Whittall1991NNLS], [@WhittallMacKay1989NNLS], [@Hansen1992LCurve], [@Borgia1998UniformPenalty], [@Coates1999NMRLogging].
+- Relaxation mechanism and mineralogy: [@Kleinberg1994RelaxationMechanism], [@Foley1996ParamagneticIons], [@KeatingKnight2007IronOxides].
+- Echo spacing and internal gradients in measured data: [@KleinbergHorsfield1990TransverseRelaxation], [@Hurlimann1998EffectiveGradients].
 - Diffusive pore coupling: [@Chi2015DiffusionalCoupling], [@Song2014PoreCouplingReview], [@Fraga2013CarbonatePoreCoupling], [@Fleury2009PoreCoupling].
 - Random-walk simulation: [@Toumelin2007GeneralRandomWalk], [@Toumelin2002MonteCarloNMR], [@Liebig1993RandomWalk], [@Noetinger2016DiffusionRandomWalk].
 - FEM/FVM/internal gradients: [@Tandon2018FiniteVolumeInternalGradients], [@Mitchell2019FiniteElementNMR], [@Gonzalez2020FieldInhomogeneities].

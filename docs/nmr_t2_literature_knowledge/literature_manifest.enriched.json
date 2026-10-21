@@ -52,7 +52,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "BrownsteinTarr1979"
+    "citation_key_original": "BrownsteinTarr1979",
+    "doi": "10.1103/physreva.19.2446",
+    "reference_agu": "Brownstein, K. R., & Tarr, C. E. (1979). Importance of classical diffusion in NMR studies of water in biological cells. Physical Review A, 19(6), 2446–2453. https://doi.org/10.1103/physreva.19.2446",
+    "in_text": "Brownstein & Tarr, 1979",
+    "year": 1979,
+    "crossref_title": "Importance of classical diffusion in NMR studies of water in biological cells",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Whittall1991NNLS",
@@ -123,7 +132,16 @@
       "regularized_inversion",
       "sampling"
     ],
-    "citation_key_original": "Whittall1991"
+    "citation_key_original": "Whittall1991",
+    "doi": "10.1016/0022-2364(91)90213-d",
+    "reference_agu": "Whittall, K. P., Bronskill, M. J., & Henkelman, R. M. (1991). Investigation of analysis techniques for complicated NMR relaxation data. Journal of Magnetic Resonance, 95(2), 221–234. https://doi.org/10.1016/0022-2364(91)90213-d",
+    "in_text": "Whittall et al., 1991",
+    "year": 1991,
+    "crossref_title": "Investigation of analysis techniques for complicated NMR relaxation data",
+    "title_similarity_to_card": 0.08,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Song2012MRPM",
@@ -230,7 +248,16 @@
       "t1_t2",
       "t2_t2"
     ],
-    "citation_key_original": "Song2012"
+    "citation_key_original": "Song2012",
+    "doi": "10.1016/j.jmr.2012.11.010",
+    "reference_agu": "Song, Y.-Q. (2013). Magnetic Resonance of Porous Media (MRPM): A perspective. Journal of Magnetic Resonance, 229, 12–24. https://doi.org/10.1016/j.jmr.2012.11.010",
+    "in_text": "Song, 2013",
+    "year": 2013,
+    "crossref_title": "Magnetic Resonance of Porous Media (MRPM): A perspective",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Ramakrishnan1999Carbonates",
@@ -298,7 +325,8 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Ramakrishnan1999"
+    "citation_key_original": "Ramakrishnan1999",
+    "reference_verified": false
   },
   {
     "citation_key": "Mohnke2015TriangularPores",
@@ -373,7 +401,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Mohnke2015"
+    "citation_key_original": "Mohnke2015",
+    "doi": "10.5194/hess-19-2763-2015",
+    "reference_agu": "Mohnke, O., Jorand, R., Nordlund, C., & Klitzsch, N. (2015). Understanding NMR relaxometry of partially water-saturated rocks. Hydrology and Earth System Sciences, 19(6), 2763–2773. https://doi.org/10.5194/hess-19-2763-2015",
+    "in_text": "Mohnke et al., 2015",
+    "year": 2015,
+    "crossref_title": "Understanding NMR relaxometry of partially water-saturated rocks",
+    "title_similarity_to_card": 0.22,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "MullerPetke2015DiffusionRegimes",
@@ -455,7 +492,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Muller2015"
+    "citation_key_original": "Muller2015",
+    "doi": "10.1190/geo2014-0167.1",
+    "reference_agu": "Müller-Petke, M., Dlugosch, R., Lehmann-Horn, J., & Ronczka, M. (2015). Nuclear magnetic resonance average pore-size estimations outside the fast-diffusion regime. Geophysics, 80(3), D195–D206. https://doi.org/10.1190/geo2014-0167.1",
+    "in_text": "Müller-Petke et al., 2015",
+    "year": 2015,
+    "crossref_title": "Nuclear magnetic resonance average pore-size estimations outside the fast-diffusion regime",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Keating2012NMRAssumptions",
@@ -550,7 +596,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Keating2012"
+    "citation_key_original": "Keating2012",
+    "doi": "10.1190/geo2011-0462.1",
+    "reference_agu": "Keating, K., & Knight, R. (2012). The effect of spatial variation in surface relaxivity on nuclear magnetic resonance relaxation rates. Geophysics, 77(5), E365–E377. https://doi.org/10.1190/geo2011-0462.1",
+    "in_text": "Keating & Knight, 2012",
+    "year": 2012,
+    "crossref_title": "The effect of spatial variation in surface relaxivity on nuclear magnetic resonance relaxation rates",
+    "title_similarity_to_card": 0.02,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Dunn2002PorousMediaNMR",
@@ -655,7 +710,12 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Dunn2002"
+    "citation_key_original": "Dunn2002",
+    "reference_agu": "Dunn, K.-J., Bergman, D. J., & Latorraca, G. A. (2002). Nuclear magnetic resonance: Petrophysical and logging applications. Oxford, UK: Pergamon.",
+    "in_text": "Dunn et al., 2002",
+    "year": 2002,
+    "reference_verified": true,
+    "reference_source": "book title page"
   },
   {
     "citation_key": "Coates1999NMRLogging",
@@ -757,7 +817,12 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Coates1999"
+    "citation_key_original": "Coates1999",
+    "reference_agu": "Coates, G. R., Xiao, L., & Prammer, M. G. (1999). NMR logging: Principles and applications. Houston, TX: Halliburton Energy Services.",
+    "in_text": "Coates et al., 1999",
+    "year": 1999,
+    "reference_verified": true,
+    "reference_source": "book title page"
   },
   {
     "citation_key": "Toumelin2007GeneralRandomWalk",
@@ -853,7 +918,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Toumelin2007"
+    "citation_key_original": "Toumelin2007",
+    "doi": "10.1016/j.jmr.2007.05.024",
+    "reference_agu": "Toumelin, E., Torres-Verdín, C., Sun, B., & Dunn, K.-J. (2007). Random-walk technique for simulating NMR measurements and 2D NMR maps of porous media with relaxing and permeable boundaries. Journal of Magnetic Resonance, 188(1), 83–96. https://doi.org/10.1016/j.jmr.2007.05.024",
+    "in_text": "Toumelin et al., 2007",
+    "year": 2007,
+    "crossref_title": "Random-walk technique for simulating NMR measurements and 2D NMR maps of porous media with relaxing and permeable boundaries",
+    "title_similarity_to_card": 0.08,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Toumelin2003GeneralRandomWalk",
@@ -960,7 +1034,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Toumelin2003"
+    "citation_key_original": "Toumelin2003",
+    "doi": "10.2118/85635-pa",
+    "reference_agu": "Toumelin, E., Torres-Verdín, C., & Chen, S. (2003). Modeling of Multiple Echo-Time NMR Measurements for Complex Pore Geometries and Multiphase Saturations. SPE Reservoir Evaluation &amp; Engineering, 6(04), 234–243. https://doi.org/10.2118/85635-pa",
+    "in_text": "Toumelin et al., 2003",
+    "year": 2003,
+    "crossref_title": "Modeling of Multiple Echo-Time NMR Measurements for Complex Pore Geometries and Multiphase Saturations",
+    "title_similarity_to_card": 0.17,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Toumelin2003TemperatureDiffusiveCoupling",
@@ -1038,7 +1121,8 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Toumelin2003"
+    "citation_key_original": "Toumelin2003",
+    "reference_verified": false
   },
   {
     "citation_key": "Toumelin2002MonteCarloNMR",
@@ -1132,7 +1216,8 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Toumelin2002"
+    "citation_key_original": "Toumelin2002",
+    "reference_verified": false
   },
   {
     "citation_key": "Chi2015DiffusionalCoupling",
@@ -1229,7 +1314,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Chi2015"
+    "citation_key_original": "Chi2015",
+    "doi": "10.1190/geo2013-0467.1",
+    "reference_agu": "Chi, L., & Heidari, Z. (2015). Diffusional coupling between microfractures and pore structure and its impact on nuclear magnetic resonance measurements in multiple-porosity systems. Geophysics, 80(1), D31–D42. https://doi.org/10.1190/geo2013-0467.1",
+    "in_text": "Chi & Heidari, 2015",
+    "year": 2015,
+    "crossref_title": "Diffusional coupling between microfractures and pore structure and its impact on nuclear magnetic resonance measurements in multiple-porosity systems",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Fraga2013CarbonatePoreCoupling",
@@ -1283,7 +1377,8 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Fraga2013"
+    "citation_key_original": "Fraga2013",
+    "reference_verified": false
   },
   {
     "citation_key": "Carneiro2014DiffusiveCoupling",
@@ -1336,7 +1431,8 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Carneiro2014"
+    "citation_key_original": "Carneiro2014",
+    "reference_verified": false
   },
   {
     "citation_key": "Alhwety2014RockTypingDiffusiveCoupling",
@@ -1440,7 +1536,8 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Alhwety2014"
+    "citation_key_original": "Alhwety2014",
+    "reference_verified": false
   },
   {
     "citation_key": "LucasOliveira2018RestrictedDiffusion",
@@ -1554,7 +1651,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Lucas2018"
+    "citation_key_original": "Lucas2018",
+    "doi": "10.1016/j.jmr.2018.05.001",
+    "reference_agu": "Lucas-Oliveira, E., Araujo-Ferreira, A. G., Trevizan, W. A., Fortulan, C. A., & Bonagamba, T. J. (2018). Computational approach to integrate 3D X-ray microtomography and NMR data. Journal of Magnetic Resonance, 292, 16–24. https://doi.org/10.1016/j.jmr.2018.05.001",
+    "in_text": "Lucas-Oliveira et al., 2018",
+    "year": 2018,
+    "crossref_title": "Computational approach to integrate 3D X-ray microtomography and NMR data",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Guo2016MultidimensionalNMRSimulation",
@@ -1660,7 +1766,16 @@
       "t1_t2",
       "t2_t2"
     ],
-    "citation_key_original": "Guo2016"
+    "citation_key_original": "Guo2016",
+    "doi": "10.1088/1742-2132/13/3/285",
+    "reference_agu": "Guo, J., Xie, R., Zou, Y., & Ding, Y. (2016). Numerical simulation of multi-dimensional NMR response in tight sandstone. Journal of Geophysics and Engineering, 13(3), 285–294. https://doi.org/10.1088/1742-2132/13/3/285",
+    "in_text": "Guo et al., 2016",
+    "year": 2016,
+    "crossref_title": "Numerical simulation of multi-dimensional NMR response in tight sandstone",
+    "title_similarity_to_card": 0.69,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "McCall1991RestrictedDiffusion",
@@ -1727,7 +1842,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Mccall1991"
+    "citation_key_original": "Mccall1991",
+    "doi": "10.1103/physrevb.44.7344",
+    "reference_agu": "McCall, K. R., Johnson, D. L., & Guyer, R. A. (1991). Magnetization evolution in connected pore systems. Physical Review B, 44(14), 7344–7355. https://doi.org/10.1103/physrevb.44.7344",
+    "in_text": "McCall et al., 1991",
+    "year": 1991,
+    "crossref_title": "Magnetization evolution in connected pore systems",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Liebig1993RandomWalk",
@@ -1794,7 +1918,8 @@
       "random_walk",
       "restricted_diffusion"
     ],
-    "citation_key_original": "Leibig1993"
+    "citation_key_original": "Leibig1993",
+    "reference_verified": false
   },
   {
     "citation_key": "Noetinger2016DiffusionRandomWalk",
@@ -1888,7 +2013,16 @@
       "random_walk",
       "restricted_diffusion"
     ],
-    "citation_key_original": "Noetinger2016"
+    "citation_key_original": "Noetinger2016",
+    "doi": "10.1007/s11242-016-0693-z",
+    "reference_agu": "Noetinger, B., Roubinet, D., Russian, A., Le Borgne, T., Delay, F., Dentz, M., de Dreuzy, J.-R., & Gouze, P. (2016). Random Walk Methods for Modeling Hydrodynamic Transport in Porous and Fractured Media from Pore to Reservoir Scale. Transport in Porous Media, 115(2), 345–385. https://doi.org/10.1007/s11242-016-0693-z",
+    "in_text": "Noetinger et al., 2016",
+    "year": 2016,
+    "crossref_title": "Random Walk Methods for Modeling Hydrodynamic Transport in Porous and Fractured Media from Pore to Reservoir Scale",
+    "title_similarity_to_card": 0.23,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Gonzalez2020FieldInhomogeneities",
@@ -2002,7 +2136,16 @@
       "random_walk",
       "restricted_diffusion"
     ],
-    "citation_key_original": "Gonzalez2020"
+    "citation_key_original": "Gonzalez2020",
+    "doi": "10.1007/s00723-020-01200-6",
+    "reference_agu": "Gonzalez, J. L., de Faria, E. L., Albuquerque, M. P., Albuquerque, M. P., Bom, C. R., Freitas, J. C. C., & Correia, M. D. (2020). Simulations of NMR Relaxation in a Real Porous Structure: Pre-asymptotic Behavior to the Localization Regime. Applied Magnetic Resonance, 51(6), 581–595. https://doi.org/10.1007/s00723-020-01200-6",
+    "in_text": "Gonzalez et al., 2020",
+    "year": 2020,
+    "crossref_title": "Simulations of NMR Relaxation in a Real Porous Structure: Pre-asymptotic Behavior to the Localization Regime",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "SCA2008PoreScaleNMRSimulation",
@@ -2083,7 +2226,8 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Sca2008"
+    "citation_key_original": "Sca2008",
+    "reference_verified": false
   },
   {
     "citation_key": "Tandon2018FiniteVolumeInternalGradients",
@@ -2186,7 +2330,16 @@
       "pore_shape",
       "restricted_diffusion"
     ],
-    "citation_key_original": "Tandon2018"
+    "citation_key_original": "Tandon2018",
+    "doi": "10.2118/181532-pa",
+    "reference_agu": "Tandon, S., & Heidari, Z. (2018). Effect of Internal Magnetic-Field Gradients on Nuclear-Magnetic-Resonance Measurements and Nuclear-Magnetic-Resonance-Based Pore-Network Characterization. SPE Reservoir Evaluation &amp; Engineering, 21(03), 609–625. https://doi.org/10.2118/181532-pa",
+    "in_text": "Tandon & Heidari, 2018",
+    "year": 2018,
+    "crossref_title": "Effect of Internal Magnetic-Field Gradients on Nuclear-Magnetic-Resonance Measurements and Nuclear-Magnetic-Resonance-Based Pore-Network Characterization",
+    "title_similarity_to_card": 0.89,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Ghomeshi2018FEMNMR",
@@ -2283,7 +2436,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Ghomeshi2018"
+    "citation_key_original": "Ghomeshi2018",
+    "doi": "10.1016/j.jmr.2018.02.007",
+    "reference_agu": "Ghomeshi, S., Kryuchkov, S., & Kantzas, A. (2018). An investigation into the effects of pore connectivity on T NMR relaxation. Journal of Magnetic Resonance, 289, 79–91. https://doi.org/10.1016/j.jmr.2018.02.007",
+    "in_text": "Ghomeshi et al., 2018",
+    "year": 2018,
+    "crossref_title": "An investigation into the effects of pore connectivity on T NMR relaxation",
+    "title_similarity_to_card": 0.99,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Mitchell2019FiniteElementNMR",
@@ -2398,7 +2560,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Mitchel2019"
+    "citation_key_original": "Mitchel2019",
+    "doi": "10.1063/1.5092159",
+    "reference_agu": "Mitchell, J., Souza, A., Fordham, E., & Boyd, A. (2019). A finite element approach to forward modeling of nuclear magnetic resonance measurements in coupled pore systems. The Journal of Chemical Physics, 150(15), 154708. https://doi.org/10.1063/1.5092159",
+    "in_text": "Mitchell et al., 2019",
+    "year": 2019,
+    "crossref_title": "A finite element approach to forward modeling of nuclear magnetic resonance measurements in coupled pore systems",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Mohnke2010PoreScaleSimulation",
@@ -2519,7 +2690,8 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Mohnke2010"
+    "citation_key_original": "Mohnke2010",
+    "reference_verified": false
   },
   {
     "citation_key": "Schwartz2013T2T2Simulation",
@@ -2612,7 +2784,16 @@
       "t1_t2",
       "t2_t2"
     ],
-    "citation_key_original": "Schwartz2013"
+    "citation_key_original": "Schwartz2013",
+    "doi": "10.1103/physreve.88.032813",
+    "reference_agu": "Schwartz, L. M., Johnson, D. L., Mitchell, J., Chandrasekera, T. C., & Fordham, E. J. (2013). Modeling two-dimensional magnetic resonance measurements in coupled pore systems. Physical Review E, 88(3), 032813. https://doi.org/10.1103/physreve.88.032813",
+    "in_text": "Schwartz et al., 2013",
+    "year": 2013,
+    "crossref_title": "Modeling two-dimensional magnetic resonance measurements in coupled pore systems",
+    "title_similarity_to_card": 0.02,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Hagslatt2002RestrictiveGeometries",
@@ -2663,7 +2844,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Hagslatt2002"
+    "citation_key_original": "Hagslatt2002",
+    "doi": "10.1016/s1090-7807(02)00039-3",
+    "reference_agu": "Hagslätt, H., Jönsson, B., Nydén, M., & Söderman, O. (2003). Predictions of pulsed field gradient NMR echo-decays for molecules diffusing in various restrictive geometries. Simulations of diffusion propagators based on a finite element method. Journal of Magnetic Resonance, 161(2), 138–147. https://doi.org/10.1016/s1090-7807(02)00039-3",
+    "in_text": "Hagslätt et al., 2003",
+    "year": 2003,
+    "crossref_title": "Predictions of pulsed field gradient NMR echo-decays for molecules diffusing in various restrictive geometries. Simulations of diffusion propagators based on a finite element method",
+    "title_similarity_to_card": 0.04,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 0.83
   },
   {
     "citation_key": "Oliveira2021COMSOLNMRGuide",
@@ -2762,7 +2952,8 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Oliveira2021"
+    "citation_key_original": "Oliveira2021",
+    "reference_verified": false
   },
   {
     "citation_key": "Mohnke2014LBMNMR",
@@ -2854,7 +3045,8 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Mohnke2014"
+    "citation_key_original": "Mohnke2014",
+    "reference_verified": false
   },
   {
     "citation_key": "Guyer2000LBMDiffusion",
@@ -2921,7 +3113,8 @@
       "pore_shape",
       "restricted_diffusion"
     ],
-    "citation_key_original": "Guyer2000"
+    "citation_key_original": "Guyer2000",
+    "reference_verified": false
   },
   {
     "citation_key": "Chang2000MatrixDiagonalization",
@@ -3000,7 +3193,8 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Chang2000"
+    "citation_key_original": "Chang2000",
+    "reference_verified": false
   },
   {
     "citation_key": "Chang2001DrainageSaturationHistory",
@@ -3081,7 +3275,8 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Chang2001"
+    "citation_key_original": "Chang2001",
+    "reference_verified": false
   },
   {
     "citation_key": "MatrixDiagonalization2002NMR",
@@ -3159,7 +3354,16 @@
       "pore_shape",
       "restricted_diffusion"
     ],
-    "citation_key_original": "S1979"
+    "citation_key_original": "S1979",
+    "doi": "10.1006/jcis.2002.8472",
+    "reference_agu": "Chang, D., & Ioannidis, M. A. (2002). Magnetization Evolution in Network Models of Porous Rock under Conditions of Drainage and Imbibition. Journal of Colloid and Interface Science, 253(1), 159–170. https://doi.org/10.1006/jcis.2002.8472",
+    "in_text": "Chang & Ioannidis, 2002",
+    "year": 2002,
+    "crossref_title": "Magnetization Evolution in Network Models of Porous Rock under Conditions of Drainage and Imbibition",
+    "title_similarity_to_card": 0.99,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Tan2012T2T1Simulation",
@@ -3229,7 +3433,16 @@
       "t1_t2",
       "t2_t2"
     ],
-    "citation_key_original": "Tan2012"
+    "citation_key_original": "Tan2012",
+    "doi": "10.1007/s11770-012-0351-3",
+    "reference_agu": "Tan, M.-J., Zou, Y.-L., Zhang, J.-Y., & Zhao, X. (2012). Numerical simulation of (T2, T1) 2D NMR and fluid responses. Applied Geophysics, 9(4), 401–413. https://doi.org/10.1007/s11770-012-0351-3",
+    "in_text": "Tan et al., 2012",
+    "year": 2012,
+    "crossref_title": "Numerical simulation of (T2, T1) 2D NMR and fluid responses",
+    "title_similarity_to_card": 0.77,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "EchoTrainSimulation2021",
@@ -3295,7 +3508,16 @@
       "pulse_sequence",
       "sampling"
     ],
-    "citation_key_original": "EchoTrainSimulation2021"
+    "citation_key_original": "EchoTrainSimulation2021",
+    "doi": "10.1016/j.cageo.2021.104761",
+    "reference_agu": "Ge, X., Fan, Y., Liu, J., Zhao, J., Zeng, B., & Xing, D. (2021). Numerical investigating the low field NMR response of representative pores at different pulse sequence parameters. Computers &amp; Geosciences, 151, 104761. https://doi.org/10.1016/j.cageo.2021.104761",
+    "in_text": "Ge et al., 2021",
+    "year": 2021,
+    "crossref_title": "Numerical investigating the low field NMR response of representative pores at different pulse sequence parameters",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Song2014PoreCouplingReview",
@@ -3361,7 +3583,16 @@
       "t1_t2",
       "t2_t2"
     ],
-    "citation_key_original": "Song2014"
+    "citation_key_original": "Song2014",
+    "doi": "10.1103/physrevlett.113.235503",
+    "reference_agu": "Song, Y.-Q., Carneiro, G., Schwartz, L. M., & Johnson, D. L. (2014). Experimental Identification of Diffusive Coupling Using 2D NMR. Physical Review Letters, 113(23), 235503. https://doi.org/10.1103/physrevlett.113.235503",
+    "in_text": "Song et al., 2014",
+    "year": 2014,
+    "crossref_title": "Experimental Identification of Diffusive Coupling Using 2D NMR",
+    "title_similarity_to_card": 0.14,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Grunewald2009PoreCoupling",
@@ -3457,7 +3688,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "Grunewald2009"
+    "citation_key_original": "Grunewald2009",
+    "doi": "10.1190/1.3223712",
+    "reference_agu": "Grunewald, E., & Knight, R. (2009). A laboratory study of NMR relaxation times and pore coupling in heterogeneous media. Geophysics, 74(6), E215–E221. https://doi.org/10.1190/1.3223712",
+    "in_text": "Grunewald & Knight, 2009",
+    "year": 2009,
+    "crossref_title": "A laboratory study of NMR relaxation times and pore coupling in heterogeneous media",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Fleury2009PoreCoupling",
@@ -3542,7 +3782,16 @@
       "surface_relaxation",
       "surface_relaxivity"
     ],
-    "citation_key_original": "X2009"
+    "citation_key_original": "X2009",
+    "doi": "10.1016/j.jcis.2009.03.051",
+    "reference_agu": "Fleury, M., & Soualem, J. (2009). Quantitative analysis of diffusional pore coupling from T2-store-T2 NMR experiments. Journal of Colloid and Interface Science, 336(1), 250–259. https://doi.org/10.1016/j.jcis.2009.03.051",
+    "in_text": "Fleury & Soualem, 2009",
+    "year": 2009,
+    "crossref_title": "Quantitative analysis of diffusional pore coupling from T2-store-T2 NMR experiments",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Yu2019T2T2",
@@ -3638,7 +3887,16 @@
       "t1_t2",
       "t2_t2"
     ],
-    "citation_key_original": "Yu2019"
+    "citation_key_original": "Yu2019",
+    "doi": "10.1016/j.mri.2018.10.008",
+    "reference_agu": "Yu, Z., Zhang, Y., Xiao, L., & Liao, G. (2019). Characterization of porous media by T2-T2 correlation beyond fast diffusion limit. Magnetic Resonance Imaging, 56, 19–23. https://doi.org/10.1016/j.mri.2018.10.008",
+    "in_text": "Yu et al., 2019",
+    "year": 2019,
+    "crossref_title": "Characterization of porous media by T2-T2 correlation beyond fast diffusion limit",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Song2016T2T2",
@@ -3749,7 +4007,16 @@
       "t1_t2",
       "t2_t2"
     ],
-    "citation_key_original": "X2016"
+    "citation_key_original": "X2016",
+    "doi": "10.1016/j.jmr.2016.02.001",
+    "reference_agu": "Song, R., Song, Y.-Q., Vembusubramanian, M., & Paulsen, J. L. (2016). The robust identification of exchange from T2–T2 time-domain features. Journal of Magnetic Resonance, 265, 164–171. https://doi.org/10.1016/j.jmr.2016.02.001",
+    "in_text": "Song et al., 2016",
+    "year": 2016,
+    "crossref_title": "The robust identification of exchange from T2–T2 time-domain features",
+    "title_similarity_to_card": 0.97,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 0.86
   },
   {
     "citation_key": "Song2008T2T2",
@@ -3821,7 +4088,16 @@
       "t1_t2",
       "t2_t2"
     ],
-    "citation_key_original": "X2008"
+    "citation_key_original": "X2008",
+    "doi": "10.1103/physrevlett.100.248002",
+    "reference_agu": "Song, Y.-Q., Zielinski, L., & Ryu, S. (2008). Two-Dimensional NMR of Diffusion Systems. Physical Review Letters, 100(24), 248002. https://doi.org/10.1103/physrevlett.100.248002",
+    "in_text": "Song et al., 2008",
+    "year": 2008,
+    "crossref_title": "Two-Dimensional NMR of Diffusion Systems",
+    "title_similarity_to_card": 0.08,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Johnson2014T2T2",
@@ -3901,7 +4177,16 @@
       "t1_t2",
       "t2_t2"
     ],
-    "citation_key_original": "X2014"
+    "citation_key_original": "X2014",
+    "doi": "10.1103/physreve.90.032407",
+    "reference_agu": "Johnson, D. L., & Schwartz, L. M. (2014). Analytic theory of two-dimensional NMR in systems with coupled macro- and micropores. Physical Review E, 90(3), 032407. https://doi.org/10.1103/physreve.90.032407",
+    "in_text": "Johnson & Schwartz, 2014",
+    "year": 2014,
+    "crossref_title": "Analytic theory of two-dimensional NMR in systems with coupled macro- and micropores",
+    "title_similarity_to_card": 0.14,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   },
   {
     "citation_key": "Monteilhet2006T2T2",
@@ -3987,6 +4272,328 @@
       "t1_t2",
       "t2_t2"
     ],
-    "citation_key_original": "Monteilheit2006"
+    "citation_key_original": "Monteilheit2006",
+    "doi": "10.1103/physreve.74.061404",
+    "reference_agu": "Monteilhet, L., Korb, J.-P., Mitchell, J., & McDonald, P. J. (2006). Observation of exchange of micropore water in cement pastes by two-dimensional T2–T2 nuclear magnetic resonance relaxometry. Physical Review E, 74(6), 061404. https://doi.org/10.1103/physreve.74.061404",
+    "in_text": "Monteilhet et al., 2006",
+    "year": 2006,
+    "crossref_title": "Observation of exchange of micropore water in cement pastes by two-dimensional T2–T2 nuclear magnetic resonance relaxometry",
+    "title_similarity_to_card": 0.16,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 0.43
+  },
+  {
+    "citation_key": "Hansen1992LCurve",
+    "pdf_name": "Hansen1992_LCurve.pdf",
+    "category": "01_core_theory_inversion",
+    "selected_dest": "01_core_theory_inversion\\Hansen1992_LCurve.pdf",
+    "source_original": "NMR Theory and Review\\Hansen1992_LCurve.pdf",
+    "selection_reason": "L-curve 的原始方法文献：残差范数与解的（半）范数构成的 L 形曲线及其拐角与正则化参数选择的关系。",
+    "pages": 20,
+    "sha256_16": "6a8752140cf748b5",
+    "text_chars": 58120,
+    "text_cache": "_extracted_text\\Hansen1992_6a8752140cf748b5.txt",
+    "doi": "10.1137/1034115",
+    "title": "Analysis of Discrete Ill-Posed Problems by Means of the L-Curve",
+    "reference_agu": "Hansen, P. C. (1992). Analysis of Discrete Ill-Posed Problems by Means of the L-Curve. SIAM Review, 34(4), 561–580. https://doi.org/10.1137/1034115",
+    "agent_citation_key": "Hansen1992LCurve",
+    "citation_key_original": "Hansen1992LCurve",
+    "card_md": "papers\\Hansen1992LCurve.md",
+    "curated_concepts": [
+      "L-curve 与正则化参数选择"
+    ],
+    "retrieval_tags": [
+      "core_theory_inversion",
+      "ill_posed",
+      "lcurve",
+      "regularization",
+      "regularization_parameter",
+      "regularized_inversion",
+      "tikhonov"
+    ],
+    "extraction_errors": [],
+    "in_text": "Hansen, 1992",
+    "year": 1992,
+    "crossref_title": "Analysis of Discrete Ill-Posed Problems by Means of the L-Curve",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
+  },
+  {
+    "citation_key": "WhittallMacKay1989NNLS",
+    "pdf_name": "WhittallMacKay1989_NNLS.pdf",
+    "category": "01_core_theory_inversion",
+    "selected_dest": "01_core_theory_inversion\\WhittallMacKay1989_NNLS.pdf",
+    "source_original": "NMR Theory and Review\\WhittallMacKay1989_NNLS.pdf",
+    "selection_reason": "用最小二乘/线性规划把弛豫数据解释为弛豫时间谱的经典方法文献，明确指出解的非唯一性。",
+    "pages": 19,
+    "sha256_16": "dcadb516c07fc4a7",
+    "text_chars": 46813,
+    "text_cache": "_extracted_text\\WhittallMacKay1989_dcadb516c07fc4a7.txt",
+    "doi": "10.1016/0022-2364(89)90011-5",
+    "title": "Quantitative interpretation of NMR relaxation data",
+    "reference_agu": "Whittall, K. P., & MacKay, A. L. (1989). Quantitative interpretation of NMR relaxation data. Journal of Magnetic Resonance, 84(1), 134–152. https://doi.org/10.1016/0022-2364(89)90011-5",
+    "agent_citation_key": "WhittallMacKay1989NNLS",
+    "citation_key_original": "WhittallMacKay1989NNLS",
+    "card_md": "papers\\WhittallMacKay1989NNLS.md",
+    "curated_concepts": [
+      "反演谱的非唯一性",
+      "最小结构解"
+    ],
+    "retrieval_tags": [
+      "component_assignment",
+      "core_theory_inversion",
+      "ill_posed",
+      "inverse_laplace",
+      "nnls",
+      "nonuniqueness",
+      "peak_count",
+      "regularized_inversion"
+    ],
+    "extraction_errors": [],
+    "in_text": "Whittall & MacKay, 1989",
+    "year": 1989,
+    "crossref_title": "Quantitative interpretation of NMR relaxation data",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
+  },
+  {
+    "citation_key": "Borgia1998UniformPenalty",
+    "pdf_name": "Borgia1998_UniformPenaltyInversion.pdf",
+    "category": "01_core_theory_inversion",
+    "selected_dest": "01_core_theory_inversion\\Borgia1998_UniformPenaltyInversion.pdf",
+    "source_original": "NMR Theory and Review\\Borgia1998_UniformPenaltyInversion.pdf",
+    "selection_reason": "说明固定平滑系数会展宽尖峰或把宽峰/拖尾拆成假多峰，并提出局部可变平滑（UPEN）。",
+    "pages": 13,
+    "sha256_16": "ca489669566ddcff",
+    "text_chars": 64842,
+    "text_cache": "_extracted_text\\Borgia1998_ca489669566ddcff.txt",
+    "doi": "10.1006/jmre.1998.1387",
+    "title": "Uniform-Penalty Inversion of Multiexponential Decay Data",
+    "reference_agu": "Borgia, G. C., Brown, R. J. S., & Fantazzini, P. (1998). Uniform-Penalty Inversion of Multiexponential Decay Data. Journal of Magnetic Resonance, 132(1), 65–77. https://doi.org/10.1006/jmre.1998.1387",
+    "agent_citation_key": "Borgia1998UniformPenalty",
+    "citation_key_original": "Borgia1998UniformPenalty",
+    "card_md": "papers\\Borgia1998UniformPenalty.md",
+    "curated_concepts": [
+      "固定平滑因子造成的峰形伪影"
+    ],
+    "retrieval_tags": [
+      "core_theory_inversion",
+      "false_peaks",
+      "multimodal",
+      "peak_broadening",
+      "peak_splitting",
+      "regularization",
+      "regularized_inversion",
+      "smoothing"
+    ],
+    "extraction_errors": [],
+    "in_text": "Borgia et al., 1998",
+    "year": 1998,
+    "crossref_title": "Uniform-Penalty Inversion of Multiexponential Decay Data",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
+  },
+  {
+    "citation_key": "KleinbergHorsfield1990TransverseRelaxation",
+    "pdf_name": "KleinbergHorsfield1990_TransverseRelaxation.pdf",
+    "category": "05_relaxation_mechanism_mineralogy",
+    "selected_dest": "05_relaxation_mechanism_mineralogy\\KleinbergHorsfield1990_TransverseRelaxation.pdf",
+    "source_original": "NMR Theory and Review\\KleinbergHorsfield1990_TransverseRelaxation.pdf",
+    "selection_reason": "实测 T2 随静磁场强度与 CPMG 脉冲间隔变化：低场短间隔时以表面弛豫为主，高场长间隔时出现梯度中扩散。",
+    "pages": 11,
+    "sha256_16": "a8c2a76a411e7449",
+    "text_chars": 27411,
+    "text_cache": "_extracted_text\\KleinbergHorsfield1990_a8c2a76a411e7449.txt",
+    "doi": "10.1016/0022-2364(90)90104-h",
+    "title": "Transverse relaxation processes in porous sedimentary rock",
+    "reference_agu": "Kleinberg, R. L., & Horsfield, M. A. (1990). Transverse relaxation processes in porous sedimentary rock. Journal of Magnetic Resonance, 88(1), 9–19. https://doi.org/10.1016/0022-2364(90)90104-h",
+    "agent_citation_key": "KleinbergHorsfield1990TransverseRelaxation",
+    "citation_key_original": "KleinbergHorsfield1990TransverseRelaxation",
+    "card_md": "papers\\KleinbergHorsfield1990TransverseRelaxation.md",
+    "curated_concepts": [
+      "T2 何时由表面弛豫主导"
+    ],
+    "retrieval_tags": [
+      "cpmg",
+      "echo_spacing",
+      "internal_gradient",
+      "relaxation_mechanism",
+      "restricted_diffusion",
+      "surface_relaxation",
+      "susceptibility_contrast"
+    ],
+    "extraction_errors": [],
+    "in_text": "Kleinberg & Horsfield, 1990",
+    "year": 1990,
+    "crossref_title": "Transverse relaxation processes in porous sedimentary rock",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
+  },
+  {
+    "citation_key": "Kleinberg1994RelaxationMechanism",
+    "pdf_name": "Kleinberg1994_RelaxationMechanism.pdf",
+    "category": "05_relaxation_mechanism_mineralogy",
+    "selected_dest": "05_relaxation_mechanism_mineralogy\\Kleinberg1994_RelaxationMechanism.pdf",
+    "source_original": "NMR Theory and Review\\Kleinberg1994_RelaxationMechanism.pdf",
+    "selection_reason": "总结岩石孔隙流体弛豫机理：表面顺磁离子主导、快扩散区制下弛豫谱与 S/V 谱对应，并给出 T1/T2 与表面弛豫率的典型值。",
+    "pages": 9,
+    "sha256_16": "3801083998551682",
+    "text_chars": 2518,
+    "text_cache": "_extracted_text\\Kleinberg1994_3801083998551682.txt",
+    "doi": "10.1006/jmra.1994.1112",
+    "title": "Mechanism of NMR Relaxation of Fluids in Rock",
+    "reference_agu": "Kleinberg, R. L., Kenyon, W. E., & Mitra, P. P. (1994). Mechanism of NMR Relaxation of Fluids in Rock. Journal of Magnetic Resonance, Series A, 108(2), 206–214. https://doi.org/10.1006/jmra.1994.1112",
+    "agent_citation_key": "Kleinberg1994RelaxationMechanism",
+    "citation_key_original": "Kleinberg1994RelaxationMechanism",
+    "card_md": "papers\\Kleinberg1994RelaxationMechanism.md",
+    "curated_concepts": [
+      "T2 谱与孔隙 S/V 的对应条件",
+      "矿物与顺磁离子对 T2 的影响",
+      "T1/T2 的典型值"
+    ],
+    "retrieval_tags": [
+      "fast_diffusion",
+      "mineralogy",
+      "paramagnetic",
+      "pore_size",
+      "relaxation_mechanism",
+      "short_t2",
+      "surface_relaxation",
+      "surface_relaxivity",
+      "t1_t2"
+    ],
+    "extraction_errors": [
+      "scanned_pdf_no_text_layer_manual_notes"
+    ],
+    "in_text": "Kleinberg et al., 1994",
+    "year": 1994,
+    "crossref_title": "Mechanism of NMR Relaxation of Fluids in Rock",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
+  },
+  {
+    "citation_key": "Foley1996ParamagneticIons",
+    "pdf_name": "Foley1996_ParamagneticIons.pdf",
+    "category": "05_relaxation_mechanism_mineralogy",
+    "selected_dest": "05_relaxation_mechanism_mineralogy\\Foley1996_ParamagneticIons.pdf",
+    "source_original": "NMR Theory and Review\\Foley1996_ParamagneticIons.pdf",
+    "selection_reason": "用含已知铁/锰浓度的合成硅酸钙粉末证明表面弛豫率随顺磁离子浓度线性增加，且无顺磁离子时氧化物表面仍有可观弛豫率。",
+    "pages": 10,
+    "sha256_16": "595fbf2fd202360f",
+    "text_chars": 43388,
+    "text_cache": "_extracted_text\\Foley1996_595fbf2fd202360f.txt",
+    "doi": "10.1006/jmra.1996.0218",
+    "title": "Effect of Paramagnetic Ions on NMR Relaxation of Fluids at Solid Surfaces",
+    "reference_agu": "Foley, I., Farooqui, S. A., & Kleinberg, R. L. (1996). Effect of Paramagnetic Ions on NMR Relaxation of Fluids at Solid Surfaces. Journal of Magnetic Resonance, Series A, 123(1), 95–104. https://doi.org/10.1006/jmra.1996.0218",
+    "agent_citation_key": "Foley1996ParamagneticIons",
+    "citation_key_original": "Foley1996ParamagneticIons",
+    "card_md": "papers\\Foley1996ParamagneticIons.md",
+    "curated_concepts": [
+      "表面弛豫率随顺磁离子浓度变化"
+    ],
+    "retrieval_tags": [
+      "iron",
+      "manganese",
+      "mineralogy",
+      "paramagnetic",
+      "relaxation_mechanism",
+      "surface_relaxivity",
+      "t1_t2"
+    ],
+    "extraction_errors": [],
+    "in_text": "Foley et al., 1996",
+    "year": 1996,
+    "crossref_title": "Effect of Paramagnetic Ions on NMR Relaxation of Fluids at Solid Surfaces",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
+  },
+  {
+    "citation_key": "Hurlimann1998EffectiveGradients",
+    "pdf_name": "Hurlimann1998_EffectiveGradients.pdf",
+    "category": "05_relaxation_mechanism_mineralogy",
+    "selected_dest": "05_relaxation_mechanism_mineralogy\\Hurlimann1998_EffectiveGradients.pdf",
+    "source_original": "NMR Theory and Review\\Hurlimann1998_EffectiveGradients.pdf",
+    "selection_reason": "用有效梯度概念分析磁化率差异造成的内部梯度扩散衰减：只有大孔的衰减明显随回波间隔增加，且有效梯度存在上限。",
+    "pages": 9,
+    "sha256_16": "0480e8b2975e34b2",
+    "text_chars": 36898,
+    "text_cache": "_extracted_text\\Hurlimann1998_0480e8b2975e34b2.txt",
+    "doi": "10.1006/jmre.1998.1364",
+    "title": "Effective Gradients in Porous Media Due to Susceptibility Differences",
+    "reference_agu": "Hürlimann, M. D. (1998). Effective Gradients in Porous Media Due to Susceptibility Differences. Journal of Magnetic Resonance, 131(2), 232–240. https://doi.org/10.1006/jmre.1998.1364",
+    "agent_citation_key": "Hurlimann1998EffectiveGradients",
+    "citation_key_original": "Hurlimann1998EffectiveGradients",
+    "card_md": "papers\\Hurlimann1998EffectiveGradients.md",
+    "curated_concepts": [
+      "回波间隔依赖性与内部梯度"
+    ],
+    "retrieval_tags": [
+      "cpmg",
+      "diffusion",
+      "echo_spacing",
+      "internal_gradient",
+      "long_t2_suppressed",
+      "susceptibility_contrast"
+    ],
+    "extraction_errors": [],
+    "in_text": "Hürlimann, 1998",
+    "year": 1998,
+    "crossref_title": "Effective Gradients in Porous Media Due to Susceptibility Differences",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
+  },
+  {
+    "citation_key": "KeatingKnight2007IronOxides",
+    "pdf_name": "KeatingKnight2007_IronOxides.pdf",
+    "category": "05_relaxation_mechanism_mineralogy",
+    "selected_dest": "05_relaxation_mechanism_mineralogy\\KeatingKnight2007_IronOxides.pdf",
+    "source_original": "NMR application\\Lab NMR\\Mineral\\KeatingKnight2007_IronOxides.pdf",
+    "selection_reason": "在石英砂上包覆五种铁氧化物，定量比较表面弛豫率与内部梯度效应，直接面向非固结地质材料。",
+    "pages": 6,
+    "sha256_16": "8715ffb0b6ede2cf",
+    "text_chars": 34287,
+    "text_cache": "_extracted_text\\KeatingKnight2007_8715ffb0b6ede2cf.txt",
+    "doi": "10.1190/1.2399445",
+    "title": "A laboratory study to determine the effect of iron oxides on proton NMR measurements",
+    "reference_agu": "Keating, K., & Knight, R. (2007). A laboratory study to determine the effect of iron oxides on proton NMR measurements. Geophysics, 72(1), E27–E32. https://doi.org/10.1190/1.2399445",
+    "agent_citation_key": "KeatingKnight2007IronOxides",
+    "citation_key_original": "KeatingKnight2007IronOxides",
+    "card_md": "papers\\KeatingKnight2007IronOxides.md",
+    "curated_concepts": [
+      "铁氧化物使 T2 缩短"
+    ],
+    "retrieval_tags": [
+      "geomaterial",
+      "internal_gradient",
+      "iron",
+      "mineralogy",
+      "paramagnetic",
+      "short_t2",
+      "surface_relaxivity",
+      "unconsolidated_sand"
+    ],
+    "extraction_errors": [],
+    "in_text": "Keating & Knight, 2007",
+    "year": 2007,
+    "crossref_title": "A laboratory study to determine the effect of iron oxides on proton NMR measurements",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref",
+    "title_found_in_pdf": 1.0
   }
 ]

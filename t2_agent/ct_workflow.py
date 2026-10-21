@@ -14,6 +14,7 @@ pipeline itself is deterministic and reuses the PyGIMLi mesh/solver helpers in
 from __future__ import annotations
 
 from datetime import datetime
+from functools import partial
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable
 
@@ -45,6 +46,8 @@ CT_PARAM_FIELDS = (
     "t2_max_ms",
     "run_gaussian",
     "peak_count",
+    "relaxing_edges",
+    "lcurve_criterion",
 )
 SIMULATION_CORE_FIELDS = ("diffusion_um2_per_ms", "bulk_t2_ms", "rho_solid_um_per_ms")
 
@@ -502,6 +505,11 @@ def run_ct_pipeline(
             "simulation_stages": stages,
         }
         for item in stage_results:
+            # Literature-based findings and AGU references from the interpretation stage.
+            for key in ("literature_findings", "literature_references"):
+                if item.summary.get(key):
+                    compact[key] = item.summary[key]
+        for item in stage_results:
             # Lets the interactive L-curve alpha picker work on the aggregate result.
             if item.summary.get("stage") == "ct_t2_inversion":
                 for key in ("metrics_xlsx", "parameters", "summary_csv", "inversion_mode"):
@@ -509,7 +517,7 @@ def run_ct_pipeline(
                         compact[key] = item.summary[key]
         for item in stage_results:
             if item.summary.get("stage") == "ct_mesh":
-                compact["mesh"] = {key: item.summary.get(key) for key in ("mesh_nodes", "mesh_triangles", "min_element_quality", "mean_element_quality", "solid_liquid_boundary_length_um", "gas_liquid_boundary_length_um", "noflux_boundary_length_um")}
+                compact["mesh"] = {key: item.summary.get(key) for key in ("mesh_nodes", "mesh_triangles", "min_element_quality", "mean_element_quality", "solid_liquid_boundary_length_um", "gas_liquid_boundary_length_um", "noflux_boundary_length_um", "relaxing_edge_length_um")}
             if item.summary.get("stage") == "ct_decay":
                 compact["decay"] = {key: item.summary.get(key) for key in ("estimated_t2_ms", "surface_to_volume_per_um", "dt_ms", "t_max_ms", "final_normalized_signal")}
                 compact["decay"]["bulk_t2_ms"] = config.bulk_t2_ms
@@ -586,7 +594,8 @@ def run_ct_pipeline(
         labels_sim, scale = sim.downsample_nearest(labels, config.max_grid_size)
         params, estimate = ct.simulation_params_for(config, labels_sim, scale)
         mesh_dir = run_dir / "01_mesh"
-        mesh, stiffness, mass, solid_robin, gas_robin, mesh_stats = sim.assemble_triangular_operator(labels_sim, params, ct.ct_edge_classifier)
+        classifier = partial(ct.ct_edge_classifier, relaxing_edges=config.relaxing_edges)
+        mesh, stiffness, mass, solid_robin, gas_robin, mesh_stats = sim.assemble_triangular_operator(labels_sim, params, classifier)
         mesh_png = ct.save_ct_mesh_plot(mesh, mesh_dir / sim.timestamped_name(f"{stem}_ct_triangular_mesh", "png"))
         mesh_bms = mesh_dir / sim.timestamped_name(f"{stem}_ct_triangular_mesh", "bms")
         sim.save_pygimli_mesh(mesh, mesh_bms)
@@ -679,10 +688,12 @@ def run_ct_pipeline(
                 "num_bins": config.num_bins,
                 "t2_min_ms": float(config.t2_min_ms or 1e-2),
                 "t2_max_ms": float(config.t2_max_ms or 1e5),
-                "alpha_min": 1e-6,
+                # the curvature (reference) route uses the alpha grid of the image-slice reference
+                "alpha_min": 1e-5 if config.lcurve_criterion == "curvature" else 1e-6,
                 "alpha_max": 1e2,
-                "alpha_count": 60,
+                "alpha_count": 36 if config.lcurve_criterion == "curvature" else 60,
                 "trim_from_peak": True,
+                "criterion": config.lcurve_criterion,
             },
             language=language,
         )

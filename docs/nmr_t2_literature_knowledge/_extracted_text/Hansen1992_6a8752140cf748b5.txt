@@ -1,0 +1,1382 @@
+--- PAGE 1 ---
+SIAM REVIEW
+Vol. 34, No. 4, pp. 561-580, December 1992
+() 1992 Society for Industrial and Applied Mathematics
+002
+ANALYSIS OF DISCRETE ILL-POSED PROBLEMS
+BY MEANS OF THE L-CURVE*
+PElt CHltISTIAN HANSENt
+Abstract. When discrete ill-posed problems are analyzed and solved by various numerical regularization
+techniques, a very convenient way to display information about the regularized solution is to plot the norm
+or seminorm of the solution versus the norm of the residual vector. In particular, the graph associated with
+Tikhonov regularization plays a central role. The main purpose of this paper is to advocate the use of this
+graph in the numerical treatment of discrete ill-posed problems. The graph is characterized quantitatively, and
+several important relations between regularized solutions and the graph are derived. It is also demonstrated
+that several methods for choosing the regularization parameter are related to locating a characteristic L-shaped
+"corner" of the graph.
+Key words, discrete ill-posed problems, least squares, generalized SVD, regularization
+AMS(MOS) subject classifications. 65F20, 65F30
+1. Introduction. We say that the algebraic problems A x
+b and min [IA x
+are discrete ill-posedproblems if the matrix A is ill conditioned and all its singular values
+decay to zero in such a way that there is no particular gap in the singular value spectrum.
+Discrete ill-posed problems arise in a variety of applications: astronomy [5], comput-
+erized tomography [32], early vision [2], electrocardiography [7], mathematical physics
+[41], and meteorology [46], to mention just a few. The underlying mathematical problem
+is oftenbut not alwaysa linear Fredholm integral equation of the first kind.
+There is a vast amount of literature on ill-posed problems in the setting of Hilbert-
+spaces and other infinite-dimensional spaces; see, e.g., [10], [11], [13], [14], [27], [31],
+[40], [47]. The approach taken in this paper is different: we take the algebraic problems
+A x
+b and min IIA x- bll as our basis, and we use numerical linear algebra--in partic-
+ular, the generalized singular value decompositionmto derive our results. Introductions
+to discrete ill-posed problems can be found in [4], [5], [29], [33], [35], [43], [44]. The
+monograph by Hofmann [25] contains a wealth of material on infinite-dimensional as
+well as finite-dimensional ill-posed problems.
+Most numerical methods for treating discrete ill-posed problems seek to overcome
+the problems associated with the large condition number of A by replacing the problem
+with a "nearby" well-conditioned problem whose solution approximates the required so-
+lution and, in addition, is a more satisfactory solution than the ordinary (least squares)
+solution. The latter goal is achieved by incorporating additional information about the
+sought solution, often that the computed solution should be smooth. Such methods
+are called regularization methods, and they always include a so-called regularization pa-
+rameter A which controls the degree of smoothing or regularization applied to the prob-
+lem. As the regularization parameter A varies, we obtain regularized solutionsx having
+properties that vary with A. A convenient way to display and understand these proper-
+ties is to plot the norm--or, more generally, a seminorm--of the regularized solution,
+IlL xll, versus the norm of the corresponding residual vector, IIAx
+bl[. This was
+originally suggested in the classic book by Lawson and Hanson [28].
+Received by the editors August 8, 1990; accepted for publication (in revised form) May 8, 1992. Part of
+this work was carried out during a visit to the Mathematics and Computer Science Division, Argonne National
+Laboratory, Argonne, Illinois. The author was supported by the Applied Mathematical Sciences subprogram
+of the Office of Energy Research, U. S. Department of Energy contract W-31-109-Eng-38, and a grant from
+Knud HOjgaard Fond.
+tUNIoC (Danish Computing Center for Research and Education), Building 305, Technical University of
+Denmark, DK-2800 Lyngby, Denmark (unipch(C)ruli. tmi-c, d.k).
+561
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 2 ---
+562
+PER CHRISTIAN HANSEN
+In this paper, our aim is to show how such plots reveal considerable information
+about the discrete ill-posed problem as well as about the particular regularization method
+used. We will also demonstrate how these plots are a valuable aid in choosing a good
+(i.e., nearly optimal) regularization parameter.
+We stress that although the mere restriction of an infinite-dimensional problem to a
+finite-dimensional one (e.g., by discretization of the problem) exhibits some regularizing
+effect, it usually does not provide enough regularization for practical purposes; cf. [6, 5].
+For continuous problems, the choice of norms for measuring the solution as well
+as the residual plays a central role. However, for discrete problems the standard norms
+are equivalent; for example, if x
+]R’ and A
+]R"x’, then Ilxllo _< Ilxl12 _< v Ilxll
+and IIAI[2 < IIAIIF
+_< v/min(m,n)IIAII2, where [[xl[
+maxi Ixil and IIAIIF
+/
+Yi= -j=10i2j
+The generalized singularvalue decompositionthe superior "tool"
+for analysis of discrete regularized problemsis intimately connected to 2-norms.
+Throughout the paper we, therefore, deal entirelywith vector and matrix 2-norms, which
+we denote by I1" II. The 2-.norm is a natural choice for measuring the residual vector as
+long as outliers are of no concern. We also feel that the seminorm
+xll of the solution
+(with the norm Ilxll as a special case) is appropriate for many problems.
+The paper is organized as follows. In 2 we give a brief introduction to discrete
+regularization methods. Section 3 introduces the L-curve and gives a description of its
+characteristic L-shaped appearance. Sections 4 and 5 treat different aspects of similari-
+ties between Tikhonov regularization and other regularization methods. In 6 we show
+how different methods for choosing the regularization parameter are related to find-
+ing a regularized solution near the L-shaped "corner" of the L-curve. Finally, in 7 we
+illustrate these topics by numerical examples.
+2. Numerical regularization methods. As mentioned above, when discrete ill-posed
+problems A x
+b and rain IIA x
+bll are solved numerically, some sort of regulariza-
+tion is needed to ensure that the computed, regularized solution xx is not too sensitive to
+perturbations of A and b and, in addition, has a suitably small seminorm IlLx II. Here,
+L is a matrix with full row rank, typically a discrete approximation to some derivative
+operator. The rationale behind the latter goal is that the solution to a physical problem
+usually has a small norm or seminorm. Both goals are achieved at the same time by
+imposing the regularization on the solution.
+To see how this is achieved, let us introduce the generalized singular value decompo-
+sition (GSVD) of the matrix pair (A, L). For the problems that we are considering, with
+A
+]R’x,, L
+IRp’, and m > n > p, the GSVD can be written as follows:
+(1)
+A=UEX-
+L=VMX-
+Here, U E IR’ x, and V E IR
+p have orthonormal columns such that Ua"U
+1, and
+VT"V
+lp; X
+IR’ x, is a nonsingular matrix, and 2 and M are of the form
+0)
+(2)
+Z
+I._,
+M= (Mp
+0).
+The matrices Zip
+diag(ai) and M.
+diag(#i) are both p x p diagonal matrices whose
+2
+2
+diagonal elements satisfy
++ #
+1 and are ordered such that
+(3)
+0 _< a _<... _< crp,
+l_>#l_>"._>#p>0.
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 3 ---
+L-CURVE ANALYSIS
+563
+For a proof of this decomposition, see, e.g., [3, 22]. The generalized singular values "i of
+(A, L) are defined as the positive quantities
+o-
+(4)
+"yi _=
+i
+1,...,p.
+In particular, if L
+I, then X-1
+M-1 V and A
+U ( M-1) VT, showing that the
+generalized singular values in this special case are related to the ordinary singular values
+i of A by i
+%-i+l,
+1,..., n. As we shall see below, regularized solutions can
+be expressed in a very convenient way in terms of the GSVD of (A, L).
+One of the best known regularization methods is Tikhonov regularization [40] (also
+called damped least squares [3, 26]). The Tikhonov regularized solution x is defined
+as the solution to the following least squares problem:
+(5)
+min { IIA x
+bll / AIIL xll
+2 },
+x
+Here, A controls the weight given to minimization of the seminorm IlL xll of the solution
+relative to minimization of the residual norm IIA x
+bll. It is straightforward to show
+that the solution to (5) is given by
+Notice how thefilterfactors 7/(7 + A2) for Tildaonov regularization in effect dampen,
+or filter out, the contributions to xx corresponding to the generalized singular values
+2 1/:2
+smaller than about A. Since cr
+")’i (1
+cr
+" 7 for all a << 1, and since the largest
+perturbations of the ordinary least squares solution are associated with the smallest
+it is clear that the regularized solution x will be less sensitive to perturbations than the
+ordinary least squares solution. In fact, it is shown in [19] that the condition number
+for the problem (5) is IIAII IlXll/.
+In addition, it can be shown that the number of
+oscillations in x (i.e., the number of sign changes in the elements of x) increases as
+, decreases; i.e., the smaller the ,, the more oscillatory the xi, such that xx is indeed
+smoother than the unregularized solution [18].
+An interesting aspect ofmany numerical regularization techniques is that they, from
+a practical point of view, produce the same regularized solutions. By this, we mean
+that both the regularized solutions and the corresponding residual vectors are practi-
+cally identical, provided of course that reasonable regularization parameters are used
+for each method. One manifestation of this fact is that these regularized solutions have
+approximately the same expansion in terms of the GSVD of (A, L). For example, the
+truncated GSVD method [18], [21] (which is identical to the classical truncated SVD
+method when L
+In) leads to a regularized solution given by
+p
+uTb
+n
+xi+
+(uTb)xi,
+(7)
+x
+ai
+corresponding to filter factors zero and 1. If the Lanczos bidiagonalization process [3,
+20] is halted after q steps, and a least squares solution is computed on the basis of
+the (q + 1) x q bidiagonal matrix [34], then it can be shown that the associated L is the
+identity matrixwhile the associated filter factors are 1-Rq(), where Rq denotes the qth
+degree Ritz polynomial. The analysis in [24], [42, Thm. 6.7] and [45] shows that Lanczos
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 4 ---
+564
+PER CHRISTIAN HANSEN
+bidiagonalization is similar to Tikhonov regularization with L
+I,. An analogous result
+holds for Richardson/Landweber/Fridman/Picard/Cimino iterations [9], [46].
+Several
+other examples are given in [9, 4]. As a consequence, we can limit our discussion in
+this paper to the Tikhonov regularization method, knowing that our results carry over
+to these regularization methods as well.
+Examples ofschemes that do not have simple expressions for the filter factors are the
+maximum entropy principle [37] and the regularization method proposed by Babolian
+and Delves 1]:
+(8)
+min IIAx- bll
+subject to I1
+C-,
+1,..., n,
+where the componentsx of x are coefficients in a Chebychev expansion of a continuous
+solution, and where C and r are constants.
+3. The L-curve and its properties. A convenient way to display information about
+the regularized solution x to (5), as a function of the regularization parameter A, is to
+plot the norm or seminorm IlL xxll of the solution versus the residual norm IIAxx
+bll.
+In this way, one can easily get an idea of the compromise between the minimization of
+these two quantities. One can also immediately see whether one or both quantities are
+unreasonably large (or small). The same is true for other regularization methods as well,
+and the techniquemperhaps combined with other criteriamserves as a practical guide
+to choosing a good regularization parameter. We return to this subject in 6.
+The practical use of such plots was first suggested by Lawson and Hanson [28, Chap.
+25 and 26]. Similar plots also appear in [30] and, more recently, in [39], [17], [20], and
+[23]. In fact, it seems that a number of researchers have used these plots in the practical
+treatment of ill-posed problems--although they have rarely made their way to the final
+publication.
+As mentioned above, we restrict this presentation to Tikhonov regularization, and
+we define the associated L-curve as the continuous curve consisting of all the points
+(llAx
+bl[, IILxll) for A E [0, ). A number of important properties of this curve
+are summarized below, but first we need the following expression for the unregularized
+solution, defined as the limit ofx for A
+0:
+(9)
+Xo
+lim x,
+X E+ UTb.
+)--0
+We also need the extreme residual norms corresponding to zero and infinite regulariza-
+tion, respectively:
+(10)
+0
+II(Im
+U UT)blI, &
+0 + Ilfp UpTbll,
+Up
+[Ux,..., Up].
+Here, 0 is the norm of that component of the right-hand side b which is outside the
+range of A. The system is consistent if d/0
+0, and d/0 is, therefore, sometimes called the
+incompatibility measure. With this notation, the L-curve has the following properties.
+THEOREM 1. Let xx denote the solution to (5). Then IlL x[[ is a monotonically de-
+creasingfunction of IIAx
+bll, and anypoint (6, r/) on the curve (IIA xm
+bll, IlLx II) is
+a solution to thefollowing two inequality-constrained least squaresproblems:
+(11)
+6
+min IlAx-bll subject to IILxII ,
+0
+IILx011,
+(12)
+min IILxII subject to IIAx- bll < 5,
+50 < 5 < &.
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 5 ---
+L-CURVE ANALYSIS
+565
+Proof. The fact that IlL xll is a decreasing function of IlAx
+bll follows immedi-
+ately from the following expressions:
+(13)
+IlL xll 1
+{
+ub
+.=
+7+A
+2
+cri
+(14)
+IIAx
+bll
+ub
++ 6
+.=
+7/ +A2
+which are easily derived by means of (6). The second part of the theorem is a standard
+result in the theory of Tikhonov regularization; cf., e.g., [28, Thm. (25.49)].
+[3
+According to Theorem 1, the L-curve (IIA x-bll, IlL xx II) divides the first quadrant
+into two separate regions. It is impossible to construct any solution that corresponds to
+a point below the L-curve, and any regularized solution Xreg must necessarily lie on or
+above the L-curve. The Tikhonov regularized solution xx is optimal in the sense that,
+given
+(or ), there does not exist a solution with a smaller residual norm (or solution
+seminorm) than IIA xx
+bll (or IlL xll). A convenient way to characterize the quality of
+other regularized solutions Xreg is, therefore, to measure the deviations L xx
+L xr,g
+and (Ax
+b)
+(A Xr,g
+b) by giving upper bounds for the norm of these quantities.
+The smaller the bounds, the closer ([[Axreg
+bll, IlL Xg [I) is to the L-curve. Examples
+of such investigations for the truncated SVD and the truncated GSVD methods can be
+found in [15], [20], [21]. More details are given in 5.
+If a few reasonable assumptions are made about the ill-posed problem, then it is
+possible to characterize the L-curve more completely than in Theorem 1. This was first
+done in [20] for the case L
+I,. Here, we generalize the analysis to general matrices L
+with full row rank as they appear in discrete regularization methods.
+CHARACTERIZATION 2.
+Let b denote the unperturbed right-hand side, and let e de-
+note theperturbation (i.e., the errors) in b such that b
+b + e. Assume that
+1. The coefficients [ul[ on average decay to zerofaster than the ",
+2. Theperturbation vector e has zero mean and covariance matrix crlm, and
+3. The norm ofe satisfies 1111 < Ilbll,
+Then the L-curve (llAx
+bll, IlL xll) exhibits a "comer" behavior as a function of
+A, and the "comer" appears approximately at (v/cr(m
+n + p) +
+IlL 011). Here, o
+is the unregularized solution (9) to the unperturbed problem, and 60 is the incompatibility
+measure (10).
+The larger the difference between the decay rates of lull31 and luel, the
+more distinct the "comer" will appear.
+We cannot give a detailed and rigorous proof of this characterization, but instead we
+summarize the reasoning that leads to it. Assumption 1 is in fact the discrete Picard con-
+dition [21], and it is necessary in order to ensure that a reasonable regularized solution
+exists at all. Assumption 2 ensures that the solution xa has a reasonable covariance ma-
+trix (if it is not satisfied, we should rescale the problem or, if necessary, use the general
+Gauss-Markov linear model [48] for general covariance matrices). Finally, assumption
+3 ensures a reasonable signal-to-noise ratio in the given right-hand side b.
+Let us first consider the behavior of the L-curve for an unperturbed problem with
+e
+O. For A << 7, we have 7? + A
+7 such that 7/(7 + A)
+1, x
+o, and
+IIAx
+fill
+u
++ ?, <
+Ilfill
++.
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 6 ---
+566
+PER CHRISTIAN HANSEN
+Hence, for small A the L-curve is approximately a horizontal line at IlL x ll
+IlL 0l[.
+As A increases, if follows from (13) that IlL xll starts to decrease, while IIAx
+b[I still
+grows towards io. The L-curve eventually must start to bend down towards the abscissa
+axis, which happens when A is comparable with the largest generalized singular values
+")’i. For those values of A, the residual norm is still somewhat smaller than (5 because
+some of the coefficients A2/(7 + A2) in the expression (14) for [[Axa
+bll are less than
+one.
+Consider now the L-curve associated with the mere perturbation e of the right-hand
+side. The corresponding "solution" x(e), given by (6) with b replaced by e, satisfies (from
+assumption 2)
+IlAx)-bl]2 .=
+7g + A2ue
++[l(I--sST)ella
+For small I << %, this L-cue is appromately a horizontal line at
+and it starts to bend down towards the abscissa s for much smaller values of I than
+the L-cue for b, namely, when I is of the same size as the smallest generalized singular
+values. Moreover, we see that as
+increases, IIAx/- bll becomes almost independent
+of a, while Ix
+is dominated by a few terms (e, say) for which 7i/( + I)
+1/(a)
+such that IIxll
+ 0/a. Hence, this L-cue soon becomes almost a
+vertical line at IIA xx
+bll
+0m
+n + p as I .
+The actual L-cue for a gNen problem, with a perturbed right-hand side b
+b +
+is a combination of the above o special L-cues. For small I the behavior of the
+L-cue is entirely dominated by contributions from e, while for large I it is completely
+dominated by contributions from b. In beeen, there is a small region where both b and
+e contribute, and this region defines the L-shaped "corner" of the L-cue. Moreover,
+the faster the coecients lug decay to zero, the smaller this cross-over region and,
+thus, the shaer the L-shaped "corner." This explains our choice ofthe name "L-cue."
+More properties of the L-cue are derived by Hansen and O’a in [23] where it is
+also shown that the characteristic L-shaped corner is most pronounced in a log-log plot.
+For examples of L-cues, see Figs. 1 and 4 in 7.
+It seems intuitNely clear that a good regularization parameter
+is one that corre-
+sponds to a regularized solution near the "corner" of the L-cue because in this region
+there is a good compromise beeen achieving a small residual norm IIAx
+bll and
+keeping the solution seminorm I1 xll reasonably small. As we shall see in 6, this is
+indeed the case.
+4. Te sladV f reglde slfis. As alrea@ mentioned in 3, a conve-
+nient way to characterize a regularized solution xg is to measure how Nr it is from the
+L-cue associated with Tionov regularization. The closer (IIAxg
+bll, I1 xgll) is
+to the L-cue, the better xg is in the "Tionov sense." erefore, one can readily
+think of a narrow band lying above the L-cue defining an area in which aW solution
+is a satisNcto regularized solution. It is interesting to gNe a more quantitatNe char-
+acterization of solutions within this band-shaped area. In particular, ifwe are gNen
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 7 ---
+L-CURVE ANALYSIS
+567
+solutions, Xl and x, both of which have seminorms less than r/and residual norms less
+than 6, what can be said about Xl
+x2? Obviously, we have IlL (x
+x)[I _< 27, but we
+can improve on this result by means of the following theorem.
+THEOREM 3. Given two solutions, Xl and x2, both satisfying
+(15)
+IlL xll
+7,
+[IAxi
+bll _< 5,
+1, 2,
+then their difference x
+xz satisfies
+(16)
+(17)
+IlL (Xl
+xe)ll _< 2min
+-,r/
+(18)
+IIA (x
+x=)ll _< 2min {, 77p}
+Proof. We first make a change of variable to
+X-ix, such that IlL xll
+[IM 11,
+IIA xll
+lIE 11, and Ilxll _< IlXll I111. Following Miller [30] we then need to find the
+so-called stability estimate (where the matrix C is M, E, or ln):
+A(, .r/, C) _= sup { IIC 11:
+M 11 -< ’7,
+11 -<
+},
+for then IIC(1
+2)11
+<_ 2(,, c). Using the GSVD of (A, L), we can easily see
+that IIM 11 is bounded either by 7 (whenever the constraint IIM 11
+,7 is active) or
+by max{/71,...,/Tp}
+/71 (when the constraint I111
+is active), so that
+A4(, r/,M)
+min{/71, r/}. By a similar argument, we get A4(, r/,E)
+min{,
+2
+2
+This yields (17) and (18). To find A/(, r/, ln), we use the relation cq +/z
+1 to obtain
+.M(6, rl, I,)< max {min{
+5-
+}}
+0<a<l
+a’ v/l
+cr2
+Solving for a yields a
+6(r/2 + 62) -1/2 == 6/a
+V/62 + r/2, and we obtain (16).
+Although the upper bounds in Theorem 3 are attained in very special cases only,
+these results are still interesting, partly because they provide information about X
+x2
+(and notjust L (Xl-x2) and A (Xl-X2)), and partly because they combine the tolerances
+6 and r/. For example, we see from (18) that a small tolerance
+for the solution seminorm
+ensures that Xl and x2 have very similar residual vectors, while (17) tells us that a small
+residual tolerance 6 does not ensure that L X and L x2 are close. Concerning the bound
+(16) for Xl
+x2, it should be noted that IIXII
+IIL+II (where L+ is the pseudo-inverse
+of L) and that L usually is a fairly well-conditioned matrix; cf. [22].
+5. The similaritywith Tikhonov regularization. Another interesting question, which
+is related to the question discussed above, is the following: given a solution Xreg com-
+puted by a regularization method different from Tikhonov’s method, is this xreg similar
+to the solution x computed by means of Tikhonov regularization for some A? Or, for-
+mulated in terms of the L-curve, is the point (IIA Xg- b ll, IlL Xreg II) close to the L-curve
+for Tikhonov regularization? It turns out that without any extra information about the
+right-hand side b we cannot answer this question. To see why this is so, we recall that by
+means of the GSVD we can write Lx and L xrg in the convenient form
+L x>,
+V+MpE
+-
+U b
+nXreg
+VFMpE
+-
+IUTp b
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 8 ---
+568
+PER CHRISTIAN HANSEN
+where /, and F are p x p diagonal matrices with diagonal elements equal to the filter
+factors for the two regularization methods, namely, i
+7/(7 + ,) and fi. An upper
+bound for the norm of the difference between Lx and L Xreg that only involves the
+norm of the right-hand side b is then given by
+(19)
+IlL (x
+Xreg)ll < I1(
+F)Mp-i
+Ilbll
+max {
+Ii
+7,- fl} Ilbll.
+Unfortunately, the quantity max{l
+kl/m} can easily be of the same order as IlL xll
+or IlL Xg II, even in the case where I, and F produce similar regularized solutions.
+As an example of this, let xreg be the truncated GSVD solution xk given by (7). If
+the integer k satisfies %_ < ,X < %_+, then it is proved in [21, Thm. 3] that
+min{max{l,_fil}}>X (%_
+k )1/2 IILx egll
+"y
+%-+1
+and yet L xx and L xeg can be very close independently of the 7i-spectrum [21, Thm.
+4]. A numerical example of this is shown in Fig. 1 in 7. Since 0 < %-/%-+1 <
+1, this example illustrates that the right-hand side in (19) can indeed be of the order
+IlL Xregll Ilbll even if L x: and L Xreg are very close.
+A simple alternative to the upper bound in (19) is I1’
+FII IIMpfbll, but this
+is also inadequate for our purpose because it does not take into account the markedly
+different behavior of the filter factors for large and small 7i, in particular that both i and
+f actually dampen the contributions to x and Xreg corresponding to small 7. The only
+way to obtain useful bounds for IlL (x
+Xreg
+and IIm (x
+Xreg
+is to work directly
+with the vector (I,
+F)MpE;IUpb. Our approach to obtaining practical results is to
+analyze the same model problem as in [20], [21], [48]. We assume that the decay of
+the Fourier coefficients of the right-hand side,/i
+u’b, is related to the decay of the
+generalized singular values in the following simple way:
+(20)
+/3i
+uTb
+"y’
+i= 1,... ,p,
+,y
+i=p+l,
+Here a _> 0 is a real parameter that controls the decay of/i relative to ,y, and for a > 1
+the fli decay to zerofaster than the ,y. We shall also assume that the two regularization
+methods are similar, i.e., I,
+F, and that the filter factors f corresponding to the largest
+generalized singular values ,y are identical to the Tikhonov filter factors. Otherwise,
+there is no point in comparing xa and Xg. For simplicity, we assume that the difference
+f
+i satisfies
+(21)
+If- 1-< ei,
+7-< K,,
+k=,
+7 > K),
+where c is a small positive constant, and K is a positive constant satisfying i _< K < %/A
+(thus ensuring that K , < %). Then the norms IlL (x
+Xrg)II and IIA (x
+Xrg)Ilo
+can be bounded as follows.
+THEOREM 4. Assume that the Fourier coefficients
+ub are given by (20), and that
+diag(i) and F
+diag(fi) are related by (21). Then
+{ 2c,(
+)
+0<c<l,
+(22)
+IlL (x,
+x,eg)llo,:, <
+K ,
+,-1
+IILxll
+2c,
+1<c,
+1The quantity IlLA
+L AII in [21, Thm. 31 is identical to our quantity m{l
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 9 ---
+L-CURVE ANALYSIS
+569
+(23)
+IIA
+X  g)ll < 2
+IIAx ll 
+/
+Proof. The two numerators above are by definition [[L(xx
+Xrg)llo
+[[(
+F) Mp ;UpTbll
+max{l,
+fl /’} and IIA (xx
+Xreg)ll
+11(
+F) UpTbll
+max{l
+fl fl}. Ifwe inse the "model" (20), then for 7i
+K A we obtain
+a+l
+For
+1, we then use i
+1 and 7
+K A to obtain the bound c (K A)-1. For
+1
+< 1, differentiation of the right-hand expression in the above equation shows that
+1A-
+Regarding
+the mmum is attained for 7
+A, leading to the upper bound c 7
+IlLx I1 , the -norm of a vector is bounded below by the absolute value of any of its
+elements, and here it is practical to use
+>
+q7-1,
+0<1,
+IIZ xll
+[ pT-,
+1,
+where we have defined the integer q by 7q-x <
+7q. Combining these bounds with
+1
+2, the bound for
+1 in (22) follows. Regarding the bound for 0
+< 1,
+straightfoard analysis shows that -/(qT-1)
+2 for 7q , and we thus obtain
+the second bound in (22). e bound in (23) is derived analogously by means of the
+relations [A
+lfl
+c7
+c(K) and IIAxll
+p, which hold for all
+>0.
+Theorem 4 clearly illustrates the importance of the decay of the Fourier coecients
+fl relative to the decay of the generalized singular values 7. If fl decay more slowly than
+7 (i.e., if
+< 1), then (22) gives a large upper bound even if
+A, i.e., Lxg may
+differ considerably from L x. Only iffl decay somewhatfaster than 7 (i.e., if
+> 1) can
+we ensure a small upper bound in (22)provided that the constant c not too large and
+that K is somewhat smaller than 7p. This is, for example, the case when the conjugate
+gradient method is used as a regularizing iterative scheme, in which case the "exact"
+filter factors f
+correspond to Ritz values that have converged to eigenvalues of
+AA [24].
+Theorem 4 also shows that the residuals A Xrg
+b and Ax
+b will be similar
+as long as
+is somewhat larger than zero, again provided that c is small. That is, the
+residuals can be similar even if fl decay slower than 7. In other words, similar residuals
+do not guarantee that Lxg
+L x. This fact is in full agreement with the conclusion
+that we drew from Theorem 3 above.
+The requirement that the Fourier coecients fl must decay to zero faster than the
+generalized singular values 7 is called the discrete Picard condition [20], [21], [48], and
+it is crucial in connection with discrete ill-posed problems. In fact, it is shown in [21,
+Thm. 2] that this requirement must be satisfied in order to ensure that the Tionov
+regularized solution xx will appromate the sought solution, namely, the solution to
+the "underlying" problem with an unperturbed right-hand side.
+In a practical application, the right-hand side b
+b + e consists of an unperturbed
+quanti b plus the perturbation e. Assume that b satisfies the three assumptions from
+Characterization 2. Then we ow that the unperturbed b satisfies the discrete Picard
+condition, whereas e pically has almost equal contributions from all left singular vec-
+tors u, corresponding to
+0 in the "model" (20). Hence, the lfll will ically decay
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 10 ---
+570
+PER CHRISTIAN HANSEN
+to zero for i
+p, p
+1,... (when uTfi dominates), until uTe starts to dominate and
+the [3i[ "level off" at a level determined by the perturbation e. Clearly, the importance
+of any regularization method with filter factors f is to dampen the contributions to the
+solution, corresponding to the latter fl, such that the "regularized" Fourier coefficients
+fii satisfy the discrete Picard condition. As long as [le[[ is somewhat smaller than
+(i.e., there is a satisfactory signal-to-noise ratio in the right-hand side), then both upper
+bounds in Theorem 4 will be small, and we are thus ensured that xg and xx are indeed
+similar, and ([[A Xreg
+b[[, [[L Xg[[) will be close to the Tikhonov L-curve.
+6. Methods for choosing the regularization parameter. In 3 we mentioned that
+we would intuitively expect a good regularization parameter A to produce a regularized
+solution near the characteristic "corner" of the L-curve because such a A yields a good
+balance between a small residual norm I[A x-bl[ and a small solution seminorm IlLx 1[.
+The following observation is important. Notice that the residual vector has the form
+(24)
+Ax
+b
+(A0
+b)
+A(0 )
+A(
+x),
+where 0 is the exact unregularized solution to the unperturbed problem, 0
+is the
+regularization error, and
+x is the perturbation error. Equation (24) shows that a
+large regularization error also means a large residual vector. Moreover, we know from
+the analysis in 3 that a large perturbation error implies a large seminorm IlLx II. This
+means that a solution near the L-curve’s "corner," in addition to balancing the residual
+norm and the solution seminorm, also tends to balance the regularization and perturba-
+tion errors. This is yet another reason for choosing a regularization parameter that gives
+a solution near the "corner" of the L-curve.
+We now show that different methods for choosing A are actually related to locating
+this "corner." We focus our attention on Tikhonov regularization, knowing that the
+results carry over to methods that are similar to it.
+6.1. The discrepancy principle. One method that has attained awidespread interest
+is the discrepancypnciple, usually attributed to Morozov [31]. If the ill-posed problem
+is consistent, i.e., if 60
+0, and if only the right-hand side is perturbed, then the idea is
+simply to select the regularization parameter A so that the residual norm is equal to an
+a priori upper bound 6e for the norm of the errors e in the right-hand side, i.e.,
+(25)
+I[Axx
+bl[
+6e,
+where [lel[ <_ 6e.
+If we assume that the ill-posed problem satisfies the assumptions in Characterization
+2, then the expected value of [[e[[ is v/ a0. Equation (25), therefore, corresponds to
+choosing a solution that appears on the L-curve a little to the right of the "corner," which,
+according to Characterization 2, is approximately at (aox/m
+n + p, L 0[[). Notice
+that if [[el[ is not known a priori, and if e has zero mean and covariance matrix aIm
+(i.e., it satisfies the second assumption in Characterization 2), then a0 can be estimated
+by monitoring the function V(A) [47, p. 68] defined by
+(26)
+V(A)
+IIAx ,
+bll
+Here, for convenience, we have defined another function T(A) (which can be considered
+as the "degrees of freedom" [47, pp. 63, 68]):
+p
+(27)
+T(A)
+trace(I,
+A(ATA + A2LTL)-AT)
+m
+n +
++
+iX’’-
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 11 ---
+L-CURVE ANALYSIS
+571
+If V is plotted versus ,k-t, then on a broad scale the graph of V first decreases, then
+"levels off" at a plateau that is the estimate of a02, and eventually decreases to zero for
+small ,k. The estimate of Ilell
+is equal to m times the value of V at the plateau.
+The generalized discrepancy principle [31, p. 53] also takes into account errors E in
+the matrix A, as well as the incompatibility measure 60 in (10). Let 6e and 6 denote
+upper bounds for Ilell and I111, respectively. Then the generalized discrepancy principle
+amounts to choosing
+such that2
+(28)
+IIAx
+bll
+60 / 6e + 6E IIx011,
+where IIx011 is the norm of the unregularized solution x0 (9). If the user has an a priori
+upper bound for IIx II, the norm of the desired solution, then this upper bound should
+be substituted for IIx011 in (28). Estimates for IIEII, based solely on statistical information
+about the errors E, can be found in [8], [16]. An alternative formulation to (28) is [31,
+p. 58]:
+(29)
+IlAx
+bll
+0 + 3e + AE,L IlL xll,
+where AE,z is an upper bound for maXzx0{llE xll/llZ xll}, the largest generalized sin-
+gular value of the pair (E, L). In particular, if L
+I,, then AE,z
+E. The regularized
+solution computed by means of (29) corresponds to that point in the IIAx
+bll-IILx
+plane where the line (29) intersects the L-curve. The approach in (29) is appealing be-
+cause it does not involve an a priori upper bound for IIx II.
+All three formulations (25), (28), (29) of the discrepancy principle are based on a
+conservative choice of the residual norm IIAx
+bll. In terms of the L-curve, they all
+produce regularized solutions appearing to the right of the "corner," and this is particu-
+larly pronounced if 3E # 0. Hence the claim in [25, p. 96] that "the discrepancy principle
+oversmooths the real solution." Wahba [47, p. 63] has come to the same conclusion from
+a statistical viewpoint.
+6.2. The quasi-optimality criterion. The second method that we shall consider here
+is the quasi-optimality criterion; cf., e.g., [31, 27], which amounts to finding the regular-
+ization parameter A that minimizes the function
+ddX(
+A2
+1 A_d__dxll,
+We note in passing that the second step of iterated Tikhonov regularization [31, p. 238]
+leads to the solution (ATA + ,k2LTL)-I(ATb + A2LTL x)
+x
+A2dxx/d (,k2), such
+that minimization of Q(A) minimizes the correction to x in this solution. Morozov [31,
+p. 240], regarding the quasi-optimality criterion writes: "Unfortunately, it has not been
+possible to justify this technique for choosing the parameter although it is widely used
+for solving unstable problems." Recently, by studying a standard-form model problem
+satisfying the discrete Picard condition, Kitagawa [26] demonstrated that the
+which
+minimizes Q(,) seeks to minimize the error 0
+x in the solution. We shall here give
+a related, but somewhat more heuristic, analysis that relates the minimization of Q())
+to the "corner" of the L-curve.
+If we insert the expression (6) for x; into (30) and make use of the behavior of the
+filter factors (i.e.,
+,. 1 for large 7 and
+0 for small 7), then we obtain
+Q(A) 2
+(1
+i)2
+fli
+(1
+i)
+2
+fli
++
+2
+fli
+i:1
+\ 0"" ,]
+7i _>)
+0"-’"
+7, <)
+i
+2The sharper right-hand side (8 + (be + EIIx011)2) 1/2 also appears in the literature.
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 12 ---
+572
+PER CHRISTIAN HANSEN
+Now let i
+uTI denote the Fourier coefficients of the unperturbed right-hand side
+b, and assume that b satisfies the discrete Picard condition and that A is chosen so as to
+produce a solution near the L-curve’s "corner." Then we have i/ai
+0 for small ai and
+small 7i, while i
+i for large ai and large 7i. Using these approximations, we obtain
+the following approximate expression for the regularization and perturbation errors:
+L(
+xx)ll2
+2
+ai
+a---
+Thus, we have obtained the following approximate expression for the quasi-optimality
+function:
+(31)
+Q(A)2
+IlL(0- )ll 2 + IIL(- x)ll.
+In other words, the minimizer of Q(A) seeks to find a good compromise between mini-
+mization of the regularization error 0
+and the perturbation error x
+xx. And
+according to the discussion in the beginning of this section, this criterion is exactly the
+same as localizing the "corner" of the L-curve.
+Ii.3. Generalized cross-validation. Another popular method for choosing the regu-
+larization parameter/ is the generalized cross-validation (GCV) method due to Golub,
+Heath, and Wahba [12]. GCV is based on statistical considerations, namely, that a good
+value of the regularization parameter should predict missing data values. In this way no
+a priori knowledge about the error norms is required. GCV leads to choosing A as the
+minimizer of the GCV function G(A), defined by
+(32)
+G(),)
+IIAx
+bll
+2
+As already mentioned above, if the errors e in the right-hand side satisfy the second
+assumption in Characterization 2, then the general behavior of
+as a function of,k-
+is to
+decrease until it "levels off" at a plateau approximately at cry. The transition between
+being a decreasing function and a function that "levels off" takes place in a (usually small)
+A-interval, and obviously it is for the same ,k-interval that the L-curve has its characteristic
+"corner." The GCV method seeks to locate this "corner" implicitly by instead locating
+the transition of the function V. But instead of working with V, GCV uses the function
+G. Note that the denominator T, given by (27), is a monotonically increasing function of
+A, such that G given by (32) has a minimum in the above-mentioned transition interval.
+Hence, GCV replaces the problem of locating the transition point for
+by a numerically
+well-defined problem, namely, that of finding the minimum for the GCV function
+Figure 3 in 7 shows a typical example of a GCV function.
+Apart from the fact that 7-(.k) is an increasing function, from m
+n for A
+0 to
+m
+n + p for A , it is difficult to characterize this function further. On the other
+hand, the above argument that GCV locates the "corner" of the L-curve relies on
+increasing slowly throughout the interval 7 _< A _< 7p. The following theorem sheds
+more light on this aspect.
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 13 ---
+L-CURVE ANALYSIS
+573
+THEOREM 5. If there is a constant ratio c between all the generalized singular values,
+such that ,i
+c’i+l (with 0 < c < 1), then
+1
+1
+(33)
+m-n+k
+1-c2 <T(A)<rn-n+k+ 1-c2’
+where k is the number of’yi less than A, i.e., 3’k, < A _< ")’kx+l.
+Proof. To derive (33) from (27), we must consider the quantity
+p
+kx (((i)2)-I)
+(
+2)--1
+-’(1-bi)=
+1-
+1+
++
+1+(--)
+i=1
+"=
+i=kx-bl
+with k defined above. It is easy to show that
+kx
+( (())2)-1)
+kx ((,)?)
+-1
+1-
+1+
+=k,-
+1+
+"=
+i=1
+i=1
+i=1
+/9(
+(_)2)--
+p(ii2()
+0_<
+1+
+-<
+7kx+l
+i=k, q-1
+i=kx-b
+i2 (1-}-C2q-...q-c2(P-kx-1)).
+Using these relations together with 7kx < A < "rx+1 and
+l+c2+...+c2(q-l)
+1-c2q
+<
+1
+1
+c2
+1
+c2’
+we arrive at (33).
+Theorem 5 shows that for this particular geometric distribution of generalized sin-
+gular valuesmwhich resembles many practical applications--the variation of
+indeed takes place throughout the interval [71,7p], so that the function
+defined in (32)
+has a minimum that corresponds to the "corner" of the L-curve.
+The GCV method has proven its usefulness in numerous applications [47]. How-
+ever, two difficulties are associated with this method: the minimum of the GCV function
+is often very flat and, therefore, difficult to locate numerically [44], and the method may
+fail to compute the correct A when the errors are highly correlated [47, p. 65]. In the lat-
+ter case, the graph of V may not have a plateau, in which case the GCV function
+does
+not attain its minimum for a A corresponding to the L-curve’s "corner." We illustrate
+this difficulty by a numerical example in the next section, in particular, in Fig. 5.
+ll.4. The L-curve criterion. Inspired by the observations and characterization of the
+L-curve in the present paper, Hansen and O’Leary proposed a new method for choos-
+ing the regularization parameter A, based on an algorithm that locates the "corner" of
+the L-curve [23]. They define the "corner" as the point on the L-curve with maximum
+curvature, and they give an algorithm for computing this "corner." They also extend
+the ideas from the L-curve for Tikhonov regularization to other regularization methods,
+including those with a discrete regularization parameter (such as truncated SVD). As
+we shall illustrate in 7, this new L-curve criterion for chosing A is often more robust to
+correlated errors than the GCV method.
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 14 ---
+574
+PER CHRISTIAN HANSEN
+6.5. A perturbation bound. We conclude this section with an unusual perturbation
+bound for the solution that directly involves the shape of the L-curve. The perturbation
+bound, given in Corollary 7 below, is based on the following theorem from [38], [39].
+THEOREM 6. Let ., denote thefunction that maps IIAx
+bll to IlL xll
+(34)
+IILxll
+’(llAx
+bll).
+Also, let e and E denote the perturbations in b and A, respectively, and let yx denote the
+unperturbed solutionfor which
+(35)
+II(A- E)x -(b- e)ll- IIAx
+bll.
+Then
+(36)
+IIZ
+ x)ll <
++
+where 6
+IIAxx
+bl[,
+Ile[I + r/ IIEII, and 1 is the solution to tie
+.( + 6e).
+COROLLARY 7. With the same notation as in Theorem 6, we have
+(37)
+with
+IlL (x
+< 4 V/[.T"(6)I IIAII e (1 + o(e)),
+Ilbll
+IIAII
+where b
+A x, and 5’() denotes the derivative of: at 6
+Ax
+b ll.
+Proof. By means of the Taylor expansion .T’(6 i 6)
+.T’(6) + 6.T"(6) + O(), we
+readily obtain
+($’(6
+5))
+($’(6 + 6))
+-4 )v(6)6, $"(6) + 0(6).
+Since $" is a monotonically decreasing function with -$"(5)
+1$"(5)1, we know that
+$-(5) _> $’(5 + 6), and we can insert the upper bound $-(6)
+IlL xll for ;. These
+relations, together with []bAll < [[AI[ Ilx [I, yield (37).
+[3
+To guarantee a small perturbation bound in (37), we must choose the regularization
+parameter A so that I-’(llLxll)l is small, i.e., x should correspond to a solution on
+that part of the L-curve immediately to the right of the "corner." This principle, com-
+bined with one or more of the above-mentioned methods and (if possible) with a visual
+inspection of the L-curve, should lead to a good choice of the regularization parameter
+in most cases.
+7. Numerical examples. The purpose of this last section is to illustrate some of the
+topics discussed in the previous sections, and in particular we will focus on the behavior
+of the L-curve and the GCV function for two different perturbations: white noise and
+correlated noise.
+Throughout this section, we consider a discrete ill-posed problem, which is a dis-
+cretization of a Fredholm integral equations of the first kind:
+(38)
+K(s,x) f(x) dx
+g(s),
+c <_ s <_ d,
+where K is the kernel, g is the right-hand side, and f is the unknown solution.
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 15 ---
+.L-CURVE ANALYSIS
+575
+The particular integral equation that we shall use is a one-dimensional model prob-
+lem in image reconstruction from [36, 5], where an image is blurred by a known point-
+spread function. The desired solution f is given by
+7r <x<
+7r
+(39)
+f(x)
+2 exp(--4(x
+0.5)2) + exp(--4(x + 0.5)2),
+2
+-’
+while the kernel K is the point spread function of an infinitely long slit, given by
+(40)
+K(s,x)=((coss+cosx)Sin’i
+7r <s<
+Jr
+,
+2
+2’
+with the function, given by ,
+Jr (sin s + sin x).
+We use simple collocation with n equidistantly spaced points in [-7r/2, 7r/2] to derive
+the matrix A and the exact solution x0. Then we compute the exact right-hand side as
+b
+A 0. The order of the matrix is n
+64 in all our examples.
+7.1. Perturbations by white noise. First we consider problems where the right-hand
+side is perturbed by uncorrelated errors (white noise), i.e., the elements e of the pertur-
+bation e are normally distributed with zero mean and standard deviation 10-. Here, we
+choose a matrix L equal to the second derivative operator, L
+tridiag(1,-2, 1), with
+p
+n
+2 rows.
+Figure 1 shows the Tikhonov L-curve for this problem, together with the points cor-
+responding to the truncated GSVD solutions (7). This example illustrates that truncated
+GSVD solutions can be similar to regularized solutions computed by Tikhonov regular-
+ization. Notice the distinct "corner" that clearly shows the value of the regularization
+parameter where the perturbation e starts to dominate the solution. Three values of A
+corresponding to solutions near the "corner" are indicated, and these particular solu-
+tions are shown in Fig. 2, together with the exact solution x0. The solution computed
+with A
+2.10-3 lies closest to the L-curve’s "corner" and is also the best judging from
+Fig. 2. The solution computed with A
+2.10-2 is oversmoothed; i.e., it is too rigid to
+follow the variations in the desired solution; and the solution computed with A
+2.10-
+is clearly undersmoothed and has a too large component from the perturbation e.
+The GCV function G(A) for this problem is shown in Fig. 3, and it has the typical
+appearance of GCV functions: there is a very flat part and a steeper part of the curve.
+The minimum of G(A) occurs approximately at A
+5.10-3, which definitely is very near
+the "corner" of the L-curve. Thus, for this problem the GCV method indeed determines
+a good regularization parameter.
+7.2. Perturbations by correlated noise. Next, we illustrate the behavior of the L-
+curve and the GCV function when the errors are highly correlated. For simplicity, we
+here take L
+I, the identity matrix. Two types of correlated errors are considered:
+1. Filtered white noise e, generated with the formula e
+a e_ + e, where 0 <_
+a <_ 1 and e is white noise;
+2. Errors from a regular smoothing of the matrix A and the right-hand side b:
+5j
+ay + # (ai_l,j + a+l,j + ai,i_l + a,j+),
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 16 ---
+576
+PER CHRISTIAN HANSEN
+10TM
+1011
+"
+lO
+10
+"
+10
+1@1
+104
+10-s
+A
+2.10-...
+A
+2-I0-3’
+-
+A
+2-10-2
+10
+1@3
+10-2
+1@1
+10
+residual norm A x
+b
+FIG. 1. The Tikhonov L-curve (llAx
+b II, LxT II)foran example with uncorrelated errors (white noise).
+Also shown as circles are the truncated GSVD solutions.
+1.2
+0.6
+.."
+0.4
+.i:]
+",,,
+,/
+0"2Ii"/.
+.iii.il
+AA=__ 2211100:-
+0tj."
+;,
+0
+10
+20
+30
+40
+50
+60
+70
+FIG. 2. The exact solutiono (solid line) and three regularized solutionsx corresponding to the three values
+of A shown in Fig. 1.
+Hence, for the right-hand side, the perturbation e has elements ei
+bi -b; and similarly
+for the matrix.
+Both types of errors give rise to Fourier coefficients uTe (where u are the left sin-
+gular vectors of.) that decay with increasing i; i.e., e has more low-frequency than high-
+frequency components. The "spectrum" luTe[ for type-1 errors is much flatter than that
+for type-2 errors.
+Regarding the errors of type 1, both the L-curve and the GCV function behave pre-
+cisely as in the case of white noise. Hence, both the L-curve criterion and the GCV
+method compute good regularization parameters. No results are shown for this case.
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 17 ---
+L-CURVE ANALYSIS
+577
+10-5
+10.6
+10-7
+10-8
+10-9
+10-1
+10-s
+10-
+10-3
+10-2
+10-1
+100
+101
+lambda
+FIG. 3. The GCVfunction
+())for the same example as in Figs. 1 and 2. The minimum ofG()) is attained
+for A
+5.10-3.
+10
+.725e-06
+3.0004116
+_0.04548
+IlICx
+ylI2
+10-a
+104
+1t
+10
+FIG. 4. The L-curvefor a problem with highly correlated errors. The "comer" is still a distinctfeature ofthis
+L-curve.
+Regarding the errors of type 2, the situation is quite different. These errors may rep-
+resent sampling errors, because some averaging of the signal always occurs during the
+sampling of data. They may also represent the approximation errors involved in comput-
+ing A and b by means of a Galerkin-type method, say, where some "local" integration is
+performed.
+Figure 4 shows the L-curve for an example with smoothing parameter #
+0.05.
+The three dots on the L-curve correspond to regularization parameters given by the
+associated numbers. There is a distinct "corner" on the L-curve for ,
+4.10-4, and the
+corresponding regularized solution x is a good approximation to the exact solution 0,
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 18 ---
+578
+PER CHRISTIAN HANSEN
+104
+10.4
+10-
+10-2
+10-
+10
+FIG. 5. The GCVfunction G(A) for the sameproblem as in Fig. 4 The GCVfunction attains its minimum
+for A ofthe order ofthe machineprecision (outside theplot).
+the relative error being IIx
+011/11011
+0.12. The GCV function G(A) for the same
+problem is shown in Fig. 5. The maximum is attained for A of the order of the machine
+precision (located outside of the plot). In this situation, the GCV method completely
+fails to compute a useful solution, and the relative error in x is 6.7.105.
+Apparently, GCV "mistakes" the correlated errors for being part of the wanted sig-
+nal, and thus chooses a very small regularization parameter that only filters out the white
+noise in b due to the rounding errors. The L-curve, on the other hand, leads to a regu-
+larization parameter that indeed filters out the correlated errors because they represent
+a signal that does not satisfy the discrete Picard condition (assumption 1 in Characteri-
+zation 2); i.e., the coefficients ue do not decay as fast as the singular values.
+The essential difference between the GCV method and the L-curve criterion is that
+the L-curve criterion is able to recognize correlated errors as long as they do not satisfy
+the discrete Picard condition, while the GCV method may fail to do so. This is essen-
+tially because the L-curve criterion combines information about the residual norm with
+information about the solution (semi)norm, whereas the GCV method only uses the
+information about the residual norm. For more details about these aspects, see [23].
+REFERENCES
+[1] E. BABOLIAN AND L. M. DELVES, An augmented Galerkin method for first kind Fredholm equations, J.
+IMA, 24 (1979), pp. 157-174.
+[2] M. BERTERO, T. A. POGGIO, AND V. TORRE, Ill-posedproblems in early vision, Proc. IEEE, 76 (1988), pp.
+869-889.
+[3] ,. BJORCK, Least Squares Methods, in Handbook of Numerical Analysis, Vol. I: Finite Difference
+Methods--Solution of Equations in Rn, P. G. Ciarlet and J. L. Lions, eds., Elsevier, New York,
+1990.
+[4] .. BJORCKAND L. ELDIN, Methods in numerical algebrafor ill-posedproblems, Report LiTH-MAT-R33-
+1979, Dept. of Mathematics, Link6ping University, Linkfping, Sweden, 1979.
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 19 ---
+L-CURVE ANALYSIS
+579
+[5] I.J.D. CRAm AND J. C. BROWN, Inverse Problems in Astronomy, Adam Hilger, Bristol, UK, 1986.
+[6] J.J.M. CtPI’EN, Regularization methods andparameter estimation methodsfor the solution ofFredholm
+integral equations ofthefirst kind, in Colloquium Numerical Treatment of Integral Equations, H. J.
+J. te Riele, ed., Mathematisch Centrum, Amsterdam, 1979.
+[7] ., Calculating the isochromes ofventricular depolarization, SIAM J. Sci. Statist. Comput., 5 (1984),
+pp. 105-120.
+[8] A. EDELMAN, Eigenvalues and condition numbers of random matrices, SIAM J. Matrix Anal. Appl., 9
+(1988), pp. 543-560.
+[9] H.W. ENGLAt H. GFRERER,A posterioriparameter choiceforgeneral regularization methodsfor solving
+linear ill-posedproblems, Appl. Numer. Math., 4 (1988), pp. 395--417.
+[10] H. W. ENGL Ar C. W. GROESCH, EDS., Inverse and Ill-Posed Problems, Academic Press, New York,
+1987.
+[11] V.B. GLASS:O, Inverse Problems ofMathematical Physics, Amer. Inst. Phys. Transl. Ser., New York, 1988.
+[12] G.H. GOLUB, M. T. HEATH, AND G. WAHBA, Generalized cross-validation as a methodforchoosing agood
+ridgeparameter, Technometrics, 21 (1979), pp. 215-223.
+[13] C.W. GROETSCH, The Theory ofTikhonov RegularizationforFredholm IntegralEquations ofthe FirstKind,
+Pitman, Boston, MA, 1984.
+[14] C.W. GROETSCHAND C. R. VOGEL,Asymptotic theory offilteringfor linear operator equations with discrete
+noisy data, Math. Comp., 49 (1987), pp. 499-506.
+[15] E C. HANSEN, The truncated SVD as a methodfor regularization, BIT, 27 (1987), pp. 534-553.
+[16] ., The 2-norm ofrandom matrices, J. Comput. Appl. Math., 23 (1988), pp. 117-120.
+17] ., Solution ofill-posedproblems by means oftruncated SVD, in Numerical Mathematics, Singapore
+1988, R. P. Agarwal, Y. M. Chow, and S. J. Wilson, eds., ISNM 86, Birkh/iuser, Basel, Switzerland,
+1988, pp. 179-192.
+[18] ., Regularization, GSVD and truncated GSVD, BIT, 29 (1989), pp. 491-504.
+[19] , Perturbation bounds for discrete Tikhonov regularization, Inverse Problems, 5 (1989), pp. LA1-
+IA5.
+[20] ., Truncated SVD solutions to discrete ill-posedproblems with ill-determined numerical rank, SIAM
+J. Sci. Statist. Comput., 11 (1990), ppp. 503-518.
+[21] ., The discrete Picard conditionfor discrete ill-posedproblems, BIT, 30 (1990), pp. 658-672.
+[22] ., Relations between SVD and GSVD of discrete regularization problems in standard and general
+form, Linear Algebra Appl., 141 (1990), pp. 165-176.
+[23] P.C. HANSENANO D. P. O’LEARY, The use ofthe L-curve in the regularization ofdiscrete ill-posedproblems,
+Report UMIACS-TR-91-142, Dept. of Computer Science, University of Maryland, College Park,
+MD, SIAM J. Sci. Statist. Comput., submitted.
+[24] P.C. HANSEN, D. E O’LEARY, AND G. W. STEWART, Regularizingproperties ofconjugategradient iterations,
+in preparation.
+[25] B. HOFMANN, RegularizationforApplied Inverse and Ill-Posed Problems, Teubner-Texte Mathe., 85, Teub-
+ner, Leipzig, 1986.
+[26] T. KrrAGAWA, A deterministic approach to optimal regularizationmthe finite dimensional case, Japan J.
+Appl. Math., 4 (1987), pp. 371-391.
+[27] R. KRESS, Linear Integral Equations, Springer-Verlag, New York, 1989.
+[28] C.L. LAWSON AND R. J. HANSON, Solving Least Squares Problems, Prentice-Hall, Englewood Cliffs, NJ,
+1974.
+[29] G. E MILLER, Fredholm equations of the first kind, in Numerical Solution of Integral Equations, L. M.
+Delves and J. Walsh, eds., Clarendon Press, Oxford, 1974.
+[30] K. MILLER, Least squares methodsfor ill-posedproblems with a prescribed bound, SIAM J. Math. Anal.,
+1 (1970), pp. 52-74.
+[31] V.A. MOROZOV, Methodsfor Solving Incorrectly Posed Problems, Springer-Verlag, New York, 1984.
+[32] E NATYERER, The Mathematics ofComputerized Tomography, John Wiley, New York, 1986.
+[33] ., Numerical treatment of ill-posedproblems, in Inverse Problems, A. Dold and B. Eckmann, eds.,
+Lecture Notes in Math. 1225, Springer-Verlag, New York, 1986.
+[34] C.C. PAIGEAND M. A. SAUNDERS, LSQR:An algorithmforsparse linearequations andsparse leastsquares,
+ACM Trans. Math. Soft., 8 (1982), pp. 43-71.
+[35] B.W. RUST AND W. R. BURRUS, Mathematical Programming and the Numerical Solution ofLinearEqua-
+tions, Elsevier, New York, 1972.
+[36] C.B. SHAW, Improvement ofthe resolution ofan instrument by numerical solution ofan integral equation,
+J. Math. Anal. Appl., 37 (1972), pp. 83-112.
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php
+
+--- PAGE 20 ---
+580
+PER CHRISTIAN HANSEN
+[37]
+J. SKILLING AND S. E GULL, Algorithms and applications, in Maximum-Entropy and Bayesian Methods
+in Inverse Problems, C. R. Smith and W. T. Grandy, Jr., eds., D. Reidel, Boston, MA, 1985, pp.
+83-132.
+[38] A. N. TIKHONOV, On problems with imprecise given initial information, Soviet Math. Dokl., 31 (1985),
+pp. 131-134.
+[39] , On the problems with approximately specified information, in Ill-Posed Problems in the Natural
+Sciences, A. N. Tikhonov and A. V. Goncharsky, eds., MIR, Moscow, 1987, pp. 13-20.
+[40] A. N. TIKHONOV AND V. Y. ARSENIN, Solutions oflll-Posed Problems, John Wiley, New York, 1977.
+[41] A.N. TIKHONOVAND A. V. GONCHARSKY, EDS., Ill-PosedProblems in the Natural Sciences, MIR, Moscow,
+1987.
+[42] A. VAN DER SLUIS AND H. VAN DER VORST, SIRT and CG type methodsfor the iterative solution ofsparse
+linear least squaresproblems, Linear Algebra Appl., 130 (1990), pp. 257-302.
+[43]
+J. M. VARAH, A practical examination ofsome numerical methods for linear discrete ill-posed problems,
+SIAM Rev., 21 (1979), pp. 100-111.
+[44] , Pitfalls in the numerical solution of ill-posed problems, SIAM J. Sci. Statist. Comput., 4 (1983),
+pp. 164-176.
+[45] C.R. VOGEL, Solving ill-conditioned linear systems using the conjugate gradient method, Report, Dept. of
+Mathematical Sciences, Montana State University, Bozeman, MT.
+[46] G. WAHBA, Three topics in ill-posedproblems in Inverse and Ill-Posed Problems, H. W. Engl and C. W.
+Groetsch, eds., Academic Press, New York, 1987.
+[47] , Spline Modelsfor ObservationalData, CBMS-NSF Regional Conference Series in Applied Math-
+ematics, Vol. 59, Society for Industrial and Applied Mathematics, Philadelphia, PA, 1990.
+[48] H. ZHA AND P. C. nANSEN, Regularization and the general Gauss-Markov linear model, Math. Comp., 55
+(1990), pp. 613-624.
+Downloaded 10/01/12 to 152.3.102.242. Redistribution subject to SIAM license or copyright; see http://www.siam.org/journals/ojsa.php

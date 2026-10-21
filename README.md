@@ -69,11 +69,62 @@ TIF labels -> background question (only if needed) -> draggable phase markers
   the L-curve/smoothing-factor choice and the Gaussian choice, a confirmation
   dialog opens. Defaults: 1 um/pixel, L-curve on, Gaussian decomposition on.
 - Boundaries: solid-water edges use `rho_solid`, air-water edges use `rho_gas`
-  (default 0), and background/image edges are no-flux. The simulated time axis
+  (default 0), and background/image edges also relax with `rho_solid`, as in the
+  pixel-based image-slice reference (`relaxing_edges=False` makes them no-flux). The simulated time axis
   is set from the fast-diffusion estimate `1/T2 = 1/T2_bulk + rho * S/V`.
 - Every run writes a run-specific folder with the phase mapping JSON (AI guess,
   user corrections), cropped phase image, mesh, decay, inversion, Gaussian and
   interpretation artifacts.
+
+## Ideal-Structure Parameter Confirmation
+
+Ideal-structure requests (`geometry_mode="rule"`) follow the same confirm-then-run
+pattern as the CT route:
+
+```text
+prompt -> needs_ideal_parameter_confirmation -> dialog with live geometry preview
+-> confirm -> geometry record -> pyGIMLi mesh + decay -> L-curve / fixed NNLS
+-> Gaussian peaks -> interpretation with literature citations
+```
+
+- Shape: the only supported geometry is one large equilateral triangular pore and
+  one inverted small equilateral triangular pore. Other shapes are refused.
+- The dialog lets the user check or edit the pore sides and depths, coupling
+  (throat length and width), the water saturation of each pore, D, T2,bulk, ρ,
+  the time axis, the L-curve rule or a fixed smoothing factor, and Gaussian peaks.
+  Values stated in the prompt are marked as such; the rest are marked as defaults.
+- Water configuration follows the mesher: full, central gas bubble, or corner
+  water when Sw ≤ 1 − π/(3√3) ≈ 0.395. Coupling is blocked for corner water,
+  because the water no longer touches the throat.
+- Gas-water interfaces and throat walls are no-flux; ρ applies to solid walls only.
+- The time axis defaults to five fast-diffusion T2 estimates, so the decay
+  reaches its baseline.
+- Each confirmed run writes `ideal_simulation/<coupled|uncoupled>__Sw..__run_<time>/`
+  with the geometry preview and `ideal_run_config.json`. The next request asks
+  for confirmation again.
+
+## Literature-Based Interpretation
+
+`interpret_results` adds a section that ties the numbers of each run to the
+papers in `docs/nmr_t2_literature_knowledge`, with AGU in-text citations and an
+AGU reference list. Examples: the selected α and the L-curve rule, early-echo
+misfit, the fast-diffusion number ρ·r/D, estimated versus inverted T2 peaks,
+coupling, partial saturation, bulk-dominated relaxation, and surface-relaxivity
+caveats for measured data. Only references verified against Crossref (DOI) or a
+book title page are cited; refresh them with
+`python scripts/enrich_literature_references.py`.
+
+## Showcase Run of All Usages
+
+```bash
+python scripts/run_showcase_examples.py
+```
+
+Runs the measured-decay inversion, four confirmed ideal-structure cases
+(coupled/uncoupled, full and partial saturation) and a segmented CT slice
+through the agent's tools without a language model. Outputs go to
+`outputs/showcase/<time>/` (git-ignored) with `manifest.json` and a Chinese
+`README.md` that files every result by stage and lists the interpretations.
 
 ## Local Run
 

@@ -14,7 +14,9 @@
       "MullerPetke2015DiffusionRegimes",
       "Mohnke2015TriangularPores",
       "Keating2012NMRAssumptions",
-      "Dunn2002PorousMediaNMR"
+      "Dunn2002PorousMediaNMR",
+      "Kleinberg1994RelaxationMechanism",
+      "KeatingKnight2007IronOxides"
     ],
     "caution": "不能只凭短 T2 就断言孔径小；表面弛豫率、扩散区制、内部梯度和数据采样都会影响峰位。",
     "report_sentence": "短 T2 增强通常支持小孔或高表面积/体积比导致表面弛豫增强的解释，但该判断应结合扩散区制和内部梯度影响共同评估 [@BrownsteinTarr1979; @MullerPetke2015DiffusionRegimes]."
@@ -31,7 +33,8 @@
     "citations": [
       "Whittall1991NNLS",
       "Coates1999NMRLogging",
-      "Keating2012NMRAssumptions"
+      "Keating2012NMRAssumptions",
+      "Hurlimann1998EffectiveGradients"
     ],
     "caution": "当峰位靠近 t2_max_ms 时，先把它标为边界/不稳定信号，不要直接解释为真实超长孔隙组分。",
     "report_sentence": "长 T2 组分可与较弱表面弛豫或更自由流体有关，但若峰贴近反演搜索上限，应同时考虑逆问题边界效应和正则化敏感性 [@Whittall1991NNLS; @Coates1999NMRLogging]."
@@ -54,7 +57,8 @@
       "Ramakrishnan1999Carbonates",
       "Fleury2009PoreCoupling",
       "Carneiro2014DiffusiveCoupling",
-      "Alhwety2014RockTypingDiffusiveCoupling"
+      "Alhwety2014RockTypingDiffusiveCoupling",
+      "Borgia1998UniformPenalty"
     ],
     "caution": "峰合并不是“只有一个孔群”的充分证据；也可能来自连通性、扩散耦合或反演平滑。",
     "report_sentence": "宽峰或峰合并可以由孔间扩散耦合造成，即自旋在不同孔隙尺度间交换后使局部弛豫环境被平均化；这类现象不能简单等同于单一孔群 [@Chi2015DiffusionalCoupling; @Song2014PoreCouplingReview]."
@@ -72,7 +76,9 @@
       "Whittall1991NNLS",
       "Coates1999NMRLogging",
       "Grunewald2009PoreCoupling",
-      "Song2016T2T2"
+      "Song2016T2T2",
+      "WhittallMacKay1989NNLS",
+      "Borgia1998UniformPenalty"
     ],
     "caution": "报告中用“component/组分”描述即可，不要宣称每个 Gaussian 峰必然对应一个真实孔群。",
     "report_sentence": "多峰 T2 谱提示样品中可能存在多个弛豫环境，但反演与 Gaussian 分峰本身并不能唯一证明相同数量的物理孔群 [@Whittall1991NNLS; @Grunewald2009PoreCoupling]."
@@ -92,7 +98,10 @@
       "Whittall1991NNLS",
       "Coates1999NMRLogging",
       "Schwartz2013T2T2Simulation",
-      "Yu2019T2T2"
+      "Yu2019T2T2",
+      "Hansen1992LCurve",
+      "Borgia1998UniformPenalty",
+      "WhittallMacKay1989NNLS"
     ],
     "caution": "解释峰数前先报告正则化方法；推荐把 L-curve 选择、残差和粗糙度一起呈现。",
     "report_sentence": "该谱对正则化敏感，说明峰形包含反问题稳定性因素；较小正则化可能放大噪声，较大正则化则可能平滑或合并相邻组分 [@Whittall1991NNLS; @Schwartz2013T2T2Simulation]."
@@ -111,7 +120,9 @@
     "citations": [
       "Whittall1991NNLS",
       "Coates1999NMRLogging",
-      "EchoTrainSimulation2021"
+      "EchoTrainSimulation2021",
+      "WhittallMacKay1989NNLS",
+      "Borgia1998UniformPenalty"
     ],
     "caution": "不要给每个窄噪声峰分配物理机制；先建议重跑 L-curve、增加平滑或限制 T2 范围。",
     "report_sentence": "振荡谱或多个窄峰更可能反映噪声放大和反演不稳定性，解释前应检查 echo train 数据质量和正则化强度 [@Whittall1991NNLS; @EchoTrainSimulation2021]."
@@ -210,7 +221,10 @@
       "Tandon2018FiniteVolumeInternalGradients",
       "Gonzalez2020FieldInhomogeneities",
       "Keating2012NMRAssumptions",
-      "Mohnke2010PoreScaleSimulation"
+      "Mohnke2010PoreScaleSimulation",
+      "KleinbergHorsfield1990TransverseRelaxation",
+      "Hurlimann1998EffectiveGradients",
+      "KeatingKnight2007IronOxides"
     ],
     "caution": "不要把所有 T2 缩短都归因于孔径变小；内部梯度是模拟和实验偏差的重要候选机制。",
     "report_sentence": "若模型包含内部梯度或场不均匀，T2 缩短可能来自扩散诱导去相干，而不只是孔径变小或表面弛豫增强 [@Tandon2018FiniteVolumeInternalGradients; @Gonzalez2020FieldInhomogeneities]."
@@ -253,7 +267,8 @@
       "Song2008T2T2",
       "Johnson2014T2T2",
       "Monteilhet2006T2T2",
-      "Guo2016MultidimensionalNMRSimulation"
+      "Guo2016MultidimensionalNMRSimulation",
+      "Kleinberg1994RelaxationMechanism"
     ],
     "caution": "不要在一维 T2 结果上过度区分流体类型或孔群；用“提示”而非“证明”。",
     "report_sentence": "对于耦合或交换明显的复杂样品，一维 T2 峰位和面积不足以唯一分配孔群或流体类型，多维 NMR 可提供更强的相关约束 [@Song2012MRPM; @Song2016T2T2]."
@@ -307,7 +322,8 @@
     "explanation": "L-curve 自动选参是项目中的算法决策；若曲线没有明显折角或选中值贴近搜索边界，说明数据拟合与平滑之间的折中不够稳定，应把结果作为探索性解释，并尝试调整 alpha 范围、T2 范围或数据预处理。",
     "citations": [
       "Whittall1991NNLS",
-      "Coates1999NMRLogging"
+      "Coates1999NMRLogging",
+      "Hansen1992LCurve"
     ],
     "caution": "本地知识库中没有专门证明当前 L-curve 规则的论文；这些引用支撑的是反演/正则化必要性，不应写成“某论文提出本项目 L-curve 选择准则”。",
     "report_sentence": "当 L-curve 缺少清晰折角或选中正则化贴近搜索边界时，反演谱应被视为正则化敏感结果；这反映了多指数反演需要在拟合精度和平滑性之间做稳定性折中 [@Whittall1991NNLS; @Coates1999NMRLogging]."
@@ -344,7 +360,10 @@
     "citations": [
       "BrownsteinTarr1979",
       "Mohnke2010PoreScaleSimulation",
-      "MullerPetke2015DiffusionRegimes"
+      "MullerPetke2015DiffusionRegimes",
+      "Kleinberg1994RelaxationMechanism",
+      "Foley1996ParamagneticIons",
+      "KeatingKnight2007IronOxides"
     ],
     "caution": "表面弛豫率变化与孔径变化可能产生相似谱形，需要通过参数扫掠或独立约束区分。",
     "report_sentence": "在几何不变时，表面弛豫率升高会增强边界弛豫并使有效 T2 缩短，因此 T2 峰位移动不一定只代表孔径变化 [@BrownsteinTarr1979; @Mohnke2010PoreScaleSimulation]."
@@ -402,9 +421,30 @@
       "MullerPetke2015DiffusionRegimes",
       "Keating2012NMRAssumptions",
       "Ramakrishnan1999Carbonates",
-      "BrownsteinTarr1979"
+      "BrownsteinTarr1979",
+      "Kleinberg1994RelaxationMechanism"
     ],
     "caution": "不要在快扩散假设未验证时把 T2 分布直接换算为孔径分布。",
     "report_sentence": "T2 与孔径的直接对应通常依赖快扩散近似；当样品处于非快扩散区制或存在强耦合时，T2 推断的孔径分布可能偏离真实结构 [@MullerPetke2015DiffusionRegimes; @Keating2012NMRAssumptions]."
+  },
+  {
+    "id": "paramagnetic_mineral_shortening",
+    "name": "含铁/顺磁矿物导致 T2 整体偏短",
+    "triggers": [
+      "iron-bearing soil or sand",
+      "red or weathered geomaterial",
+      "T2 shorter than expected for known pore size",
+      "clay or iron oxide coating",
+      "same geometry different sample chemistry"
+    ],
+    "explanation": "孔壁上的顺磁离子（Fe3+、Mn2+）和铁氧化物会显著提高表面弛豫率，使同样孔径下的 T2 更短；磁铁矿等强磁性矿物还会引入内部梯度。",
+    "citations": [
+      "Kleinberg1994RelaxationMechanism",
+      "Foley1996ParamagneticIons",
+      "KeatingKnight2007IronOxides",
+      "Keating2012NMRAssumptions"
+    ],
+    "caution": "不要把含铁样品的短 T2 直接换算为小孔；需要已知或标定的表面弛豫率，或用其他孔径测量约束。",
+    "report_sentence": "含铁矿物会显著提高表面弛豫率，因此含铁岩土材料中 T2 偏短不一定代表孔径更小 [@KeatingKnight2007IronOxides; @Foley1996ParamagneticIons]."
   }
 ]

@@ -186,3 +186,43 @@
   - PDF: `04_pore_coupling_t2t2_interpretation\Monteilheit2006_T2-T2.pdf`
   - Card: `papers\Monteilhet2006T2T2.md`
   - Tags: `diffusive_coupling`, `exchange`, `ill_posed`, `inverse_laplace`, `multidimensional_nmr`, `nnls`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `regularization`, `regularized_inversion`, `t1_t2`
+- `[@Hansen1992LCurve]` - Analysis of Discrete Ill-Posed Problems by Means of the L-Curve
+  - PDF: `01_core_theory_inversion\Hansen1992_LCurve.pdf`
+  - Card: `papers\Hansen1992LCurve.md`
+  - DOI: `10.1137/1034115`
+  - Tags: `core_theory_inversion`, `ill_posed`, `lcurve`, `regularization`, `regularization_parameter`, `regularized_inversion`, `tikhonov`
+- `[@WhittallMacKay1989NNLS]` - Quantitative interpretation of NMR relaxation data
+  - PDF: `01_core_theory_inversion\WhittallMacKay1989_NNLS.pdf`
+  - Card: `papers\WhittallMacKay1989NNLS.md`
+  - DOI: `10.1016/0022-2364(89)90011-5`
+  - Tags: `component_assignment`, `core_theory_inversion`, `ill_posed`, `inverse_laplace`, `nnls`, `nonuniqueness`, `peak_count`, `regularized_inversion`
+- `[@Borgia1998UniformPenalty]` - Uniform-Penalty Inversion of Multiexponential Decay Data
+  - PDF: `01_core_theory_inversion\Borgia1998_UniformPenaltyInversion.pdf`
+  - Card: `papers\Borgia1998UniformPenalty.md`
+  - DOI: `10.1006/jmre.1998.1387`
+  - Tags: `core_theory_inversion`, `false_peaks`, `multimodal`, `peak_broadening`, `peak_splitting`, `regularization`, `regularized_inversion`, `smoothing`
+- `[@KleinbergHorsfield1990TransverseRelaxation]` - Transverse relaxation processes in porous sedimentary rock
+  - PDF: `05_relaxation_mechanism_mineralogy\KleinbergHorsfield1990_TransverseRelaxation.pdf`
+  - Card: `papers\KleinbergHorsfield1990TransverseRelaxation.md`
+  - DOI: `10.1016/0022-2364(90)90104-H`
+  - Tags: `cpmg`, `echo_spacing`, `internal_gradient`, `relaxation_mechanism`, `restricted_diffusion`, `surface_relaxation`, `susceptibility_contrast`
+- `[@Kleinberg1994RelaxationMechanism]` - Mechanism of NMR Relaxation of Fluids in Rock
+  - PDF: `05_relaxation_mechanism_mineralogy\Kleinberg1994_RelaxationMechanism.pdf`
+  - Card: `papers\Kleinberg1994RelaxationMechanism.md`
+  - DOI: `10.1006/jmra.1994.1112`
+  - Tags: `fast_diffusion`, `mineralogy`, `paramagnetic`, `pore_size`, `relaxation_mechanism`, `short_t2`, `surface_relaxation`, `surface_relaxivity`, `t1_t2`
+- `[@Foley1996ParamagneticIons]` - Effect of Paramagnetic Ions on NMR Relaxation of Fluids at Solid Surfaces
+  - PDF: `05_relaxation_mechanism_mineralogy\Foley1996_ParamagneticIons.pdf`
+  - Card: `papers\Foley1996ParamagneticIons.md`
+  - DOI: `10.1006/jmra.1996.0218`
+  - Tags: `iron`, `manganese`, `mineralogy`, `paramagnetic`, `relaxation_mechanism`, `surface_relaxivity`, `t1_t2`
+- `[@Hurlimann1998EffectiveGradients]` - Effective Gradients in Porous Media Due to Susceptibility Differences
+  - PDF: `05_relaxation_mechanism_mineralogy\Hurlimann1998_EffectiveGradients.pdf`
+  - Card: `papers\Hurlimann1998EffectiveGradients.md`
+  - DOI: `10.1006/jmre.1998.1364`
+  - Tags: `cpmg`, `diffusion`, `echo_spacing`, `internal_gradient`, `long_t2_suppressed`, `susceptibility_contrast`
+- `[@KeatingKnight2007IronOxides]` - A laboratory study to determine the effect of iron oxides on proton NMR measurements
+  - PDF: `05_relaxation_mechanism_mineralogy\KeatingKnight2007_IronOxides.pdf`
+  - Card: `papers\KeatingKnight2007IronOxides.md`
+  - DOI: `10.1190/1.2399445`
+  - Tags: `geomaterial`, `internal_gradient`, `iron`, `mineralogy`, `paramagnetic`, `short_t2`, `surface_relaxivity`, `unconsolidated_sand`

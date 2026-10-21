@@ -1,0 +1,26 @@
+--- NOTE ---
+Scanned PDF without a text layer. No OCR engine was available, so this cache holds reading notes
+transcribed from page images (pages 1-3), not full text. Check the PDF before quoting.
+--- PAGE 1 ---
+Journal of Magnetic Resonance, Series A 108, 206-214 (1994). Mechanism of NMR Relaxation of Fluids in Rock.
+R. L. Kleinberg, W. E. Kenyon, P. P. Mitra. Schlumberger-Doll Research; Harvard University.
+Abstract (paraphrase): a theory of low-frequency NMR relaxation of pore fluids in sedimentary rocks; semiquantitative because
+natural materials are heterogeneous. Multiexponential decays correlate with pore-size heterogeneity; the heterogeneity length
+scale is larger than the diffusion length of the NMR measurement. The most important relaxation mechanism is hyperfine
+interaction with paramagnetic ions such as Mn2+ and Fe3+ at grain surfaces. Weak temperature dependence indicates that diffusive
+motion to the surface does not control T1 and T2. Low-frequency T1/T2 is generally significantly greater than 1.
+--- PAGE 2 ---
+Review of observations: Straley et al. centrifuge experiments - longest T1 components disappear first as larger pores drain.
+Kenyon et al. and Morriss et al.: NMR- and mercury-derived size spectra agree reasonably for most sandstones; not expected to hold
+for carbonates. Latour et al.: relaxation time distributions nearly independent of temperature between 25 and 175 C.
+Kleinberg et al. (2 MHz, 48 rocks): T1/T2 in the range 1 to 2.6, median 1.59; T2 dominated by grain-surface relaxation at that
+frequency and pulse spacing. Howard et al.: rho1 about 3e-3 cm/s for clean sandstones; clay complicates S/V. D'Orazio et al.:
+pure silica glass rho1 = 5e-7 cm/s and T1/T2 = 58. Wettability: kerosene relaxes at bulk rate in water-wet rock, but is
+accelerated by grain surfaces after the rock is dried and saturated with kerosene.
+--- PAGE 3 ---
+Fast-diffusion (surface-limited) regime: decay in one pore is monoexponential and depends on S/V only, giving a direct mapping
+between the relaxation spectrum and the S/V spectrum. Slow-diffusion (diffusion-limited) regime: large pores and/or strong
+surface relaxation; multiexponential decay even in a single pore, dependent on pore shape. Mineralogy can vary from pore to pore,
+so a relaxation-time distribution can reflect heterogeneity that is not correlated with pore size. Evidence for the
+surface-limited regime in most rocks: centrifuge link between capillary pressure and relaxation time, and lack of temperature
+dependence.

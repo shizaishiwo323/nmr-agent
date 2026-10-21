@@ -321,8 +321,24 @@ def render_params_dialog(context, language: str, on_confirmed: Callable[[], None
             with a1:
                 boundary_px = st.number_input(_L(language, "边界网格尺寸（像素）", "Boundary mesh size (px)"), min_value=0.25, value=float(prefill.get("mesh_boundary_px", defaults.mesh_boundary_px)), step=0.25, key="ct-param-mb")
                 num_bins = st.number_input(_L(language, "T2 bin 数", "T2 bins"), min_value=20, max_value=500, value=int(prefill.get("num_bins", defaults.num_bins)), step=10, key="ct-param-bins")
+                t2_min = st.number_input(_L(language, "T2 下限（ms）", "T2 min (ms)"), min_value=1e-4, value=float(prefill.get("t2_min_ms") or 1e-2), format="%.4g", key="ct-param-t2min")
             with a2:
                 bulk_px = st.number_input(_L(language, "内部网格尺寸（像素）", "Interior mesh size (px)"), min_value=1.0, value=float(prefill.get("mesh_bulk_px", defaults.mesh_bulk_px)), step=0.5, key="ct-param-mbulk")
+                criteria = ["ratio", "curvature"]
+                criterion = st.selectbox(
+                    _L(language, "L-curve 判据", "L-curve criterion"),
+                    criteria,
+                    index=criteria.index(prefill.get("lcurve_criterion", defaults.lcurve_criterion)),
+                    format_func=lambda c: {"ratio": _L(language, "斜率倒数比值（实测数据）", "Slope ratio (measured data)"),
+                                           "curvature": _L(language, "最大曲率（参考算法）", "Maximum curvature (reference)")}[c],
+                    key="ct-param-criterion",
+                )
+                t2_max = st.number_input(_L(language, "T2 上限（ms）", "T2 max (ms)"), min_value=1.0, value=float(prefill.get("t2_max_ms") or 1e5), format="%.6g", key="ct-param-t2max")
+            relaxing_edges = st.checkbox(
+                _L(language, "背景与图像边缘按固-液表面弛豫处理", "Background and image edges relax like solid walls"),
+                value=bool(prefill.get("relaxing_edges", defaults.relaxing_edges)),
+                key="ct-param-edges",
+            )
 
         if st.button(_L(language, "确认参数并开始执行", "Confirm and run"), type="primary", width="stretch", key="ct-confirm-params"):
             params = {
@@ -340,6 +356,10 @@ def render_params_dialog(context, language: str, on_confirmed: Callable[[], None
                 "mesh_boundary_px": float(boundary_px),
                 "mesh_bulk_px": float(bulk_px),
                 "num_bins": int(num_bins),
+                "t2_min_ms": float(t2_min),
+                "t2_max_ms": float(t2_max),
+                "lcurve_criterion": str(criterion),
+                "relaxing_edges": bool(relaxing_edges),
             }
             confirm_run_parameters(context, params)
             on_confirmed()

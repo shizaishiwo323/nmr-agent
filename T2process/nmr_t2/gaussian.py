@@ -114,6 +114,12 @@ def decompose_spectrum_as_gaussians(
         lower_bound[2 * idx + 1] = max(span / 200.0, 1e-4)
         upper_bound[2 * idx + 1] = max(span, 1e-3)
 
+    # The automatic guess can place the last centre beyond the T2 grid
+    # (min + span / 0.9). An infeasible x0 makes least_squares raise and the
+    # unbounded Nelder-Mead fallback then drifts to unphysical positions.
+    margin = 1e-6 * max(span, 1e-3)
+    start = np.clip(start, lower_bound + margin, upper_bound - margin)
+
     trial_errors: list[float] = []
 
     def residual_fn(parameter: np.ndarray) -> np.ndarray:
@@ -152,7 +158,7 @@ def decompose_spectrum_as_gaussians(
                 "fatol": 1e-8,
             },
         )
-        parameter = nm_result.x
+        parameter = np.clip(nm_result.x, lower_bound, upper_bound)
         objective_value = float(nm_result.fun)
 
     _, height, _ = _fit_residual(parameter, t2_log, amp, int(cfg.peak_count))

@@ -1,3 +1,4 @@
+from functools import partial
 from pathlib import Path
 
 import numpy as np
@@ -241,8 +242,15 @@ def test_real_ct_mesh_covers_whole_water_domain(name: str, has_background, expec
     assert float(np.sum(mass)) / water_area > 0.97
     assert stats["solid_liquid_boundary_length_um"] > 0
     if not has_background:
-        # Pores cut by the image edge get reflecting (no-flux) boundaries.
-        assert stats["noflux_boundary_length_um"] > 0
+        # Pores cut by the image edge relax like the pixel-based reference by default...
+        assert stats["relaxing_edge_length_um"] > 0
+        # only edges with no non-water pixel nearby stay unclassified (no flux)
+        assert stats["noflux_boundary_length_um"] < 0.05 * stats["relaxing_edge_length_um"]
+        # ...and become reflecting when relaxing edges are switched off.
+        no_flux = partial(ct.ct_edge_classifier, relaxing_edges=False)
+        *_rest, stats_nf = sim.assemble_triangular_operator(labels, params, no_flux)
+        assert stats_nf["noflux_boundary_length_um"] > 0
+        assert stats_nf["relaxing_edge_length_um"] == 0
     if "air" in expected.values():
         assert stats["gas_liquid_boundary_length_um"] > 0
 

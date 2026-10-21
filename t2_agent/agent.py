@@ -15,6 +15,7 @@ from .guidance import build_parameter_guidance, infer_requested_plan
 from .models import AgentToolResult
 from .skills import render_skill_prompt
 from .ct_workflow import inspect_ct_phase_image, is_ct_upload, request_ct_run
+from .ideal_workflow import request_ideal_run
 from .tools import (
     generate_report,
     inspect_2d_geometry_input,
@@ -52,6 +53,7 @@ class AgentRuntimeContext:
     report: AgentToolResult | None = None
     last_user_goal: str = ""
     ct_state: dict[str, Any] = field(default_factory=dict)
+    ideal_state: dict[str, Any] = field(default_factory=dict)
     stage_callback: Callable[[AgentToolResult], None] | None = None
 
 
@@ -124,6 +126,8 @@ def build_tool_specs() -> list[dict[str, Any]]:
                         "rho_gas_um_per_ms": {"type": "number"},
                         "t_max_ms": {"type": "number"},
                         "dt_ms": {"type": "number"},
+                        "lcurve_criterion": {"type": "string", "enum": ["ratio", "curvature"], "description": "L-curve selection rule; see run_lcurve."},
+                        "relaxing_edges": {"type": "boolean", "description": "Background and image-edge faces relax with rho_solid (default true); false makes them no-flux."},
                         "defaults_accepted": {"type": "boolean"},
                     },
                     "required": [],
@@ -242,7 +246,7 @@ def build_tool_specs() -> list[dict[str, Any]]:
             "type": "function",
             "function": {
                 "name": "run_2d_simulation_full_workflow",
-                "description": "Run the first-version 2D NMR workflow: geometry input, optional PNG color normalization and white-border crop, pyGIMLi mesh, T2 decay solve, T2 inversion, optional reduced T2-T2 map, and optional Gaussian decomposition. Does not run D-T2.",
+                "description": "Run the first-version 2D NMR workflow: geometry input, optional PNG color normalization and white-border crop, pyGIMLi mesh, T2 decay solve, T2 inversion, optional reduced T2-T2 map, and optional Gaussian decomposition. Does not run D-T2. With geometry_mode='rule' (ideal triangle pair) it returns needs_confirmation until the user confirms shape, sizes, coupling, saturation, physics and inversion in the parameter dialog; the confirmed run writes a run-specific folder.",
                 "parameters": {
                     "type": "object",
                     "properties": {
@@ -286,6 +290,11 @@ def build_tool_specs() -> list[dict[str, Any]]:
                         "large_air_area_um2": {"type": "number"},
                         "small_air_area_um2": {"type": "number"},
                         "ideal_mesh_area_um2": {"type": "number"},
+                        "large_water_saturation": {"type": "number", "minimum": 0, "maximum": 1, "description": "Ideal structure: water saturation of the large pore (1 = fully water-filled). Only when the user stated it."},
+                        "small_water_saturation": {"type": "number", "minimum": 0, "maximum": 1, "description": "Ideal structure: water saturation of the small pore. Only when the user stated it."},
+                        "run_lcurve": {"type": "boolean", "description": "Ideal structure: choose the smoothing factor with the L-curve. Only when the user stated it."},
+                        "lcurve_criterion": {"type": "string", "enum": ["ratio", "curvature"], "description": "L-curve selection rule; see run_lcurve."},
+                        "defaults_accepted": {"type": "boolean", "description": "True only when the user explicitly said default physical parameters are fine."},
                     },
                     "required": [],
                     "additionalProperties": False,
@@ -324,6 +333,11 @@ def build_tool_specs() -> list[dict[str, Any]]:
                         "alpha_min": {"type": "number", "description": "Minimum smoothing factor tested by L-curve. Default: 0.001."},
                         "alpha_max": {"type": "number", "description": "Maximum smoothing factor tested by L-curve. Default: 10000."},
                         "alpha_count": {"type": "integer", "description": "Number of smoothing factors tested by L-curve. Default: 300."},
+                        "criterion": {
+                            "type": "string",
+                            "enum": ["ratio", "curvature"],
+                            "description": "Selection rule. 'ratio' (default): trimmed, noise-weighted fit with the slope-reciprocal ratio, for measured data. 'curvature': untrimmed normalised fit with maximum L-curve curvature, matching the image-slice reference; use for noise-free simulated decays or when the user asks for it.",
+                        },
                     },
                     "required": [],
                     "additionalProperties": False,
@@ -732,6 +746,10 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
         context.results.append(result)
         return result
 
+    if name in {"run_2d_mesh_and_decay", "run_2d_simulation_full_workflow"} and str(args.get("geometry_mode", "png")).lower() == "rule":
+        # Ideal structures go through the parameter-confirmation dialog first.
+        return request_ideal_run(context, args, language=response_language, on_stage=context.stage_callback)
+
     if name == "run_2d_mesh_and_decay":
         result = run_2d_mesh_and_decay(
             context.uploaded_path,
@@ -1037,6 +1055,7 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
             "alpha_min": float(args.get("alpha_min", 1e-3)),
             "alpha_max": float(args.get("alpha_max", 1e4)),
             "alpha_count": int(args.get("alpha_count", 300)),
+            "criterion": str(args.get("criterion", "ratio")),
         }
         result = run_lcurve(context.repaired_path, context.workspace / "lcurve", params, language=response_language)  # type: ignore[arg-type]
         context.results.append(result)
@@ -1179,7 +1198,11 @@ def run_deepseek_agent_turn(
         "Do not ask for nonessential inversion parameters such as regularization, T2 bins, or L-curve range when defaults are acceptable; only ask for information required to make the simulation physically scaled. "
         "Do not set run_t2_t2 for ordinary simulation-and-inversion requests; the default full workflow is T2 only. "
         "Set run_t2_t2=true only when the user explicitly asks for T2-T2, a T2-T2 map, exchange spectrum, or correlation spectrum, and explain that the current output is a reduced T2-T2 map derived from the 1D T2 spectrum. "
-        "If the user asks for the built-in ideal triangle simulation and has not uploaded a PNG, call run_2d_mesh_and_decay or run_2d_simulation_full_workflow with geometry_mode='rule'; do not create a PNG phase map as an intermediate input. "
+        "If the user asks for the built-in ideal triangle simulation and has not uploaded a PNG, call run_2d_simulation_full_workflow with geometry_mode='rule'; do not create a PNG phase map as an intermediate input. "
+        "Ideal-structure route: the only supported shape is one large equilateral triangular pore plus one inverted small equilateral triangular pore, optionally joined by a throat (coupled). If the user asks for circles, slits, rectangles or other shapes, say they are not supported yet and offer the triangle pair. "
+        "Pass only the values the user stated: large_side_um, small_side_um, coupled, throat_length_um, throat_width_um, large_water_saturation, small_water_saturation (0-1), diffusion_um2_per_ms, bulk_t2_ms, rho_solid_um_per_ms, run_lcurve, regularization, run_gaussian, peak_count. Never fill in defaults yourself. "
+        "If run_2d_simulation_full_workflow returns needs_ideal_parameter_confirmation, tell the user in two or three sentences which choices are pending (shape, pore sizes, coupling, water saturation, physics, inversion) and that a confirmation dialog with a geometry preview has opened; the app runs the workflow after the user presses confirm, so do not ask them to type parameters in chat and do not claim results. "
+        "When explaining ideal-structure results, compare the inverted T2 peaks with summary.estimated_t2_ms (fast-diffusion estimate per pore), state whether the pores were coupled, and note that water below Sw≈0.395 sits only in the triangle corners. "
         "For the first version, only 2D simulation is supported, and mesh generation must use pyGIMLi triangular meshing. "
         "For the ordinary first-version ideal-triangle simulation, run only the 1D T2 workflow. "
         "If the user explicitly asks for the local NMR simulator or ideal triangle mesh demonstration, call run_local_nmr_triangle_demo; it uses the repository-bundled simulator and still sends the simulated decay into the existing fixed NNLS T2 inversion pipeline. "
@@ -1201,6 +1224,7 @@ def run_deepseek_agent_turn(
         "When the user explicitly specifies a smoothing/regularization factor, use run_fixed_nnls. "
         "When the user asks for peak decomposition, call run_gaussian_peaks after a spectrum exists. "
         "When the user asks to interpret results, asks what the result means, asks whether the result is good, or asks for next steps, call interpret_results instead of only pointing to the right-side tool results. "
+        "When a tool result contains summary.literature_findings and summary.literature_references, build the physical explanation on those findings, keep their AGU in-text citations such as (Kleinberg et al., 1994) next to the statements they support, and end the reply with a short 参考文献/References list copied exactly from literature_references. Never cite a paper that is not in literature_references and never invent DOIs. "
         "Do not claim that a tool has run unless this turn includes the corresponding tool result. "
         "Write for beginners and explain the role of the smoothing factor, L-curve, T2 range, and peak count when relevant. "
         f"{language_instruction} "

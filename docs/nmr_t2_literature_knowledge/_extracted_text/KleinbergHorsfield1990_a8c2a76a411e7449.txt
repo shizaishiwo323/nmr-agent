@@ -1,0 +1,896 @@
+--- PAGE 1 ---
+JOURNAL 
+OF MAGNETIC 
+RESONANCE 
+88,9- 
+19 ( 1990) 
+Transverse Relaxation Processes in Porous Sedimentary Rock 
+R. L. KLEINBERG 
+AND M. A. HORSFIELD* 
+Schlumberger-Doll 
+Research, Old Quarry Road, Ridgefreld, Connecticut 06877-4108 
+Received September 18, 1989 
+Transverse relaxation rates of a number of water-filled porous rock samples have been 
+measured as a function of static magnetic field strength and Carr-Purcell 
+pulse spacing. 
+At the lowest field and shortest pulse spacings, T2 appears to be dominated bi.relaxation 
+at the fluid-solid 
+interface, while at higher fields and longer pulse spacings, there is clear 
+evidence of molecular diffusion in a magnetic field gradient. This gradient is due to the 
+magnetic susceptibilitycontrast 
+between grain material and-the pore fluid. Samples with 
+small pores show the strongest evidence for restfiction of diffusion, and a broad distribu- 
+tion of pore sizes is another important 
+complicating 
+factor. A theory which takes into 
+account all the abov-e effects in a consistent manner has been developed; the total relax- 
+ation rate is not simply the sum of the relaxation rates of the individual 
+processes. With 
+parameter selection guided by independent 
+measurements of magnetic susceptibility 
+and pore size, the theory adequately reproduces expefimental 
+results. 
+o 1990 Academic 
+Press, Inc. 
+a 
+Nuclear magnetic relaxation processes of fluids in restricting geometries are of in- 
+terest in a wide variety of materials and systems. Fluids oontained in biological cells, 
+porous inorganic compounds -suGh as zeolites, and packings of regular and irregular 
+particles have all been the subject of NMR 
+investigations. 
+Molecular 
+diffusion 
+in 
+these media has been of particular interest; a recent review (1) contains a summary 
+of the field. Water-saturated 
+sedimentary rocks constitute an unusually complex sys- 
+tem in which to study restricted diffusion: the pore space is usually heterogeneous in 
+both size and shape. Also, the surfaces of the solid grains play an active part in relax- 
+ation of the pore fluid, but are not the sole source of relaxation. Furthermore, 
+internal 
+magnetic field gradients vary considerably from’point 
+to point-within 
+the pore space. 
+Nevertheless, there has been considerable interest in the study of the NMR relax- 
+ation behavior of water-saturated 
+rock samples (24).~There 
+is potential 
+for NMR 
+techniques to yield valuable petrophysical 
+information 
+from oil well-bore logs: the 
+total fluid content and the permeability 
+of the formation 
+are of fundamental 
+impor- 
+tance to oil recovery efficiency. Furthermore, 
+NMR imaging and-spectroscopy 
+tech- 
+niques may be used for detailed analysis of rock cores brought to the surface (5). 
+Usually, longitudinal 
+relaxation rates are used to estimate the petrophysical proper- 
+ties of the rock ( 6 ), but the transverse relaxation rates can give equally valuable infor- 
+mation. When using a spin-echo sequence, it is well known, however, that the rate of 
+* Present address: Herchel Smith Laboratory 
+for Medicinal Chemistry, Universityof 
+Cambridge School 
+of Clinical Medicine, University Forvie Site, Robinson Way, Cambridge CB2 2PZ, United Kingdom. 
+9 
+0022-2364190 $3.00 
+Copyright 0 1990 by Academic Press, Inc. 
+All rights of reproduction 
+in any form reserved. 
+
+--- PAGE 2 ---
+10 
+KLEINBERG 
+AND 
+HORSF’IELD 
+decay of transverse magnetization 
+is strongly affected by the presence of diffusion 
+through magnetic field gradients. The molecular motion causes a random variation 
+of the Larmor frequency of a given nucleus, resulting in a more rapid loss of coher- 
+ence than would be expected from consideration 
+of the usual spin-spin interactions 
+alone. The resulting echo attenuation 
+can be reduced by employing 
+the multiple- 
+pulse (CPMG) 
+technique of Carr and Purcell ( 7) as modified by Meiboom 
+and Gill 
+(8)) but the high internal gradients present in heterogeneous 
+systems can make it 
+difficult to eliminate the attenuation 
+effectively. Alternatively, 
+this effect may be ex- 
+ploited, and many studies have been made of the effect of an externally applied one- 
+dimensional 
+linear field gradient on transverse relaxation 
+behavior (9), this tech- 
+nique being used to measure diffusion coefficients and also, in the case of restricted 
+diffusion, to estimate the dimensions of the restricting boundaries ( 10). 
+In porous media, the internal magnetic field gradients are caused by the different 
+susceptibility 
+values of the solid grains and the pore fluid, the form of the gradient 
+depending 
+on the geometry of the pore structure and the magnitude 
+being directly 
+proportional 
+to the applied magnetic field strength. For rocks, the situation is further 
+complicated 
+because the diffusion is restricted in the pore space (II). 
+If, however, 
+the pulse spacing in the CPMG sequence can be made short enough, or the internal 
+field gradient strengths can be reduced by a reduction 
+of the applied magnetic field, 
+then transverse relaxation is dominated 
+by contact between the relaxing spins and 
+the surface of the rock matrix. 
+For the present study, the relaxation properties of a suite of six sandstones and two 
+carbonates were measured. The samples span a broad range of porosities and pore 
+sizes. The range of echo spacings and static field strengths used allowed exploration 
+of both grain-surface-dominated 
+and diffusion-dominated 
+relaxation regimes. A the- 
+ory is presented which accounts for the effects of bulk relaxation, surface relaxation, 
+the internal magnetic field gradients, and restricted diffusion. When these factors are 
+combined in a consistent manner which explicitly takes into account the distribution 
+of pore sizes, the total relaxation rate is not simply the sum of the relaxation rates of 
+the individual 
+processes. 
+EXPERIMENTAL 
+METHODS 
+All NMR 
+measurements 
+were performed 
+using a Bruker 
+CXP spectrometer 
+equipped with an electromagnet 
+capable of giving proton Larmor frequencies up to 
+90 MHz. The cores used were 8 mm in diameter and 10 mm long. Sample tempera- 
+ture was regulated to 3 13 K, and the cores were held in 10 mm NMR tubes under 
+fluorinated 
+oil to prevent water evaporation 
+during the course of the experiment. 
+The 
+CPMG sequence was used for transverse relaxation measurements 
+9O;*,-,,--t,,-[l8O;JJ, 
+- 2&,1, 
+with t,, varying from 45 ps to 1.8 ms. The subscripts denote the phases of the pulses 
+in the phase-cycling scheme used to remove any baseline offsets. A single data point 
+was acquired at the center of each echo, with up to 2048 data points being collected. 
+Phase-sensitive detection 
+was used for all measurements, 
+the receiver phase being 
+adjusted to give maximum 
+signal amplitude 
+in the in-phase channel. 
+
+--- PAGE 3 ---
+RELAXATION 
+IN 
+POROUS 
+ROCK 
+11 
+Normally, 
+porous media exhibit a spread of relaxation rates which reflects the dis- 
+tribution 
+of pore sizes present. The transverse relaxation data were therefore analyzed 
+using the stretched-exponential 
+model of Kenyon et al. (6): 
+. 
+111 
+This allows for a distribution 
+of relaxation rates while keeping the number of variable 
+fit parameters small. 
+Measurements 
+were made at three field strengths corresponding 
+to proton Larmor 
+frequencies 5,40, and 90 MHz, but because of the greater RF power requirements 
+at 
+high operating 
+frequencies, the transverse relaxation 
+rates could only be measured 
+with the longer tcp values at the two higher field strengths. 
+THEORY 
+The results of transverse relaxation measurements made on two of the rocks, Berea 
+sandstone and Leuders limestone, 
+are shown in Figs. la and 1 b. The eight rocks 
+showed a range of behavior, of which these two examples are representative. 
+The 
+transverse relaxation rate is plotted against Bit&,, which anticipates the importance 
+of diffusion at long values of tcp and at high values of magnetic field strength ( 7). At 
+the lowest values of B$ t& the transverse relaxation rates are independent 
+of tq. The 
+values of 1 / T2 in the limit Z3&, + 0 are well in excess of the relaxation rate for pure 
+water under the same conditions, 
+which was measured as 0.3 s-l. This indicates that 
+significant relaxation is occurring due to the presence of the grain surfaces. 
+At higher values of Bz t&,, there is clear evidence of the effect of molecular diffusion 
+in the presence of a static magnetic field gradient. The Carr-Purcell 
+equation ( 7) for 
+the measured value of T2 is 
+$-=$++Gt,)“, 
+2 
+20 
+[21 
+where ( 1 / T20) is the relaxation rate due to all other processes, y is the gyromagnetic 
+ratio of the resonant nucleus, G is the static magnetic field gradient, and D is the 
+diffusion coefficient of the liquid. The mean magnetic field gradient caused by the 
+inhomogeneity 
+of the magnet used to collect the data was measured to be better than 
+2.0 mT m-’ at a field strength of 1 .O T. This is far too small to account for the pulse- 
+spacing-dependent 
+relaxation 
+rate, so we presume that magnetic 
+field gradients 
+within the porous sample itself ( 22) are responsible for the enhanced relaxation rate. 
+It can be seen that although Eq. [ 21 can be employed usefully to explain the behav- 
+ior of Berea sandstone, it clearly fails to describe the Leuders limestome results. From 
+the mercury porosimetry 
+measurements, 
+we know that the median pore size of the 
+Berea sample is more than 30 times that of the Leuders sample. Therefore, we con- 
+clude that Eq. [ 21 is inadequate when the diffusion of molecules in porous solids is 
+restricted by the presence of impenetrable 
+boundaries. 
+This complicating 
+factor has 
+been considered in previous work ( 13-16). 
+It is our purpose to extend this work to 
+encompass the effect of a distribution 
+of pore sizes, and in doing so we shall find it 
+
+--- PAGE 4 ---
+12 
+KLEINBERG 
+AND HORSFIELD 
+B,2 tcp2 
+(T%2) 
+-4 1 
+Bo2 tcp2 
+(T%2) 
+FIG. 
+I. The variation of the transverse relaxation rate of (a) Berea sandstone and (b) Leuders limestone 
+with the static field strength and the Carr-Purcell 
+pulse spacing. Experimental 
+data points are shown for 
+three proton 
+resonance frequencies: 5 MHz (solid circles); 40 MHz (open circles); 90 MHz (open 
+triangles). 
+necessary to develop a model which treats grain-surface relaxation 
+simultaneously 
+with diffusion-related 
+relaxation. 
+Magnetic 
+relaxation 
+due to diflusion 
+in a single pore. Neuman 
+(15) derived 
+equations describing the decay of transverse magnetization 
+due to restricted molecu- 
+
+--- PAGE 5 ---
+RELAXATION 
+IN 
+POROUS 
+ROCK 
+13 
+TABLE 
+1 
+Roots 
+oftan(cu,) 
+= 2a,/(2 
+- (Y;) 
+1 
+2.081576 
+2 
+5.940370 
+3 
+9.205839 
+4 
+12.40444 
+5 
+15.57923 
+6 
+18.74265 
+7 
+21.88279 
+lar diffusion in a uniform 
+field gradient. Three geometries were considered: planar, 
+spherical, and cylindrical; 
+the three equations have the same general form. Micro- 
+scopic examination 
+of rock samples shows the pores to be irregularly shaped. How- 
+ever, they are closer to spherical than to planar or cylindrical, so we use 
+x 
+( 
+1 _ 3 - 4exp(-a/2) 
++ exp(-a) 11 
+, 
+a 
+&rg!, 
+[3] 
+where R is the pore radius. The numerical 
+coefficients 
+ai (amR in Neuman’s 
+notation) 
+are the solutions of the transcendental 
+equation 
+cx;J;,2((Yi) 
+- 
+~J3,2(4 
+= 0. 
+[41 
+J3,2(x) is the Bessel function 
+of order 3/2, and YS12 is its derivative with respect to 
+its argument. Using the identities of spherical Bessel functions ( 17)) it may be shown 
+that Eq. [ 41 reduces to 
+2CXi 
+tan(ai) 
+= (2 _ ,:) 
+. 
+The first seven nonzero roots are given in Table 1. Asymptotically, 
+the roots are given 
+by crj = ix. 
+The Neuman equation must be modified when a Cat-r-Purcell (CP) pulse sequence 
+is used. For any magnetization 
+decay which can be described by 
+M(t) 
+= ewKf(t)) 
+161 
+it is easy to show that the magnetization 
+of the n th echo of a CP sequence is 
+M( 2n tcp) = exp( nf(2tcp)). 
+171 
+
+--- PAGE 6 ---
+14 
+KLEINBERG 
+AND 
+HORSF’IELD 
+Therefore, the transverse magnetization 
+decay in a CP sequence can be described by 
+x 
+1 _ 3 - 4 exp( -u/2) 
++ exp( -a) 
+a 
+)I 9 a&$ [8] 
+where M(t) is measured at the center of the echoes. 
+Internal magneticjield 
+gradients. At the outset, we encounter a serious problem in 
+characterizing 
+the static magnetic field gradient. This gradient arises from the mag- 
+netic susceptibility contrast between pore fluid and solid grains. One might start by 
+approximating 
+a pore as an ellipsoid of revolution, 
+for which the magnetic fields may 
+be calculated analytically. Standard textbooks (18) treat the electric field case, which 
+is perfectly equivalent to the magnetic field case. If a uniform 
+field is applied to an 
+ellipsoid, the resulting internal field is uniform 
+and parallel to the applied field, re- 
+gardless of the orientation 
+of the ellipsoid axes. Therefore the gradients must arise 
+because the pore space is irregularly shaped, which microscopic examination 
+mani- 
+festly demonstrates is the case. 
+Glasel and Lee ( 19) have calculated the field gradient outside a single sphere 
+(representing a grain) having a magnetic susceptibility differing from that of an exter- 
+nal medium (representing the fluid-filled pore space). For a region close to the sphere 
+the average gradient is 
+G = ~oHoAx/4R,, 
+191 
+where p. is the magnetic permeability 
+of vacuum, Ho is the applied magnetic field 
+strength, Ax is the difference between the volume magnetic susceptibilities 
+of the 
+sphere and the external medium, 
+and R, is the radius of the sphere. Because the 
+grains themselves are irregularly shaped, we interpret R, as a local radius of convex 
+curvature. We further assume that the local radius of curvature is roughly the same 
+as the radius of the pore itself. We are not satisfied by these approximations, 
+but in 
+the absence of a detailed stereological study of the pore space, we are not sure how to 
+better characterize the magnitude of the field gradient within individual 
+pores. 
+A more sophisticated approach has been taken by Majumdar 
+and Gore (20) : they 
+sum the fields due to an array of spheres immersed in the medium. 
+This model works 
+well for a dilute system of spheres, but its validity is questionable 
+when the grains 
+themselves are highly irregular and densely packed. Therefore the benefits derived 
+from using this detailed model do not warrant the attendant 
+computational 
+com- 
+plexity. 
+Other transverse magnetic relaxation mechanisms. Brownstein and Tarr (21) ana- 
+lyzed the manner in which magnetization 
+of fluids decays in a cell of characteristic 
+dimension 
+R. An essential element of their model is a bounding 
+surface which has 
+a certain probability 
+of relaxing spins that come in contact with it. This surface is 
+characterized by the parameter p (Brownstein 
+and Tarr use the symbol M) which 
+intuitively 
+may be thought of as the thickness of the fluid layer that may be influenced 
+by the surface, divided by the surface relaxation time. Contained 
+in the cell is a fluid 
+having diffusion coefficient D. When the surface is efficient at relaxing the spins, that 
+
+--- PAGE 7 ---
+RELAXATION 
+IN 
+POROUS 
+ROCK 
+15 
+is, when pR / D 9 1, the relaxation rate is controlled 
+by the time it takes for molecules 
+to diffuse to the surface, and, approximately, 
+M,(t) 
+= Illr,exp(-Dt/R2). 
+[lOI 
+when the surface is an inefficient 
+relaxation 
+agent, pR / D 4 1, the magnetization 
+is 
+described by 
+W(t) 
+= M0exp(-pt(SIV)), 
+[Ill 
+where (S/V) is the surface to volume ratio of the pore; in the approximation 
+that the 
+pore is spherical, S/V = 3 /R . 
+The parameter p can be different for longitudinal 
+and transverse relaxation, giving 
+rise to different 
+relaxation 
+parameters 
+p, and p2. On the basis of a study of many 
+rocks, Kenyon 
+et al. (6) have concluded that Eq. [ 1 l] is applicable for T, processes. 
+We assume that the same is true for T2 processes. 
+Acting in parallel with the wall relaxation 
+mechanism 
+is the normal 
+bulk liquid 
+relaxation 
+process, with transverse relaxation time T2,, . If the pore fluid is water, this 
+contribution 
+is normally 
+insignificant. 
+When the pore fluid is a viscous oil (22)) or a 
+solution with a high density of paramagnetic 
+ions, bulk relaxation mechanisms may 
+dominate. 
+Pore size distribution. 
+A number 
+of groups have used NMR 
+relaxation 
+data to 
+determine 
+the pore size distribution 
+of rocks. Kenyon 
+et al. (6) pointed out that the 
+observed stretched exponential 
+decay of longitudinal 
+magnetization 
+can arise from a 
+population 
+of pores of various sizes, the spins in each pore relaxing according to Eq. 
+[ 111. In an obvious extension to the work of Kenyon et al., we may write 
+exp( -(kr) 
+x didRexp( 
+-(er”Pm’)exp( 
+-(%l)). 
+[12] 
+Measurements 
+on more than 100 water-filled rocks showed that (Y is generally around 
+2/3. Therefore, the pore size distribution 
+can be presumed to be Gaussian, 
+, 
+]131 
+where R. is a characteristic length scale. P(R) is the volumetric 
+probability 
+density; 
+i.e., it is the volume of the population 
+of pores having radius R . Thus the total pore 
+volume is given by 
+V=cdmdRexp(-(f-)2), 
+]141 
+where c is a constant having dimensions of length squared. 
+Unified equation for transverse relaxation. 
+We can now describe transverse relax- 
+ation in a rock having a distribution 
+of pore sizes and associated distribution 
+of sur- 
+face and diffusion-related 
+relaxation rates. When a relaxation mechanism operates in 
+parallel with and is independent 
+of other relaxation 
+processes, as is the case with 
+bulk relaxation, 
+then the relaxation 
+rates are additive. Robertson 
+(14) showed that 
+
+--- PAGE 8 ---
+16 
+KLEINBERG 
+AND 
+HORSFIELD 
+diffusion-related 
+and surface relaxation are also independent 
+to second order so that, 
+within a single pore, the resulting relaxation rates may be added. 
+However, the decay processes are functions of the pore size, giving rise to a decay 
+of transverse magnetization 
+which will be nonexponential. 
+Hence it is necessary to 
+calculate M(t) 
+explicitly as the sum of magnetization 
+from the distribution 
+of pores 
+and find T2 from the resulting decay curve. 
+With these points in mind, we combine Eqs. [ 81, [ 91, [ 111, and [ 133 to find 
+,(~)=~0~-~Rexp(-(~)‘)exp(-~~)exp(-&~)exp[-2’2~R4t 
+G(a;Ca;-2))(1 
+- 
+3 - 4 exp( -a/2) 
++ exp( -a) 
+a 
+)I9 a=-. 
+1151 
+The complexity 
+of the argument 
+of the fourth exponential 
+function of this equation 
+makes analytical solution difficult. The equation was therefore solved numerically, 
+the integral being evaluated using an adaptive Romberg extrapolation 
+algorithm 
+as 
+embodied 
+in a commercially 
+available computer 
+subroutine 
+(23). The sum usually 
+converges to one part in 1 O4 in a few terms. T2 was determined 
+from Eq. [ 15 ] by the 
+condition 
+M( T2) = i&/e, 
+which is consistent with Eq. [ 11. 
+We will compare the predictions of Eq. [ 151 with a formulation 
+that accounts for 
+the effect of a distribution 
+of pore sizes on the surface relaxation rate and magnetic 
+field gradient, but allows for unrestricted diffusion. The appropriate 
+equation is 
+iI61 
+Selection ofparameters. The transverse relaxation rate of Leuders limestone, mea- 
+sured as a function 
+of B0 and tcp, showed the largest departure from the predictions 
+of the Carr-Purcell 
+theory, Eq. [ 21, Therefore, it provides the best example of the 
+applicability 
+of the new theory, Eq. [ 15 1. The material constants which enter into 
+Eq. [ 15 ] are the characteristic pore size, R,,; the magnetic susceptibility contrast be- 
+tween the grains and the pore fluid, Ax; the surface relaxation 
+parameter, 
+p2 ; the 
+diffusion constant of the pore fluid, D; and the fluid bulk relaxation time, T2,. We 
+have either independently 
+measured or used published values for all of these except 
+p2, which is difficult to determine separately. 
+The pore size distribution 
+of the Leuders limestone was measured by mercury in- 
+jection porosimetry 
+(Micromeritics 
+Autopore 
+II porosimeter) 
+which gives an indica- 
+tion of the size of restricting throat associated with the pore into which the mercury 
+intrudes. Thus, the radius measured bears only an approximate 
+relationship 
+to the 
+pore radius, the correspondence 
+depending on the exact pore geometry. The pressure 
+at which mercury had intruded into one-half of the total pore volume was 1.62 MPa 
+(235 psi). Using the standard equations of mercury porosimetry 
+(24)) this implies a 
+median pore radius, R,, of 0.45 pm. 
+The relationship 
+between R, and RO of a Gaussian distribution 
+is expressed by 
+
+--- PAGE 9 ---
+RELAXATION 
+IN POROUS 
+ROCK 
+17 
+FIG. 2. Transverse relaxation rate of Leuders limestone as a function of the time between the 90” pulse 
+and the first 180’ pulse in a Cat-r-Purcell pulse train. Symbols as in Fig. I. The three solid curves are the 
+restricted diffusion theory for the same three frequencies. The parameters used were Ra = 2 pm, Ax = 75 
+X 10e6, and pz = 1.6 X 10m6 m s-r. The three dashed curves are the predictions ofthe unrestricted diffusion 
+theory, using the same parameter set. 
+i 
+J: 
+dR wN-(R/&d*) 
+-= 
+2 
+Jr 
+dR ew(-(R/Rd2) 
+1171 
+with the result that R0 = R,/0.475. Hence the mercury porosimetry 
+measurement 
+givesR,, = 0.96 pm. 
+The measured relaxation time of the water used to saturate the rocks was Tzb = 3 s 
+at 40°C. The diffusion coefficient of water at 40°C measured by NMR techniques 
+(25), isD = 3.14 X 10e9 m2 s-l. 
+The magnetic susceptibility required for Eq. [ 93 is the volume magnetic suscepti- 
+bility, xv, defined by 
+B = PO&( 1 + xv). 
+1181 
+Its value for water is -9.26 
+X 1O-6 in S.I. units. Many rocks have significant content 
+of paramagnetic 
+ions which dominate 
+their magnetic properties. The grain mass sus- 
+ceptibility of Leuders limestone was measured using a Gouy balance to be 3.0 X 10e9 
+m3 kg-‘. The grain density is 2.7 1 X lo3 kg rne3, so the volume susceptibility is 8.1 
+X 10e6. Ax is then 17 X 10d6. 
+
+--- PAGE 10 ---
+18 
+KLEINBERG 
+AND HORSFIELD 
+To our knowledge there are no published data on the grain-surface transverse relax- 
+ation parameter, 
+p2, in rocks. Moreover, 
+the microscopic mechanism controlling 
+p2 
+is unknown. 
+We assume that p2 is independent 
+of Larmor frequency, and its value is 
+allowed to be a variable parameter. 
+RESULTS 
+Equation 
+[ 15 ] was used to calculate transverse relaxation 
+rates as a function 
+of 
+Cat-r-Purcell pulse spacing for proton resonance frequencies of 5, 40, and 90 MHz. 
+The results are shown as solid curves in Fig. 2. At the lowest values of 1,, and static 
+field strength, 1 / T2 is dominated 
+by grain-surface relaxation, as expected. At higher 
+values of tcp and field, the effects of diffusion in a field gradient become apparent. 
+However, these effects saturate at the largest values of tcp. Clearly, this indicates the 
+inability 
+of the spins to experience arbitrarily 
+large changes in their precession fre- 
+quency between the 180” pulses in the Carr-Purcell 
+sequence. 
+The experimentally 
+determined 
+transverse relaxation 
+rates of Leuders limestone 
+for the same three frequencies are shown as points in Fig. 2. The restricted diffusion 
+theory generally follows the experimental 
+data points. The exception is at the longest 
+value of tcp ( 1.8 ms), where the theory underestimates 
+1 / T2. The effect of unre- 
+stricted diffusion, calculated using Eq. [ 16 1, is shown as dashed lines. 
+The parameters used to calculate the theoretical curves differ somewhat from their 
+estimates. The Gaussian pore size parameter is 2 pm rather than 1 pm. Also, it was 
+found that Ax had to be increased from 17 X 10e6 to 75 X lop6 in order to obtain a 
+match with the experimental 
+data. The value of p2 was found to be 16 X 1 Oe6 m s-‘. 
+The difference between 1 and 2 pm in a mercury injection determination 
+of pore size 
+is insignificant. 
+It is likely that the discrepancy between the measured and fitted values 
+of Ax results from the crudeness of our model for the magnetic field gradient in the 
+pore space of the rock; we consider this to be the most serious deficiency of the theory. 
+The value of p2 obtained is comparable 
+to the value of pI deduced by Kenyon et al. 
+(26) at an operating frequency of 10 MHz. 
+ACKNOWLEDGMENTS 
+We acknowledge enlightening discussions with C. Straley, E. J. Fordham, Professor L. D. Hall, J. How- 
+ard, Y. Hsu, W. Kenyon, and A. Sezginer. In addition, C. Straley provided invaluable assistance in keeping 
+the NMR spectrometer in working order, and J. Howard generously provided a large quantity of petro- 
+graphic data on the samples. M. Horsfield also thanks the Science and Engineering Research Council of 
+Great Britain and the Herchel Smith Endowment for additional financial support. 
+REFERENCES 
+1. J. KARGER, H. PFEIFER, AND W. HEINK, in “Advances in Magnetic Resonance” (J. S. Waugh, Ed.), 
+Vol. 12, p. 1, Academic Press, New York, 1988. 
+2. M. H. COHEN AND K. S. MENDELSON, J. Appl. 
+Phys. 
+53,1127 
+( 1982). 
+3. A. H. THOMPSON, S. W. SINTON, S. L. HUFF, A. J. KATZ, R. A. RASHKE, AND G. A. GIST, J. Appl. 
+Phys. 65,3259 ( 1989). 
+4. W. P. HALPERIN, F. D’ORAZIO, S. BHATTACHARJA, AND J. C. TARCZON, in “Molecular 
+Dynamics in 
+Restricted Geometries” (J. Klafter and J. M. Drake, Eds.), Wiley, New York, 1989. 
+
+--- PAGE 11 ---
+RELAXATION 
+IN 
+POROUS 
+ROCK 
+19 
+5. W. 
+A. EDELSTEIN, 
+H. J. VINEGAR, 
+P. N. TUTUNJIAN, 
+P. B. ROEMER, 
+AND 0. 
+M. 
+MUELLER, 
+“63rd 
+Annual 
+Technical 
+Conference 
+and 
+Exhibition 
+of the 
+Society 
+of Petroleum 
+Engineers, 
+Houston, 
+Texas, 
+October 
+2-5 
+1988.” 
+6. 
+W. 
+E. KENYON, 
+P. I. DAY, 
+C. STRALEY, 
+AND J. F. WILLEMSEN, 
+SPE Formation 
+Evaluation, 
+p. 622, 
+September 
+1988. 
+7. H. Y. CARRANDE. 
+M. PURCELL, 
+Phys. 
+Rev. 94,630 ( 1954). 
+8. S. MEIBOOM 
+ANDD. 
+GILL, 
+Rev. Sci. Instrum. 29,688 ( 1958). 
+9. P. STILBS, Prog. Nh4R Spectrusc. 19, 1 ( 1987). 
+IO. 
+K. J. PACKER 
+AND C. REES, J. Colloid Interface Sci. 40,206 ( 1972 ). 
+II. 
+D. E. WOESSNER, 
+J. Phys. Chem. 67, 1365 ( 1963). 
+12. 
+L. E. DRAIN, 
+Proc. Phys. Sot. 80, 1380 ( 1962). 
+13. 
+R. C. WAYNEANDR. 
+M. Corrs, 
+Phys. Rev. 151,264 
+(1966). 
+II. 
+B. ROBERTSON, 
+Phys. Rev. 151,273 
+( 1966). 
+15. 
+C. H. NEUMAN, 
+J. Chem. Phys. 60,4508 ( 1974). 
+16. 
+J. C. TARCZONANDW. 
+P. HALPERIN, 
+Phys. Rev. B32,2798 
+(1985). 
+17. 
+M. ABRAMOWITZ 
+AND I. E. STEGUN, 
+“Handbook 
+of Mathematical 
+Functions 
+with 
+Formulas, 
+Graphs, 
+and 
+Mathematical 
+Tables,” 
+Chap. 
+10, U.S. 
+National 
+Bureau 
+of Standards, 
+1964. 
+18. J. A. STRATTON, 
+“Electromagnetic 
+Theory,” 
+Section 
+3.28, 
+McGraw-Hill, 
+New 
+York, 
+1941. 
+19. 
+J. A. GLASELANDK. 
+H. LEE, J. Am. Chem. Sot. 96,970 ( 1974). 
+20. 
+S. MAJUMDAR 
+AND J. C. GORE, 
+J. Magn. Reson. 78,41( 
+1988). 
+21. 
+K. R. BROWNSTEIN 
+ANDC. 
+E. TARR, 
+Phys. Rev. A 19,2446 
+( 1979). 
+22. 
+R. J. S. BROWN, 
+Nature (London) 
+189,387 
+( I96 1). 
+23. 
+“DCADRE,” 
+IMSL, 
+Houston, 
+Texas; 
+C. DE BOOR, 
+in “Mathematical 
+Software” 
+(J. 
+R. Rice, 
+Ed.), 
+Academic 
+Press, 
+New 
+York, 
+197 1. 
+24. 
+S. LOWELL 
+AND J. E. SHIELDS, 
+“Powder 
+Surface 
+Area 
+and Porosimetry,” 
+Chapman 
+and Hall, 
+London, 
+1984. 
+25. 
+J. H. SIMP~ONANDH. 
+Y.CARR, 
+Phys. Rev. 111,120l 
+(1958). 
+26. 
+W. 
+E. KENYON, 
+J. J. HOWARD, 
+A. SEZGINER, 
+C. STRALEY, 
+A. MATTESON, 
+K. HORKOWITZ, 
+AND R. 
+EHRLICH, 
+“Pore 
+Size 
+Distribution 
+and 
+N.M.R. 
+in Microporous 
+Cherty 
+Sandstones,” 
+Society 
+of 
+Professional 
+Well 
+Log Analysts, 
+30th 
+Annual 
+Symposium, 
+1989. 

@@ -790,8 +790,10 @@ def assemble_triangular_operator(
 ):
     """Assemble FEM matrices for the water domain.
 
-    ``edge_classifier`` returns ``"solid"``, ``"gas"`` or ``"noflux"`` for a
-    boundary-edge midpoint. ``noflux`` edges get no surface relaxation.
+    ``edge_classifier`` returns ``"solid"``, ``"edge"``, ``"gas"`` or ``"noflux"``
+    for a boundary-edge midpoint. ``"edge"`` (background or image-edge faces)
+    relaxes with the solid relaxivity but is reported separately; ``noflux``
+    edges get no surface relaxation.
     """
 
     classify = edge_classifier or classify_boundary_edge
@@ -831,17 +833,21 @@ def assemble_triangular_operator(
     solid_length = 0.0
     gas_length = 0.0
     noflux_length = 0.0
-    boundary_edges: dict[str, list[tuple[int, int]]] = {"solid": [], "gas": [], "noflux": []}
+    edge_length = 0.0
+    boundary_edges: dict[str, list[tuple[int, int]]] = {"solid": [], "edge": [], "gas": [], "noflux": []}
     for (a, bidx), count in edge_counts.items():
         if count != 1:
             continue
         midpoint = (points[a] + points[bidx]) / 2.0
         length = float(np.linalg.norm(points[a] - points[bidx]))
         kind = classify(labels, midpoint, params)
-        if kind == "solid":
+        if kind in ("solid", "edge"):
             solid_robin[a] += length / 2.0
             solid_robin[bidx] += length / 2.0
-            solid_length += length
+            if kind == "solid":
+                solid_length += length
+            else:
+                edge_length += length
         elif kind == "noflux":
             noflux_length += length
         else:
@@ -863,6 +869,7 @@ def assemble_triangular_operator(
         "solid_liquid_boundary_length_um": float(solid_length),
         "gas_liquid_boundary_length_um": float(gas_length),
         "noflux_boundary_length_um": float(noflux_length),
+        "relaxing_edge_length_um": float(edge_length),
         "mesh_bulk_size_um": float(params.mesh_bulk_size_um),
         "mesh_boundary_size_um": float(params.mesh_boundary_size_um),
     }

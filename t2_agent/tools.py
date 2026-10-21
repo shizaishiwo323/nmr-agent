@@ -588,6 +588,103 @@ def run_reduced_t2_t2(
         )
 
 
+def _literature_section(
+    results: list[AgentToolResult],
+    summary: dict[str, Any],
+    t2: np.ndarray,
+    amp: np.ndarray,
+    gaussian_runs: list[dict[str, Any]],
+    language: str,
+) -> tuple[list[str], list[str]]:
+    """Collect the numbers of this analysis and write the literature-based section."""
+
+    from .literature import AnalysisFacts, build_findings, early_time_misfit, render_section, spectrum_peaks
+
+    stages = [str(item.summary.get("stage", "")) for item in results]
+    workflow = "ideal" if any(stage.startswith("ideal_") for stage in stages) else "ct" if any(stage.startswith("ct_") for stage in stages) else "measured"
+    facts = AnalysisFacts(workflow=workflow, t2_ms=t2, spectrum=amp)
+    facts.main_peak_ms = summary.get("main_peak_t2_ms")
+    facts.short_fraction = summary.get("short_t2_fraction_lt_10ms")
+    facts.long_fraction = summary.get("long_t2_fraction_ge_1000ms")
+    facts.peak_positions_ms = spectrum_peaks(t2, amp)
+    for item in reversed(results):
+        params = item.summary.get("parameters") if isinstance(item.summary.get("parameters"), dict) else None
+        if item.summary.get("metrics_xlsx") or (params and "alpha_count" in params):
+            facts.inversion_mode = "lcurve"
+            facts.selection_rule = (params or {}).get("criterion", "ratio")
+            break
+        if item.summary.get("regularization") is not None and item.summary.get("spectrum_xlsx"):
+            facts.inversion_mode = "fixed_nnls"
+            facts.alpha = float(item.summary["regularization"])
+            break
+    if facts.inversion_mode == "lcurve":
+        facts.alpha = summary.get("best_regularization")
+    trimmed = next((item.summary.get("trimmed_xlsx") for item in reversed(results) if item.summary.get("trimmed_xlsx")), None)
+    if trimmed and Path(str(trimmed)).exists():
+        facts.early_misfit_fraction, facts.decay_end_fraction = early_time_misfit(Path(str(trimmed)))
+    if gaussian_runs:
+        facts.gaussian_peaks = [peak for peak in gaussian_runs[-1]["peaks"] if peak.get("position_ms") is not None]
+    for item in results:
+        if item.summary.get("stage") == "ideal_geometry" and item.summary.get("ideal_config"):
+            facts.ideal = {
+                "config": item.summary["ideal_config"],
+                "estimated_t2_ms": item.summary.get("estimated_t2_ms", {}),
+                "water_configuration": item.summary.get("water_configuration", {}),
+            }
+            facts.bulk_t2_ms = float(item.summary["ideal_config"].get("bulk_t2_ms", 3000.0))
+        if item.summary.get("stage") == "ct_geometry":
+            facts.ct = {"water_saturation_2d": item.summary.get("water_saturation_2d")}
+        if item.summary.get("stage") == "ct_decay":
+            facts.bulk_t2_ms = (item.summary.get("params_used") or {}).get("bulk_t2_ms")
+    return render_section(build_findings(facts, language), language)
+
+
+def _lcurve_report_inputs(results: list[AgentToolResult]) -> dict[str, Path] | None:
+    """Return the four L-curve workbooks of the latest L-curve run, if all exist."""
+
+    keys = ("spectrum_xlsx", "metrics_xlsx", "trimmed_xlsx", "fit_xlsx")
+    for result in reversed(results):
+        summary = result.summary or {}
+        if all(key in summary for key in keys):
+            paths = {key: Path(str(summary[key])) for key in keys}
+            if all(path.exists() for path in paths.values()):
+                return paths
+    return None
+
+
+def _add_inversion_report_figure(
+    results: list[AgentToolResult], output_dir: Path, lines: list[str], summary: dict[str, Any], english: bool
+) -> str | None:
+    """Draw the four-panel inversion figure and reference it in the report lines."""
+
+    inputs = _lcurve_report_inputs(results)
+    if inputs is None:
+        return None
+    try:
+        from nmr_t2.report_figure import plot_inversion_report
+
+        figure_path = plot_inversion_report(
+            inputs["spectrum_xlsx"],
+            inputs["metrics_xlsx"],
+            inputs["trimmed_xlsx"],
+            inputs["fit_xlsx"],
+            Path(output_dir) / timestamped_name("inversion_report", "png"),
+        )
+    except Exception as exc:  # the figure must never block the written interpretation
+        summary["inversion_report_figure_error"] = str(exc)
+        return None
+    summary["inversion_report_figure"] = str(figure_path)
+    lines.append("## Inversion Overview Figure" if english else "## 反演总览图")
+    lines.append(f"![{'Inversion overview' if english else '反演总览'}]({figure_path.name})")
+    lines.append(
+        "Measured and fitted decay with residuals (left); recovered T2 spectrum and L-curve with the selected smoothing factor (right)."
+        if english
+        else "左：实测与拟合衰减及残差；右：反演得到的 T2 谱，以及 L-curve 和选定的平滑因子。"
+    )
+    lines.append("")
+    return str(figure_path)
+
+
 def interpret_results(results: list[AgentToolResult], output_dir: Path, language: str = "中文") -> AgentToolResult:
     """Summarize generated T2 artifacts into a user-facing interpretation."""
 
@@ -601,9 +698,10 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
             ("summary_csv", "summary_xlsx", "lcurve_summary_csv", "lcurve_summary_xlsx", "nnls_summary_csv", "nnls_summary_xlsx"),
             (".csv", ".xlsx"),
         )
+        # Gaussian summaries inherit "lcurve" from the spectrum file name; they are not inversion runs.
         lcurve_summary_paths = _dedupe_run_artifact_paths([
             *_find_artifacts(results, "lcurve_summary", (".csv", ".xlsx")),
-            *[path for path in summary_candidates if "lcurve" in path.name.lower()],
+            *[path for path in summary_candidates if "lcurve" in path.name.lower() and "gaussian" not in path.name.lower()],
         ])
         nnls_summary_paths = _dedupe_run_artifact_paths([
             *_find_artifacts(results, "nnls_summary", (".csv", ".xlsx")),
@@ -708,6 +806,7 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
                         lines.append(f"  残差范数 `{row['residual_norm']:.4g}`，粗糙度范数 `{row['roughness_norm']:.4g}`。")
             lines.append("")
 
+        spectrum_t2 = spectrum_amp = None
         if spectrum_path:
             sheets = pd.read_excel(spectrum_path, sheet_name=None)
             first_sheet_name, spectrum_df = next(iter(sheets.items()))
@@ -718,6 +817,7 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
             mask = np.isfinite(t2) & np.isfinite(amp) & (t2 > 0)
             t2 = t2[mask]
             amp = amp[mask]
+            spectrum_t2, spectrum_amp = t2, amp
             if t2.size and amp.size:
                 max_idx = int(np.argmax(amp))
                 total_area = _trapezoid_area(amp, np.log10(t2)) if t2.size > 1 else float(amp[max_idx])
@@ -795,6 +895,21 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
                             lines.append(f"- 峰 {peak['peak_id']}：位置约 `{position:.4g} ms`，面积占比约 `{fraction:.1%}`。")
                 lines.append("")
 
+        report_figure = _add_inversion_report_figure(results, output_dir, lines, summary, english)
+
+        if spectrum_t2 is not None:
+            try:
+                literature_lines, cited = _literature_section(results, summary, spectrum_t2, spectrum_amp, gaussian_runs, language)
+                lines.extend(literature_lines)
+                summary["literature_citations"] = cited
+                # Structured copies so the model can quote them without the truncated message.
+                summary["literature_findings"] = [line[2:] for line in literature_lines if line.startswith("- ")]
+                from .literature import load_references
+
+                summary["literature_references"] = [load_references()[key]["reference_agu"] for key in cited]
+            except Exception as exc:  # citations must never block the interpretation
+                summary["literature_error"] = str(exc)
+
         if len(lines) <= 2:
             message = "There are not enough inversion results to interpret yet. Run L-curve or NNLS first." if english else "还没有足够的反演结果可解释。请先运行 L-curve 或 NNLS。"
             return AgentToolResult("failed", message, error="missing_result_artifacts")
@@ -820,7 +935,8 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
         output_path.write_text("\n".join(lines), encoding="utf-8")
 
         message = "\n".join(line for line in lines if line != "")[:3000]
-        return AgentToolResult("success", message, artifacts=[str(output_path)], summary=summary)
+        artifacts = [str(output_path)] + ([report_figure] if report_figure else [])
+        return AgentToolResult("success", message, artifacts=artifacts, summary=summary)
     except Exception as exc:
         message = "Result interpretation failed." if _is_english(language) else "结果解释失败。"
         return AgentToolResult("failed", message, error=str(exc))
@@ -1544,15 +1660,30 @@ def run_lcurve(input_workbook: Path, output_dir: Path, params: dict[str, Any] | 
             alpha_count=int(params.get("alpha_count", 300)),
             min_points_after_trim=int(params.get("min_points_after_trim", 10)),
         )
+        criterion = str(params.get("criterion", "ratio"))
+        if criterion not in ("ratio", "curvature"):
+            raise ValueError(f"Unknown L-curve criterion: {criterion}")
         run_output_dir = _inversion_run_output_dir(Path(output_dir), "lcurve", params)
-        result = run_lcurve_workbook(
-            Path(input_workbook),
-            run_output_dir,
-            config=cfg,
-            plot_config=PlotConfig(),
-            time_to_ms_scale=float(params.get("time_to_ms_scale", 1.0)),
-            trim_from_peak=bool(params.get("trim_from_peak", True)),
-        )
+        if criterion == "curvature":
+            # Reference route: untrimmed, unweighted normalised decay and maximum L-curve curvature.
+            from .reference_inversion import run_reference_lcurve_workbook
+
+            result = run_reference_lcurve_workbook(
+                Path(input_workbook),
+                run_output_dir,
+                {"num_bins": cfg.num_bins, "t2_min_ms": cfg.t2_min_ms, "t2_max_ms": cfg.t2_max_ms,
+                 "alpha_min": cfg.alpha_min, "alpha_max": cfg.alpha_max, "alpha_count": cfg.alpha_count},
+                time_to_ms_scale=float(params.get("time_to_ms_scale", 1.0)),
+            )
+        else:
+            result = run_lcurve_workbook(
+                Path(input_workbook),
+                run_output_dir,
+                config=cfg,
+                plot_config=PlotConfig(),
+                time_to_ms_scale=float(params.get("time_to_ms_scale", 1.0)),
+                trim_from_peak=bool(params.get("trim_from_peak", True)),
+            )
         artifacts = _as_artifacts({key: value for key, value in result.items() if key != "figure_dir"})
         artifacts.extend(_summary_column_artifacts(result.get("summary_csv"), "lcurve_figure"))
         summary = {key: str(value) for key, value in result.items()}
@@ -1568,7 +1699,8 @@ def run_lcurve(input_workbook: Path, output_dir: Path, params: dict[str, Any] | 
             "alpha_count": int(cfg.alpha_count),
             "min_points_after_trim": int(cfg.min_points_after_trim),
             "time_to_ms_scale": float(params.get("time_to_ms_scale", 1.0)),
-            "trim_from_peak": bool(params.get("trim_from_peak", True)),
+            "trim_from_peak": bool(params.get("trim_from_peak", True)) and criterion == "ratio",
+            "criterion": criterion,
         }
         spectrum_path = Path(result["spectrum_xlsx"]) if "spectrum_xlsx" in result else None
         alpha_token = _selected_alpha_filename_token_from_summary(result.get("summary_csv"))
@@ -1581,10 +1713,11 @@ def run_lcurve(input_workbook: Path, output_dir: Path, params: dict[str, Any] | 
             filename_tag=alpha_token,
         )
         summary["output_dir"] = str(run_output_dir)
+        rule = {"ratio": ("slope-reciprocal ratio", "斜率倒数比值"), "curvature": ("maximum curvature", "最大曲率")}[criterion]
         message = (
-            f"L-curve inversion completed. Outputs are grouped in {run_output_dir.name}."
+            f"L-curve inversion completed ({rule[0]} criterion). Outputs are grouped in {run_output_dir.name}."
             if english
-            else f"L-curve 反演完成。结果已归入 {run_output_dir.name}。"
+            else f"L-curve 反演完成（{rule[1]}判据）。结果已归入 {run_output_dir.name}。"
         )
         return AgentToolResult(
             "success",

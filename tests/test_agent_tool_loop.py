@@ -8,6 +8,7 @@ import pytest
 
 import t2_agent.agent as agent_module
 from t2_agent.agent import AgentRuntimeContext, build_tool_specs, execute_agent_tool, run_deepseek_agent_turn
+from t2_agent.ideal_workflow import confirm_ideal_parameters
 from t2_agent.models import AgentToolResult
 from t2_agent.tools import run_local_nmr_triangle_t2_t2
 from tests.test_simulation_2d import pygimli_available
@@ -365,7 +366,11 @@ def test_full_2d_simulation_workflow_returns_only_current_turn_artifacts(tmp_pat
     monkeypatch.setattr("t2_agent.agent.run_2d_mesh_and_decay", fake_run_2d_mesh_and_decay)
     monkeypatch.setattr("t2_agent.agent.run_lcurve", fake_run_lcurve)
 
-    result = execute_agent_tool("run_2d_simulation_full_workflow", {"geometry_mode": "rule"}, context)
+    result = execute_agent_tool(
+        "run_2d_simulation_full_workflow",
+        {"geometry_mode": "png", "physical_size_x_um": 100.0, "physical_size_y_um": 100.0},
+        context,
+    )
 
     assert result.status == "success"
     assert str(prior_artifact) not in result.artifacts
@@ -487,25 +492,13 @@ def test_local_nmr_triangle_demo_uses_repository_builtin_ideal_triangle(tmp_path
 def test_full_2d_rule_simulation_workflow_runs_real_inversion(tmp_path):
     context = AgentRuntimeContext(workspace=tmp_path / "workspace")
 
-    result = execute_agent_tool(
-        "run_2d_simulation_full_workflow",
-        {
-            "geometry_mode": "rule",
-            "canvas_width_px": 60,
-            "canvas_height_px": 40,
-            "large_pore_radius_px": 10,
-            "small_pore_radius_px": 8,
-            "throat_width_px": 4,
-            "dt_ms": 5.0,
-            "t_max_ms": 60.0,
-            "mesh_bulk_size_um": 4.0,
-            "mesh_boundary_size_um": 2.0,
-            "mesh_max_points": 4000,
-            "num_bins": 30,
-            "alpha_count": 6,
-        },
+    waiting = execute_agent_tool("run_2d_simulation_full_workflow", {"geometry_mode": "rule"}, context)
+    assert waiting.error == "needs_ideal_parameter_confirmation"
+    confirm_ideal_parameters(
         context,
+        {"dt_ms": 5.0, "t_max_ms": 60.0, "ideal_mesh_area_um2": 0.3, "num_bins": 30, "run_gaussian": False},
     )
+    result = execute_agent_tool("run_2d_simulation_full_workflow", {"geometry_mode": "rule"}, context)
 
     assert result.status == "success", result.error
     assert context.simulation_decay_path is not None

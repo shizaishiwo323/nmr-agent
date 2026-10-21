@@ -12,7 +12,7 @@ from uuid import uuid4
 import pandas as pd
 import streamlit as st
 
-from t2_agent import ct_ui
+from t2_agent import ct_ui, ideal_ui
 from t2_agent.agent import AgentRuntimeContext, execute_agent_tool, run_deepseek_agent_turn
 from t2_agent.ct_workflow import is_ct_upload
 from t2_agent.deepseek import get_deepseek_api_key_source
@@ -45,6 +45,11 @@ CT_STAGE_TITLES = {
     "ct_t2_inversion": ("T2 反演", "T2 inversion"),
     "ct_gaussian": ("高斯分峰", "Gaussian decomposition"),
     "ct_interpretation": ("结果解释", "Interpretation"),
+    "ideal_geometry": ("理想几何与参数记录", "Ideal geometry and parameter record"),
+    "ideal_mesh_decay": ("PyGIMLi 网格与 NMR 衰减", "PyGIMLi mesh and NMR decay"),
+    "ideal_t2_inversion": ("T2 反演", "T2 inversion"),
+    "ideal_gaussian": ("高斯分峰", "Gaussian decomposition"),
+    "ideal_interpretation": ("结果解释", "Interpretation"),
 }
 
 
@@ -924,6 +929,8 @@ def render_context_outputs(context: AgentRuntimeContext | None, language: str) -
             st.caption(t(language, "png_upload_hint") if active_suffix == ".png" else t(language, "upload_hint"))
         ct_ui.render_ct_panel(context, language, on_background_answer=record_ct_background_answer)
         st.session_state["ct_progress_placeholder"] = st.empty()
+    if context is not None and context.ideal_state:
+        ideal_ui.render_ideal_panel(context, language)
 
     render_artifact_rail(context, language)
     st.markdown("<div class='t2-section-divider'></div>", unsafe_allow_html=True)
@@ -1777,6 +1784,12 @@ def make_ct_stage_callback(language: str):
     return on_stage
 
 
+def ideal_confirmed_run_prompt(language: str) -> str:
+    if language == "English":
+        return "[UI confirmation] The ideal-structure parameters are confirmed. Please run the ideal-structure simulation workflow and explain the results."
+    return "【界面确认】理想结构参数已确认，请执行理想结构模拟全流程并解释结果。"
+
+
 def ct_confirmed_run_prompt(language: str) -> str:
     if language == "English":
         return "[UI confirmation] Phase markers and run parameters are confirmed. Please run the segmented-CT simulation workflow and explain the results."
@@ -1839,6 +1852,12 @@ def run_agent_prompt(
                     on_tool_result=show_live_tool_result,
                     response_language=language,
                 )
+                if prompt == ideal_confirmed_run_prompt(language) and (context.ideal_state or {}).get("step") == "ready":
+                    # The model did not start the confirmed run; execute it deterministically.
+                    fallback = execute_agent_tool("run_2d_simulation_full_workflow", {"geometry_mode": "rule"}, context, response_language=language)
+                    context.tool_history.append(fallback)
+                    result.tool_results.append(fallback)
+                    result.assistant_message = (result.assistant_message + "\n\n" + fallback.message).strip()
                 if prompt == ct_confirmed_run_prompt(language) and (context.ct_state or {}).get("step") == "ready":
                     # The model did not start the confirmed run; execute it deterministically.
                     fallback = execute_agent_tool("run_ct_simulation_workflow", {}, context, response_language=language)
@@ -2155,6 +2174,41 @@ def main() -> None:
                 run_ct_without_model(context, language)
 
         ct_ui.open_pending_dialog(context, language, on_ready_to_run=run_ct_now)
+
+    if context is not None and (context.ideal_state or {}).get("open_dialog") == "ideal_params":
+
+        def run_ideal_now() -> None:
+            st.markdown("#### 正在执行理想结构模拟流程…" if language != "English" else "#### Running the ideal-structure workflow…")
+            if api_key:
+                run_agent_prompt(ideal_confirmed_run_prompt(language), api_key, model, thinking_enabled)
+            else:
+                run_ideal_without_model(context, language)
+
+        ideal_ui.open_pending_dialog(context, language, on_ready_to_run=run_ideal_now)
+
+
+def run_ideal_without_model(context: AgentRuntimeContext, language: str) -> None:
+    """Run a confirmed ideal-structure workflow when no DeepSeek key is configured."""
+
+    prompt = ideal_confirmed_run_prompt(language)
+    st.session_state.display_messages.append(("user", prompt))
+    st.session_state.display_traces.append([])
+    st.session_state.display_artifacts.append([])
+    st.session_state.display_tool_results.append([])
+    with st.status(t(language, "running_status"), expanded=True) as status:
+        context.stage_callback = make_ct_stage_callback(language)
+        try:
+            result = execute_agent_tool("run_2d_simulation_full_workflow", {"geometry_mode": "rule"}, context, response_language=language)
+        finally:
+            context.stage_callback = None
+        context.tool_history.append(result)
+        st.session_state.display_messages.append(("assistant", result.message))
+        st.session_state.display_traces.append([])
+        st.session_state.display_artifacts.append(collect_turn_artifacts([result]))
+        st.session_state.display_tool_results.append([result])
+        refresh_zip_from_context(context)
+        save_current_file_state()
+        status.update(label=t(language, "done_status"), state="complete" if result.status == "success" else "error")
 
 
 def run_ct_without_model(context: AgentRuntimeContext, language: str, live_chat_container=None) -> None:

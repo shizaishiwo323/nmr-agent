@@ -1,0 +1,1616 @@
+--- PAGE 1 ---
+JOURNAL 
+OF MAGNETIC 
+RESONANCE 
+84, 134- 152 ( 1989) 
+Quantitative Interpretation of NMR Relaxation Data 
+KENNETH P. WHITTALL 
+Department ofGeophysics and Astronomy, University of British Columbia, 
+Vancouver, British Columbia, Canada V6T I WS 
+AND 
+ALEXANDER L. MACKAY 
+Departments ofRadiology 
+and Physics, University of British Columbia, 
+Vancouver, British Columbia, Canada V6T I W5 
+Received July 25, 1988; revised November 22, 1988 
+Least-squares and linear programming 
+algorithms for the interpretation 
+of NMR relax- 
+ation data in terms of a spectrum of relaxation times are presented. These stable methods 
+are noniterative 
+and avoid all of the difficulties associated with nonlinear 
+optimization 
+schemes. Moreover, they are not restricted by any assumptions which limit the number 
+of possible relaxation times. The inherent nonuniqueness 
+due to the finite number of 
+inaccurate measurements means that a variety of discrete and continuous spectra exist 
+which fit the data equally well. For a complete interpretation 
+the range of possible solu- 
+tions must be examined. The algorithms discussed explore the space of acceptable solu- 
+tions by constructing relaxation spectra from a continuum 
+of models ranging from a few 
+isolated delta functions to a continuous 
+distribution. 
+Alternatively, 
+the interpreter can 
+choose that class of spectrum (discrete or continuous) 
+which best represents the physical 
+system under investigation and so enhance the reliability of the interpretation. 
+This flex- 
+ibility is essential in order to avoid the pitfalls of interpreting 
+a single spectrum returned 
+by a single algorithm. 
+In addition, the linear programming 
+approach reduces the non- 
+uniqueness by constructing unique information 
+in the form of bounds on all spectra 
+which satisfy the observations. These bounds and the corresponding 
+extreme models are 
+necessary for any quantitative determination 
+of how spectral peaks change in amplitude 
+or position with a change in the physical system. 
+o 1989 Academic press, IX. 
+The investigation 
+of NMR 
+relaxation 
+in inhomogeneous 
+systems often involves 
+the characterization 
+of decay curves as a sum of exponential 
+functions. 
+For a single 
+exponential 
+decay or the sum of two exponentials with very different time constants, 
+the estimation 
+of T, or T2 is relatively accurate. Unfortunately, 
+for more complex 
+systems which exhibit multiexponential 
+relaxation, the estimation 
+of time constants 
+is a nontrivial 
+problem. Nevertheless, the quantitative 
+interpretation 
+of NMR relax- 
+ation data in terms of a physical model requires a precise determination 
+of the “true” 
+distribution 
+of relaxation times present in the sample. 
+The motivation 
+for this study comes from work by our group on proton magnetic 
+resonance of wood ( I ) . The T, and T2 values for water in wood cell lumens depend 
+OOZZ-2364/89 $3.00 
+134 
+Copyright 
+Q 1989 by Academic Press, Inc. 
+All rights of reproduction 
+in any form reserved. 
+
+--- PAGE 2 ---
+QUANTITATIVE 
+ANALYSIS 
+OF 
+RELAXATION 
+DATA 
+135 
+upon the diameter of the cylindrical cells (2). Since there is generally a distribution 
+of cell diameters, wood samples should exhibit a distribution 
+of T, and T2 values. We 
+therefore require reliable analyses of inversion-recovery 
+and CPMG decay curves in 
+order to understand 
+the physical mechanism 
+for the relaxation of water in wood. 
+Similar situations arise with many other biological systems. The quantitative 
+inter- 
+pretation 
+of relaxation 
+data also has important 
+applications 
+in diagnostic medical 
+magnetic resonance imaging. 
+The most common 
+approach to the analysis of multiexponential 
+relaxation is to 
+fit the decay curves with the smallest number 
+of discrete exponential 
+terms which 
+provide a satisfactory representation 
+of the experimental 
+data. For a variety of rea- 
+sons, this approach becomes inaccurate when there are more than two or three expo- 
+nential components 
+or when any two time constants are similar. Another approach 
+is to analyze the data in terms of a continuous 
+distribution 
+of relaxation times. This 
+has been done both as a nonlinear 
+problem by, for example, Provencher (3) and 
+Smith and Nichols (4)) and as a linear problem by Provencher (5, 6), Kroeker and 
+Henkelman 
+( 7)) and Kroeker, Stewart, Bronskill, and Henkelman 
+(8). The continu- 
+ous approach has the very desirable advantage of requiring few a priori assumptions 
+about the relaxation behavior and it usually provides a more stable fit to the experi- 
+mental data. 
+The aim of this paper is to discuss critically the application 
+of linear inverse tech- 
+niques to characterize decay curves in terms of discrete or continuous 
+distributions 
+of relaxation times. In particular, we investigate the nonuniqueness 
+inherent in this 
+problem. We demonstrate 
+that a wide range of statistically acceptable, but quantita- 
+tively very different, 
+solutions exist for multiexponential 
+decay curves. We present 
+algorithms 
+which explore this space of acceptable models and appraise the non- 
+uniqueness by finding bounds on spectra over relaxation time intervals. 
+To illustrate the application 
+of these techniques, we use simulated decay curves 
+from both continuous 
+and discrete relaxation time distributions. 
+We also analyze an 
+actual CPMG decay curve from a western red cedar sapwood sample. 
+THEORY 
+The general integral equation describing multiexponential 
+relaxation is 
+s 
+b 
+Y(G) 
+= 
+Yi 
+= 
+s( T)e-‘ilTdT, 
+i= 1,2 ,..., 
+N, 
+n 
+where the N data yi are measured at times ti, and s( T) is the unknown 
+amplitude 
+of 
+the spectral component 
+at relaxation time T. T represents either T, or T, . The limits 
+on the integral are restricted to the finite values a and b which are chosen to contain 
+the values of T expected for the physical system being analyzed. The kernels of the 
+equation are eetJT and they are the amount a signal with relaxation time T has de- 
+cayed by measurement 
+time ti. Equation 
+[ 1 ] is easily generalized to have different 
+kernel functions. For example, to solve for diffusion coefficients D using the pulsed 
+field gradient method (9), the kernels are e-yZD62(A-6/3)Gf, where y is the gyromag- 
+netic ratio, A and 6 are the spacing and width of the field gradient pulses, and G; are 
+the gradient amplitudes. Alternatively, 
+a spectrum of M2 (interpair) 
+values ( 10) may 
+
+--- PAGE 3 ---
+136 
+WHITTALL 
+AND 
+MACKAY 
+be found using the kernels epM2?2f2, where 7 is the spacing between the two pulses of 
+a solid echo sequence. In fact, any linear functional 
+of a spectrum has the form of Eq. 
+[ 11 and may be solved by the algorithms given below. 
+Equation [ 1 ] is a Fredholm integral equation of the first kind. Backus and Gilbert 
+(Z1-13), 
+Jackson (14), 
+Lawson and Hanson (15), 
+Parker (26), 
+Twomey 
+(17): 
+Menke ( Z8), and Oldenburg 
+( 19) discussed linear inverse theory solutions of such 
+equations. These techniques are not iterative and do not require any initial estimate 
+of the solution. In contrast, nonlinear optimization 
+methods which solve Eq. [ 1 ] for 
+amplitudes Sj at unknown 
+times Tj often require a starting model to begin iterations. 
+Nonlinear 
+schemes are inappropriate 
+because of the inherent difficulties of noncon- 
+vergence and convergence to only a local minimum. 
+To reduce the effects of such 
+problems, 
+nonlinear 
+techniques 
+often employ the overly restrictive assumption 
+of 
+simply a few relaxation 
+times. Linear inverse methods have no such difficulties or 
+restrictions. These approaches assume a large number of known times Tj and solve 
+for the corresponding 
+amplitudes Sj, some of which may be zero. This is the approach 
+taken by all of the algorithms discussed below. 
+For computer implementation, 
+Eq. [ 1 ] must be discretized. The simplest and fast- 
+est method assumes that the spectrum is a sum of M delta functions with unknown 
+areas Sj at known relaxation times 7;. That is, 
+S(T)= 
+5 SjS(T- 
+7;). 
+[21 
+j=l 
+M is set large enough so as not to bias the solution into a small number of relaxation 
+times. Typically Mis between 100 and 200. Substituting 
+Eq. [ 21 into [ 1 ] gives 
+yi = s sje-‘JT, 
+i= I,2 ,..., 
+N. 
+[31 
+j=l 
+Other discretizations 
+are possible. For instance, if s( T) is assumed to be piecewise 
+constant over many small ranges of T then 
+Yi = g 
+Sjgij, 
+i= 1,2 ,..., 
+N, 
+[41 
+j=l 
+where 
+=,+I 
+go 
+= s e-‘if 
+TdT. 
+7; 
+These g, are given analytically in terms of exponential 
+integrals. 
+Equations [ 3 ] and [ 4 ] are linear systems of equations whose general form is 
+yi = 5 A..s. 
+rl I, 
+i= 1,2 3 . - . > N. 
+[51 
+j=l 
+Additional 
+linear constraints on the spectrum from other sources are incorporated 
+as 
+rows of the matrix A. Additional 
+unknown 
+variables to be found (such as the baseline 
+offset, if any) require extra columns; however, in both cases the form of Eq. [ 51 is 
+unchanged. This is the basic system solved by all of the following algorithms. 
+
+--- PAGE 4 ---
+QUANTITATIVE 
+ANALYSIS 
+OF RELAXATION 
+DATA 
+137 
+100 
+1 o-2 
+lo- 
+Relaxation 
+Time 
+T 
+(s) 
+161 
+14 
+- 
+f‘ 
+12 - 
+t; 
+lo- 
+< 
+8- 
+.2 
+-E 
+6- 
+c 
+4- 
+2- 
+0 
+1 o-3 
+b 
+, 
+1 
+1 o-2 
+10-l 
+Relaxation 
+Time 
+T 
+(s) 
+FIG. 1. Synthetic spectra. Synthetic spectra from two different classes are used to test the algorithms. A 
+discrete spectrum of relaxation times is shown in (a). A spectrum with a continuous distribution 
+of times 
+isshownin(b). 
+All algorithms 
+are tested on data corresponding 
+to the two synthetic relaxation 
+spectra illustrated in Fig. 1. Figure 1 a shows a discrete spectrum composed of delta 
+functions at a few isolated relaxation times. Figure 1 b shows a spectrum with a contin- 
+uous distribution 
+of relaxation times which is representative of spin-spin relaxation 
+of water in wood. Both spectra have the same total integral equal to 250 arbitrary 
+units. Data corresponding 
+to each spectrum were generated at N = 100 times tj , loga- 
+rithmically 
+spaced between 0.001 and 0.500 s. Note that this sampling is a natural 
+choice for exponential 
+decays but that any other selection is possible. Backus and 
+Gilbert (13) discussed methods which determine the sampling appropriate 
+for opti- 
+mal resolution 
+of spectral features, The accurate data are plotted in Fig. 2 as solid 
+curves. In any realizable experiment, the data yi are corrupted by noise. It is assumed 
+here that the noise is uncorrelated, 
+zero mean, and Gaussian with a standard devia- 
+tion Of ci for the ith datum. A realization of such noise with gi = 0.5 units was added 
+to the accurate data. The resulting noisy data are plotted as symbols in Fig. 2. The 
+error bars indicate one standard deviation. 
+Because of the noise contaminating 
+yi, Eq. [5] 
+must not be solved exactly. 
+Proposed solutions 
+must misfit 
+the inaccurate 
+data by an amount 
+consistent 
+with the errors. The x2 statistic quantifies 
+the misfit between the measured data 
+
+--- PAGE 5 ---
+138 
+WHITTALL 
+AND 
+MACKAY 
+0.2 
+0.3 
+Time 
+t 
+(s) 
+Time 
+t 
+(s) 
+FIG. 2. Synthetic data. The solid lines in (a) and (b ) are accurate data from the test models in Figs. 1 a 
+and 1 b, respectively. The 100 circles in each frame are logarithmically 
+spaced, noisy data. These data are 
+derived from the accurate data (solid lines) by adding uncorrelated, zero mean, Gaussian noise. The error 
+bars indicate plus or minus one standard deviation. These noisy data are used as input to all the algorithms. 
+yi and the data ye corresponding 
+to a particular 
+constructed 
+model s( T). The x2 
+misfit is 
+x2 = 5 (y’- 
+yJ2/af. 
+161 
+i=l 
+The preferred model has x2 N N, which is the expected value of the x2 statistic. In 
+this case, each datum is misfit by about one standard deviation. 
+If x2 + N, the data 
+are fit too accurately and structure that is merely an artifact of the noise will be evident 
+on s( T) . Alternatively, 
+if x 2 b N, the data are not fit closely enough and information 
+about the true spectrum contained in the data will be lost. 
+Given the noisy data in Fig. 2 (symbols), 
+the expected value of x2 is 100. Some 
+maximum 
+value of x * is defined as the boundary between acceptable and unaccept- 
+able models. In this paper, the upper limit is fixed at 109. From the statistics of the 
+x2 distribution 
+this is the 75% confidence limit. Thus, a constructed 
+model with x2 
+= 109 could be the true model and there is a 25% chance that the noise alone has 
+caused the measurements 
+yi to differ so much from the data y’ corresponding 
+to the 
+true s( T) . In other words, only 25% of noise realizations are sufficiently erratic such 
+
+--- PAGE 6 ---
+QUANTITATIVE 
+ANALYSIS 
+OF RELAXATION 
+DATA 
+139 
+that, when added to the true data, x2 is greater than or equal to 109. As an example 
+of how x 2 varies with the confidence limit, note that for N = 100, the 10% confidence 
+limit is 118, and the 5% limit is 124. Other misfit criteria may be used to alter some- 
+what the boundary 
+between acceptable and unacceptable 
+models. For the example 
+calculations, M = 100 relaxation times 7; were selected, logarithmically 
+spaced be- 
+tween 0.00 1 and 0.400 s. Again, this is an arbitrary choice, and a linear or irregular 
+sampling would do as well. 
+The algorithms discussed here fall into two groups. The first group contains least- 
+squares approaches similar to those developed by Provencher (5, 6) and used by 
+Kroeker and Henkelman 
+( 7). The second group contains new linear programming 
+methods. 
+LEAST-SQUARES 
+APPROACHES 
+Nonnegative least-squares: 
+NNLS. The NNLS algorithm 
+of Lawson and Hanson 
+( 15) is ideally suited to relaxation time analysis. The method solves Eq. [ 51 using 
+stable Householder 
+transformations 
+and is guaranteed to find a solution in a finite 
+number of these operations. The nonnegativity 
+of the spectral amplitudes Sj is implicit 
+in the formulation 
+and need not be included as extra rows in the constraint matrix 
+A. NNLS finds that set Of Sj which minimizes the least-squares misfit 
+5 ( 
+;AoSj-Yi/2. 
+[71 
+i=l 
+j=l 
+Because of the noise contaminating 
+the measurements yi it is not possible to reduce 
+this misfit to zero. 
+In practice each datum and its corresponding 
+row of A are first divided by the 
+standard deviation 
+ui. This normalizes the data to unit variance and reduces the in- 
+fluence of very inaccurate data on the solution. With this normalization 
+the least- 
+squares solution constructed by NNLS minimizes the x 2 misfit of Eq. [ 61. Note that 
+if the least-squares solution has x2 $ N then no s( T) model exists which adequately 
+reproduces the data. In this case, the physical system is exhibiting 
+nonexponential 
+relaxation and the governing Eq. [ 1 ] must be adapted accordingly. 
+Figure 3 shows the output 
+from NNLS 
+for the two noisy data sets of Fig. 2 
+(symbols). 
+The delta-function 
+parameterization 
+of Eq. [ 21 is used for all examples 
+in this paper. In both panels the true spectrum is a dashed line and the constructed 
+spectrum is a solid line. Figure 3a shows the discrete case where the NNLS model has 
+x2 = 79. The algorithm 
+places delta functions 
+near the correct times of T = 0.003, 
+0.008, 0.02 1, 0.078, and 0.152 s. The one at 0.02 1 s is almost exactly correct but all 
+other peaks show shifts in times and amplitudes. 
+This is the best-fitting spectrum in 
+a least-squares sense given the noisy data and the partition of the relaxation time axis. 
+Note that the x2 misfit of the true discrete model to the noisy data is 91 which is 
+larger than the minimum 
+possible. Thus the true model is bypassed in the descent to 
+the minimum 
+x 2. Using accurate data results in a least-squares solution indistinguish- 
+able from the true model of Fig. 1 a. 
+NNLS models tend to be composed of a few isolated delta functions. 
+When the 
+true spectrum also has this form then the agreement with the constructed model is 
+
+--- PAGE 7 ---
+140 
+WHITTALL 
+AND 
+MACKAY 
+z 
+80 
+m 
+4 
+60 
+3 
+“a 
+I 
+40 
+20 
+I 
+j 
+cl 
+! 
+1 o-1 
+Relaxation 
+Time 
+T (s) 
+1 o-2 
+10-l 
+Relaxation 
+Time 
+T 
+(s) 
+FIG. 3. NNLS least-squares spectra. The solid lines in (a) and (b) are NNLS spectra constructed using 
+the noisy data of Figs. 2a and 2b (symbols), respectively. The solid line in (b) has been normalized 
+by 
+dividing by 10. The dashed lines are the true spectra from Figs. 1 a and 1 b. This figure illustrates how delta- 
+function models are able to fit data from discrete or continuous spectra. 
+good. However, it is possible for the physical system under investigation 
+to have a 
+continuous 
+distribution 
+of relaxation times. Figure 3b shows a spectrum from this 
+class (dashed line) and the least-squares model (solid line) derived from the corre- 
+sponding noisy data of Fig. 2b. The x 2 misfit is 80. The discrete spectrum amplitudes 
+have been divided by 10 in order to fit within the frame. The delta functions 
+are 
+located near the proper relaxation times and their integral over a local range is ap- 
+proximately 
+equal to the integral of the true model over a similar range. Figure 3b 
+illustrates the nonuniqueness 
+of any inverse problem typified by equations such as 
+[ 11. In this case, a delta-function 
+model reproduces the observations very well but it 
+has a completely different character than the true spectrum which generated the data. 
+This difference in form persists even when 100 accurate data are used and NNLS 
+constructs a model which exactly reproduces the data. 
+Fortunately, 
+NNLS 
+is easily adapted 
+to construct 
+a continuous 
+spectrum 
+which may be a more realistic model of the particular physical system under inves- 
+tigation. 
+Extra constraints 
+are incorporated 
+into the matrix 
+A of Eq. [ 51 to alter 
+the discrete character of the basic least-squares solution. A general form is to mini- 
+mize 
+
+--- PAGE 8 ---
+QUANTITATIVE 
+ANALYSIS 
+OF RELAXATION 
+DATA 
+141 
+S I g Agsj-Yi12+p 
+lE I Z Hkjsj-.fi12 
+[81 
+i= I j=l 
+k=l 
+J=l 
+for fixed p > 0, where H/.-j is a matrix representing K additional 
+constraints, andfk 
+is the corresponding 
+vector of right-hand 
+side values. The least-squares solution is 
+obtained when the trade-off parameter p = 0. The larger the value of p the more the 
+algorithm attempts to satisfy the constraints involving the matrix H at the expense of 
+increasing the x2 misfit. The value of x2 increases monotonically 
+with p and in the 
+limit of large ~1 the data equations are completely ignored. The value of p is adjusted 
+until the misfit is near its expected value of N, which results in the preferred model 
+in the absence of other information. 
+The matrix H can take many forms. If H is the M X M identity matrix and f is the 
+zero vector, then the K = Mextra 
+constraints minimize the “energy” in the spectrum: 
+;s:. 
+191 
+j=l 
+If f is nonzero, then the constraints minimize the difference between the constructed 
+spectrum and the a priori estimate f. Another 
+possible form of H is to set the rows 
+equal to finite difference approximations 
+of first-order or second-order derivatives of 
+s( T) . When f is zero, these cases respectively minimize the energy in the spectrum 
+derivative 
+or curvature 
+M-l 
+C Isj+L - 412, 
+[lOI 
+J-1 
+M-2 
+C I sj+2 - 2sj+ I + sj I 2* 
+ill1 
+j=l 
+Provencher (5) chose the second-derivative 
+formulation 
+to construct smooth s( T) . 
+For noisy data, additional constraints of the form of Eqs. [ 9 1, [ 10 1, or [ 111 are essen- 
+tial to regularize the solution. This is analogous to adding a ridge regression parameter 
+to stabilize a matrix inversion in the presence of noise. 
+Figure 4a is an example of a least-squares minimization 
+of Eq. [S] with the K = M 
+- 1 first-derivative 
+constraints of Eq. [lo]. 
+The smooth spectrum calculated (solid 
+line) has x 2 = 103. The true spectrum (dashed line) is discrete and has been normal- 
+ized by 10 to fit within the frame. The first-derivative 
+constraints smooth out the 
+amplitudes of the NILS 
+discrete solution while increasing the misfit to a more appro- 
+priate value closer to N. In Fig. 4b, the constructed 
+and true spectrum (solid and 
+dashed lines, respectively) are both continuous 
+and so there is a much better agree- 
+ment in the overall shapes. The constructed model has broader and lower peaks but 
+its total integral is the same as that of the true model. Reducing the value of p will 
+narrow the peaks and increase their amplitude 
+while decreasing x 2. On the basis of 
+x 2 alone the two models plotted in Fig. 4b are virtually indistinguishable 
+because the 
+true spectrum (dashed line) has x 2 = 9 1 and the constructed 
+model misfit is 95. 
+Figure 4 demonstrates 
+that a smooth profile can represent data from a discrete or 
+continuous 
+system equally well. 
+
+--- PAGE 9 ---
+142 
+WHITTALL 
+AND 
+MACKAY 
+I 
+I 
+I 
+I 
+I 
+0 
+I 
+I 
+I111#11 
+I 
+I 
+I 
+1 o-3 
+1 o-2 
+10-l 
+Relaxation 
+Time 
+T 
+(s) 
+,I 
+J/l 
+I I ;.I111 
+/’ 
+I 
+iri 
+I.11111 
+\L 
+I 
+1 o-3 
+10-Z 
+10-l 
+Relaxation 
+Time 
+T 
+(s) 
+FIG. 4. NNLS spectra with first-derivative constraints. The solid lines in (a) and ( b) are NNLS spectra 
+which minimize a combination 
+of misfit and model smoothness. The dashed lines are the true spectra and 
+that in (a) has been normalized by 10. This figure complements Fig. 3 and shows how smooth models fit 
+data from discrete or continuous spectra. 
+Least-distance 
+programming: 
+LDP. The LDP algorithm 
+of Lawson and Hanson 
+(15) is also applicable to relaxation time analysis. This method is for problems with 
+fewer data than unknown 
+spectral amplitudes, that is, N < M. This situation typically 
+arises for T, analyses. Such underdetermined 
+systems have no unique solution be- 
+cause many spectra satisfy the limited number of inaccurate data. One solution must 
+be chosen out of the infinite number possible. A minimum 
+structure profile is a good 
+choice because it tends to have the essential features required by the data and no 
+spurious structure to mislead the interpreter 
+(5, 16, 20). NNLS generates minimum 
+structure models by minimizing 
+Eq. [ 71 to find a few delta functions 
+which fit the 
+data well, or by minimizing 
+Eq. [ 81 which is a combination 
+of misfit and minimum 
+structure. On the other hand, LDP selects that model which minimizes Eq. [ 91 di- 
+rectly, subject to fitting the data. This results in the minimum 
+energy or least-distance 
+solution for a given misfit. The data constraints are imposed as the 2Ninequalities 
+M 
+Yi - aoi G C AoSj < Yi + ani, 
+i= 1,2 ,..., 
+N, 
+WI 
+j=l 
+where a is a positive parameter governing the misfit. Setting a N 2 usually results in 
+
+--- PAGE 10 ---
+QUANTITATIVE 
+ANALYSIS 
+OF RELAXATION 
+DATA 
+143 
+Relaxation 
+Time 
+T (s) 
+16 
+Relaifiin 
+Time 
+T 
+(s) 
+lo-’ 
+FIG. 5. LDP least-distance programming 
+spectra. The solid lines in (a) and (b ) are LDP spectra. The 
+dashed lines are the true spectra and that in (a) has been normalized by 10. 
+models with x2 near the expected value of N. Positivity constraints must also be 
+included. These take the form 
+where I is the M X M identity matrix, s is the M X 1 vector of spectrum amplitudes, 
+and 0 is the M X 1 zero vector. Positivity of the solution adds M extra constraints to 
+the 2N of Eq. [ 121. Any additional 
+inequality 
+constraints such as upper or lower 
+bounds on linear combinations 
+of Sj may also be imposed. 
+Figure 5 shows LDP spectra constructed from the noisy data sets. Their character 
+is very similar to the NNLS solutions with first-derivative 
+constraints shown in Fig. 
+4. The x2 misfits are 99 and 101 for Figs. 5a and 5b, respectively. The true discrete 
+model in Fig. 5a (dashed line) has been normalized 
+by 10 to fit within the frame. 
+Because these are minimum 
+energy solutions, the peaks probably correspond to am- 
+plitudes in the true spectra rather than being simply artifacts of the noise or the inver- 
+sion scheme. Thus, for example, the noisy data of Fig. 2b likely require spectra with 
+significant amplitudes 
+near T = 0.004,0.020, 
+and 0.100 s. 
+The algorithms NNLS and LDP construct models from opposite ends of a contin- 
+uum of possible solutions. NNLS begins with best-fitting 
+delta-function 
+models. It 
+
+--- PAGE 11 ---
+144 
+WHITTALL 
+AND 
+MACKAY 
+constructs smoother models when the misfit is allowed to increase and constraints 
+such as Eqs. [ 91, [lo], 
+or [ 111 are imposed. In contrast, LDP finds the model with 
+the smallest possible energy at some specified misfit governed by the parameter a. It 
+constructs less smooth models as a decreases and the misfit is forced toward the mini- 
+mum possible value given by NNLS. Note that for overdetermined 
+problems with 
+N > M, LDP will still return smooth models as long as N is not too much larger 
+than M. 
+LINEAR 
+PROGRAMMING 
+APPROACHES 
+Model construction. Linear programming 
+(LP) is a different approach to solving a 
+linear system of equations (21, 22). LP finds the solution which satisfies the data 
+constraints of Eq. [ 121 and which minimizes 
+or maximizes the L, -norm objective 
+function 
+g 
+Wjsj, 
+[I31 
+j=l 
+where Wj are arbitrary weights. Nonnegativity 
+of the spectrum amplitudes 
+Sj is im- 
+plicit in the LP formulation. 
+Moreover, 
+LP easily incorporates any additional 
+equal- 
+ity or inequality constraints on linear combinations 
+Of Sj that may come from sources 
+external to the given experiment. 
+As with the least-squares algorithms, these may be 
+upper and lower bounds, smoothness constraints, or a priori estimates. 
+LP solutions tend to have a small number of isolated delta functions similar to the 
+least-squares version of NNLS; however, the misfit is adjustable via the parameter a 
+in Eq. [ 121 so that LP can construct more than just the one best-fitting model. If the 
+physical system is expected to be composed of a few isolated delta functions then LP 
+can generate such a model with the appropriate 
+x2 misfit. 
+Figure 6 shows an example of LP construction. 
+The objective function of Eq. [ 131 
+with all Wj = 1 was minimized 
+and the misfit parameter a of Eq. [ 121 was set at 2.0. 
+The models resemble the NNLS least-squares solutions in Fig. 3 but the misfits are 
+higher and at the appropriate 
+level, being 105 and 102 for Figs. 6a and 6b, respec- 
+tively. The constructed model in Fig. 6b (solid line) has been normalized 
+by 10. 
+Figure 6 demonstrates that the basic LP approach is suited to interpreting 
+physical 
+systems which are discrete. However, the LP method can also construct smooth pro- 
+files. Including 
+the M - 1 extra inequality constraints of the form 
+ISj+l 
+- Sjl G P, 
+1141 
+where p > 0, restricts adjacent solution amplitudes 
+to be of similar value. The mini- 
+mum possible value of ,C3 results in the most uniform set of Sj consistent with the data 
+constraints. A smaller ,kI results in an inconsistent system of equations with no solu- 
+tion. It is also possible to reformulate 
+the LP problem 
+and change from the local 
+constraints of Eq. [ 14) to a global bound on the total variation of the spectrum (23). 
+Figure 7 shows LP spectra with the constraints of Eq. [ 141 added. For these exam- 
+ples p = 2.0. The true model in Fig. 7a (dashed line) has been normalized by 10. The 
+x2 misfits are 108 and 100 for the constructed 
+models (solid lines) in Figs. 7a and 
+7b, respectively. These spectra are more peaked than those from the least-squares 
+
+--- PAGE 12 ---
+QUANTITATIVE 
+ANALYSIS 
+OF RELAXATION 
+DATA 
+145 
+Relaxation 
+Time 
+T 
+(s) 
+c 
+4- 
+, \ 
+I I 
+2- 
+I 
+I 
+, 
+I 
+O- 
+‘\ 
+I 
+I 
+8- 
+’ I 
+I 
+I 
+’ 
+\ 
+I 
+I 
+6- 
+'I 
+I 
+I 
+r 
+' 
+I 
+I 
+\ 
+I 
+I 
+4- 
+’ 
+I 
+I 
+\ 
+I 
+I 
+\ 
+I 
+’ 
+I 
+2- 
+/ 
+\ 
+/ 
+1 
+I 
+:, b 
+\ 
+I 
+\ 
+/ 
+\ 
+o 
+,/‘# 
+I ,,.I,,, 
+, 
+I 
+,I\, 
+1~11111 
+\I 
+I 
+10-J 
+1 o-2 
+10-l 
+Relaxation 
+Time 
+T 
+(s) 
+FIG. 6. LP linear programming 
+spectra. The solid lines in (a) and ( b) are LP spectra. The solid line in 
+(b) has been normalized by 10. The dashed lines are the true spectra. 
+algorithms plotted in Figs. 4 and 5. This is because the absolute value L, -norm of LP 
+is influenced less by sharp changes in the model than the least-squares L2-norm 
+of 
+Eq. [lo] which discriminates strongly against large gradients. 
+Model appraisal. The spectra plotted in the preceding figures illustrate the non- 
+uniqueness of relaxation time analysis. Many models adequately fit the data, and 
+chasing the one most likely to represent reality is difficult. Figures 4, 5, and 7 show 
+how smooth profiles can fit data from smooth as well as discrete systems. Figures 3 
+and 6 demonstrate 
+equally good fits for the completely 
+different 
+class of discrete 
+models. Using physical arguments to constrain the solution to be from either the 
+discrete or the continuous 
+class of functions 
+reduces the nonuniqueness; 
+however, 
+within each class there remain substantial variations in peak amplitudes 
+and Coca- 
+tions. Appraisal techniques (13, 19) are necessary to explore the extent of the non- 
+uniqueness and avoid the pitfalls of interpreting 
+simply a single spectrum constructed 
+by a single algorithm. 
+One way of examining 
+the nonuniqueness 
+is to use many different algorithms to 
+construct diverse, minimum 
+structure models which fit the data. Figures 3 through 7 
+illustrate the results from NNLS, LDP, and LP discrete and smooth interpretations. 
+Features common 
+to all profiles are likely to be required by the data and not just 
+artifacts of the noise or the inversion method. However, this interpretation 
+can never 
+
+--- PAGE 13 ---
+146 
+WHITTALL 
+AND MACKAY 
+F 
+12 
+t; 
+10 
+; 
+8 
+.e 
+-6. 
+6 
+I 
+4 
+2 
+to-2 
+10-l 
+Relaxation 
+Time 
+T 
+(s) 
+161 
+1 o-2 
+10-l 
+Relaxation 
+Time 
+T 
+(s) 
+FIG. 7. LP spectra with first-derivative 
+constraints. The solid lines in (a) and (b) are LP spectra with 
+first-derivative constraints added. The dashed lines are the true spectra and that in (a) has been normalized 
+by 10. The peaks are sharper than those of Figs. 4 and 5 because the least absolute value constraints of Eq. 
+[ 141 are less strict than the least-squares constraints of Eq. [lo]. 
+be completely 
+quantitative 
+because no combination 
+of construction 
+methods can 
+ever find the infinite number of diverse models which satisfy the data. 
+Fortunately, 
+LP methods can make quantitative 
+statements about the nonunique- 
+ness. The Lr -norm objective function 
+in Eq. [ 131 provides an extra dimension 
+of 
+flexibility to find spectra that fit the data and have specific characteristics. The weights 
+Wj may be adjusted to minimize 
+or maximize any linear combination 
+of the ampli- 
+tudes Sj. For example, uniform 
+weights result in models which provide the interpreter 
+with upper and lower bounds on the integral of s( T) which is the total amount 
+of 
+signal allowed by the measured data. Alternatively, 
+some weights may be set to zero to 
+construct profiles which minimize or maximize the L, -norm of the spectrum within 
+localized relaxation time intervals. 
+Figure 8 gives an example of solutions involving a nonuniform 
+objective function. 
+The task is to quantify the bounds on the fraction of spectral amplitude 
+within local- 
+ized ranges in T. For this example, the ranges are 0.001 to 0.0 10 s, 0.0 10 to 0.050 s, 
+and 0.050 to 0.400 s. To solve this problem the objective function weights Wj are set 
+to unity within the first of these intervals and set to zero elsewhere. Then two solutions 
+satisfying the data are found, one which minimizes 
+the objective function 
+and the 
+
+--- PAGE 14 ---
+QUANTITATIVE 
+ANALYSIS 
+OF RELAXATION 
+DATA 
+147 
+1.0 
+{ 
+0.8 - 
+2 
+m 0.6- 
+---------- 
+n 
+.5 
+- 
+Fz 
+0.4 
+p 0.2----------- 
+-------- 
+a 
+0.0 
+I 
+I111011 
+I 
+I1111111 
+I 
+1 
+1 o-3 
+1 o-2 
+10-l 
+Relaxation 
+Time 
+T 
+(s) 
+, .- 
+:: 0.8 - 
+5 
+g 0.6 - 
+m 
+.! 
+; 
+0.4 - 
+---------- 
+----------- 
+2 0.2 - 
+-------- 
+b 
+0.0 
+I I1111111 I I1111111 I I 
+1 o-3 
+1 o-2 
+10-l 
+Relaxation 
+Time 
+T 
+(s) 
+FIG. 8. LP localized bounds. The solid lines in (a) and (b) are LP bounds on the integrated spectral 
+amplitudes within each of three intervals, normalized by the total integral of the spectrum. The discrete 
+spectrum data were used in (a), and the continuous spectrum data were used in (b) . The ranges are from 
+0.001 to 0.010 s, from 0.010 to 0.050 s, and from 0.050 to 0.400 s. The dashed lines are the integrals ofthe 
+true spectra. 
+other which maximizes it. Repeating this procedure 
+for the remaining 
+two ranges 
+gives a total of six models which minimize 
+or maximize 
+the spectrum amplitude 
+within each of the three intervals independently. 
+Figures 8a and 8b give the bounds 
+(solid lines) for the discrete and continuous 
+spectrum data, respectively. These levels 
+correspond to the integrated 
+amplitude 
+within the range divided by the total inte- 
+grated amplitude 
+of the model. The dashed lines are the amplitude 
+fractions of the 
+true models in Fig. 1. These bounds communicate 
+a sense of how much variation is 
+possible over selected intervals. As the interval narrows, the bounds widen. The lower 
+bound for very thin intervals is near zero because it is easy to move amplitudes 
+to 
+locations immediately 
+outside the boundaries. The bounds meet for an interval span- 
+ning the full range of T values. Thus, the wider the interval the more the data con- 
+strain the integral of the spectrum within the interval. 
+These bounds are not approximations. 
+Given the noisy data, a sampling of the T 
+axis, and an acceptable x2 misfit level, these are absolute bounds on the set of all 
+spectra having an equal or smaller misfit. This is a different way of representing the 
+information 
+in the data. Instead of constructing 
+spectra which can have substantial 
+
+--- PAGE 15 ---
+148 
+WHITTALL 
+AND MACKAY 
+16 
+10-2 
+10-l 
+Relaxation 
+Time 
+T (s) 
+16 
+A 
+14- 
+I I 
+T 
+12- 
+y 
+lo- 
+; 
+8- 
+c 
+Z 
+6- 
+2 
+4- 
+2- 
+10-Z 
+10-l 
+Reloxation 
+Time 
+T 
+(s) 
+FIG. 9. Extreme LP spectra. The solid lines in (a) and (b) are LP spectra which minimize and maximize, 
+respectively, the signal within the central interval from 0.010 to 0.050 s. The additional 
+constraints of Eq. 
+[ 14 ] are imposed with @ = 1.8. The dashed lines are the true spectra. Despite fitting the data equally well, 
+the two models represent the central interval in completely different ways. 
+variations in form (discrete versus continuous, 
+for example), 
+LP appraisal sacrifices 
+the resolution of model details to gain quantitative 
+knowledge common to all accept- 
+able spectra of features spanning finite Tintervals. 
+To demonstrate 
+how the bounds are used, consider Fig. 8b. It is possible to con- 
+struct spectra which adequately fit the 100 noisy data in Fig. 2b but which allow as 
+little as 4% to as much as 38% of the signal to lie within the central interval. The 
+actual percentages depend on the misfit permitted. 
+A smaller misfit results in nar- 
+rower bounds. For Fig. 8 all of the corresponding 
+spectra had x 2 between 96 and 104. 
+Hence, considering solely the 100 noisy data it is not possible to classify the data as 
+coming from one of two systems which have, say, 10 and 30% of their signal in this 
+interval. Other criteria must be added in order to categorize the data on the basis of 
+signal percentage within the central interval. For example, to narrow the bounds, 
+Dosso and Oldenburg 
+(23) limited the total variation 
+of the model. Otherwise, the 
+nonuniqueness 
+inherent in this inverse problem is too great. 
+Figure 9 illustrates the nonuniqueness 
+in the character of spectra which fit the 
+smooth model data. The signal within the central interval was minimized 
+and maxi- 
+mized using objective function 
+weights as for Fig. 8. However, the additional 
+con- 
+
+--- PAGE 16 ---
+QUANTITATIVE 
+ANALYSIS 
+OF RELAXATION 
+DATA 
+149 
+straints of Eq. [ 141 with p = 1.8 were also imposed to generate smooth profiles. Re- 
+ducing the variation 
+in this way narrows the bounds. The minimization 
+solution 
+shown in Fig. 9a (solid line) has 11% of the total amplitude within the central interval, 
+whereas the maximization 
+result in Fig. 9b (solid line) has 28%. These percentages 
+are within the limits plotted in Fig. 8b. The x * misfits are 97 and 10 1 for Figs. 9a and 
+9b, respectively. In both extreme cases, the true peaks centered on 0.004 and 0.100 s 
+(dashed lines) are well reproduced; 
+however, there are dramatic differences in the 
+central peak. In Fig. 9a signal is placed just outside the central interval but a small 
+peak near 0.020 s survives. In Fig. 9b the signal is placed just inside the interval and 
+the true peak at 0.020 s is totally misrepresented. Figure 9 gives two spectra which fit 
+the data equally well but which have a completely different character within the cen- 
+tral interval. Thus interpretations 
+based on the presence or absence of a central peak 
+are untenable. 
+Bounds and extreme models such as plotted in Figs. 8 and 9 are essential for any 
+quantitative 
+analysis of relaxation time spectra. The variability and the extremes al- 
+lowed by the limited number of inaccurate data must be examined in this way. Using 
+a single algorithm 
+to construct a single model does not provide sufficient information 
+on which to base a responsible interpretation. 
+ANALYSIS 
+OF EXPERIMENTAL 
+DATA 
+Figure 10a shows the CPMG decay curve from a western red cedar ( Thuja plicata 
+Donn) sapwood sample with a moisture content of 228%. The moisture content is 
+the ratio of the weight of water to that of wood. There are N = 174 data points. One 
+standard deviation error bars are plotted as in Fig. 1 but the data are so accurate that 
+the upper and lower limits are mostly indistinguishable 
+on this scale. Figure 1 Ob gives 
+the NNLS T2 least-squares spectrum (solid lines) corresponding 
+to the data in Fig. 
+1Oa. The model amplitudes 
+have been divided by 10. The least-squares x2 is 36, 
+which is well below the expected value of 174. Incorporating 
+the first-derivative 
+con- 
+straints from Eq. [lo] into an NNLS construction 
+results in the continuous 
+model 
+shown in Fig. I Ob (dashed line). The continuous 
+spectrum misfit of 172 was adjusted 
+to be near N by using the trade-off parameter CL. 
+The major signal near T2 = 0.200 s appears on both models; however, the locations 
+of amplitudes at smaller T2 values are different for the discrete and continuous 
+spec- 
+tra. This is expected because of the large difference in misfits between these two 
+models. The LP method can generate discrete spectra similar to those from the NNLS 
+least-squares algorithm 
+but with a more appropriate 
+x * closer to N. The LP method 
+then gives discrete peaks (not shown) nearer to those in the continuous 
+model. 
+The preferred model is the smooth curve in Fig. lob (dashed line) because we 
+expect that lumen water in wood possesses a continuous 
+distribution 
+of T2 values 
+corresponding 
+to the continuous 
+distribution 
+of lumen diameters. The three peaks of 
+the smooth spectrum correspond to three environments 
+for water in wood. The peak 
+at 0.006 s is due to water bound inside the cell walls, and the peaks at 0.030 and 0.200 
+s are due to water in cell lumens of smaller and larger diameters, respectively. 
+To investigate the persistence of the three peaks present in the continuous 
+spec- 
+trum, the LP appraisal algorithm 
+was run using three T2 ranges: 0.001 to 0.012 s, 
+
+--- PAGE 17 ---
+150 
+WHITTALL 
+AND 
+MACKAY 
+Time 
+(s) 
+10000 
+' \ 
+8000 
+- 
+' 
+\ 
+' 
+I 
+4 
+6000 
+- 
+' 
+I 
+’ 
+I 
+.e 
+/ 
+I 
+$ 
+4000 
+- 
+I 
+I 
+I 
+I 
+I 
+I 
+I 
+I 
+2000 
+- b 
+I 
+I 
+I 
+c- 
+l 
+1 
+--_ 
+\ 
+. 
+o’- 
+a -f-t 
+““’ 
+-0: 
+, 
+,\ ,I, , ,(, 
+I 
+I. 
+10-J 
+1 o-2 
+1 o-1 
+T, (4 
+FIG. 10. Western red cedar CPMG data and NNLS spectra. The symbols in (a) are the 174 CPMG decay 
+curve data from a western red cedar sapwood sample. The error bars indicate plus or minus one standard 
+deviation but are difficult to resolve on this scale. The corresponding 
+NNLS discrete and smooth spectra 
+are given in (b) by the solid and dashed lines, respectively. The discrete spectrum amplitudes have been 
+divided by 10. 
+0.012 to 0.075 s, and 0.075 to 0.400 s. Figure 1 la shows the results. The average 
+signal amplitude 
+over the highest range near T2 = 0.200 s is well constrained by the 
+data to be at least 65% but no more than 82% of the total amplitude. 
+There must also 
+be at least 5% of the signal within the lowest T2 range from 0.00 1 to 0.0 12 s. The 
+central interval allows the most variation. The lower bound of zero indicates that the 
+data do not require any signal at all over this central range. Localized bounds such 
+as these are important 
+for a quantitative 
+determination 
+of whether or not significant 
+differences exist between the spectra from different wood species. 
+Figure 11 b illustrates another way of using LP to aid an interpretation. 
+Each pair of 
+dots at a particular 
+T2 value represents the upper and lower bounds on the normalized 
+integral of s( T2) up to that T2 value. For example, the lower bounds demonstrate 
+that the data do not require any signal below T2 = 0.006 s. The upper bounds show 
+that no additional 
+amplitude 
+is required above T2 = 0.200 s. In between, the bounds 
+show how most of the signal must be concentrated between 0.100 and 0.230 s. When 
+wood is dried, the water leaves the larger lumens first, resulting in a loss of signal at 
+longer T2 values. The cumulative 
+bounds determine the amount and location of the 
+remaining water so that the drying process may be studied in detail. 
+
+--- PAGE 18 ---
+QUANTITATIVE 
+ANALYSIS 
+OF RELAXATION 
+DATA 
+1.0 
+: 
+0.8 - 
+z 
+m 0.6 - 
+-0 
+.! 0.4 - 
+E" 
+p 0.2 : 
+cl 
+-.- 
+10-s 
+10-Z 
+10-l 
+T, 
+(s) 
+151 
+1.0 
+- 
+d 
+5 0.8 - 
+$ 
+-c, 0.6 - 
+N" 
+0.4 - 
+T, (s) 
+FIG. 
+11. Localized and cumulative LP bounds on cedar spectra. The pairs of lines in (a) are LP bounds 
+on the integrated amplitudes within each of three intervals, normalized by the total integral of the cedar 
+spectrum. The three ranges are from 0.00 1 to 0.0 12 s, from 0.0 12 to 0.075 s, and from 0.075 to 0.400 s. 
+Each pair of dots in (b) at a particular 
+T, value represents upper and lower bounds on the normalized 
+integral of s( T2) up to that T2 value. 
+CONCLUSIONS 
+The least-squares and linear programming 
+algorithms presented here solve the lin- 
+ear integral Eq. [ 11 for a discrete or smooth spectrum of relaxation times s( T) satisfy- 
+ing the data to within their errors. These stable methods require no starting model, 
+no iterative solution, and no restrictive assumptions limiting the spectrum to a few 
+delta functions. All the approaches generate minimum 
+structure models, whether a 
+few isolated delta functions or a smoothly varying profile. This philosophy of parsi- 
+mony (5, 16, 20) prevents generation of spurious features not required by the data 
+and so increases confidence in the resulting structure. Moreover, 
+both methods can 
+incorporate 
+additional 
+equality or inequality 
+constraints on any linear combination 
+of the spectral amplitudes. 
+These construction 
+methods must be supplemented 
+by techniques which appraise 
+the extent of the nonuniqueness. 
+Figures 4 and 6, for example, show that discrete or 
+smooth models fit data from both discrete and smooth spectra equally well. Figure 9 
+demonstrates 
+that restricting models to be smooth still allows substantial variation. 
+Using the LP method to minimize 
+and maximize 
+the objective function 
+generates 
+different information 
+in the form of bounds on the set of all spectra which fit the data. 
+
+--- PAGE 19 ---
+152 
+WHITTALL 
+AND 
+MACKAY 
+This appraisal aspect of LP is not concerned with the features of any one model but 
+with features common 
+to all acceptable spectra. Examination 
+of the spectra corre- 
+sponding to the bounds provides further insight into the variability 
+permitted 
+by 
+the data. 
+In addition, the NNLS algorithm answers the question of existence by finding that 
+s( T) with the minimum 
+least-squares misfit. If the minimum 
+value is unacceptably 
+high then the relaxation mechanism is different or more complex than the equation 
+being used to represent the physical system ( Eq. [ I], for example). 
+Existence and the construction 
+and appraisal methods presented here depend on 
+obtaining good estimates of the standard deviations ui. Extra experimental 
+effort de- 
+voted to determining 
+these values leads to rich rewards in the amount of information 
+returned. Data without 
+error bars are virtually meaningless because there is no mea- 
+sure of confidence in their values. This translates to no confidence in the determina- 
+tion of what possible variations are permitted 
+by the data and which spectrum is 
+optimal. 
+ACKNOWLEDGMENTS 
+The authors 
+gratefully 
+acknowledge 
+support 
+from 
+the Natural 
+Sciences 
+and Engineering 
+Research 
+Coun- 
+cil of Canada. 
+We thank 
+H. K. Le for providing 
+the CPMG 
+decay 
+curve 
+from 
+a western 
+red cedar 
+sapwood 
+sample. 
+We 
+also 
+thank 
+Myer 
+Bloom, 
+Ed Stemin, 
+Wendy 
+Stewart, 
+and 
+Julia 
+Wallace 
+for 
+many 
+helpful 
+discussions. 
+REFERENCES 
+I. 
+R. S. MENON, 
+A. L. MACKAY, 
+J. R. T. HAILEY, 
+M. BLOOM, 
+A. E. BURGESS, 
+AND J. S. SWANSON, 
+J. 
+Appl. Po/ym Sci. 33, 1141 ( 1987). 
+2. K. R. BROWNSTEIN 
+AND C. E. TARR, 
+Phys. Rev. A 19,2446 
+( 1979). 
+3. S. W. 
+PROVENCHER, 
+Biophys. J. 16,27 
+( 1976). 
+4. M. R. SMITH 
+AND S. T. NICHOLS, 
+Nucl. Instrum. Methods 205,479 ( 1983 ) 
+5. S. W. PROVENCHER, 
+Cornput. Phys. Commun. 27,213 ( 1982). 
+6. S. W. PROVENCHER, 
+Comput. Phys. Commun. 27,229 ( 1982). 
+7. R. M. KROEKER 
+AND R. M. HENKELMAN, 
+J. Magn. 
+Resort. 69,2 18 ( 1986). 
+8. R. M. KROEKER, 
+C. A. STEWART, 
+M. J. BRONSKILL, 
+AND R. M. HENKELMAN, 
+Magn. Reson. Med. 6, 
+24( 
+1988). 
+9. E. 0. STEJSKAL 
+AND J. E. TANNER, 
+J. Chem. Phys. 42,288 ( 1965). 
+IO. 
+N. H. BODENAND 
+Y. K. LEVINE, 
+J. Magn. Reson. 30,327 (1978). 
+II. 
+G. E. BACKUS 
+AND J. F. GILBERT, 
+Geophys. .I. R. Astron. Sot. 13,247 
+( 1967). 
+12. G. E. BACKUS 
+AND J. F. GILBERT, 
+Geophys. J. R. Astron. Sot. 16, 169 ( 1968). 
+13. 
+G. E. BACKUS 
+AND J. F. GILBERT, 
+Phil. Trans. R. Sot. A 266,123 ( 1970). 
+14. D. D. JACKSON, 
+Geophys. J. R. Astron. Sot. 2I3,97 ( 1972). 
+1.5. C. L. LAWSON 
+AND 
+R. J. HANSON, 
+“Solving 
+Least 
+Squares 
+Problems,” 
+Prentice-Hall, 
+Englewood 
+Cliffs, 
+New 
+Jersey, 
+1974. 
+16. 
+R. L. PARKER, 
+Annu. Rev. Earth Planet. Sci. 5,35 ( 1977). 
+17. 
+S. TWOMEY, 
+“Introduction 
+to the Mathematics 
+of Inversion 
+in Remote 
+Sensing 
+and Indirect 
+Measure- 
+ments,” 
+Elsevier, 
+Amsterdam, 
+1977. 
+18. 
+W. MENKE, 
+“Geophysical 
+Data 
+Analysis: 
+Discrete 
+Inverse 
+Theory,” 
+Academic 
+Press, 
+San Diego, 
+Cali- 
+fornia, 
+1984. 
+19. 
+D. W. OLDENBURG, 
+IEEE Trans. GE-22,664 
+( 1984). 
+20. 
+S. C. CONSTABLE, 
+R. L. PARKER, 
+AND C. G. CONSTABLE, 
+Geophysics 52,289 ( 1987). 
+21. 
+S. I. GASS, “Linear 
+Programming,” 
+McGraw-Hill, 
+New 
+York, 
+1969. 
+22. 
+D. G. LUENBERGER, 
+“Introduction 
+to Linear 
+and Nonlinear 
+Programming,” 
+Addison-Wesley, 
+Read- 
+ing, Massachusetts, 
+1973. 
+23. 
+S. E. Doss0 
+AND D. W. OLDENBURG, 
+Geophys. J., in press 
+( 1989). 

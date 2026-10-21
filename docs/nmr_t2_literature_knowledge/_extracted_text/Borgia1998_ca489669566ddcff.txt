@@ -1,0 +1,1277 @@
+--- PAGE 1 ---
+JOURNAL OF MAGNETIC RESONANCE 132, 65–77 (1998)
+ARTICLE NO. MN981387
+Uniform-Penalty Inversion of Multiexponential Decay Data
+G. C. Borgia,* R. J. S. Brown,† and P. Fantazzini‡
+*Department of ICMA, University of Bologna, Viale Risorgimento 2, 40136 Bologna, Italy; †515 W. 11th St., Claremont,
+California 91711-3721; and ‡Department of Physics, University of Bologna, Via Irnerio 46, 40126 Bologna, Italy
+Received June 6, 1997; revised November 20, 1997
+NMR relaxation data and those from many other physical mea-
+of distributions of relaxation times. If no constraints are
+surements are sums of exponentially decaying components, com-
+applied, such as smoothing or non-negativity, then these
+bined with some unavoidable measurement noise. When decay data
+distributions are not even bounded.
+are inverted in order to give quasi-continuous distributions of relax-
+Many authors have discussed the inversion problem (1–
+ation times, some smoothing of the distributions is normally imple-
+12) and given further references. Provencher (1) has pro-
+mented to avoid excess variation. When the same distribution has
+vided an extensive discussion, and his CONTIN programs
+a sharp peak and a much broader peak or a ‘‘tail,’’ as for many
+are widely used. Most inversion schemes apply both smooth-
+porous media saturated with liquids, an inversion program using a
+ing and other restrictions to prevent excessive detail in de-
+ﬁxed smoothing coefﬁcient may broaden the sharp peak and/or
+rived distributions of relaxation times. The non-negative
+break the wide peak or tail into several separate peaks, even if the
+(NN) constraint is usually applied on physical grounds, but
+coefﬁcient is adaptively chosen in accord with the noise level of
+the data. We deal with this problem by using variable smoothing,
+it also serves to prevent wild oscillations in distributions,
+determined by iterative feedback in such a way that the smoothing
+since an unnecessary but permissible high point is usually
+penalty is roughly constant. This uniform-penalty (UP) smoothing
+nearly canceled by a nearby negative point when NN is not
+can give sharp lines, not broadened more than is consistent with the
+applied. Another restriction is to limit the number of maxima
+noise, and in the same distribution it can show a tail decades long
+to a small number such as one or two (1). This, too, can often
+without breaking it up into several peaks. The noise level must be
+eliminate spurious peaks and the undershoot that results from
+known approximately, but it can be determined more than ade-
+the smoothing of large narrow peaks. Of course, these re-
+quately by a preliminary inversion. The same iterative procedure
+strictions may or may not be appropriate to the data. Most
+is used to implement constraints such as non-negative (NN) or
+inversion processes minimize some function, usually mean-
+monotonic-from-peak (MT). The signiﬁcance of an additional re-
+square, of the residuals plus some penalty function of the
+solved peak may be tested by ﬁnding the cost of using MT to force
+a unimodal solution. A bimodal constraint can be applied. Decay
+output distribution, together with constraints such as NN. A
+data representing sharp lines in contact with broad features can
+seldom used alternative is to impose minimum variation or
+require substantial computing time and some controls to stabilize
+variation-squared (5), subject to adequate ﬁt to the data.
+the iterative sequence. However, UP can be made to function
+If the relaxation data have low noise level and are known
+smoothly for a very wide variety of decay curves, which can be
+from physical considerations to correspond to a small num-
+processed without adjustment of parameters, including the dimen-
+ber of very well separated relaxation times, then even graphi-
+sionless smoothing parameters. Extensive testing has been done with
+cal peeling of longest components from semi-log plots can
+artiﬁcial data. Examples are shown for artiﬁcial data, biological
+give times and amplitudes. Likewise, a nonlinear search by
+tissues, ceramic technology, and sandstones. Expressions are given
+computer can give these components. However, if the com-
+relating noise level to line width and for signiﬁcance of increase or
+ponents are not well separated, or if there is not valid a
+decrease in error of ﬁt.
+q 1998 Academic Press
+priori knowledge of the number of components, it is easy
+to misunderstand and misinterpret the computed results.
+Another case is that of distributions with small numbers
+INTRODUCTION
+of well-separated peaks of ﬁnite width. Again, we may or
+may not have a priori reasons to know that a distribution is
+Nuclear magnetic relaxation data and many other kinds
+of this form. If the peaks are well separated, most inversion
+of physical data represent sums or distributions of decaying
+methods can give positions (relaxation times) and areas
+exponential functions. The decay curves and the correspond-
+(corresponding signal amplitudes). If the peaks have similar
+ing distributions of exponential components vary greatly in
+widths on a logarithmic time scale, then most methods for
+character and complexity, but even the simplest relaxation
+inversion of relaxation data to get distributions of relaxation
+data, with even a small amount of the unavoidable measure-
+ment noise, can be represented adequately by a wide variety
+times will give also the correct peak widths if the data noise
+65
+1090-7807/98 $25.00
+Copyright q 1998 by Academic Press
+All rights of reproduction in any form reserved.
+
+--- PAGE 2 ---
+66
+BORGIA, BROWN, AND FANTAZZINI
+is sufﬁciently low and if the inverted data are smoothed to
+quences, are inherently at equal intervals in t. These data
+can be inverted with UP smoothing also, but some additional
+a degree appropriate to the noise level and peak width. If
+two peaks differ greatly in width, then it is not possible to
+bookkeeping is required.
+We wish to compute a quasi-continuous distribution of
+choose a single smoothing parameter for the distribution that
+will not broaden the narrower peak and/or break the wider
+relaxation times T in the form of a set of discrete points
+(usually from 80 to 110) covering about the same time range
+peak up into apparent multiple peaks.
+The inversion problem is still more difﬁcult when the
+as the data and equally spaced in Q Å ln T. This gives
+spacings in q (data points) and Q (computed points) of the
+resolution of peaks is marginal, especially when one peak
+is much larger than another. An especially difﬁcult form of
+order of 0.1 Np (Neper). As will be seen later, this spacing
+is comparable to the minimum measurable peak half-width
+relaxation time distribution is found for ﬂuids in complex
+porous media, such as brine in sandstone rocks, an important
+for a noise level of 0.25% of the integrated signal from the
+peak. To permit focus on the use of UP we will discuss only
+problem in the oil industry. A common form of distribution
+consists of a relatively high peak with a very long low tail
+good data sets in the above form, excluding data equally
+spaced in time and avoiding data that do not adequately
+extending to shorter relaxation times, often to times as short
+as a hundredth or a thousandth that of the peak. Such a tail,
+cover the ranges of relaxation times.
+although very low, may have sufﬁcient area to represent a
+Least-Squares Inversion with Smoothing
+substantial fraction of the initial signal (13, 14).
+For several years we have dealt with this problem ‘‘manu-
+As we have said, many very different distributions of
+ally’’ (13) by specifying widely different smoothing param-
+relaxation times T can give adequate ﬁts to a set of good
+eters for the relatively sharp peak and the long low tail. This
+relaxation data. Very large amounts of detail can be intro-
+procedure can also prevent the undershoot usually found at
+duced in a distribution while still giving a good ﬁt to the
+the sides of sharp peaks, which can give automatic minima
+data. In fact, by introducing a lot of spurious detail it is
+between peaks and adjacent lower and broader features. The
+possible to cancel some of the random noise that is part of
+obvious drawback is that the choice of smoothing parameters
+all instrumental data sets. We may choose among ﬁts with
+is highly subjective. A welcome feature of the manually
+different amounts or types of detail on the basis of a priori
+adjusted smoothing is that, with good data, the need for
+knowledge, but, in most cases, we should probably choose
+the application of a non-negative constraint may be greatly
+what is in some sense the minimum amount of detail de-
+reduced or eliminated.
+manded by the data.
+To reduce this subjectivity we have introduced negative
+We wish to approximate a set of relaxation data si , taken
+feedback in the smoothing of the computed distributions of
+at times ti equally spaced in qi Å ln ti , by a sum of M
+relaxation times to maintain roughly the same smoothing
+exponential components,
+penalty for each computed point in a distribution. Instead of
+using a uniform smoothing coefﬁcient, we vary the coefﬁ-
+si É g0 / ∑
+M
+kÅ1
+gk exp(0ti /Tk) å xi ,
+[1]
+cient with relaxation time so as to keep the smoothing pen-
+alty roughly uniform. In this process the smoothing coefﬁ-
+cient may vary by as much as nine decades, thereby avoiding
+where Tk are the relaxation times equally spaced in Q Å ln
+the broadening of a very narrow peak and also avoiding
+T and covering about the same range as ti . The distribution
+breaking a wide feature into several apparent peaks. In the
+of amplitudes at relaxation times Tk (on the logarithmic time
+following we will ﬁrst discuss the inversion problem and
+scale) is gk, and g0, the value of the signal at inﬁnite time,
+approaches to smoothing and then describe uniform-penalty
+is also a regression parameter. The computed ﬁt to the data
+(UP) smoothing.
+is xi , as shown in Eq. [1]. To avoid excessive detail a penalty
+function is added to the squared error of ﬁt, and their sum
+INVERSION AND SMOOTHING
+is minimized. Common penalty functions are squares of am-
+plitude, slope (ﬁrst difference), or curvature (second differ-
+Relaxation Data
+ence). The function to be minimized is then of the form
+Most of our work with UP has been with longitudinal
+relaxation (T1) data with random noise levels between 1%
+∑
+N
+iÅ1
+(g0 / ∑
+M
+kÅ1
+gk exp(0ti /Tk) 0 si ) 2
+and 0.05% of the relaxing signal and with data (typically
+127 points) taken at equal intervals in q Å ln t, where t is
+/ A ∑
+M
+kÅ1
+g 2
+k / D ∑
+M01
+kÅ1
+(gk/1 0 gk) 2
+data time, usually over ranges of more than four decades.
+Data taken at equal intervals in q can best represent detail
+in different parts of wide distributions of relaxation times
+/ C ∑
+M01
+kÅ2
+(gk01 0 2gk / gk/1) 2,
+[2]
+T, but transverse relaxation data (T2), often by CPMG se-
+
+--- PAGE 3 ---
+67
+MULTIEXPONENTIAL DECAY DATA
+smoothing parameter C when a set of data has both sharp
+and broad features. Distributions of relaxation times are
+shown (as amount of initial signal per Neper of relaxation
+time) for different inversions of a single set of artiﬁcial data
+computed from a noise-free input distribution, or model, to
+which Gaussian random noise with unit rms amplitude has
+been added. In all cases the NN constraint, which often
+has a physical basis, is applied. The input distribution is a
+Gaussian peak with 0.1 Np half-width plus a triangular tail,
+contributing one-third of the initial signal and tapering to
+zero at short relaxation times. The smoothing effect of a
+given C value depends on the signal-to-noise ratio S/N and
+on the spacing of both the data points and the computed
+points. We will specify the degree of smoothing by a parame-
+ter a, which is inversely proportional to C (see later, below
+Eq. [9]) and has a smoothing effect that is not dependent
+(as for C) on the spacing of input data or of computed output
+points. To get from the minimization of Eq. [2] an adequate
+ﬁt to the artiﬁcial data, represented in Fig. 1 and having
+known pseudo-random noise, it is necessary to use a Å 10 8.
+This still broadens the sharp peak somewhat, but it also
+breaks the tail into a number of separate peaks. In particular,
+it leaves a substantial interval of baseline between the real
+peak and the ﬁrst spurious peak. The long tail needs many
+orders of magnitude more smoothing, and the transition
+needs to be abrupt. Even with a Å 100 the tail appears as
+a resolved separate peak, and the real peak is drastically
+FIG. 1.
+Model distribution for artiﬁcial relaxation data and distributions
+broadened.
+computed with ﬁxed smoothing parameters a (inversely proportional to the
+It may be noted that there are no spurious peaks to the
+smoothing coefﬁcients C). The artiﬁcial relaxation data are computed from
+right of the input peak. The NN constraint can prevent the
+the input distribution (model), which consists of a Gaussian line with
+undershoot, but the tail of the Gaussian is lost. NN also
+integrated amplitude 1000, centered at 500 ms and with half-width (at
+e 01/2 1 peak) 0.1 Np (Neper), plus a triangular tail with integrated ampli-
+cancels zero-mean noise in the input time-domain data in
+tude 500 (representing an important one-third of the total initial signal)
+relaxation-time regions of the computed ﬁt amplitudes with
+and tapering from the peak at 500 ms to zero at 0.5 ms. Pseudo-random
+little or no true signal; if the computed ﬁt amplitude cannot
+noise with rms value 1.0 is added to the 127 artiﬁcial data points. The input
+go negative, it cannot go positive and retain the zero mean.
+model distribution is the higher solid curve in the full view (a) and the
+To the left of the peak in Fig. 1, NN cannot prevent the
+inner peak with triangular tail in the expanded view (b). The dashed curve
+in both views is for a constant smoothing parameter a Å 10 8. The lower
+undershoot and oscillatory behavior, because the output can
+solid curve in the full view (a), showing a wide peak and oscillatory tail
+go below its correct value without going negative.
+in the expanded view (b), is for a Å 10 5. The remaining curve, shown by
+In a sense, NN is overworked in many inversion proce-
+the unconnected computed points in both views, is for a Å 100. The
+dures. When the expected distribution of relaxation times
+inversion has 110 points spaced at É0.08 Np, and curvature smoothing is
+consists of one or several resolved peaks of different, but
+applied. The a Å 10 8 curve gives the correct noise value by slightly broad-
+ening the peak and thereby incurring a small penalty, which is made up by
+not drastically different, widths, it may be possible to choose
+excessive detail on the tail, permitting the cancellation of some of the added
+an a that will not broaden the narrowest peak excessively
+noise. Note that each computed curve returns to the baseline to the left of
+and also not break a wider or lower peak into multiple peaks.
+the ‘‘real’’ peak, appearing to give one or more separate additional peaks.
+In this case NN can prevent the undershoot at the sides of
+The non-negative (NN) constraint is applied to the computed curves.
+the peaks, sharpening the peaks and suppressing the noise.
+In this use NN serves more to stabilize a computation than
+to suppress measurable nonphysical features of the input
+where A is the coefﬁcient for amplitude smoothing, D (dif-
+ference) for slope smoothing, and C (curvature) for curva-
+data, such as effects of ampliﬁer nonlinearity or drift. The
+results are often satisfactory when the conditions just men-
+ture smoothing (1, 9, 10, 13). We do not include the g0 term
+in the penalty function. Usually only one of the three kinds
+tioned are valid. However, there are many sources of relax-
+ation data where the distributions of times do not consist of
+of smoothing is used, and curvature smoothing is used in
+the present work.
+a few isolated peaks.
+Relaxation data for visually homogeneous brine-saturated
+Figure 1 shows the consequences of inversion with a ﬁxed
+
+--- PAGE 4 ---
+68
+BORGIA, BROWN, AND FANTAZZINI
+tioned as available in CONTIN (1), they appear not to be
+widely used for NMR relaxation data. The acceptability of
+the MT constraint can be tested by comparing the error of
+ﬁt with MT against that with NN and applying resolution
+criteria, discussed later, to judge the signiﬁcance of the extra
+cost of MT in error of ﬁt.
+Just as NN can compensate for undersmoothing on por-
+tions of distributions with noise but little or no signal, MT
+can prevent undersmoothing on broad features, whether with
+very little signal or with substantial signal. Of course, this
+is useful only if the cost is not enough to prevent an adequate
+ﬁt to the data. Figure 2 shows the same artiﬁcial distribution
+as Fig. 1. The stairstepped curve is computed with a ﬁxed
+a Å 10 8, using MT instead of NN. This gives a satisfactory
+distribution so long as one does not try to interpret the stair-
+steps. The use of MT prevents the extra peaks, but the trian-
+gular part of the distribution is still undersmoothed.
+The application of UP smoothing, to be described in a
+later section, provides much stronger smoothing for the long
+tail than for the sharp peak. In Fig. 2, the computed distribu-
+tion using UP and NN cannot easily be distinguished from
+the input distribution on the scales used in the ﬁgure. The
+computation using UP but not using either NN or MT
+(dashed lines) does show some undershoot on both sides of
+the peak, with some consequent broadening of the peak, but
+there is far less reliance on NN or MT than with ﬁxed
+smoothing parameter.
+FIG. 2.
+Distributions computed from the same artiﬁcial relaxation data
+INVERSION WITH VARIABLE SMOOTHING
+used in Fig. 1, with the model shown in both views as in Fig. 1. The lower
+solid curve in the full view (a), which has the stair-stepped tail in the
+To introduce more equitable smoothing for sharp and
+expanded view (b), is computed with a ﬁxed smoothing parameter a Å
+broad features we make A, D, and C in Eq. [2] variable,
+10 8 and with the monotonic-from-peak (MT) constraint instead of NN. A
+third solid curve is shown in both views, which cannot be distinguished
+with subscript k, and move them inside the summations.
+from the model on the scales shown here, for the distribution computed
+Although variable smoothing can be implemented for am-
+with uniform-penalty (UP) smoothing (to be described below) along with
+plitude, slope, or curvature smoothing, we will discuss
+NN. The dashed curve in both views is for UP without either NN or MT.
+only curvature smoothing, which we have used for a num-
+Here, the undershoot can be seen on both sides of the peak, and the peak
+ber of years. We have not tried the UP approach with
+is signiﬁcantly broadened. However, most of the wild oscillation shown in
+Fig. 1 is avoided by the variable smoothing coefﬁcient in UP.
+amplitude or slope smoothing. The quantity to be mini-
+mized is now
+oilﬁeld rocks are often compatible with unimodal (with re-
+∑
+N
+iÅ1
+(g0 / ∑
+M
+kÅ1
+gk exp(0ti /Tk) 0 si ) 2
+spect to Q Å ln T ) distributions from one to three or more
+decades wide. There is a very wide variety of shapes, usually
+with more detail in one region than another. There exist
+/ ∑
+M01
+kÅ2
+Ck(gk01 0 2gk / gk/1) 2,
+[3]
+examples with peaks with widths close to the minimum mea-
+surable values at their particular noise levels but with tails
+extending two or three decades. Thus, the artiﬁcial distribu-
+where Ck will be iteratively adjusted to be roughly recipro-
+cal to the local curvature-squared (which itself depends on
+tion of Fig. 1 is not unlike some found for ﬂuids in the pores
+of rocks, although many rocks do not show peaks quite this
+the Ck).
+If the components gk, si , and xi make up the vectors g
+sharp.
+Distributions from the artiﬁcial data of Fig. 1 can be im-
+(computed distribution, M / 1 components), s (measured
+noisy signal, N components), and x (computed ﬁt to the
+proved by applying a monotonic-from-peak (MT) constraint
+instead of NN, forcing the computed distribution to be uni-
+signal, N components), and if the components exp(0ti /Tk)
+make up the N 1 (M / 1) matrix U, we have x Å Ug. The
+modal. Although unimodal and bimodal constraints are men-
+
+--- PAGE 5 ---
+69
+MULTIEXPONENTIAL DECAY DATA
+ﬁrst term in Eq. [3] is then g†U†Ug 0 2s†Ug / s†s, with
+second-difference-squared values found at k 0 1, k, or k /
+1 from the previous iteration. That is, Ck for the next iteration
+the last of these a constant. We let U†U Å W. This (M /
+1) 1 (M / 1) matrix need be computed only once for the
+is inversely proportional to the largest second-difference-
+squared found at k or a nearest neighbor. We can further
+iterative computation of g.
+For the second (penalty) term in Eq. [3] we ﬁrst ﬁnd the
+improve appearance in many cases by using second-nearest
+neighbors or points from an even wider window. However,
+contribution for unit Ck for a single k-value. This involves
+gk01, gk, and gk/1. The curvature (second difference) at the
+a wide window interferes with implementing abrupt changes
+in smoothing coefﬁcient. It is also possible to use only slope-
+kth computed point is V(k)g, where V(k) is an (M / 1) 1
+(M / 1) matrix containing all zero elements except for the
+squared feedback (instead of curvature feedback) for curva-
+ture smoothing. In this case it is necessary to use the highest
+submatrix
+slope-squared over a window extending about 0.3 Np in
+relaxation time both above and below the point k. A useful
+compromise was found to be the use of both curvature and
+S
+0
+0
+0
+1
+02
+1
+0
+0
+0D
+[4]
+slope feedback, and for each k to use the highest values
+found at the point or a nearest neighbor.
+The smoothing coefﬁcients Ck are coefﬁcients of rigidity
+centered at the kth diagonal point. The contribution to the
+for the computed distributions. Therefore, the feedback to
+curvature-squared is g†V(k)†V(k)g, where V(k)†V(k) is a sym-
+adjust the Ck to give roughly uniform penalty consists of
+metrical matrix containing all zero elements except for the
+local compliance contributions from slope and curvature. We
+submatrix
+let ck be the maximum value of [(gl01 0 2gl / gl/1)
+/D 2
+Q] 2 for l Å k 0 1, k, or k / 1. We likewise let pk
+(pendenza: slope) be the maximum of [(gl/1 0 gl)/DQ] 2
+S
+1
+02
+1
+02
+4
+02
+1
+02
+1D ,
+[5]
+for l Å k 0 1, k, or k / 1. The denominators, powers
+of the output interval DQ in Q, make pk and ck discrete
+approximations to the squares of ﬁrst and second derivatives
+centered at the kth diagonal element. We now form the
+of g(Q) and hence as nearly as possible independent of DQ.
+matrix K (Kru¨mmung: curvature) by multiplying each ma-
+These parameters from one iteration are used to give the
+trix V(k)†V(k) by Ck and summing the matrices for all k-
+Ck’s for the next.
+values from 2 to M 0 1. The total curvature penalty is g†Kg.
+Equation [3], and the quantity to be minimized, is now
+Balance between Smoothing and Noise
+given by
+The residuals term (left) and the penalty term (right) of
+g†Wg 0 2s†Ug / s†s / g†Kg.
+[6]
+Eq. [3] should somehow be balanced in ﬁnding the quantity
+to be minimized to get the distribution gk. We still need
+We let s†U Å Y and minimize the above expression by
+global factors by which to multiply pk and ck to get Ck. We
+setting the gradient with respect to g to zero, giving
+represent the compliance determined in one iteration in the
+form
+Wg / Kg Å Y ;
+g Å (W / K) 01Y.
+[7]
+a0 / appk / acck,
+[8]
+FEEDBACK FOR UNIFORM PENALTY
+where a0, ap, and ac are constants that are not changed from
+Feedback
+one iteration to the next nor from one data set to the next.
+The term a0 is a compliance ﬂoor, which should be small
+To have a strictly uniform penalty, that is, the same contri-
+bution to the right side of Eq. [3] for each value of k, we
+enough that it would never lead to undersmoothing, but
+which should be large enough to be a ‘‘seed’’ for the devel-
+would have to ﬁnd a way to make Ck inversely proportional
+to the square of the second difference. This can be done by
+opment of curvature in the iteration process.
+For a good solution to good data the residuals term from
+a series of iterations, starting with a ﬁxed Ck and for each new
+iteration letting Ck be inversely proportional to the square of
+the minimization of Eq. [3] is primarily due to the noise-
+squared. If R (rumore, Rauschen: noise) is the rms noise,
+the second difference from the previous iteration. This does
+give adequate ﬁts to relaxation data, but it tends to give
+the residuals term from Eq. [3] should be of the order of
+NR 2 if the ﬁt is good. We assume that, in the vicinity of a
+distributions consisting of straight-line segments, with too
+much detail in the form of abrupt bends. This can be im-
+solution, the two terms in Eq. [3] should be comparable.
+We need only proportionality, and we use proportionality to
+proved considerably by relaxing the uniform-penalty re-
+quirement somewhat and using at each k the highest of the
+the density of points 1/Dq instead of to N, having in mind
+
+--- PAGE 6 ---
+70
+BORGIA, BROWN, AND FANTAZZINI
+that data points well outside the range of relaxation times
+apply MT over short ranges of DQ in order to remove un-
+physically sharp minima caused by undershoot.
+will not contribute much to variability in iterative approach
+to a solution. We could include R 2/Dq as a factor in Ck (and
+In some cases we have tried to deal with nonideal data
+by imposing special constraints on the ﬁrst and last points
+we would do this to deal with data equally spaced in time,
+where Dq is not constant). However, in our implementation
+or the ﬁrst and last several points, but, as we have said, the
+present discussion is focused on UP and is therefore limited
+we have instead normalized the input signal by dividing it
+to good data with random noise only and with adequate
+by R
+q
+Dq, and we have included a factor of D 02
+q
+in Ck to
+coverage of relaxation times.
+preserve the balance between noise and degree of smoothing.
+This makes the screen display during a computation propor-
+Convergence
+tional to an effective signal-to-noise ratio.
+The amplitude is plotted as normalized signal per Np
+The iterative procedure for any combination of UP, NN,
+of Q Å ln T. To approximate an integral of the form
+and MT does not necessarily converge. However, with rea-
+* C(Q)(d 2g/dQ 2) 2dQ for the curvature penalty by a dis-
+sonable parameters, it usually does converge for data sets
+crete sum, we include a factor of the step size DQ in the
+not including overlapping broad features and sharp lines and
+coefﬁcient Ck. We now have
+for many data sets that do. With both sharp and broad fea-
+tures in contact it may take 30 or more iterations to settle
+Ck Å [D 2
+qD 3
+Q(a0 / appk / acck)] 01.
+[9]
+to an approximate distribution with nearly constant error of
+ﬁt, but it may never settle to one exact solution. To stabilize
+the iteration process at this stage (but not before), we use,
+The symbol a (without subscript) will be used to indicate
+for each k-value for the next iteration, the smaller of the
+examples of ﬁxed smoothing coefﬁcient C, given in terms
+newly computed Ck or the Ck that was used in the current
+of a0 Å a and ap Å ac Å 0 by Eq. [9].
+iteration. It may be necessary also to suppress changes in the
+smoothing coefﬁcients Ck when a large undershoot (negative
+CONSTRAINTS, CONVERGENCE, AND NOISE
+point, to be suppressed in the next iteration) appears. This
+can break a nonproductive cycle of iterations. Also in such
+Constraints: NN and MT
+cases, it may be necessary to terminate iteration when the
+We use the same sequence of iterations to impose con-
+rms error of ﬁt ceases to change signiﬁcantly even if the
+straints, such as NN and MT. For each negative gk in one
+changes in the Ck’s do not converge to zero. These controls
+iteration we impose NN by adding a large number to the
+on the iterative process usually lead to a nearly steady state
+kth diagonal element of V(k)†V(k) to force the corresponding
+with substantially constant error of ﬁt and without wandering
+gk to be nearly zero in the next solution. By not forcing the
+appreciably from a region of nonconverging approximate
+point exactly to zero, we retain knowledge of its sign, which
+solutions.
+in some future iteration may cease to be negative, in which
+The computing time depends roughly on the cube of the
+case the constraint for that point can be removed.
+number of computed points. Our computation is written in
+Likewise, we can reduce the slope for a pair of points
+True Basic and run on a Pentium-90 computer, and we nor-
+nearly to zero by multiplying the submatrix (analogous to
+mally compute 110 points on a distribution of relaxation
+Eq. [5] for curvature),
+times, plus signal at inﬁnite time. For each iteration it is
+necessary to invert a 111 1 111 matrix, which takes about
+6 s. Each iteration takes about 12 s, so about 5 min is needed
+S
+1
+01
+01
+1D ,
+[10]
+if 25 iterations are required. When very sharp features are
+absent, computing time is much less. It should be noted,
+however, that UP makes its greatest contribution when there
+by a large number and centering it between the diagonal
+are both broad and sharp features.
+elements k and k / 1 of V(k)†V(k). We can impose MT for
+sections of the computed distribution by reducing the slope
+Coefﬁcients, Artiﬁcial Data, and Noise
+nearly to zero when the slope is in the ‘‘wrong’’ direction.
+Again, we retain knowledge of the sign by not forcing the
+The coefﬁcient a0 in Eq. [9] should be chosen as large
+as possible without undersmoothing the widest distributions
+slope exactly to zero, and we can remove the constraint if
+it ceases to be needed.
+of interest. This is not critical. We have determined tentative
+values of ap and ac by setting one of them to zero and getting
+We have also used a hybrid MT and NN constraint to
+allow a bimodal solution, where MT is applied before one
+reasonable ﬁts to artiﬁcial data with the other while using a
+window (see Feedback section) of {0.3 Np for determining
+peak and after the other, with NN applied between peaks.
+An example of this is shown later, in connection with Fig.
+maximum compliance (pk or ck) to use for a given k-value.
+Finally, we have made many computations with many forms
+6. Another use of MT, not illustrated in this work, is to
+
+--- PAGE 7 ---
+71
+MULTIEXPONENTIAL DECAY DATA
+of artiﬁcial data to select the a’s. Good results are obtained
+with a0 Å 1000 (but smaller for very wide distributions with
+low S/N), ap Å 50, and ac Å 10. A wide variety of relaxation
+data can be inverted, giving the right scatter due to noise
+without changing the above a’s.
+We generate artiﬁcial data with pseudo-random noise,
+each noise point being obtained by subtracting 6 from the
+sum of 12 independent samples of pseudo-random numbers
+from a uniform distribution from 0 to 1, giving rms noise
+1.0 and an approximately Gaussian distribution. In each case
+we record for reference the actual rms noise for the individ-
+ual set of N artiﬁcial data points on a relaxation curve. We
+do not remove the mean, since our inversion computes the
+FIG. 3.
+Noise only, with unit rms amplitude, inverted without NN, MT,
+value for inﬁnite time. Even for sets of N Å 127 data points,
+or UP (identiﬁed under Fig. 2). The solid curve (a) is for a Å 10 10 and
+there can be relative scatter (with respect to the ensemble
+is divided by 3400. The dashed curve (b) is for a Å 10 6 and is divided by
+mean value, N) of the sum of errors-squared of the order
+170. The curve with the unconnected dots (c) is for a Å 10 2 and is divided
+of
+q
+2/N, or 12.5% from data set to data set. This corresponds
+by 1.3. The smoothed ﬁts reduce the input noise by 12.4%, 8.2%, and 4.1%,
+respectively. As a is increased (smoothing decreased) both amplitude and
+to a 6.3% variation in the rms noise for data sets of 127
+frequency of the excursions increase, and the rms scatter decreases. There
+points.
+is great variability from one set of noise values to another, but processing
+In processing an individual data set we deal with only
+many sets of noise suggests that each cycle of the quasiperiodic oscillation
+one set of noise values, added to the signal values. Any ﬁt
+tends to remove from the input noise about 2.2 degrees of freedom in
+addition to the two that would be removed by forcing the distribution to
+to the noisy data set will make some accommodation to
+be a straight line.
+the noise, even if the ﬁt is oversmoothed. Thus, adjusting
+smoothing parameters so that the rms residual is equal to
+the rms added noise results in slight oversmoothing, since
+some of the noise is still accommodated by the ﬁt.
+the ranges of parameters discussed here. However, after the
+To adjust global smoothing parameters and to test UP we
+a’s have been selected by prior computation with artiﬁcial
+need to estimate the desirable level of the residual scatter
+data, we do not need more than rough prior knowledge of
+for a ﬁt. From artiﬁcial data, usually with 127 points, we
+the noise.
+have guessed an effective number of degrees of freedom,
+The Noise by Itself
+such as 7 (3 components: 3 amplitudes, 3 relaxation times,
+and signal at inﬁnite time) to use with the number of data
+Figure 3 shows one sample of noise by itself inverted
+points and the known level of the added noise. For both
+with ﬁxed smoothing coefﬁcient C and without NN, MT, or
+artiﬁcial and natural data, we can get the residual scatter
+UP. Even a heavily smoothed ﬁt removes some degrees of
+from a multicomponent discrete ﬁt with up to 7 components
+freedom and reduces the rms residual below the input noise.
+(15 parameters) to the relaxation data. This has the advan-
+Clearly, the less the smoothing the more the ﬁt can maneuver
+tage of having no smoothing parameters to choose. Addi-
+to accommodate the noise. The curve with the most oscilla-
+tional components are computed until the best way to reduce
+tions (solid) reduces the noise by 12.4%, has a Å a0 Å 10 10
+the sum of residuals is to use a negative component or a
+(and ap Å ac Å 0), and is divided by 3400 for presentation
+component out of the range of the data times. An additional
+on the scale shown. The dashed curve reduces noise by 8.2%,
+component is not used if its use does not reduce the standard
+has a Å 10 6, and is divided by 170. The curve with the
+deviation of the residuals. Agreement with the known noise
+unconnected dots reduces noise by 4.1%, has a Å 10 2, and
+of artiﬁcial data is very good.
+is divided by 1.3. The increase of amplitude and frequency
+We have two separate uses for a prior knowledge of the
+of the excursions with decreased smoothing is accompanied
+noise level. One is the normalization of the signal discussed
+by a decrease in the rms scatter. However, these features are
+just above Eq. [9]. This affects the smoothing in the compu-
+highly variable from one set of noise values to another.
+tation, but it is not critical with respect to small changes,
+Numerous sets of noise were processed with a Å 10 m for
+such as some tens percent. Even a factor of 2 is not drastic. If
+integer m from 1 to 11, and cycles of quasi-periodic oscilla-
+we have no prior knowledge of the noise level, a preliminary
+tion were counted (somewhat subjective). When the reduc-
+inversion would normally give a more than adequate value
+tion of noise and cycles of oscillation were averaged for the
+for the normalization. The other use for a prior knowledge
+sets of noise, a straight-line relationship (not shown) was
+of the noise is for selecting the a’s. For this, we should
+found, suggesting that a cycle of oscillation tends to remove
+roughly 2.2 degrees of freedom in addition to the 2 that
+know the noise level within from one to three percent for
+
+--- PAGE 8 ---
+72
+BORGIA, BROWN, AND FANTAZZINI
+would be removed by forcing the distribution to be a straight
+line with no oscillation at all.
+RESOLUTION
+Resolution of Two Lines
+A rough criterion for the resolvability of two sharp lines
+can be inferred from Eq. [10] of Ref. (15) for the least
+maximum absolute error (LMAE) of ﬁt to a rectangular
+distribution by two discrete exponential components. An ap-
+proximate expression for the LMAE relative to initial signal,
+in terms of the line separation factor Y, is
+FIG. 4.
+Marginal resolution from artiﬁcial data for sharp lines at 104
+ms and 310 ms, a factor of 3. Each of the two lines corresponds to a single
+E2 Å
+y 2
+6.87 / 15.9y / 7.2y 2 ;
+y Å (ln Y ) 2/12.
+[11]
+exponential with initial signal Å 100. The two peak positions are indicated
+by the two pairs of nearly vertical lines. Each of the four remaining curves
+shown is computed from a set of artiﬁcial data generated from the same
+Our ability to resolve the difference between the rectangular
+model, but with an independent set of random noise values having unit rms
+distribution and the two lines depends on our signal-to-noise
+amplitude. Inversions were made using UP-NN. One of the four curves
+ratio S/N and the density of data points in the region where
+(mixed dashes) breaks into two peaks at about the right positions, but the
+the differences exist. Some rough simulations suggest that
+residual error of ﬁt relative to the rms value of the its added random noise
+is not the lowest for the four curves. The other three (short-dashed curve,
+the effective region in signal time of signiﬁcant signal differ-
+long-dashed curve, and on-scale solid curve) can be made to give two peaks
+ences corresponding to localized differences in distributions
+by increasing the curvature-feedback compliance parameter from ac Å 10
+of relaxation times is of the order of a Neper. Thus, we have
+to ac Å 30, but improvement in ﬁt is not enough to give conﬁdence that
+effectively 1/Dq points helping statistically to determine the
+there are separate peaks. The two peaks are always resolved (with ac Å
+difference between models and reducing the required S/N
+10) when each line amplitude is increased to 250 (not shown) instead of
+100. The results were substantially the same for two Gaussian lines (not
+by a factor of
+q
+Dq. We then get a required S/N for resolution
+shown) meeting at two half-widths from their centers.
+of two roughly equal lines,
+S/N ™
+q
+Dq/E2.
+[12]
+results (not shown) were substantially identical to those for
+the pairs of sharp lines.
+For Y Å 3 we get E2 Å 0.0012. If 127 data points extend in
+equal q-steps from 0.4 ms to 10 s, Dq Å 0.080, and S/N É
+Linewidth Due to Noise
+240 is a rough boundary for marginal resolution.
+When noise is present, even a single-exponential signal
+Figure 4 shows the UP-NN computations (with a0 Å
+can give a distribution with ﬁnite width. Equation [6] of
+1000, ap Å 50, ac Å 10) for four sets of artiﬁcial data with
+Ref. (15) gives E1, the LMAE for ﬁt to a narrow rectangular
+different selections of random noise with unit rms amplitude
+distribution by a single line, analogous to Eq. [11] for two
+and with sharp lines for signal amplitude 100 each and a
+lines,
+factor of 3 apart in relaxation time. Thus, S/N Å 200, slightly
+less than the value 240 computed above for marginal resolu-
+E1 Å 0.1086 w 2,
+[13]
+tion. We note that three of the four curves do not ‘‘resolve’’
+the two lines. The curve with the two peaks does not have
+where w is the half-width of the line in Np. In analogy with
+the lowest ﬁt error relative to its added noise.
+Eq. [12], we account for the density of data points by letting
+The above computations were repeated with ac Å 30 in-
+S/N Å
+q
+Dq/E1, giving
+stead of the ‘‘normal’’ 10. Here, each of the four curves
+gave two peaks. However, as before, the improvement in ﬁt
+did not warrant the distinction between two peaks and a
+w Å 3.0 D 1/4
+q /
+q
+S/N.
+[14]
+continuous distribution. The above were done also with addi-
+tional sets of artiﬁcial data (not shown) with each peak of
+With S/N Å 100 for a distribution consisting of a single line
+(as for each line of Fig. 4) and with the input data point
+amplitude 250 instead of 100. In this case S/N Å 500, which
+is well over 240, rather than slightly less. For these data the
+spacing Dq Å 0.080 (127 points over a range of a factor of
+25,000), w Å 0.16 Np. Thus, the line half-width is about
+normal a’s gave the two resolved peaks in all cases. Still
+another variation used pairs of identical Gaussian distribu-
+twice the output point spacing, Dq Å 0.093 (110 output
+points over a factor of 25,000). Increasing of S/N to 400
+tions meeting at two half-widths from their centers. The
+
+--- PAGE 9 ---
+73
+MULTIEXPONENTIAL DECAY DATA
+would give w É Dq for the above parameters. These values
+of w apply to isolated lines ‘‘protected’’ by either NN or
+MT, and the value of S/N applies to the line itself, not
+including other features of the distribution.
+Signiﬁcance Criteria for Improvement in Fit
+As we have seen, it is possible to have quite different
+distributions adequately ﬁtting a set of relaxation data. How-
+ever, it is frequently useful to compare two or more solutions
+with differences due to the application of an additional con-
+straint or of a change in a smoothing parameter, with the
+changes limited to a small range of relaxation times. It is
+not easy to decide by comparing ﬁt errors alone whether
+FIG. 5.
+Marginal false resolution from artiﬁcial data for a rectangular
+one solution is signiﬁcantly better than another. One problem
+distribution. The solid curve is the input rectangular distribution (interpo-
+lated) with width a factor of 7, which can be well approximated by two
+is that a change primarily affecting one region, such as the
+(not precisely equal) lines a factor of 3 apart, as for the two lines of the
+foot of a peak, may also unintentionally and inconspicuously
+model for Fig. 4. The area in the peak is 200, just as for the sum of the
+change the ﬁt elsewhere, possible at very short times. How-
+two lines of Fig. 4, and there is again unit rms noise. The curve with the
+ever, we can estimate a minimum cost (13, 15) to warrant
+long dashes is UP-NN with the curvature feedback parameter ac Å 10
+rejecting a restriction.
+(normal), and the corresponding UP-MT (not shown) is substantially iden-
+tical. The curve with two peaks, shown by the short dashes, is UP-NN with
+If a localized change in a distribution affects the corre-
+ac increased to 30, the value that was required to get two separate peaks
+sponding decay curve over about a Neper, as discussed
+for all curves of Fig. 4.
+above, a change is not signiﬁcant unless it affects the sum
+of errors-squared more than the probable effect of a different
+set of random noise values over this range. If there are
+enough points in this interval, the variability of the noise-
+are rounded, but the ﬁt is good. If we increase ac from 10
+to 30, we resolve two false peaks, shown by the short-dashed
+squared is by a factor of about
+q
+2Dq, where 1/Dq is the
+curves, and improve the ﬁt by 1% of the noise value. As
+number of points per Np. This factor times the number of
+mentioned before, this improvement is roughly equivalent
+points per Np is the variability,
+q
+2/Dq, in the expected sum
+to the removal of 2.2 degrees of freedom to accommodate
+of noise-squared, N (with unit rms noise). This is a relative
+noise by introducing a cycle of oscillation.
+change of
+q
+2/Dq/N in the sum of errors-squared, giving a
+relative change in the rms ﬁt error of half this amount,
+Resolution of Lines on a Pedestal
+Although it was shown that UP can greatly decrease the
+1/(N
+q
+2Dq).
+[15]
+reliance on NN, it does not by itself completely prevent
+undershoot and line broadening in the immediate vicinity of
+With N Å 127 and Dq Å 0.080, Eq. [15] gives 2.0% as the
+a sharp feature in a distribution. The resolution criterion of
+relative increase in rms ﬁt error for marginal signiﬁcance of
+Eqs. [11], [12] does not apply unless we know that the
+the extra cost of a constraint. This should be in addition to
+choice is between either two sharp lines by themselves or
+the cost of the roughly 2.2 fewer degrees of freedom for
+else a compact distribution, such as rectangular or Gaussian,
+accommodating the noise if a cycle of oscillation is pre-
+by itself. The solid curves in Fig. 6 show the input distribu-
+vented by a constraint.
+tion for a pair of sharp lines a factor of 3 apart and on a
+wide pedestal. The short-dashed curve in the lower view is
+False Resolution from a Rectangular Distribution
+UP-NN for lines in the model with amplitudes 250 each
+and with unit noise. The mixed-dash curve is the same for
+The model for a set of artiﬁcial data is shown by the solid
+curve in Fig. 5. A rectangular distribution covers relaxation
+amplitudes 500 each (and with a different noise vector, again
+with unit rms amplitude). In each case there is substantial
+times over a factor of 7, with shape slightly affected by the
+necessary interpolation. As can be determined from Eq. [11]
+undershoot below the pedestal, and the lines are not resolved.
+The undershoot is greater for the larger amplitude. If we
+of Ref. (15), a rectangular distribution over a factor of 7
+can be well approximated by two (not quite equal) lines
+increase the amplitude further, so that the undershoot is inter-
+cepted by NN (not shown), then the lines become resolved.
+spaced a factor of 3, as for the lines of Fig. 4. The integrated
+signal for the model is 200, and unit noise is added, as for
+The unconnected plus signs (/) are for UP-MT, which
+avoids the undershoot but which, by its nature, does not
+Fig. 4. The line with the long dashes shows the UP-NN
+distribution computed with the normal parameters. The ends
+permit two peaks. The upper view shows the input distribu-
+
+--- PAGE 10 ---
+74
+BORGIA, BROWN, AND FANTAZZINI
+or may not be appropriate for a data set for an unknown
+sample. In the latter case we may be able to judge the appro-
+priateness of these constraints by the cost in terms of ﬁt
+error.
+Areas of Overlapping Peaks and of Undershoot
+When, with UP-NN processing with normal parameters,
+two peaks appear separated by either a deep valley or a
+few points of baseline, it is clear that the phenomenon of
+undershoot has enhanced the valley or even brought the
+distribution down to the baseline for the few points. As
+computations with artiﬁcial data for pairs of Gaussian distri-
+bution with various combinations of heights, widths, and
+separations have shown, a few points of baseline in a com-
+puted distribution do not mean that the ‘‘real’’ peaks do not
+overlap. However, when the peaks are more than marginally
+resolved, according to the criterion of excess cost of the MT
+constraint, the areas of the peaks, as shown on cumulative
+distributions, are about right even when there is considerable
+disparity between the peaks. As always, the accuracy for a
+very small peak is limited. When UP is run without NN or
+MT on isolated peaks (or with NN for a peak on a pedestal,
+as discussed just above) the integrated area of the undershoot
+is usually between 1% and 5% that of the peak. This appears
+to be about the same for any value of S/N that permits a
+sharp peak. However, this percentage varies erratically with
+changes in DQ or positions of the output points and with
+independent samples of the noise.
+FIG. 6.
+Nonresolution of two single-line peaks, a factor of 3 apart, on
+a pedestal. Artiﬁcial data were generated for a model in which the area of
+EXAMPLES
+the pedestal is 1000, that of each peak is 250, and unit rms noise is added.
+Without the pedestal these peaks are easily resolved by UP-NN with normal
+Biological Tissues
+parameters. The solid curve is the input distribution in both displays. The
+short-dashed curve in the lower display (b) is computed by UP-NN. The
+Figure 7 shows relaxation curves for a tumor-free portion
+unconnected plus signs (/) in (b) are for UP-MT for the same data. By
+of a length of human intestine resected because of cancer
+its nature, MT cannot resolve the two peaks, but it does prevent the under-
+(16). The solid curve is for UP-NN, showing a peak with
+shoot at the sides of the wide computed peak. The mixed-dash curve in the
+half-width 0.21 Np (measured at e 01/2 height of peak) and
+lower display is UP-NN for a model with the same pedestal but with each
+peak having area 500 instead of 250 and with a different selection of random
+with a tail representing about 24% of the signal. The long-
+noise, still with unit amplitude. The two peaks are still not resolved. If the
+dashed curve is with ﬁxed a Å 10 6 with NN. The half-width
+signal is increased (with noise constant) until the undershoot goes negative
+of the peak is doubled, and a single satellite peak is shown
+and is intercepted by NN, then the peaks become resolved (not shown).
+representing 14% of the signal. The rms error of ﬁt is 3.1%
+The upper view (a) shows the input distribution (solid curve), and the
+higher than for UP-NN, an amount which is slightly larger
+dashed line is UP with a hybrid MT-NN, in which MT is applied before
+the ﬁrst and after the second peak, while NN is applied between peaks.
+than the rough 2.0% found above to be marginally signiﬁ-
+This bimodal constraint restores resolution of the lines.
+cant. The curve with the unconnected plotted points is also
+for ﬁxed a Å 10 6 but with MT instead of NN, and the
+cost of eliminating the extra peak is about 0.3%, which is
+insigniﬁcant.
+tion (solid) and a UP solution with hybrid MT-NN con-
+straints, where MT is applied before the ﬁrst peak and after
+The short-dashed curve in Fig. 7 is for ﬁxed a Å 10 7 with
+NN and shows two satellite peaks. The error of ﬁt is 0.4%
+the second peak and where NN is applied between peaks.
+The peaks are now resolved and narrow, much as they are
+higher (insigniﬁcant) than for UP-NN, and the half-width
+is 1.81 that of UP-NN. This appears to be an example of
+in the absence of the pedestal. The hybrid MT-NN constraint
+supplies information to permit identiﬁcation of the sharp
+the case where a ﬁxed smoothing parameter oversmoothes
+a narrow peak and undersmoothes a broader feature, whether
+peaks much as NN does in the absence of the pedestal. In
+this example these constraints are appropriate, but they may
+the ‘‘real’’ feature is a tail or a smaller and wider additional
+
+--- PAGE 11 ---
+75
+MULTIEXPONENTIAL DECAY DATA
+Ceramic Technology
+Figure 8 shows distributions of relaxation times computed
+by UP-NN for ceramic samples which had been ﬁred at
+9507C (a), 10007C (b), 10507C (c), 11007C (d), and
+11507C (e); cooled; and saturated with water (17). The
+progression is to longer relaxation times with higher temper-
+atures. At the lowest temperature the peak extends to 10 ms
+or slightly less. At higher temperatures, except for the high-
+est, a tail still extends to a little below 10 ms, with the tails
+becoming smaller with increasing temperature. The UP-NN
+processing preserves even the very small tails without break-
+ing them up into separate peaks. For these samples we have
+no a priori reason to expect separate peaks. At higher ﬁring
+temperatures pores become larger and surfaces become
+smoother, leading to decreased surface-to-volume ratio and
+giving the longer relaxation times observed. As temperature
+is increased, sintering appears to eliminate the very small
+pores that contribute to the tail.
+Porous Oilﬁeld Sandstones
+Figure 9 shows distributions of relaxation times for four
+oilﬁeld sandstone samples which are relatively free of clay
+FIG. 7.
+Tissue from human intestine. The sample is a noncancerous
+minerals and which are saturated with brine. These samples
+piece of tissue from a length of intestine resected because of cancer. The
+solid curve is by UP-NN and consists of a peak and a tail. The short-dashed
+appear homogeneous to the eye, and porosities range from
+line, with two satellite peaks, is computed with constant a Å 10 7 and NN,
+3% to 16%. Each of the four distributions has signiﬁcant
+with rms error of ﬁt an insigniﬁcant 0.4% higher. The long-dashed curve,
+contributions to the signal for relaxation times ranging over
+with the single satellite peak, is for ﬁxed a Å 10 6 and NN. The rms error
+a factor of 1000. Each of the four distributions ﬁts the data
+of ﬁt is 3.1% more than for UP-NN, slightly over the approximate 2.0%
+with rms scatter within about 1% that of the discrete multiex-
+for marginal signiﬁcance. The unconnected plotted points are for a Å 10 6
+with MT, and the cost of this constraint is insigniﬁcant. These relaxation
+ponential ﬁts discussed under Coefﬁcients, Artiﬁcial Data,
+data cannot by themselves tell us whether the tail is connected to the main
+and Noise. This guarantees that the peaks have not been
+peak or is one or more separate populations clearly separated in relaxation
+broadened by oversmoothing for the two distributions that
+time from the peak. UP appears to give the least division into separate
+have peaks, and it can be seen that all the curves are smooth
+populations consistent with the data.
+peak. The ﬁxed smoothing parameter is a compromise be-
+tween those needed for the two features, incurring a penalty
+for widening the peak and compensating for this by the
+oscillations in the broader feature, as discussed in connection
+with Fig. 3. The larger satellite peak represents 13% of the
+signal, and the smaller represents about 3.5%, with a sum
+of 16.5% of the signal separate from the main peak. It may
+be that broadening the peak (with respect to UP-NN) results
+in the inclusion of several percent of the tail (or second
+peak) in the main peak.
+It should be emphasized that this set of relaxation data
+cannot by itself provide a ﬁrm choice between a tail and a
+second peak. If we have additional information, or if we
+FIG. 8.
+Ceramic samples ﬁred at different temperatures. Samples of
+the starting material for ceramics (so-called ‘‘green bodies’’) were ﬁred,
+make the hypothesis, that the distribution consists of a com-
+cooled, and saturated with water. Then T1 relaxation data were taken, and
+pact peak without any tail plus a wider additional peak, we
+distributions of relaxation times were computed by UP-NN and shown for
+can make an interpretation from any of the above displays.
+the sequence of temperatures, 9507C (a), 10007C (b), 10507C (c), 11007C
+However, accuracy is limited, as the above different values
+(d), and 11507C (e). Note the progressive loss with increased ﬁring temper-
+ature of the tails at short relaxation times.
+of fractions of the total signal outside the main peak suggest.
+
+--- PAGE 12 ---
+76
+BORGIA, BROWN, AND FANTAZZINI
+ration between the two largest peaks. The width of the largest
+peak is substantially reduced for these two distributions, as
+can be seen in the inset ﬁgure showing the various represen-
+tations of the largest peak. Cumulative distributions (not
+shown) for the computed distributions for the artiﬁcial data
+give the signals corresponding to the large peak (71%) to
+within 3.5% of the total signal.
+As always, there is the possibility that one might have
+information in addition to that from the relaxation curve.
+For instance, if one knew a priori that the measured relax-
+ation curve represented the sum of three Gaussian distribu-
+tions, the amplitudes and widths could be estimated reason-
+ably well from the relaxation data. However, in the case of
+the sandstone sample for Fig. 10, we do not have any con-
+FIG. 9.
+Distributions computed using UP-NN from experimental NMR
+vincing basis for a two- or three-compartment model,
+T1 relaxation data for four visually homogeneous oilﬁeld sandstone samples
+Gaussian or otherwise.
+saturated with brine. The four samples were chosen all to have wide ranges
+of relaxation times but to exhibit quite different relaxation time distributions.
+Sample (a) has only 3% porosity and less than 0.1 mD permeability to
+DISCUSSION AND CONCLUSIONS
+ﬂuid ﬂow. (A Darcy is about a (mm) 2 and is a fairly large permeability for
+oil production; a mD is a small value.) Curves (b), (c), and (d) all have
+The basic objective of UP inversion of relaxation curves is
+porosities in the 13–16% range. Permeability is not known for (b); it is
+to give appropriate amounts of detail to both sharp and broad
+14 mD for (c) and 860 mD for (d). Long relaxation times correlate with
+features, even when they appear on the same distribution of
+high permeabilities. Note that all these curves are unimodal, as are most,
+but not all, distributions we have produced for brine-saturated sandstones
+relaxation times. We have used an iterative procedure to imple-
+that are visually homogeneous.
+and unimodal. The good ﬁt shows that additional detail is
+not needed for these data sets. It does not show that more
+complex solutions are wrong, and it does not show that data
+for the same samples taken with higher S/N or with the
+averaging of many signals could not require more detail.
+Figure 10 shows computed distributions for a brine-satu-
+rated sandstone sample that has either a satellite peak or a
+knee several times as broad as the main peak and represent-
+ing of the order of 20% of the initial signal. In turn, a tail
+or else still broader peak, representing about 10% of the
+signal, extends to still shorter times. The inset ﬁgure shows
+the region of the main peak. The diagonal squares are for
+FIG. 10.
+Marginal resolution of a satellite peak (or shoulder) for an
+the UP-NN computation, and the dashed line without plotted
+oilﬁeld sandstone saturated with brine. The diagonal squares are computed
+points is for UP-MT. The cost of the MT constraint was
+by using UP-NN with the experimental relaxation data for the sandstone,
+2.4% of the rms noise level, which is marginal for resolving
+and the dashed curve without plotted points is computed by using UP-MT.
+a separate peak from the main peak.
+The cost of the MT constraint is 2.4% of the noise level, which, for the
+A solution (not shown) with UP and with MT before the
+parameters involved, is marginal for identifying a resolved peak rather than
+a knee on the higher peak. The circles represent an input model for simula-
+middle peak and after the highest peak, and with NN between
+tion of the computed distribution. The model consists of three Gaussians:
+the two highest peaks, costs only 0.5% over UP-NN in addi-
+8.3% at 10 ms with half-width 0.8 Np, 20.6% at 85 ms with half-width 0.4
+tional scatter. Thus, the cost of preventing a minimum be-
+Np, and 71.1% at 380 ms with half-width 0.1 Np. The S/N is 1000 for the
+tween the two smallest peaks is not even close to signiﬁcant.
+sandstone data and for the artiﬁcial data. Distributions computed by UP-
+Rough simulations were made by means of three Gaussi-
+NN are shown by solid lines without plotted points for four sets of artiﬁcial
+data, all for the above model but with different selections of random noise
+ans as identiﬁed in the caption for Fig. 10. The same model
+having the same rms value. In both the main ﬁgure and the inset, the arrows
+was used with four selections of random noise. The distribu-
+identify the one of these four distributions having the sharpest main peak,
+tions computed by UP-NN from the four sets of artiﬁcial
+which is sharper than that of the model for the artiﬁcial data and sharper
+data are shown by solid lines without plotted points. Two
+than that computed from the experimental data. It is illustrated that different
+of these curves have substantial minima between the two
+selections of random noise can lead to strikingly different computed distri-
+butions and that noise can narrow a line as well as broaden it.
+smallest peaks, and the same two have greatly reduced sepa-
+
+--- PAGE 13 ---
+77
+MULTIEXPONENTIAL DECAY DATA
+ment variable smoothing of the computed distributions, so that
+in Fig. 2, only slight undershoot is obtained with UP without
+NN for that set of good data. When one set of bad data
+the smoothing penalty is roughly uniform over the sharp and
+broad features. This permits the computation of sharp lines
+was processed by UP-NN, two spurious sharp lines were
+produced, but the nonrandom residuals gave adequate warn-
+without broadening by oversmoothing, and, in the same distri-
+ing, and UP without NN gave very large negative peaks and
+bution, a broad feature can be smoothed sufﬁciently that it is
+positive peaks.
+not broken into unnecessary separate peaks.
+In some combinations of sharp and broad features UP
+There can be different objectives in the interpretation of
+may require many iterations, and termination criteria other
+distributions of exponentials. One important objective can be
+than convergence to inﬁnitesimal differences between solu-
+to know whether relaxation data (whether NMR or other) can
+tions may be necessary. Computing time can be substantial
+reliably separate the source of signal into two or more popula-
+in the above circumstances, especially when output points
+tions. Examples could be oil and water in a porous rock, water
+more closely spaced than customary are used, as is useful
+in macropores and micropores in a rock having grains with
+to show the maximum amount of valid detail. However,
+internal porosity, tissue reached and not reached by contrast
+these are just the circumstances where the variable smooth-
+agent in biological systems, etc. Obviously, the existence of
+ing feature of UP is most useful. With a few controls applied
+separate physical populations in a sample does not guarantee
+to the iterative cycle, UP has functioned well, without manip-
+different or nonoverlapping relaxation times. In any case, there
+ulation of parameters, on a very large variety of measured
+are important interpretation objectives where we wish to know
+and artiﬁcial data.
+if relaxation data require a signiﬁcantly bimodal or multimodal
+distribution of relaxation times, suggesting separate popula-
+ACKNOWLEDGMENTS
+tions. The UP inversion appears to suppress maxima and min-
+ima not required by the data, minimizing the appearance of
+Investigation supported by University of Bologna (funds for selected
+separate populations in the computed distributions to the extent
+research topics) and by Murst Grants.
+permitted by the data.
+In many applications it may not affect interpretation if
+REFERENCES
+one peak is broadened somewhat to avoid breaking up a
+1. S. W. Provencher, Comput. Phys. Comm. 27 213, 229 (1982).
+wider one. However, for many research applications it can
+2. J. P. Butler, J. A. Reeds, and S. V. Dawson, SIAM J. Num. Anal.
+be of interest to know the widths or shapes of lines, including
+18, 381 (1981).
+when two or more lines of different widths are present, or
+3. M. G. Prammer, in ‘‘Soc. Petr. Eng. Ann. Tech Conf.,’’ New Orleans
+when features with tails are present, and UP appears to give
+SPE 28368, (1994).
+improved detail in these cases.
+4. R. Freedman, in ‘‘Soc. Petr. Eng. Ann. Tech Conf.,’’ New Orleans,
+Constraints can be applied in the iterative procedure for
+SPE 30560 (1994).
+UP, including the usual NN constraint. The MT constraint
+5. K. P. Whitall and A. L. Mackay, J. Magn. Reson. 84, 134 (1989).
+can force a unimodal solution. Hybrid constraints can allow
+6. R. M. Kroeker and R. M. Henkelman, J. Magn. Reson. 69, 218
+(1986).
+a bimodal solution. Expressions are given relating noise level
+7. K. P. Whittall, M. J. Bronskill, and R. M. Henkelman, J. Magn. Re-
+to linewidth for narrow lines, and expressions are given for
+son. 95, 221 (1991).
+signiﬁcance of increase or decrease of error of ﬁt when
+8. D. P. Gallegos and D. P. Smith, J. Colloid Interface Sci. 122, 143
+constraints are applied or altered. The cost of the MT con-
+(1988).
+straint can indicate cases where the relaxation data require
+9. H.-K. Liaw, R. Kulkarni, S. Chen, and A. T. Watson, Am. Inst. Chem.
+a multimodal solution.
+Eng. J. 42, 538 (1996).
+The artiﬁcial data used in this work are well behaved in
+10. K.-J. Dunn, G. A. LaTorraca, J. L. Warner, and D. J. Bergman, in
+the sense that the sets of relaxation data are sums of positive
+‘‘Soc. Petr. Eng. Ann. Tech Conf.,’’ New Orleans, SPE 28367
+exponential components with zero-mean Gaussian random
+(1994).
+noise added. The laboratory relaxation data appear to be
+11. K. P. Whittall, A. L. MacKay, D. A. Graeb, R. A. Nugent, D. K. B. Li,
+and D. W. Paty, Magn. Reson. Med. 37, 34 (1997).
+well behaved in the same sense; the residual errors of ﬁt
+12. S. J. Graham, P. L. Stanchev, and M. J. Bronskill, Magn. Reson.
+appear random and independent of data time (inversion-
+Med. 35, 370 (1996).
+recovery time for the experimental examples used). We have
+13. R. J. S. Brown, G. C. Borgia, P. Fantazzini, and E. Mesini, Magn.
+processed data sent by a correspondent, where instrumental
+Reson. Imag. 9, 687 (1991).
+problems have distorted relaxation curves. Here, inversions
+14. L. L. Latour, R. L. Kleinberg, P. P. Mitra, and C. H. Sotak, J. Magn.
+using NN give substantial sequences of residuals with the
+Reson. Ser. A 112, 83 (1995).
+same sign. When UP without NN is applied to these data,
+15. R. J. S. Brown, J. Magn. Reson. 82, 221 (1989).
+very large positive and negative peaks are obtained. This
+16. P. Fantazzini and A. Sarra, MAGMA 4, 1 (1996).
+gives evidence that the data are not a good set representing
+17. G. C. Borgia, P. Fantazzini, C. Palmonari, and G. Timellini, Magn.
+multiexponential decay with positive coefﬁcients. As seen
+Reson. Imaging 14, 899 (1996).

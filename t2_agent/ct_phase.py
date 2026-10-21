@@ -608,15 +608,27 @@ def save_internal_label_png(labels: np.ndarray, path: Path) -> Path:
     return path
 
 
-def estimate_surface_t2(labels: np.ndarray, pixel_size_um: float, bulk_t2_ms: float, rho_solid_um_per_ms: float) -> dict[str, float]:
-    """Fast-diffusion (Brownstein-Tarr) estimate T2 = 1 / (1/T2b + rho * S/V) for the water domain."""
+def estimate_surface_t2(
+    labels: np.ndarray,
+    pixel_size_um: float,
+    bulk_t2_ms: float,
+    rho_solid_um_per_ms: float,
+    relaxing_edges: bool = False,
+) -> dict[str, float]:
+    """Fast-diffusion (Brownstein-Tarr) estimate T2 = 1 / (1/T2b + rho * S/V) for the water domain.
+
+    With ``relaxing_edges`` the background and image-edge faces count as relaxing surface.
+    """
 
     water = labels == WATER
     water_pixels = int(np.count_nonzero(water))
     if water_pixels == 0:
         return {"surface_to_volume_per_um": 0.0, "estimated_t2_ms": float(bulk_t2_ms)}
-    solid = labels == SOLID
+    solid = (labels == SOLID) | (labels == OUTSIDE) if relaxing_edges else labels == SOLID
     contacts = 0
+    if relaxing_edges:
+        contacts += int(np.count_nonzero(water[0, :]) + np.count_nonzero(water[-1, :]))
+        contacts += int(np.count_nonzero(water[:, 0]) + np.count_nonzero(water[:, -1]))
     for axis in (0, 1):
         a = water[:-1, :] if axis == 0 else water[:, :-1]
         b = water[1:, :] if axis == 0 else water[:, 1:]
@@ -667,6 +679,11 @@ class CtRunConfig:
     t2_max_ms: float | None = None
     run_gaussian: bool = True
     peak_count: int = 2
+    # Background and image-edge faces relax with rho_solid, matching the pixel-based
+    # image-slice reference; False makes them reflecting (no-flux).
+    relaxing_edges: bool = True
+    # "ratio" (default) or "curvature" (reference route of the image-slice example)
+    lcurve_criterion: str = "ratio"
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -685,6 +702,7 @@ class CtRunConfig:
             setattr(config, name, float(getattr(config, name)))
         config.run_lcurve = bool(config.run_lcurve)
         config.run_gaussian = bool(config.run_gaussian)
+        config.relaxing_edges = bool(config.relaxing_edges)
         config.peak_count = int(config.peak_count)
         config.num_bins = int(config.num_bins)
         config.mesh_max_points = int(config.mesh_max_points)
@@ -693,7 +711,7 @@ class CtRunConfig:
 
 def simulation_params_for(config: CtRunConfig, labels: np.ndarray, downsample_scale: float = 1.0) -> tuple[Simulation2DParams, dict[str, float]]:
     pixel = float(config.pixel_size_um) * float(downsample_scale)
-    estimate = estimate_surface_t2(labels, pixel, config.bulk_t2_ms, config.rho_solid_um_per_ms)
+    estimate = estimate_surface_t2(labels, pixel, config.bulk_t2_ms, config.rho_solid_um_per_ms, config.relaxing_edges)
     recommended = recommend_time_axis(estimate["estimated_t2_ms"])
     params = Simulation2DParams(
         pixel_size_x_um=pixel,
@@ -713,13 +731,21 @@ def simulation_params_for(config: CtRunConfig, labels: np.ndarray, downsample_sc
     return params, estimate | recommended
 
 
-def ct_edge_classifier(labels: np.ndarray, midpoint: np.ndarray, params: Simulation2DParams) -> str:
+def ct_edge_classifier(
+    labels: np.ndarray,
+    midpoint: np.ndarray,
+    params: Simulation2DParams,
+    relaxing_edges: bool = True,
+) -> str:
     """Classify a water-domain boundary edge by the nearest non-water pixel.
 
-    solid -> surface relaxation, air -> gas/liquid interface relaxivity,
-    background or image edge -> reflecting (no-flux) boundary.
+    solid -> surface relaxation, air -> gas/liquid interface relaxivity.
+    Background and image-edge faces return ``"edge"`` (surface relaxation with
+    ``rho_solid``, as in the pixel-based image-slice reference) when
+    ``relaxing_edges`` is true, and ``"noflux"`` (reflecting) otherwise.
     """
 
+    cut = "edge" if relaxing_edges else "noflux"
     width_um = labels.shape[1] * params.pixel_size_x_um
     height_um = labels.shape[0] * params.pixel_size_y_um
     tol_x = 0.25 * params.pixel_size_x_um
@@ -730,8 +756,8 @@ def ct_edge_classifier(labels: np.ndarray, midpoint: np.ndarray, params: Simulat
         or float(midpoint[1]) <= tol_y
         or float(midpoint[1]) >= height_um - tol_y
     ):
-        # Edge of the image/crop: the slice was cut here, so the boundary is reflecting.
-        return "noflux"
+        # Edge of the image/crop: the slice was cut here.
+        return cut
     row, col = xy_to_row_col(labels, float(midpoint[0]), float(midpoint[1]), params)
     r0, r1 = max(0, row - 2), min(labels.shape[0], row + 3)
     c0, c1 = max(0, col - 2), min(labels.shape[1], col + 3)
@@ -749,6 +775,8 @@ def ct_edge_classifier(labels: np.ndarray, midpoint: np.ndarray, params: Simulat
         return "solid"
     if label == AIR:
         return "gas"
+    if label == OUTSIDE:
+        return cut
     return "noflux"
 
 
@@ -763,7 +791,8 @@ def save_ct_mesh_plot(mesh: dict[str, Any], output_path: Path) -> Path:
     styles = {
         "solid": ("#d4a106", "solid-water (rho_solid)"),
         "gas": ("#1f77ff", "air-water (rho_gas)"),
-        "noflux": ("#444444", "no-flux / sample edge"),
+        "edge": ("#444444", "background / image edge (rho_solid)"),
+        "noflux": ("#9a9a9a", "no-flux"),
     }
     for kind, edges in mesh.get("boundary_edges", {}).items():
         if not edges:

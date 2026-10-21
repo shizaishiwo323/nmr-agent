@@ -1,0 +1,814 @@
+--- PAGE 1 ---
+JOURNAL OF MAGNETIC RESONANCE 131, 232–240 (1998)
+ARTICLE NO. MN981364
+Effective Gradients in Porous Media Due to Susceptibility Differences
+Martin D. Hu¨rlimann
+Schlumberger-Doll Research, Ridgeﬁeld, Connecticut 06877-4108
+Received April 7, 1997; revised September 30, 1997
+In porous media, magnetic susceptibility differences between
+samples can have signiﬁcant internal gradients, especially at
+the solid phase and the ﬂuid ﬁlling the pore space lead to ﬁeld
+high magnetic ﬁelds. Functional MRI (1, 2) relies on
+inhomogeneities inside the pore space. In many cases, diffusion of
+changes in the internal gradients that are caused by changes
+the spins in the ﬂuid phase through these internal inhomogeneities
+in susceptibility. Paramagnetic contrast agents are routinely
+controls the transverse decay rate of the NMR signal. In disordered
+used in medical MRI to deliberately create internal ﬁeld
+porous media such as sedimentary rocks, a detailed evaluation of
+inhomogeneities (3–5). In this paper, we will concentrate
+this process is in practice not possible because the ﬁeld inhomoge-
+on water-saturated sedimentary rocks. In these systems,
+neities depend not only on the susceptibility difference but also
+paramagnetic impurities in the rock grain lead to a suscepti-
+on the details of the pore geometry. In this report, the major
+bility difference that can vary by orders of magnitude from
+features of diffusion in internal gradients are analyzed with the
+rock to rock, depending on the impurity concentration.
+concept of effective gradients. Effective gradients are related to
+the ﬁeld inhomogeneities over the dephasing length, the typical
+Nuclear magnetic resonance measurements on the ﬂuid
+length over which the spins diffuse before they dephase. For the
+phase has become a standard technique for studying the pore
+CPMG sequence, the dependence of relaxation rate on echo spac-
+geometry of sedimentary rocks (6). In the most common
+ing can be described to ﬁrst order by a distribution of effective
+measurement, the CPMG sequence is used to measure the
+gradients. It is argued that for a given susceptibility difference,
+surface-induced relaxation rate of the transverse magnetiza-
+there is a maximum value for these effective gradients, gmax, that
+tion, a measure of the local ratio of surface area to pore
+depends on only the diffusion coefﬁcient, the Larmor frequency,
+volume. The effects of internal gradients are minimized by
+and the susceptibility difference. This analysis is applied to the
+using low ﬁelds and the shortest possible echo spacing, tE.
+case of water-saturated sedimentary rocks. From a set of NMR
+The dependence of the measured relaxation time on echo
+measurements and a compilation of a large number of susceptibil-
+spacing and Larmor frequency has been studied by Kleinberg
+ity measurements, we conclude that the effective gradients in car-
+and Horsﬁeld (7, 8) and by the group of Brown, Borgia,
+bonates are typically smaller than gradients of current NMR well
+logging tools, whereas in many sandstones, internal gradients can
+and Fantazzini (9, 10).
+be comparable to or larger than tool gradients.
+q 1998 Academic Press
+The commercial NMR logging tools currently used in well
+logging (11, 12) have tool-related gradients that are of the
+order of a few tens of gauss per centimeter. Recently, Akkurt
+et al. (13) have proposed to take advantage of the tool
+INTRODUCTION
+gradients and to obtain information about the diffusion coef-
+ﬁcient of the ﬂuid from the tE dependence of the measured
+When a ﬂuid-saturated porous medium is placed in a ho-
+relaxation time. The general ﬂuid identiﬁcation by the
+mogeneous magnetic ﬁeld for NMR measurements, suscepti-
+method of diffusion measurements in the tool gradient is
+bility differences between the solid matrix and the pore ﬂuid
+successful only if the total gradient in the pore space is
+can lead to substantial magnetic ﬁeld gradients in the pore
+dominated by the tool gradient and not by the internal gradi-
+space. These susceptibility-induced gradients are called ‘‘in-
+ents. In this report, we discuss the size of typical internal
+ternal gradients’’ and it is well known that they can affect
+gradients in sedimentary rocks.
+NMR measurements in various ways. Diffusion of spins in
+We ﬁrst review the basic physics of restricted diffusion in
+these inhomogeneities leads to extra transverse relaxation.
+a gradient for the Hahn echo and identify the key parameters
+The internal gradients can also interfere with externally ap-
+governing the NMR decay rate. We then discuss qualitatively
+plied gradients and cause distortions in imaging or diffusion
+the effects on a CPMG sequence. For disordered systems, the
+measurements. These internal gradients depend both on the
+local gradient of the magnetic ﬁeld in the pore space can be
+susceptibility difference between the matrix and ﬂuid and
+very high. It is argued that the relevant quantities for NMR
+on the pore geometry.
+measurements are not the local gradients, but some effective
+There are several types of porous media where susceptibil-
+ity-induced ﬁeld inhomogeneities are relevant. Biological
+gradients related to the local ﬁeld inhomogeneities averaged
+232
+1090-7807/98 $25.00
+Copyright q 1998 by Academic Press
+All rights of reproduction in any form reserved.
+
+--- PAGE 2 ---
+233
+EFFECTIVE GRADIENTS IN POROUS MEDIA
+over the dephasing length. The dephasing length depends on
+of restrictions and the decay is well approximated by the
+free diffusion regime,
+the diffusion properties. For a given susceptibility difference,
+these effective internal gradients have an upper bound, which
+depends simply on the susceptibility difference, the Larmor
+M(t)/M0 Å expH0 2
+3 D0g 2g 2t 3J
+frequency, and the diffusion coefﬁcient. Laboratory data of
+susceptibility measurements on 321 rocks are analyzed and a
+probability distribution of the maximal internal gradient is
+Å expH0 2
+3S
+lD
+lgD
+6J ,
+[1]
+obtained. In the last part of this report, CPMG measurements
+with a wide range of echo spacings are analyzed for sedimen-
+tary rocks with different susceptibilities. The data are com-
+where M0 is the signal amplitude at zero gradient strength.
+pared with the analysis outlined above.
+At longer diffusion times when the diffusion length lD be-
+comes larger than the structural length ls or the dephasing
+HAHN ECHO IN A CONSTANT GRADIENT
+length lg, the behavior depends on the ratio ls/lg. When this
+AND SIMPLE GEOMETRY
+ratio is small compared to 1 (i.e., in small pores where ls
+becomes the shortest length), the spins average out the ﬁeld
+We ﬁrst summarize results for the spin echo decay for
+inhomogeneities. This is the motional averaging regime.
+spins diffusing in a constant gradient and restricted between
+Asymptotically, the echo amplitude for t @ (l2
+s /D0) decays
+two parallel plates, separated by a distance ls. Stoller et al.
+like
+(14) and de Swiet and Sen (15) have discussed the exact
+solution and showed that this seemingly simple case is al-
+ready very difﬁcult to solve exactly. For the purpose of this
+M(t)/M0 Å expH0
+1
+120
+g 2g 2l 4
+s2t
+D0 J
+paper, it is sufﬁcient to describe the main behavior and dis-
+cuss how it is modiﬁed in a more general case.
+In simple geometries characterized by a single length
+Å expH0 1
+60S
+lD
+lgD
+2S
+ls
+lgD
+4J .
+[2]
+scale, ls, the decay of the Hahn echo in a gradient, g, is
+governed by the interplay of three lengths (14, 16):
+Equation [2] is appropriate for parallel plates, separated by
+1. the diffusion length, lD å
+q
+D0t (D0 is the molecular
+a distance ls. In other geometries, Neuman (17) showed that
+self-diffusion coefﬁcient);
+the decay has the same form as in Eq. [2], but with a
+2. the size of the pore or structure, ls; and
+different numerical prefactor in the exponent.
+3. the dephasing length, lg å {D0/(gg)} 1/3 (g is the
+In larger pores, where ls/lg @ 1, the decay of the spin
+gyromagnetic ratio).
+echo starts to deviate signiﬁcantly from Eq. [1] much before
+the spins have traversed a pore, ts É (l 2
+s /D0). When the
+The diffusion length gives a measure of the average distance
+echo amplitude has decayed to a level that scales likes
+that a spin diffuses during the time t. For water at room
+lg/ls, the dephasing length lg becomes the shortest length
+temperature, lD can be as long as 50 mm. The dephasing
+and the localization regime is reached (16):
+length lg may be thought of as the typical length scale over
+which a spin must travel to dephase by 2p radians. It depends
+weakly on gradient strength. For g in the range of 1 to 1000
+M(t)/M0 Å 5.88 lg
+ls
+exp{01.02 g 2/3g 2/3D 1/3
+0 t}
+G/cm and water at room temperature, lg varies between
+about 10 and 1 mm.
+In the analysis of the spin echo decay, three asymptotic
+Å 5.88 lg
+ls
+expH01.02S
+lD
+lgD
+2J .
+[3]
+behaviors can be identiﬁed. We have called them the free
+diffusion regime, the motional averaging regime, and the
+localization regime, respectively (16). The shortest of the
+The exponent, proportional to t and g 2/3, is independent of
+the exact geometry, but the prefactor 5.88 is modiﬁed for
+three length scales, {lD, ls, or lg}, determines which of the
+three asymptotic regimes applies. If the diffusion length lD
+other geometries (15).
+To get a qualitative idea of the dependence on the size ls,
+is shorter than the other two length scales, the spin echo
+decay will be predominantly described by the free diffusion
+the asymptotic expressions of Eqs. [1] to [3] are plotted in
+Fig. 1. Here it is assumed that the spins are conﬁned between
+regime. If the pore size ls is shortest, the motional averaging
+regime applies. And ﬁnally, when the dephasing length lg
+two parallel plates, separated by a distance ls, and that the
+gradient is uniform and scales inversely with the plate sepa-
+becomes the shortest length, the localization regime de-
+scribes the decay asymptotically.
+ration: g Å Dv/(gls). The range of Larmor frequencies,
+Dv, is assumed to be independent of size, as is the case
+At short enough diffusion times, lD is always the shortest
+length. The majority of spins have not experienced the effect
+when it is caused by susceptibility differences. It is natural
+
+--- PAGE 3 ---
+234
+MARTIN D. HU¨ RLIMANN
+between the p pulses. The analysis presented above was based
+on the Hahn echo. It must be adapted to the case of the CPMG
+sequence, where an additional length scale is entering the
+problem, namely lE å
+q
+D0tE. We discuss the asymptotic be-
+havior for the regimes of very large and very small pores.
+We note that restricted diffusion in the presence of a gradient
+for intermediate regimes has not been fully analyzed for the
+CPMG sequence. Tarczon and Halperin (19) made an analy-
+sis based on the Gaussian phase approximation.
+In the free diffusion regime (large pores), lE is now the
+shortest length scale and the signal starts to decay according
+to the well-known expression
+M(t)/M0 Å exp{0 1
+12D0g 2g 2t 2
+Et}.
+[4]
+FIG. 1.
+Asymptotic Hahn spin echo decay for spins diffusing between
+two parallel plates separated by size ls and in a constant gradient g Å Dv/
+In this expression, t is the time at the kth echo, i.e., t Å ktE.
+(gls). The logarithm (base 10) of the signal is plotted as a function of the
+In the motional averaging regime (small pores) when
+logarithm of normalized time, log10(Dvt), and the logarithm of normalized
+lE @ ls, the decay will follow Eq. [2] and show no depen-
+size, log10(ls/
+q
+D0/Dv). Only signals larger than 10 06 are displayed.
+dence on tE. When tE becomes shorter than l 2
+s /D0, we expect
+that the behavior goes over to Eq. [4].
+We want to focus on the dependence of the signal decay
+on the echo spacing, tE. In large pores, when the spins are
+to plot time in units of the inverse linewidth, i.e., to plot
+predominantly in the free diffusion regime, Eq. [4] indicates
+Dvt and to express the size in units of
+q
+D0/Dv, which is
+a strong dependence on tE. In small pores, we expect that
+the typical length a spin diffuses in a time 1/Dv.
+the relaxation rate ﬁrst increases a bit and then stays constant
+The asymptotic expressions are applicable when the short-
+for values of tE larger than l 2
+s /D0. In this motional averaging
+est length scale is much shorter than the other lengths. When
+regime, there is no dependence on tE. The contribution to
+the two shortest lengths are comparable, there will be some
+the decay rate of diffusion cannot be distinguished by its tE
+deviations. This occurs along the two lines running down
+dependence from other contributions, such as surface or bulk
+the surface of Fig. 1. When lg approaches lD along the line
+relaxation. However, note that for smaller and smaller pore
+(Dvt) 3 Å (ls/
+q
+D0/Dv) 2, the full solution will show a less
+sizes, Fig. 1 shows that the diffusion contribution to the
+abrupt change of slope. There is also some extra structure
+signal decay decreases rapidly and becomes unimportant.
+near the line when ls approaches lg, i.e., when ls/
+q
+D0/Dv
+Å 1 (18). Even with this limitation, Fig. 1 captures the
+EFFECTIVE GRADIENTS IN SEDIMENTARY ROCKS
+dominant features of the Hahn echo decay in this system.
+How do we generalize from the simple model discussed
+The motional averaging regime appears on the left-hand side
+above to sedimentary rocks? In rocks, the ﬁeld variations
+of Fig. 1. The smaller the pores, the better diffusion averages
+caused by the susceptibility differences are clearly more
+the ﬁeld inhomogeneities and the slower the decay (even
+complicated than can be described by a constant gradient.
+though the gradients become larger). As the size ls is in-
+However, a given spin does not diffuse very far during the
+creased, the behavior goes over to the free diffusion regime,
+NMR measurement. The question arises, whether the local
+which at a later time crosses over into the localization re-
+ﬁeld variation can be adequately modeled by some local
+gime. The larger the ls, the smaller the gradient and the
+effective ﬁeld gradient. We make a heuristic argument below
+slower the decay. For a given inhomogeneity, Dv, the fastest
+that this effective ﬁeld gradient is related to the ﬁeld varia-
+decay occurs when ls á
+q
+D0/Dv. This is also the condition
+tions over the local dephasing length and has an upper limit.
+that the dephasing length lg and the structural length ls coin-
+The total signal decay is then to ﬁrst order a superposition
+cide: ls á lg.
+of the signal decay of subsets of spins, each of which experi-
+ences a local effective gradient and can be in the free diffu-
+CPMG PULSE SEQUENCE
+sion regime or the motional averaging regime, depending on
+the pore size. This is somewhat similar to the earlier work
+In downhole NMR measurements, the CPMG pulse se-
+quence is used instead of the simple Hahn echo in order to
+by Bendel (20). He considered the superposition of signals
+from spins in the local gradient. We will argue that the
+maximize the ratio of signal-to-noise. This sequence consists
+of an initial p/2 pulse, followed by a train of p pulses, each
+relevant gradient is an effective gradient that is a speciﬁc
+average of the local gradient.
+separated by a time tE from the previous p pulse. Echoes form
+
+--- PAGE 4 ---
+235
+EFFECTIVE GRADIENTS IN POROUS MEDIA
+In sedimentary rocks, spins are not conﬁned to individual
+tially free diffusion. We ignore more subtle effects at longer
+times: The small number of spins close to the surfaces that
+pores; they can diffuse from one pore to the next. It is also
+often impossible to divide the pore space unambiguously
+have experienced restricted diffusion have decayed less and
+might dominate the signal. On the other hand, they are also
+into individual pores, because the whole pore space is in
+general connected. However, even in such a system, it is
+more likely to decay due to surface relaxation. This second-
+order effect depends on the details of pore size, shape, and
+possible that the motional averaging regime applies, because
+it was pointed out by Wayne and Cotts (21) that diffusion
+surface relaxivity and will not be further discussed.
+The spins in the large pores will experience some local,
+in an isolated pore with a constant gradient is equivalent to
+unbounded diffusion with a periodic gradient.
+effective gradient geff( x). This effective gradient is obtained
+by averaging the ﬁeld inhomogeneities self-consistently over
+The following key question must be answered: What is
+the proper scale for subdividing the spins into subsets? For
+the length lg(x), as discussed above. The echo attenuation
+due to diffusion in the susceptibility-induced ﬁeld inhomoge-
+NMR diffusion measurements, it is natural to label spins
+according to their local Larmor frequency. Diffusion in the
+neities is then determined by the distribution of effective
+gradients, f ( geff ), for the large pores. To ﬁrst order, we
+ﬁeld inhomogeneity leads to an uncertainty in this value.
+The time-dependent Larmor frequency of a spin can be mea-
+obtain for large pores
+sured only to an accuracy dv if the spin stays a time long
+compared with 1/dv in the appropriate ﬁeld. Therefore, the
+M(t)/M0 É *
+gmax
+0
+dgeff f ( geff )
+size of the subset, lc, should be chosen such that all spins
+within a subset have the same Larmor frequency within the
+uncertainty imposed by diffusion. This implies that across
+1 expH0 1
+12 D0g 2g 2
+eff t 2
+EtJ .
+[6]
+the size of the subset, lc, the uncertainty in Larmor fre-
+quency, Dv Å Év(x) 0 v(x / lc)É, becomes equal to
+D0/l 2
+c. We describe the ﬁeld inhomogeneity across the
+We have indicated in [6] that there is an upper limit of geff .
+size of the subset by the local effective gradient geff( x):
+The reason is that the total variation in the local ﬁeld is
+Dv(x) É ggeff( x)x. The size of the subset lc is then identical
+effectively bounded by DxB0, as was shown by Brown and
+to lg introduced above, using the effective gradient geff :
+Fantazzini (9). The effective gradient geff is associated
+with a length lg given by Eq. [5]. This implies directly that
+gefflg ° DxB0. Using the expression Eq. [5] for lg and
+lc Å lg(x) ÅS
+D0
+ggeff( x)D
+1/3
+.
+[5]
+solving for geff leads to the approximate upper limit gmax:
+The ﬁeld inhomogeneities must be averaged over the length
+gmax ÉS
+g
+D0D
+1/2
+(DxB0) 3/2.
+[7]
+lg to obtain the effective gradient geff , with the additional
+restriction that the two quantities lg and geff are related to
+each other by Eq. [5]. If the real ﬁeld inhomogeneity is
+An effective gradient of gmax deﬁnes a scale for structural
+described by a uniform gradient g, the effective gradient is
+features of the order of the associated dephasing length,
+identical to g: g Å geff . Le Doussal and Sen (22) studied
+namely,
+the case of a parabolic ﬁeld proﬁle: B Å B0 / g2(z 0 z0) 2.
+At the ﬁeld extremum, the size of the subset calculated by
+the method outlined above becomes lg(z0) Å (D0/gg2) 1/4,
+l* Å DxB0
+gmax
+ÅS
+D0
+gDxB0D
+1/2
+.
+[8]
+which is in agreement with their exact calculation.
+The length scale lg(x) is typically in the range of a few
+The size l* is the relevant size for distinguishing small and
+to tens of micrometers. Structure in the ﬁeld proﬁle on a
+large pores.
+length scale shorter than lg is not important, because it gets
+There is another argument that there must be a maximal
+averaged out by diffusion.
+effective gradient that scales like the expression given in Eq.
+This allows us to classify the pore space into ‘‘large’’ and
+[7]. For gmax, the signal decay given by Eq. [4] is propor-
+‘‘small’’ pores or subsets. In the large pores, the pore size
+is large compared to the local dephasing length lg(x) and the
+tional to (gDB0) 3t 2
+E. The maximal value for tE for which
+this expression applies should be of order (l*) 2/D0 Å
+echo dephasing is essentially governed by the free diffusion
+regime. In the small pores, the pore size is small compared
+(gDB0) 01. For this value of echo spacing, the maximal
+decay rate becomes proportional to gDB0. This is the static
+to lg(x) and the internal ﬁeld inhomogeneities are motionally
+averaged.
+linewidth and the decay rate of the free induction decay. It
+is clear that the amplitudes of the spin echoes cannot decay
+In large pores, the dephasing length is by deﬁnition
+smaller than the pore size. Therefore, we can assume essen-
+any faster than the free induction decay.
+
+--- PAGE 5 ---
+236
+MARTIN D. HU¨ RLIMANN
+MAXIMAL EFFECTIVE GRADIENTS
+IN SEDIMENTARY ROCKS
+All the gradients in the pore space scale like the linewidth,
+DxB0, but the largest possible effective gradients, given by
+Eq. [7], scale with the 3/2 power of DxB0. The reason is
+that the largest effective gradient comes from the smallest
+large pores as deﬁned above. They have an approximate size
+l*, which leads to a gradient of gmax á DxB0/l*. The critical
+length l* depends on the inverse square root of ﬁeld strength,
+as given in Eq. [8], thus leading to the 3/2 power depen-
+dence for gmax.
+At small enough ﬁeld strength, the gradient in a small
+pore is averaged out by diffusion, resulting in an effective
+gradient much smaller than the local gradient of the magnetic
+ﬁeld. As the ﬁeld strength is increased, the variation in mag-
+netic ﬁeld becomes large enough that diffusion cannot efﬁ-
+ciently average it out anymore. In this case, the effective
+gradient and the local ﬁeld gradient will approach each other.
+In what circumstances are these susceptibility-induced ef-
+fective gradients in rocks affecting the results of NMR well
+logging? In NMR well logging, the applied magnetic ﬁeld
+in the sensitive region is relatively low (a few hundred
+gauss), but it is unavoidably nonuniform. The static tool
+gradients in commercial logging tools (11, 12) are in the
+range of a few tens of gauss per centimeter. If it is assumed
+that the ﬁeld inhomogeneities are dominated by these known
+tool gradients, then it is possible to estimate the diffusion
+coefﬁcient of the unknown ﬂuid from the tE dependence of
+the signal decay, assuming unrestricted diffusion (13). This
+procedure of ﬂuid characterization is robust only if the typi-
+cal size of the effective gradient due to the susceptibility
+mismatch is negligible compared to the applied tool gradi-
+ents. Dephasing in strong internal gradients would lead to
+an incorrect estimate of the diffusion coefﬁcient of the ﬂuid.
+Equation [7] allows us to estimate the upper limit of
+FIG. 2.
+Histogram of the values of susceptibilities measured at SDR.
+effective gradients based on susceptibility measurements
+Results for sandstones are shown at the top, and results for carbonates are
+only. In Fig. 2 a histogram of all the susceptibilities of sedi-
+shown at the bottom. The top axes indicate the corresponding values of
+mentary rocks measured in our rock lab between 1989 and
+gmax calculated from Eq. [7] for the diffusion coefﬁcient of water at room
+1994 is shown. The bottom axes show the absolute value of
+temperature and a static ﬁeld B0 Å 550 G.
+the susceptibility difference between the rock grains and
+water (x[H2O] Å 09.05 1 10 06), whereas the top axes
+indicate the maximal effective gradients gmax deduced from
+carbonate and quartz are diamagnetic, but sandstones tend
+to have a larger amount of paramagnetic impurities than
+Eq. [7], using values of D0 Å 2.3 1 10 05 cm2/s and B0 Å
+550 G. This corresponds to a Larmor frequency of 2.3 MHz,
+carbonates.
+The maximal possible effective gradients, gmax, indicated
+which is typical of current commercial logging tools.
+The distribution of susceptibility differences is several
+on the top axes are obtained from Eq. [7]. This relationship
+is essentially a dimensional analysis and is clearly only a
+orders of magnitude wide, reﬂecting the wide variation in
+paramagnetic impurities, mainly iron and manganese, in sed-
+rough estimate. Given a susceptibility difference, we expect
+the largest effective gradients for pores with structure on a
+imentary rocks. However, there is a clear trend of larger
+susceptibility differences in sandstones compared to those
+length scale l*, Eq. [8]. If the pore space has structure on
+that length scale, the expected gradient in those pores is then
+of carbonates, on average by about an order of magnitude.
+The majority of carbonate rocks is diamagnetic, whereas
+of order gmax. Larger internal gradients might occur if the
+susceptibility of the rock grains is heterogeneous.
+almost all sandstones are paramagnetic. Both pure calcium
+
+--- PAGE 6 ---
+237
+EFFECTIVE GRADIENTS IN POROUS MEDIA
+TABLE 1
+is typically nonexponential and can be described by a distri-
+Measured Susceptibility Differences and Calculated Values
+bution of relaxation times, h(T2), for T2 values in the range
+of Maximal Effective Gradient and Critical Length
+between about 1 ms and 1 s:
+Sample
+Dx [SI]
+gmax at 2 MHz
+l*
+M(t, tE) É * dT2 *
+gmax
+0
+dgeff f ( geff )
+C9
+278 1 1006
+1800 G/cm
+0.8 mm
+Berea 100
+98.9 1 1006
+375 G/cm
+1.3 mm
+Berea 400/500
+33.8 1 1006
+75 G/cm
+2.3 mm
+1 expH0 1
+12 D0g 2g 2
+eff t 2
+EtJ
+A7
+13.6 1 1006
+19 G/cm
+3.6 mm
+Indiana limestone
+2.99 1 1006
+2.0 G/cm
+7.6 mm
+Mudstone
+1.22 1 1006
+0.5 G/cm
+11.9 mm
+1 h(T2)exp{0t/T2}.
+[9]
+Here f ( geff ) is the distribution of effective gradients and
+h(T2) is the distribution of relaxation time T2. As discussed
+Even though Eq. [7] is only a rough estimate, we can
+above, h(T2) includes surface relaxation and diffusive con-
+conclude that in the majority of carbonates, the value of gmax
+tributions from the small pores. At the shortest echo spacing
+is smaller than typical tool gradients. Therefore, the vast
+tE Å 160 ms, the T2 term dominates the gradient term. If we
+majority of local effective gradients in carbonates are smaller
+can make the further assumption that the two terms are not
+than tool gradients. The situation is different in sandstones.
+highly correlated, we obtain for the ratio of M(t, tE)/M(t,
+At the peak of the susceptibility distribution for sandstones,
+tE Å 160 ms) the simple form
+we estimate that internal gradients can be as large as 1000 G/
+cm for a Larmor frequency of only 2.3 MHz. In sandstones,
+internal gradients can therefore frequently be comparable to
+M(t, tE)
+M(t, tE Å 160 ms) É *
+gmax
+0
+dgeff f ( geff )
+or larger than tool gradients.
+At downhole temperatures, the estimated values for gmax
+1 expH0 1
+12 D0g 2g 2
+eff t 2
+EtJ .
+[10]
+are reduced by a factor of 2.5 because the diffusion coefﬁ-
+cient is higher and the susceptibilities are reduced (assuming
+Curie law behavior). Based on this analysis we expect that
+This predicts that the ratio M(t, tE)/M(t, tE Å 160 ms) is
+the effective gradients in most carbonates are smaller than
+to ﬁrst order only a function of the combined times t 2
+Et. In
+the tool gradients and can mostly be ignored. However, in
+Fig. 3, this ratio is plotted as a function of t 2
+Et for the six
+many sandstones, the effective gradients can be signiﬁcantly
+rocks listed in Table 1.
+larger than tool gradients. This clearly complicates the analy-
+In Fig. 3, we note ﬁrst of all that for all six rocks, there
+sis of diffusion measurements with static applied tool gradi-
+is a reasonable collapse of the data on a single curve. To
+ents in sandstones.
+ﬁrst approximation, the ratio is indeed only a function of
+t 2
+Et, as given in Eq. [10]. This is not completely obvious.
+EXPERIMENTAL NMR RESULTS
+One might argue that for any given time t, there is a different
+distribution of effective gradients. At long time, surface re-
+CPMG measurements were performed on six water-satu-
+laxation relaxes the spins in the smaller pores and only the
+rated sedimentary rocks with susceptibility differences rang-
+spins in the larger pores survive. One would expect that the
+ing from about 10 06 to over 2 1 10 04. Table 1 lists the
+distribution at long times is dominated by smaller gradients,
+measured values of Dx and the calculated values of gmax
+whereas at shorter times, spins in both small and large pores
+(Eq. [7]) and l* (Eq. [8]). Note that these samples cover
+contribute. A careful analysis of the data for C9 and the
+the typical susceptibility differences of sedimentary rocks,
+Bereas shows that the scatter in Fig. 3 is in fact somewhat
+shown in Fig. 2. The NMR measurements were performed
+correlated with time t; i.e., at a given value of t 2
+Et, ratios
+at 2 MHz with a laboratory NMR spectrometer that has a
+for large t tend to be somewhat higher than ratios for small
+homogeneous external magnetic ﬁeld and the temperature
+t. However, this is a rather weak effect and indicates that
+was 257C. Eight different echo spacings, tE, were used,
+surface relaxation and diffusion in internal gradients are sen-
+namely 160, 200, and 400 ms and 1, 2, 4, 10, and 20 ms.
+sitive to different features of the pore geometries. Diffusion
+Data were collected up to a total time of 655 ms; i.e., the
+is sensitive to features of size l*, whereas surface relaxation
+number of echoes collected was adjusted to between 4095,
+is sensitive to the ratio of the surface area to pore volume.
+for tE Å 160 ms, and 33, for tE Å 20 ms.
+The arrows in Fig. 3 mark the value of t 2
+Et where
+In water-saturated sedimentary rocks, the transverse relax-
+1
+12D0g 2g 2
+max t 2
+Et Å 1. Using the expression in Eq. [7], this is
+ation rate at low ﬁeld strength is usually dominated by sur-
+face relaxation; relaxation caused by internal gradients only
+simply given by t 2
+Et Å 12/(gDxB0) 3. This is the 1/e point
+for the largest possible effective gradient. We expect no
+dominates for longer echo spacings tE. The surface relaxation
+
+--- PAGE 7 ---
+238
+MARTIN D. HU¨ RLIMANN
+FIG. 3.
+Ratio of M(t, tE)/M(t, tE Å 160 ms) versus t 2
+Et for six different rocks. In all cases, there is a good data collapse for all the different values
+of t and tE, spanning t 2
+Et over six orders of magnitude. The arrow indicates the 1/e point for the largest effective gradient as calculated from the
+susceptibility difference between the rock and water.
+signiﬁcant deviation of the ratio M(t, tE)/M(t, tE Å 160 ms)
+In order for the signal to show decay at the maximal gradi-
+ent, there must be structure on the length scale l* given in
+from 1 for values of t 2
+Et smaller than indicated by the arrows.
+Table 1. The curve for C9 in Fig. 3 appears to decrease only
+This simple estimate is in good agreement with the observa-
+tions. This is especially noteworthy because the prediction
+at values of t2
+Et that are about a decade larger than shown by
+the arrow. In this rock, the pore space might not have a lot
+has no adjustable parameters and depends only on suscepti-
+bility and Larmor frequency. Note that it covers several order
+of structure on the length scale of 0.8 mm. Alternatively, it is
+possible that the decay for tE Å 160 ms is already affected by
+of magnitudes: for a given value of tE, the diffusion-induced
+decay rate varies by six orders of magnitude in these rocks.
+diffusion in the internal gradients.
+
+--- PAGE 8 ---
+239
+EFFECTIVE GRADIENTS IN POROUS MEDIA
+ACKNOWLEDGMENTS
+I had helpful discussions with P. Sen, R. Kleinberg, K. Helmer, and
+B. Halperin. The CPMG measurements were performed by D. Rossini, and
+P. Dryden and W. Smith assisted me with the susceptibility data.
+REFERENCES
+1. K. K. Kwong, J. W. Belliveau, D. A. Chesler, I. E. Goldberg, R. M.
+Weisskoff, B. P. Poncelet, D. N. Kennedy, B. E. Hoppel, M. S., Co-
+hen, R. Turner, H.-M. Cheng, T. J. Brady, and B. R. Rosen, Proc.
+Natl. Acad. Sci. USA 89, 5675 (1992).
+2. S. Ogawa, D. W. Tank, R. Menon, J. M. Ellermann, S.-G. Kim, H.
+FIG. 4.
+Estimate of the distribution of internal gradients in the two
+Merkle, and K. Ugurbil, Proc. Natl. Acad. Sci. USA 89, 5952 (1992).
+rocks with the largest susceptibility difference.
+3. R. N. Muller, P. Gillis, F. Moiny, and A. Roch, Transverse relaxivity
+of particulate MRI contrast media: From theories to experiments,
+Magn. Reson. Med. 22, 178 (1991).
+4. P. Hardy and R. M. Henkelman, On the transverse relaxation rate
+Using Eq. [10], we can estimate the distribution of effec-
+enhancement induced by diffusion of spins through inhomoge-
+tive internal gradients, f ( geff ), from the data shown in Fig.
+neous ﬁelds, Magn. Reson. Med. 17, 348 (1991).
+3. We use a ﬁtting routine based on single value decomposi-
+5. R. M. Weisskoff, C. S. Zuo, J. L. Boxerman, and B. R. Rosen, Mi-
+tion. The routine was implemented by Sezginer and is de-
+croscopic susceptibility variation and transverse relaxation: Theory
+scribed in (23) where it is applied to relaxation data. The
+and experiment, Magn. Reson. Med. 31, 601 (1994).
+results for the two rocks with the largest susceptibility differ-
+6. R. L. Kleinberg, ‘‘Encyclopedia of Nuclear Magnetic Resonance,’’
+Vol. 8, pp. 4960–4969, Wiley, Chichester (1996).
+ences, C9 and Berea 100, are shown in Fig. 4.
+7. R. L. Kleinberg and M. A. Horsﬁeld, Transverse relaxation pro-
+These distributions are several decades wide and both
+cesses in porous sedimentary rock, J. Magn. Reson. 88, 9 (1990).
+have a signiﬁcant fraction of gradients above 100 G/cm, as
+8. R. L. Kleinberg, Pore size distributions, pore coupling, and trans-
+expected.
+verse relaxation spectra of porous rocks, Magn. Reson. Imaging
+12, 271 (1994).
+CONCLUSIONS
+9. R. J. S. Brown and P. Fantazzini, Conditions for initial quasilinear
+T 01
+2
+versus t for Carr–Purcell–Meiboom–Gill NMR with diffusion
+and susceptibility differences in porous media and tissues, Phys.
+In this report, we have analyzed the signal decay caused
+Rev. B 47, 14823 (1993).
+by diffusion in internal gradients. We have shown that the
+10. G. C. Borgia, R. J. S. Brown, and P. Fantazzini, Scaling of spin-
+pores can be classiﬁed into large or small pores, by compar-
+echo amplitudes with frequency, diffusion coefﬁcient, pore size,
+ing the pore size to
+q
+D0/gDxB0. Only the contributions
+and susceptibility difference for the NMR of ﬂuids in porous media
+from the large pores show a signiﬁcant increase of the decay
+and biological tissues. Phys. Rev. E 51, 2104 (1995).
+rate with echo spacing tE. This decay can be described to
+11. Z. Taicher, G. Coates, Y. Gitartz, and L. Berman, A comprehensive
+approach to studies of porous media (rocks) using a laboratory
+ﬁrst order by a distribution of effective gradients. It is argued
+spectrometer and logging tool with similar operating characteris-
+that there is a maximum value for the effective gradient,
+tics, Magn. Reson. Imaging 12, 285 (1994).
+gmax, that depends only on diffusion coefﬁcient, Larmor fre-
+12. R. L. Kleinberg, A. Sezginer, and D. D. Grifﬁn, Novel NMR appara-
+quency, and susceptibility difference.
+tus for investigating an external sample, J. Magn. Reson. 97, 466
+This analysis was then applied to the study of water-
+(1992).
+saturated sedimentary rocks, relevant in NMR well logging.
+13. R. Akkurt, H. J. Vinegar, P. N. Tutunjian, and A. J. Guillory, NMR
+From a compilation of susceptibility measurements, we con-
+logging of natural gas reservoirs, in ‘‘Trans. SPWLA 36th Annual
+clude that the effective gradients in carbonates are typically
+Logging Symposium, Paris, 1995,’’ Paper N.
+smaller than tool gradients, whereas in many sandstones,
+14. S. D. Stoller, W. Happer, and F. J. Dyson, Transverse spin relax-
+ation in inhomogeneous magnetic ﬁelds, Phys. Rev. A 44, 7459
+internal gradients can be comparable to tool gradients. This
+(1991).
+complicates the analysis of diffusion measurements in sand-
+15. T. M. de Swiet and P. N. Sen, Decay of nuclear magnetization by
+stones. CPMG measurements with different echo spacings
+bounded diffusion in a constant ﬁeld gradient, J. Chem. Phys. 100,
+on six rocks conﬁrm these theoretical predictions.
+5597 (1994).
+In biological systems, the susceptibility differences en-
+16. M. D. Hu¨ rlimann, K. G. Helmer, T. M. de Swiet, P. N. Sen, and C. H.
+countered are usually smaller than those in sedimentary
+Sotak, Spin echoes in a constant gradient and in the presence of
+rocks, but the measurements are typically performed at
+simple restriction, J. Magn. Reson. A 113, 260 (1995).
+Larmor frequencies much higher than 2 MHz. This analysis
+17. C. H. Neuman, Spin echo of spins diffusing in a bounded medium,
+J. Chem. Phys. 60, 4508 (1974).
+should therefore also be relevant for these systems.
+
+--- PAGE 9 ---
+240
+MARTIN D. HU¨ RLIMANN
+18. M. H. Blees, The effect of ﬁnite duration of gradient pulses on the
+21. R. C. Wayne and R. M. Cotts, Nuclear-magnetic-resonance study
+of self-diffusion in a bounded medium, Phys. Rev. 151, 264 (1966).
+pulsed-ﬁeld-gradient NMR method for studying restricted diffusion,
+J. Magn. Reson. A 109, 203 (1994).
+22. P. Le Doussal and P. N. Sen, Decay of nuclear magnetization by
+diffusion in a parabolic magnetic ﬁeld: An exactly solvable model,
+19. J. C. Tarczon and W. P. Halperin, Interpretation of NMR diffusion
+measurements in uniform- and nonuniform-ﬁeld proﬁles. Phys. Rev.
+Phys. Rev. B 46, 3465 (1992).
+B 32, 2798 (1985).
+23. E. J. Fordham, A. Sezginer, and L. D. Hall, Imaging multiexponential
+relaxation in the (y, log e T1) plane, with application to clay ﬁltration
+20. P. Bendel, Spin-echo attenuation by diffusion in nonuniform ﬁeld
+gradients, J. Magn. Reson. 86, 509 (1990).
+in rock cores, J. Magn. Reson. A 113, 139 (1995).
