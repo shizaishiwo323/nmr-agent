@@ -33,6 +33,7 @@ COLORS = {
     "line": "#1F3B57",
     "accent": "#C8642A",
     "mesh_fill": "#CFE1F1",
+    "pore": "#5B7A99",
     "mesh_edge": "#2E6699",
     "neutral": "#6E7781",
     "axis": "#333333",
@@ -385,15 +386,15 @@ def build_simulation_figure(data: SimulationFigureData):
         ax_water.set_aspect("equal", adjustable="datalim")
 
         # 3. Local pore-size distribution (area weighted)
+        # Pore space only (water + gas); a separate water-domain curve was easy to
+        # misread as "the uncovered part is gas" and is not drawn.
         pores = data.pore_diameter_um if data.pore_diameter_um is not None else np.array([])
-        water = data.water_diameter_um if data.water_diameter_um is not None else np.array([])
         if pores.size:
             upper = float(np.percentile(pores, 99.5))
             bins = np.linspace(0.0, max(upper, 1e-6) * 1.02, 13)
             weights = np.full(pores.size, 100.0 / pores.size)
-            ax_size.hist(pores, bins=bins, weights=weights, color=COLORS["water"] if not water.size or water.size == pores.size else COLORS["solid"], edgecolor="white", linewidth=0.6, label="Pore space")
-            if water.size and water.size != pores.size:
-                ax_size.hist(water, bins=bins, weights=np.full(water.size, 100.0 / pores.size), histtype="step", color=COLORS["water"], linewidth=1.2, label="Water-filled")
+            has_gas = bool(np.any(data.phase_map == AIR))
+            ax_size.hist(pores, bins=bins, weights=weights, color=COLORS["pore"], edgecolor="white", linewidth=0.6, label="Pore space (water + gas)" if has_gas else "Pore space (water-filled)")
             ax_size.set_xlim(0.0, bins[-1])
             ax_size.set_ylim(0.0, ax_size.get_ylim()[1] * 1.32)  # headroom keeps the legend off the bars
             _legend(ax_size, "upper right")

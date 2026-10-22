@@ -267,9 +267,6 @@ def build_findings(facts: AnalysisFacts, language: str = "中文") -> list[Findi
         radius = 0.5 * float(sizes["pore_space_median"])
         regime = facts.rho_um_per_ms * radius / facts.diffusion_um2_per_ms
         keys = ["BrownsteinTarr1979", "MullerPetke2015DiffusionRegimes"]
-        water_median = sizes.get("water_domain_median")
-        water_zh = f"含水域的局部孔径中位数为 {_fmt(water_median)} μm，小于孔隙空间，说明水优先占据较窄的孔隙与孔壁附近，含水区的 S/V 相应升高。" if water_median and water_median < 0.95 * sizes["pore_space_median"] else ""
-        water_en = f" The water domain has a smaller median local diameter ({_fmt(water_median)} μm): water occupies the narrower pores and the wall regions, so its S/V is higher." if water_median and water_median < 0.95 * sizes["pore_space_median"] else ""
         # Brownstein & Tarr (1979): fast diffusion for rho*a/D << 1, slow diffusion for >> 1.
         if regime < 0.1:
             state_zh, state_en = "远小于 1，处于快扩散区制", "far below 1 (fast-diffusion regime)"
@@ -281,9 +278,9 @@ def build_findings(facts: AnalysisFacts, language: str = "中文") -> list[Findi
             state_zh, state_en = "远大于 1，处于慢扩散区制", "far above 1 (slow-diffusion regime)"
         out.append(Finding(
             "fast_diffusion_assumption_breakdown",
-            (f"孔隙空间的局部孔径（最大内切圆直径）中位数为 {_fmt(sizes['pore_space_median'])} μm，对应 ρ·r/D = {regime:.3f}，{state_zh} {in_text(keys)}。{water_zh}"
+            (f"孔隙空间的局部孔径（最大内切圆直径）中位数为 {_fmt(sizes['pore_space_median'])} μm，对应 ρ·r/D = {regime:.3f}，{state_zh} {in_text(keys)}。"
              if zh else
-             f"The median local pore diameter (largest inscribed disk) of the pore space is {_fmt(sizes['pore_space_median'])} μm, giving ρ·r/D = {regime:.3f}, {state_en} {in_text(keys)}.{water_en}"),
+             f"The median local pore diameter (largest inscribed disk) of the pore space is {_fmt(sizes['pore_space_median'])} μm, giving ρ·r/D = {regime:.3f}, {state_en} {in_text(keys)}."),
             keys,
         ))
 
