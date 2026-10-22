@@ -11,6 +11,8 @@ from t2_agent.simulation_2d import (
     Simulation2DParams,
     WATER,
     build_rule_geometry_labels,
+    build_triangular_water_mesh,
+    save_pygimli_mesh,
     inspect_png_phase_map,
     normalize_png_phase_colors,
     run_png_mesh_decay,
@@ -225,3 +227,23 @@ def test_rule_geometry_mesh_decay_uses_ideal_triangle_input_not_generated_png(tm
         atol=1e-12,
     )
     assert float(components["IdealTriangle_Large"].sum()) > float(components["IdealTriangle_Small"].sum())
+
+
+@pytest.mark.skipif(not pygimli_available(), reason="pyGIMLi is not installed")
+def test_enclosed_solid_island_is_a_hole_in_the_mesh(tmp_path):
+    import pygimli as pg
+
+    labels = np.full((60, 60), WATER, dtype=np.uint8)
+    yy, xx = np.mgrid[0:60, 0:60]
+    labels[(yy - 30) ** 2 + (xx - 30) ** 2 <= 12**2] = SOLID  # grain fully surrounded by water
+    params = Simulation2DParams(pixel_size_x_um=1.0, pixel_size_y_um=1.0, mesh_bulk_size_um=3.0, mesh_boundary_size_um=1.0)
+    mesh = build_triangular_water_mesh(labels, params)
+    raw = mesh["pygimli_mesh"]
+    centres = np.array([[cell.center().x(), cell.center().y()] for cell in raw.cells()])
+    inside = (centres[:, 0] - 30.5) ** 2 + (centres[:, 1] - 29.5) ** 2 < 10**2
+    assert not inside.any()  # Triangle created no cells inside the grain
+    assert mesh["plc_hole_contours"] == 1
+
+    path = tmp_path / "mesh.bms"
+    assert save_pygimli_mesh(mesh, path)
+    assert pg.load(str(path)).cellCount() == len(mesh["triangles"])

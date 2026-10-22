@@ -468,8 +468,23 @@ def ct_figure_data(labels_npy: Path, pixel_um: float, series: dict[str, Any], me
     data = SimulationFigureData(phase_map=phase, pixel_um=float(pixel_um), **_series_kwargs(series))
     if mesh_bms is not None and Path(mesh_bms).exists():
         # The CT mesh is already in micrometres with its origin at the bottom-left of the cropped slice.
-        data.mesh_points_um, data.mesh_triangles = load_mesh_arrays(Path(mesh_bms))
+        points, triangles = load_mesh_arrays(Path(mesh_bms))
+        data.mesh_points_um, data.mesh_triangles = points, water_triangles(points, triangles, phase, float(pixel_um))
     return _with_distributions(data)
+
+
+def water_triangles(points: np.ndarray, triangles: np.ndarray, phase: np.ndarray, pixel_um: float) -> np.ndarray:
+    """Keep the triangles whose centroid lies on a water pixel, as the solver does.
+
+    Older runs saved the raw PLC mesh, which also covers solid and gas islands.
+    """
+
+    if triangles.size == 0:
+        return triangles
+    centroid = points[triangles].mean(axis=1)
+    rows = np.clip(np.floor(phase.shape[0] - centroid[:, 1] / pixel_um).astype(int), 0, phase.shape[0] - 1)
+    cols = np.clip(np.floor(centroid[:, 0] / pixel_um).astype(int), 0, phase.shape[1] - 1)
+    return triangles[phase[rows, cols] == WATER]
 
 
 def ideal_figure_data(config_mapping: dict[str, Any], series: dict[str, Any], estimates: dict[str, float]) -> SimulationFigureData:

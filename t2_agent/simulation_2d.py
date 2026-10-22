@@ -642,9 +642,15 @@ def orient_polygon(points: np.ndarray, *, ccw: bool) -> np.ndarray:
     return points
 
 
-def choose_region_marker(labels: np.ndarray, polygon_xy: np.ndarray, params: Simulation2DParams) -> list[float]:
+def choose_region_marker(labels: np.ndarray, polygon_xy: np.ndarray, params: Simulation2DParams, *, water: bool = True) -> list[float]:
+    """A pixel centre inside the polygon: water for a domain, non-water for a hole.
+
+    The vertex mean is not used because it can fall outside a non-convex
+    polygon; a hole marker outside its island would leave the island meshed.
+    """
+
     path = MplPath(polygon_xy)
-    water_rows, water_cols = np.where(labels == WATER)
+    water_rows, water_cols = np.where((labels == WATER) if water else (labels != WATER))
     if water_rows.size == 0:
         center = np.mean(polygon_xy, axis=0)
         return [float(center[0]), float(center[1])]
@@ -738,14 +744,16 @@ def build_triangular_water_mesh(labels: np.ndarray, params: Simulation2DParams) 
             )
             outer_count += 1
         else:
+            # Solid or gas island enclosed by water: a true hole, so Triangle
+            # creates no cells inside it (before, the island was meshed as a
+            # region and only removed again by the label filter).
             hole = orient_polygon(xy, ccw=True)
             plcs.append(
                 mt.createPolygon(
                     hole.tolist(),
                     isClosed=True,
-                    marker=0,
-                    markerPosition=[float(np.mean(hole[:, 0])), float(np.mean(hole[:, 1]))],
-                    area=max_area,
+                    isHole=True,
+                    markerPosition=choose_region_marker(labels, hole, params, water=False),
                     boundaryMarker=20,
                 )
             )
@@ -976,9 +984,10 @@ def save_pygimli_mesh(mesh: dict[str, object], output_path: Path) -> bool:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     if pg is None:
         return False
-    if "pygimli_mesh" in mesh:
+    if "pygimli_mesh" in mesh and "points" not in mesh:
         mesh["pygimli_mesh"].save(str(output_path))
         return True
+    # Save the water cells the solver actually uses, not the raw PLC mesh.
     points = mesh["points"]
     triangles = mesh["triangles"]
     pg_mesh = pg.Mesh(2)
