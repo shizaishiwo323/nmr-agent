@@ -38,6 +38,8 @@ COLORS = {
     "neutral": "#6E7781",
     "axis": "#333333",
 }
+# Okabe-Ito colours: distinct from black and readable for colour-blind viewers.
+GAUSSIAN_COLORS = ("#D55E00", "#0072B2", "#009E73", "#CC79A7", "#E69F00", "#56B4E9")
 FIGURE_SIZE_MM = (183.0, 128.0)
 _MM_PER_INCH = 25.4
 
@@ -418,12 +420,13 @@ def build_simulation_figure(data: SimulationFigureData):
         # Draw only the visible window: clipped-away segments along y = 0 would
         # otherwise run under the neighbouring tick labels in vector output.
         shown = (data.t2_ms >= window[0]) & (data.t2_ms <= window[1])
-        ax_spec.plot(data.t2_ms[shown], data.spectrum[shown], color=COLORS["line"], linewidth=1.3, label=label, zorder=3)
-        styles = ["--", ":", "-."]
+        # Spectrum in black, each Gaussian component a solid line in its own colour, all 1 pt.
+        ax_spec.plot(data.t2_ms[shown], data.spectrum[shown], color="#000000", linewidth=1.0, label=label, zorder=2)
         for idx, component in enumerate(data.gaussian_components):
             position = data.gaussian_positions_ms[idx] if idx < len(data.gaussian_positions_ms) else None
             name = f"Gaussian {idx + 1}" + (f" ({position:.0f} ms)" if position and position >= 10 else f" ({position:.3g} ms)" if position else "")
-            ax_spec.plot(data.t2_ms[shown], component[shown], color=COLORS["accent"], linewidth=0.9, linestyle=styles[idx % 3], label=name, zorder=2)
+            colour = GAUSSIAN_COLORS[idx % len(GAUSSIAN_COLORS)]
+            ax_spec.plot(data.t2_ms[shown], component[shown], color=colour, linewidth=1.0, linestyle="-", label=name, zorder=3)
         for name, value in data.estimates_ms.items():
             # Estimate markers stop below the legend band.
             ax_spec.axvline(value, ymax=0.6, color=COLORS["neutral"], linewidth=0.8, linestyle="--" if name.startswith("Large") else ":", label=f"{name} ({value:.0f} ms)", zorder=1)
