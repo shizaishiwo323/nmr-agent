@@ -112,11 +112,12 @@ interpretation report:
   and inversion-sampled residuals, the T2 spectrum, and the L-curve with the
   selected α (`T2process/nmr_t2/report_figure.py`).
 - Segmented CT or ideal geometry: five panels, namely the three-phase map, the
-  water-filled domain, the area-weighted local pore diameter (largest inscribed
-  disk) of the pore space and of the water domain, the simulated echo envelope
+  meshed water domain, the area-weighted local pore diameter (largest inscribed
+  disk) of the pore space, the simulated echo envelope
   with the spectral reconstruction, and the peak-normalized T2 spectrum with
-  Gaussian components. Ideal runs also mark the fast-diffusion estimate of each
-  pore (`t2_agent/simulation_figure.py`).
+  Gaussian components; for ideal runs the fast-diffusion estimate of each pore
+  is compared with the peaks in the interpretation text
+  (`t2_agent/simulation_figure.py`).
 
 Gaussian components below 1% of the fitted area are dropped after the fit
 (`GaussianConfig.min_area_fraction`), and the starting centres come from the

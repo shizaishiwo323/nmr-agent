@@ -494,7 +494,8 @@ def ideal_figure_data(config_mapping: dict[str, Any], series: dict[str, Any], es
     config = IdealRunConfig.from_mapping(config_mapping)
     phase, pixel = rasterize_ideal_geometry(config)
     data = SimulationFigureData(phase_map=phase, pixel_um=pixel, **_series_kwargs(series))
-    data.estimates_ms = {"Large-pore estimate": float(estimates["large"]), "Small-pore estimate": float(estimates["small"])} if estimates else {}
+    # The fast-diffusion estimates are reported in the interpretation text, not drawn in panel (e).
+    data.estimates_ms = {}
     try:
         points, triangles = ideal_mesh_arrays(config)
         origin_x, origin_y = ideal_frame_origin(config, phase.shape, pixel)
