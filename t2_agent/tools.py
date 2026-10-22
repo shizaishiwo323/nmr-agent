@@ -674,7 +674,8 @@ def _add_simulation_report_figure(
         if gaussian_runs:
             series["gaussian_positions_ms"] = [float(peak["position_ms"]) for peak in gaussian_runs[-1]["peaks"] if peak.get("position_ms") is not None]
         if "ct_geometry" in stage:
-            data = sf.ct_figure_data(Path(str(geometry["labels_npy"])), float(geometry["pixel_size_um"]), series)
+            mesh_files = [Path(path) for path in (stage.get("ct_mesh") or {}).get("simulation_stages", {}).get("mesh", []) if str(path).endswith(".bms")]
+            data = sf.ct_figure_data(Path(str(geometry["labels_npy"])), float(geometry["pixel_size_um"]), series, mesh_files[0] if mesh_files else None)
         else:
             data = sf.ideal_figure_data(geometry["ideal_config"], series, geometry.get("estimated_t2_ms", {}))
         figure_path = sf.save_simulation_figure(data, Path(output_dir) / timestamped_name("simulation_report", "png"))

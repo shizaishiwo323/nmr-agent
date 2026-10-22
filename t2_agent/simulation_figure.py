@@ -32,6 +32,8 @@ COLORS = {
     "outside": "#FFFFFF",
     "line": "#1F3B57",
     "accent": "#C8642A",
+    "mesh_fill": "#CFE1F1",
+    "mesh_edge": "#2E6699",
     "neutral": "#6E7781",
     "axis": "#333333",
 }
@@ -56,6 +58,8 @@ class SimulationFigureData:
     estimates_ms: dict[str, float] = field(default_factory=dict)
     pore_diameter_um: np.ndarray | None = None
     water_diameter_um: np.ndarray | None = None
+    mesh_points_um: np.ndarray | None = None  # node coordinates in the phase-map frame (origin bottom left)
+    mesh_triangles: np.ndarray | None = None
 
 
 # ---------------------------------------------------------------------------
@@ -137,6 +141,63 @@ def rasterize_ideal_geometry(config: Any, pixel_um: float | None = None) -> tupl
         throat = (np.abs(grid_x) <= half_w) & (np.abs(grid_y) <= half_l)
         phase[throat & (phase == SOLID)] = WATER
     return phase, float(pixel)
+
+
+def ideal_frame_origin(config: Any, phase_shape: tuple[int, int], pixel_um: float) -> tuple[float, float]:
+    """Native (x, y) of the bottom-left corner of the rasterized ideal phase map."""
+
+    shift = config.throat_length_um / 2.0 if config.coupled else 0.0
+    gap = 0.0 if config.coupled else max(2.0, 0.15 * config.large_side_um)
+    top = shift + gap / 2.0 + config.large_side_um * math.sqrt(3.0) / 2.0
+    margin = 0.08 * config.large_side_um
+    x0 = -config.large_side_um / 2.0 - margin
+    y_top = top + margin
+    return x0, y_top - phase_shape[0] * pixel_um
+
+
+def _mesh_arrays(mesh) -> tuple[np.ndarray, np.ndarray]:
+    points = np.asarray([[node.pos().x(), node.pos().y()] for node in mesh.nodes()], dtype=float)
+    triangles = np.asarray([[node.id() for node in cell.nodes()] for cell in mesh.cells() if cell.nodeCount() == 3], dtype=np.int64)
+    return points, triangles
+
+
+def load_mesh_arrays(bms_path: Path) -> tuple[np.ndarray, np.ndarray]:
+    import pygimli as pg
+
+    return _mesh_arrays(pg.load(str(bms_path)))
+
+
+def ideal_mesh_arrays(config: Any) -> tuple[np.ndarray, np.ndarray]:
+    """Re-create the ideal-geometry mesh with the simulation's own mesher and settings.
+
+    The coupled run saves one mesh; the uncoupled run meshes the two pores
+    separately, so both are rebuilt here and placed with the figure's gap.
+    """
+
+    from . import simulation_2d as sim
+
+    mt = sim.mt
+    if mt is None:
+        raise RuntimeError("pyGIMLi meshtools are not available")
+    large_air = (1.0 - config.large_water_saturation) * math.sqrt(3.0) / 4.0 * config.large_side_um**2
+    small_air = (1.0 - config.small_water_saturation) * math.sqrt(3.0) / 4.0 * config.small_side_um**2
+    area = max(float(config.ideal_mesh_area_um2), 1e-6)
+    if config.coupled:
+        half_l = config.throat_length_um / 2.0
+        large = sim.create_ideal_triangle_pore_geometry(config.large_side_um, large_air, is_inverted=False, y_shift_um=half_l)
+        small = sim.create_ideal_triangle_pore_geometry(config.small_side_um, small_air, is_inverted=True, y_shift_um=-half_l)
+        throat = mt.createRectangle(start=[-config.throat_width_um / 2.0, -half_l], end=[config.throat_width_um / 2.0, half_l])
+        return _mesh_arrays(mt.createMesh(large + throat + small, area=area, quality=34.0))
+    gap = max(2.0, 0.15 * config.large_side_um)
+    pieces = []
+    for side, air, inverted, offset in ((config.large_side_um, large_air, False, gap / 2.0), (config.small_side_um, small_air, True, -gap / 2.0)):
+        geometry = sim.create_ideal_triangle_pore_geometry(side, air, is_inverted=inverted, y_shift_um=offset)
+        if geometry is not None:
+            pieces.append(_mesh_arrays(mt.createMesh(geometry, area=area, quality=34.0)))
+    points = np.vstack([piece[0] for piece in pieces])
+    offsets = np.cumsum([0] + [piece[0].shape[0] for piece in pieces[:-1]])
+    triangles = np.vstack([piece[1] + offset for piece, offset in zip(pieces, offsets)])
+    return points, triangles
 
 
 # ---------------------------------------------------------------------------
@@ -269,7 +330,7 @@ def build_simulation_figure(data: SimulationFigureData):
 
     with mpl.rc_context(rc):
         fig = Figure(figsize=(FIGURE_SIZE_MM[0] / _MM_PER_INCH, FIGURE_SIZE_MM[1] / _MM_PER_INCH), facecolor="white")
-        grid = GridSpec(2, 6, figure=fig, height_ratios=[1.0, 0.95], left=0.07, right=0.985, top=0.975, bottom=0.085, wspace=1.15, hspace=0.42)
+        grid = GridSpec(2, 6, figure=fig, height_ratios=[1.0, 0.95], left=0.07, right=0.985, top=0.955, bottom=0.085, wspace=1.15, hspace=0.48)
         ax_phase = fig.add_subplot(grid[0, 0:2])
         ax_water = fig.add_subplot(grid[0, 2:4])
         ax_size = fig.add_subplot(grid[0, 4:6])
@@ -289,8 +350,20 @@ def build_simulation_figure(data: SimulationFigureData):
         ax_phase.set_ylabel(f"Height ({unit_label})")
         ax_phase.set_aspect("equal", adjustable="datalim")
 
-        # 2. Water-filled domain
-        ax_water.imshow(_phase_rgb(data.phase_map, water_only=True), extent=extent, origin="upper", interpolation="nearest")
+        # 2. Water-filled domain as meshed for the forward model
+        if data.mesh_points_um is not None and data.mesh_triangles is not None and len(data.mesh_triangles):
+            from matplotlib.tri import Triangulation
+
+            mesh = Triangulation(data.mesh_points_um[:, 0] / unit, data.mesh_points_um[:, 1] / unit, data.mesh_triangles)
+            ax_water.tripcolor(mesh, np.zeros(len(data.mesh_triangles)), cmap=mpl.colors.ListedColormap([COLORS["mesh_fill"]]), shading="flat", edgecolors="none", rasterized=True)
+            width = 0.25 if len(data.mesh_triangles) < 15000 else 0.12
+            ax_water.triplot(mesh, color=COLORS["mesh_edge"], linewidth=width, rasterized=True)
+            # Same view as panel (a) through the data limits, so the equal aspect needs no fixed limits.
+            ax_water.update_datalim([(extent[0], extent[2]), (extent[1], extent[3])])
+            ax_water.margins(0.0)
+            ax_water.autoscale_view()
+        else:
+            ax_water.imshow(_phase_rgb(data.phase_map, water_only=True), extent=extent, origin="upper", interpolation="nearest")
         ax_water.set_xlabel(f"Width ({unit_label})")
         ax_water.set_aspect("equal", adjustable="datalim")
 
@@ -347,8 +420,20 @@ def build_simulation_figure(data: SimulationFigureData):
         ax_spec.set_ylabel("Peak-normalized amplitude")
         _legend(ax_spec, "best")
 
+        for letter, ax in zip("abcde", (ax_phase, ax_water, ax_size, ax_decay, ax_spec)):
+            add_panel_label(fig, ax, letter)
+
     fig._simulation_axes = {"phase": ax_phase, "water": ax_water, "size": ax_size, "decay": ax_decay, "spectrum": ax_spec}
     return fig
+
+
+def add_panel_label(fig, ax, letter: str) -> None:
+    """Bold "(a)" just above the top-left corner, at a fixed point offset for every panel."""
+
+    from matplotlib.transforms import offset_copy
+
+    transform = offset_copy(ax.transAxes, fig=fig, x=-2.0, y=5.0, units="points")
+    ax.text(0.0, 1.0, f"({letter})", transform=transform, ha="left", va="bottom", fontsize=8, fontweight="bold", color=COLORS["axis"])
 
 
 def _with_distributions(data: SimulationFigureData) -> SimulationFigureData:
@@ -361,9 +446,12 @@ def _with_distributions(data: SimulationFigureData) -> SimulationFigureData:
     return data
 
 
-def ct_figure_data(labels_npy: Path, pixel_um: float, series: dict[str, Any]) -> SimulationFigureData:
+def ct_figure_data(labels_npy: Path, pixel_um: float, series: dict[str, Any], mesh_bms: Path | None = None) -> SimulationFigureData:
     phase = np.load(labels_npy)
     data = SimulationFigureData(phase_map=phase, pixel_um=float(pixel_um), **_series_kwargs(series))
+    if mesh_bms is not None and Path(mesh_bms).exists():
+        # The CT mesh is already in micrometres with its origin at the bottom-left of the cropped slice.
+        data.mesh_points_um, data.mesh_triangles = load_mesh_arrays(Path(mesh_bms))
     return _with_distributions(data)
 
 
@@ -374,6 +462,13 @@ def ideal_figure_data(config_mapping: dict[str, Any], series: dict[str, Any], es
     phase, pixel = rasterize_ideal_geometry(config)
     data = SimulationFigureData(phase_map=phase, pixel_um=pixel, **_series_kwargs(series))
     data.estimates_ms = {"Large-pore estimate": float(estimates["large"]), "Small-pore estimate": float(estimates["small"])} if estimates else {}
+    try:
+        points, triangles = ideal_mesh_arrays(config)
+        origin_x, origin_y = ideal_frame_origin(config, phase.shape, pixel)
+        data.mesh_points_um = points - np.array([origin_x, origin_y])
+        data.mesh_triangles = triangles
+    except Exception:  # without pyGIMLi the panel falls back to the water mask
+        data.mesh_points_um = data.mesh_triangles = None
     return _with_distributions(data)
 
 

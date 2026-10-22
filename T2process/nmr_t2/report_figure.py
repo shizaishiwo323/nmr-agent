@@ -171,7 +171,7 @@ def build_inversion_report_figure(data: InversionReportData) -> Figure:
             height_ratios=[1.35, 1.0],
             left=0.075,
             right=0.985,
-            top=0.975,
+            top=0.95,
             bottom=0.105,
             wspace=0.22,
             hspace=0.34,
@@ -252,6 +252,12 @@ def build_inversion_report_figure(data: InversionReportData) -> Figure:
         cbar.set_label("log₁₀ α", labelpad=1.5)
         cbar.ax.tick_params(width=0.5, length=1.8, labelsize=6, pad=1.5)
         cbar.outline.set_linewidth(0.5)
+
+        from matplotlib.transforms import offset_copy
+
+        for letter, ax in zip("abcd", (ax_decay, ax_spec, ax_res, ax_lc)):
+            transform = offset_copy(ax.transAxes, fig=fig, x=-2.0, y=5.0, units="points")
+            ax.text(0.0, 1.0, f"({letter})", transform=transform, ha="left", va="bottom", fontsize=8, fontweight="bold", color=PALETTE["axis"])
 
     fig._t2_report_axes = {"decay": ax_decay, "spectrum": ax_spec, "residual": ax_res, "lcurve": ax_lc, "colorbar": cax}
     return fig
