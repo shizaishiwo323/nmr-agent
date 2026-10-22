@@ -1012,22 +1012,6 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
             message = "There are not enough inversion results to interpret yet. Run L-curve or NNLS first." if english else "还没有足够的反演结果可解释。请先运行 L-curve 或 NNLS。"
             return AgentToolResult("failed", message, error="missing_result_artifacts")
 
-        if english:
-            lines.extend(
-                [
-                    "## Notes",
-                    "- These interpretations are based on mathematical inversion results. The final physical meaning should be judged together with lithology, pore structure, and experimental conditions.",
-                    "- To distinguish specific pore components, continue with Gaussian peak decomposition and compare the area fractions of different peaks.",
-                ]
-            )
-        else:
-            lines.extend(
-                [
-                    "## 需要注意",
-                    "- 这些解释基于数学反演结果，最终物理含义需要结合样品岩性、孔隙结构和实验条件判断。",
-                    "- 如果要区分具体孔隙组分，建议继续做 Gaussian 分峰并比较不同峰的面积占比。",
-                ]
-            )
         output_path = Path(output_dir) / timestamped_name("interpretation", "md")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text("\n".join(lines), encoding="utf-8")
@@ -2036,25 +2020,6 @@ def generate_report(
             if result.summary:
                 lines.extend(["", "```text", str(result.summary), "```"])
             lines.append("")
-
-        if english:
-            lines.extend(
-                [
-                    "## Notes",
-                    "- Smaller smoothing factors fit noise more easily; larger values can smooth away real small peaks.",
-                    "- L-curve is suitable for first-pass analysis, but final interpretation should still use sample background and experimental conditions.",
-                    "- Gaussian peak decomposition is a spectrum-interpretation tool, not a unique physical component assignment.",
-                ]
-            )
-        else:
-            lines.extend(
-                [
-                    "## 注意事项",
-                    "- 平滑因子越小，越容易贴合噪声；越大，越容易抹平真实小峰。",
-                    "- L-curve 适合初次分析，但最终解释仍建议结合样品背景和实验条件。",
-                    "- Gaussian 分峰是谱形解释工具，不等同于唯一的物理组分划分。",
-                ]
-            )
 
         output_path.write_text("\n".join(lines), encoding="utf-8")
         message = "English Markdown report generated." if english else "中文 Markdown 报告已生成。"

@@ -299,19 +299,19 @@ def _echo_spacing_finding(facts: AnalysisFacts, zh: bool, soil: bool) -> Finding
         keys = ["Peng2023Bentonite", "Jaeger2010PeatSwelling"]
         return Finding(
             "echo_spacing_lower_bound",
-            (f"首个回波在 {_fmt(facts.first_echo_ms)} ms（回波间隔 {_fmt(te)} ms），T2 ≲ {_fmt(3 * te)} ms 的水在首个回波前已大部分衰减（T2 = 0.1 ms 的组分只剩 {_pct(retained)}）。黏土吸附水的 T2 约为 0.05–0.13 ms，泥炭中的不冻结合水约为 0.3 ms {in_text(keys)}，"
+            (f"首个回波在 {_fmt(facts.first_echo_ms)} ms（回波间隔 {_fmt(te)} ms）：T2 短于首回波时间的组分在首个回波前已损失 63% 以上，T2 = 0.1 ms 的组分只剩 {_pct(retained)}。黏土吸附水的 T2 约为 0.05–0.13 ms，泥炭中的不冻结合水约为 0.3 ms {in_text(keys)}，"
              f"而本谱 < 1 ms 的部分只有 {_pct(below_1ms)}，因此上面的束缚水比例是下限。"
              if zh else
-             f"The first echo is at {_fmt(facts.first_echo_ms)} ms (echo spacing {_fmt(te)} ms), so water with T2 ≲ {_fmt(3 * te)} ms has largely decayed before it (a 0.1 ms component keeps {_pct(retained)}). Adsorbed water in clay relaxes in about 0.05–0.13 ms and non-freezable water in peat in about 0.3 ms {in_text(keys)}, "
+             f"The first echo is at {_fmt(facts.first_echo_ms)} ms (echo spacing {_fmt(te)} ms): components with T2 shorter than this lose more than 63% of their amplitude before it, and a 0.1 ms component keeps {_pct(retained)}. Adsorbed water in clay relaxes in about 0.05–0.13 ms and non-freezable water in peat in about 0.3 ms {in_text(keys)}, "
              f"while only {_pct(below_1ms)} of this spectrum lies below 1 ms, so the bound-water fractions above are lower bounds."),
             keys,
         )
     keys = ["Coates1999NMRLogging"]
     return Finding(
         "echo_spacing_lower_bound",
-        (f"首个回波在 {_fmt(facts.first_echo_ms)} ms（回波间隔 {_fmt(te)} ms），T2 ≲ {_fmt(3 * te)} ms 的组分在首个回波前已大部分衰减，谱中短 T2 的占比是下限 {in_text(keys)}。"
+        (f"首个回波在 {_fmt(facts.first_echo_ms)} ms（回波间隔 {_fmt(te)} ms）：T2 短于首回波时间的组分在首个回波前已损失 63% 以上，谱中短 T2 的占比是下限 {in_text(keys)}。"
          if zh else
-         f"The first echo is at {_fmt(facts.first_echo_ms)} ms (echo spacing {_fmt(te)} ms), so components with T2 ≲ {_fmt(3 * te)} ms have largely decayed before it and the short-T2 share is a lower bound {in_text(keys)}."),
+         f"The first echo is at {_fmt(facts.first_echo_ms)} ms (echo spacing {_fmt(te)} ms): components with T2 shorter than this lose more than 63% of their amplitude before it, so the short-T2 share is a lower bound {in_text(keys)}."),
         keys,
     )
 
@@ -621,9 +621,9 @@ def _unresolved_components(facts: AnalysisFacts, zh: bool) -> Finding | None:
     keys = ["Borgia1998UniformPenalty"]
     return Finding(
         "unresolved_gaussian_components",
-        (f"高斯分量 {listed} 只相距 {ratio:.2f} 倍，而谱上只有一个极大值；它们描述的是一个不对称峰的形状，而不是两个水群，份额会随平滑因子和模拟时长改变。正则化反演中，相距约 3 倍的两条谱线在信噪比约 240 时才勉强可分 {in_text(keys)}。"
+        (f"高斯分量 {listed} 只相距 {ratio:.2f} 倍，而谱上只有一个极大值；它们描述的是一个不对称峰的形状，而不是两个水群，其面积份额没有物理意义。正则化反演中，相距约 3 倍的两条谱线在信噪比约 240 时才勉强可分 {in_text(keys)}。"
          if zh else
-         f"The Gaussian components {listed_en} are only {ratio:.2f} times apart and the spectrum has a single maximum; they describe the shape of one asymmetric peak, not two water populations, and their shares change with the smoothing factor and run length. In regularized inversion two lines three times apart are only marginally resolved at a signal-to-noise ratio of about 240 {in_text(keys)}."),
+         f"The Gaussian components {listed_en} are only {ratio:.2f} times apart and the spectrum has a single maximum; they describe the shape of one asymmetric peak, not two water populations, and their area shares carry no physical meaning. In regularized inversion two lines three times apart are only marginally resolved at a signal-to-noise ratio of about 240 {in_text(keys)}."),
         keys,
     )
 
