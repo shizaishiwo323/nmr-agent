@@ -43,9 +43,13 @@ def publication_font() -> str:
     """First installed sans-serif font; avoids per-glyph lookup warnings on Linux hosts without Arial."""
 
     if not _FONT_CACHE:
+        import os
+
         from .plotting import pick_font_family
 
-        _FONT_CACHE.append(pick_font_family(FONT_CANDIDATES))
+        # T2_FIGURE_FONT lets QA reproduce hosts without Arial (e.g. DejaVu Sans on Linux).
+        forced = os.environ.get("T2_FIGURE_FONT")
+        _FONT_CACHE.append(forced or pick_font_family(FONT_CANDIDATES))
     return _FONT_CACHE[0]
 
 

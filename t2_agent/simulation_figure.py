@@ -262,8 +262,17 @@ def load_inversion_series(
 # ---------------------------------------------------------------------------
 
 
-def spectrum_window(t2_ms: np.ndarray, spectrum: np.ndarray, extra_ms: list[float] | None = None) -> tuple[float, float]:
-    """Decade-snapped T2 range: the non-zero spectrum (and any marked estimates) plus one decade each side."""
+def spectrum_window(
+    t2_ms: np.ndarray,
+    spectrum: np.ndarray,
+    extra_ms: list[float] | None = None,
+    left_decades: int = 4,
+) -> tuple[float, float]:
+    """Decade-snapped T2 range around the non-zero spectrum and any marked estimates.
+
+    Several empty decades are kept on the short-T2 side so the spectrum sits in
+    the right part of the panel and the legend has a free upper-left corner.
+    """
 
     positive = t2_ms > 0
     grid_lo, grid_hi = float(t2_ms[positive].min()), float(t2_ms[positive].max())
@@ -271,9 +280,17 @@ def spectrum_window(t2_ms: np.ndarray, spectrum: np.ndarray, extra_ms: list[floa
     values = list(support) + [value for value in (extra_ms or []) if value and value > 0]
     if not values:
         return grid_lo, grid_hi
-    lo = 10 ** (math.floor(math.log10(min(values))) - 1)
+    lo = 10 ** (math.floor(math.log10(min(values))) - left_decades)
     hi = 10 ** (math.ceil(math.log10(max(values))) + 1)
     return max(grid_lo, lo), min(grid_hi, hi)
+
+
+def legend_corner(t2_ms: np.ndarray, spectrum: np.ndarray, window: tuple[float, float]) -> str:
+    """Upper corner on the opposite side of the main peak (log position in the window)."""
+
+    peak = float(t2_ms[int(np.nanargmax(spectrum))])
+    fraction = (math.log10(peak) - math.log10(window[0])) / max(math.log10(window[1]) - math.log10(window[0]), 1e-9)
+    return "upper left" if fraction >= 0.5 else "upper right"
 
 
 def _style(ax) -> None:
@@ -418,7 +435,7 @@ def build_simulation_figure(data: SimulationFigureData):
         ax_spec.xaxis.set_major_formatter(FuncFormatter(lambda value, _: f"{value:g}"))
         ax_spec.set_xlabel("T₂ (ms)")
         ax_spec.set_ylabel("Peak-normalized amplitude")
-        _legend(ax_spec, "best")
+        _legend(ax_spec, legend_corner(data.t2_ms, data.spectrum, window))
 
         for letter, ax in zip("abcde", (ax_phase, ax_water, ax_size, ax_decay, ax_spec)):
             add_panel_label(fig, ax, letter)
