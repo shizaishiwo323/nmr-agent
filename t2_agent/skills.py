@@ -46,7 +46,7 @@ T2_AGENT_SKILLS = [
     },
     {
         "name": "interpret_results",
-        "purpose": "Read generated summaries/spectra/peak tables and explain what the inversion result means.",
+        "purpose": "Read generated summaries/spectra/peak tables and explain what the result means for the sample, with literature findings and AGU citations (soil water-state classes, two water populations, coupling and capacity checks, S/V check for CT).",
         "when_to_use": "Use when the user asks what the result means, whether the result is good, how to interpret peaks, or what to do next.",
     },
 ]

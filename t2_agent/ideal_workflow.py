@@ -107,7 +107,8 @@ class IdealRunConfig:
     def time_axis(self) -> dict[str, float]:
         if self.t_max_ms is not None and self.dt_ms is not None:
             return {"t_max_ms": float(self.t_max_ms), "dt_ms": float(self.dt_ms)}
-        return recommend_time_axis(max(estimate_pore_t2_ms(self, "large"), estimate_pore_t2_ms(self, "small")))
+        estimates = (estimate_pore_t2_ms(self, "large"), estimate_pore_t2_ms(self, "small"))
+        return recommend_time_axis(max(estimates), shortest_t2_ms=min(estimates))
 
     def to_tool_args(self) -> dict[str, Any]:
         axis = self.time_axis()
@@ -168,11 +169,28 @@ def _nice_number(value: float) -> float:
     return nice * 10**exponent
 
 
-def recommend_time_axis(estimated_t2_ms: float, steps: int = 400) -> dict[str, float]:
-    """Simulate about five estimated T2 so the decay reaches the baseline."""
+def _nice_floor(value: float) -> float:
+    """Largest 1, 2 or 5 times a power of ten that does not exceed value."""
+
+    exponent = math.floor(math.log10(value))
+    fraction = value / 10**exponent
+    return (5.0 if fraction >= 5.0 else 2.0 if fraction >= 2.0 else 1.0) * 10**exponent
+
+
+def recommend_time_axis(estimated_t2_ms: float, steps: int = 400, shortest_t2_ms: float | None = None, max_steps: int = 3000) -> dict[str, float]:
+    """Simulate about five estimated T2 so the decay reaches the baseline.
+
+    Implicit Euler lengthens a decay constant by about dt/(2 T2), so dt is also kept
+    below 1/40 of the shortest estimated T2 (bias under about 1.3%).
+    """
 
     t_max = float(min(30000.0, max(200.0, _nice_number(5.0 * estimated_t2_ms))))
-    return {"t_max_ms": t_max, "dt_ms": max(0.1, _nice_number(t_max / steps))}
+    dt = max(0.1, _nice_number(t_max / steps))
+    if shortest_t2_ms and shortest_t2_ms > 0:
+        dt = min(dt, max(0.1, _nice_floor(shortest_t2_ms / 40.0)))
+    if t_max / dt > max_steps:
+        dt = _nice_number(t_max / max_steps)
+    return {"t_max_ms": t_max, "dt_ms": dt}
 
 
 def validate_config(config: IdealRunConfig, language: str = "中文") -> list[str]:

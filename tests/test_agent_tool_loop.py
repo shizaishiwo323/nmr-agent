@@ -1016,3 +1016,23 @@ def test_agent_loop_can_batch_process_all_uploaded_files(tmp_path):
     assert result.tool_results[0].summary["successful_file_count"] == 2
     assert any("batch_results" in path and "sample_a.xlsx" in path for path in result.tool_results[0].artifacts)
     assert any("batch_results" in path and "sample_b.xlsx" in path for path in result.tool_results[0].artifacts)
+
+
+def test_spent_tool_budget_still_returns_a_written_reply(tmp_path):
+    context = AgentRuntimeContext(workspace=tmp_path)
+    rounds = [_message(tool_calls=[_tool_call("interpret_results", {})]) for _ in range(2)]
+    fake_client = FakeClient([*rounds, _message(content="Final answer from the tool results.")])
+
+    result = run_deepseek_agent_turn(
+        api_key="test-key",
+        model="deepseek-v4-flash",
+        thinking_enabled=False,
+        user_message="explain",
+        context=context,
+        prior_messages=[],
+        client=fake_client,
+        max_tool_rounds=2,
+    )
+
+    assert result.assistant_message == "Final answer from the tool results."
+    assert fake_client.chat.completions.calls[-1]["tool_choice"] == "none"

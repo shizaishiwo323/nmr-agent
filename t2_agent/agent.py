@@ -397,8 +397,18 @@ def build_tool_specs() -> list[dict[str, Any]]:
             "type": "function",
             "function": {
                 "name": "interpret_results",
-                "description": "Read generated summaries, T2 spectra, and Gaussian peak tables, then explain what the results mean.",
-                "parameters": {"type": "object", "properties": {}, "required": [], "additionalProperties": False},
+                "description": "Read generated summaries, T2 spectra, and Gaussian peak tables, then explain what the results mean with literature-based findings.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "sample_description": {
+                            "type": "string",
+                            "description": "The sample material in the user's own words, e.g. 'biomass-containing soil from Vienna' or 'Berea sandstone'. Selects material-specific rules such as soil water-state classes. Omit if the user did not describe the sample.",
+                        }
+                    },
+                    "required": [],
+                    "additionalProperties": False,
+                },
             },
         },
         {
@@ -657,7 +667,7 @@ def process_uploaded_files_batch(args: dict[str, Any], context: AgentRuntimeCont
             artifacts.extend(gaussian.artifacts)
             row["artifacts"].extend(gaussian.artifacts)
 
-        interpretation = interpret_results(file_results, file_dir / "interpretation", language=response_language)
+        interpretation = interpret_results(file_results, file_dir / "interpretation", language=response_language, sample_context=context.last_user_goal)
         file_results.append(interpretation)
         row["steps"].append({"name": "interpret_results", "status": interpretation.status, "message": interpretation.message, "error": interpretation.error})
         artifacts.extend(interpretation.artifacts)
@@ -1113,7 +1123,13 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
         return result
 
     if name == "interpret_results":
-        result = interpret_results(context.results, context.workspace / "interpretation", language=response_language)
+        sample = str(args.get("sample_description") or "").strip()
+        result = interpret_results(
+            context.results,
+            context.workspace / "interpretation",
+            language=response_language,
+            sample_context=" ".join(part for part in (sample, context.last_user_goal) if part),
+        )
         context.results.append(result)
         return result
 
@@ -1189,7 +1205,7 @@ def run_deepseek_agent_turn(
         "If it returns needs_phase_confirmation, briefly explain the AI first guess (value -> phase, reasoning and confidence), compare it with any labels the user stated, and tell the user to check the draggable markers in the CT phase preview window and press confirm; meshing waits for that confirmation. The app continues automatically after the confirm button (parameter dialog or run), so do not ask the user to type a confirmation in chat. "
         "After phase confirmation the app opens a parameter confirmation dialog when resolution, simulation core parameters, smoothing/L-curve choice or Gaussian choice were not all given; defaults are 1 um/pixel, L-curve on, Gaussian decomposition on. "
         "Call run_ct_simulation_workflow when the user asks to run; if it returns needs_confirmation, tell the user which confirmation is pending instead of claiming results. Never invent CT results. "
-        "When explaining CT results, relate mesh quality, decay length, the selected smoothing factor, T2 peaks and, if air is present, the reduced water saturation; warn that a 2D slice is not a 3D pore network. "
+        "When explaining CT results, follow summary.literature_findings: say whether the harmonic-mean T2 matches the S/V prediction, how strongly bulk relaxation dominates (and what that means for calibrating rho), what the wall coverage implies for reading saturation, and whether the Gaussian components are resolved. "
         "For pore-size statements use the reported decay.surface_to_volume_per_um and bulk_t2_ms (1/T2 = 1/T2_bulk + rho*S/V); do not back-calculate pore radius from T2 while ignoring bulk relaxation. "
         "If the user uploads a PNG or asks for red/yellow phase-map simulation, call inspect_2d_geometry_input and then run_2d_mesh_and_decay or run_2d_simulation_full_workflow with geometry_mode='png'. "
         "For PNG phase maps with white margins, keep the original upload, enable normalize_phase_colors when edge or antialiasing colors may be present, and rely on the PNG workflow to crop the white border before meshing. "
@@ -1202,7 +1218,7 @@ def run_deepseek_agent_turn(
         "Ideal-structure route: the only supported shape is one large equilateral triangular pore plus one inverted small equilateral triangular pore, optionally joined by a throat (coupled). If the user asks for circles, slits, rectangles or other shapes, say they are not supported yet and offer the triangle pair. "
         "Pass only the values the user stated: large_side_um, small_side_um, coupled, throat_length_um, throat_width_um, large_water_saturation, small_water_saturation (0-1), diffusion_um2_per_ms, bulk_t2_ms, rho_solid_um_per_ms, run_lcurve, regularization, run_gaussian, peak_count. Never fill in defaults yourself. "
         "If run_2d_simulation_full_workflow returns needs_ideal_parameter_confirmation, tell the user in two or three sentences which choices are pending (shape, pore sizes, coupling, water saturation, physics, inversion) and that a confirmation dialog with a geometry preview has opened; the app runs the workflow after the user presses confirm, so do not ask them to type parameters in chat and do not claim results. "
-        "When explaining ideal-structure results, compare the inverted T2 peaks with summary.estimated_t2_ms (fast-diffusion estimate per pore), state whether the pores were coupled, and note that water below Sw≈0.395 sits only in the triangle corners. "
+        "When explaining ideal-structure results, follow summary.literature_findings: without coupling map each peak to its pore via summary.estimated_t2_ms; with coupling use the fast-exchange limit, the exchange time and the merged small-pore water; under partial saturation give the capacity check, and note that water below Sw≈0.395 sits only in the triangle corners. "
         "For the first version, only 2D simulation is supported, and mesh generation must use pyGIMLi triangular meshing. "
         "For the ordinary first-version ideal-triangle simulation, run only the 1D T2 workflow. "
         "If the user explicitly asks for the local NMR simulator or ideal triangle mesh demonstration, call run_local_nmr_triangle_demo; it uses the repository-bundled simulator and still sends the simulated decay into the existing fixed NNLS T2 inversion pipeline. "
@@ -1224,7 +1240,9 @@ def run_deepseek_agent_turn(
         "When the user explicitly specifies a smoothing/regularization factor, use run_fixed_nnls. "
         "When the user asks for peak decomposition, call run_gaussian_peaks after a spectrum exists. "
         "When the user asks to interpret results, asks what the result means, asks whether the result is good, or asks for next steps, call interpret_results instead of only pointing to the right-side tool results. "
-        "When a tool result contains summary.literature_findings and summary.literature_references, build the physical explanation on those findings, keep their AGU in-text citations such as (Kleinberg et al., 1994) next to the statements they support, and end the reply with a short 参考文献/References list copied exactly from literature_references. Never cite a paper that is not in literature_references and never invent DOIs. "
+        "When the user describes the sample (material, origin, treatment), pass it to interpret_results as sample_description in the user's words. "
+        "When a tool result contains summary.literature_findings and summary.literature_references, build the physical explanation on those findings: lead with the first findings, which state what the result means for the sample (for example the share of bound, loosely bound and bulk water, two water populations, coupling, or the capacity check), keep their numbers exactly, keep their AGU in-text citations such as (Kleinberg et al., 1994) next to the statements they support, and end the reply with a short 参考文献/References list copied exactly from literature_references. "
+        "Do not add interpretations, caveats or recommended checks that are not in the findings, such as relaxivity values of other rock types, echo-spacing or internal-gradient remarks, mesh-refinement checks the tool did not run, or generic 2D-versus-3D warnings. Never cite a paper that is not in literature_references and never invent DOIs. "
         "Do not claim that a tool has run unless this turn includes the corresponding tool result. "
         "Write for beginners and explain the role of the smoothing factor, L-curve, T2 range, and peak count when relevant. "
         f"{language_instruction} "
@@ -1315,6 +1333,23 @@ def run_deepseek_agent_turn(
                 messages.append({"role": "assistant", "content": completion})
                 return AgentTurnResult(completion, messages, tool_results, trace)
 
+    # The tool budget is spent: ask once more without tools so the user gets a written answer.
+    if messages and messages[-1].get("role") == "tool":
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=messages,
+                tools=tools,
+                tool_choice="none",
+                temperature=0.2,
+                extra_body={"thinking": {"type": "enabled" if thinking_enabled else "disabled"}},
+            )
+            message = response.choices[0].message
+            if message.content:
+                messages.append(_assistant_to_dict(message))
+                return AgentTurnResult(message.content, messages, tool_results, trace)
+        except Exception:  # fall back to the plain notice below
+            pass
     fallback = (
         "I called several rounds of tools but did not receive a final assistant reply yet. Please check the tool results on the right, or ask me to continue the analysis."
         if _is_english(response_language)

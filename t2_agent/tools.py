@@ -595,14 +595,24 @@ def _literature_section(
     amp: np.ndarray,
     gaussian_runs: list[dict[str, Any]],
     language: str,
+    sample_context: str = "",
 ) -> tuple[list[str], list[str]]:
     """Collect the numbers of this analysis and write the literature-based section."""
 
-    from .literature import AnalysisFacts, build_findings, early_time_misfit, render_section, spectrum_peaks
+    from .literature import (
+        AnalysisFacts,
+        build_findings,
+        early_time_misfit,
+        echo_timing,
+        gaussian_fit_r2,
+        render_section,
+        spectrum_peaks,
+        wall_coverage_from_labels,
+    )
 
     stages = [str(item.summary.get("stage", "")) for item in results]
     workflow = "ideal" if any(stage.startswith("ideal_") for stage in stages) else "ct" if any(stage.startswith("ct_") for stage in stages) else "measured"
-    facts = AnalysisFacts(workflow=workflow, t2_ms=t2, spectrum=amp)
+    facts = AnalysisFacts(workflow=workflow, t2_ms=t2, spectrum=amp, sample_context=sample_context or "")
     facts.main_peak_ms = summary.get("main_peak_t2_ms")
     facts.short_fraction = summary.get("short_t2_fraction_lt_10ms")
     facts.long_fraction = summary.get("long_t2_fraction_ge_1000ms")
@@ -620,10 +630,14 @@ def _literature_section(
     if facts.inversion_mode == "lcurve":
         facts.alpha = summary.get("best_regularization")
     trimmed = next((item.summary.get("trimmed_xlsx") for item in reversed(results) if item.summary.get("trimmed_xlsx")), None)
-    if trimmed and Path(str(trimmed)).exists():
+    if trimmed and Path(str(trimmed)).exists() and workflow == "measured":
         facts.early_misfit_fraction, facts.decay_end_fraction = early_time_misfit(Path(str(trimmed)))
+        facts.first_echo_ms, facts.echo_spacing_ms = echo_timing(Path(str(trimmed)))
     if gaussian_runs:
         facts.gaussian_peaks = [peak for peak in gaussian_runs[-1]["peaks"] if peak.get("position_ms") is not None]
+        fit_xlsx = gaussian_runs[-1].get("fit_file")
+        if fit_xlsx and Path(fit_xlsx).exists():
+            facts.gaussian_r2 = gaussian_fit_r2(Path(fit_xlsx))
     for item in results:
         if item.summary.get("stage") == "ideal_geometry" and item.summary.get("ideal_config"):
             facts.ideal = {
@@ -633,12 +647,27 @@ def _literature_section(
             }
             facts.bulk_t2_ms = float(item.summary["ideal_config"].get("bulk_t2_ms", 3000.0))
         if item.summary.get("stage") == "ct_geometry":
-            facts.ct = {"water_saturation_2d": item.summary.get("water_saturation_2d")}
+            facts.ct = (facts.ct or {}) | {"water_saturation_2d": item.summary.get("water_saturation_2d")}
+            labels_npy = item.summary.get("labels_npy")
+            if labels_npy and Path(str(labels_npy)).exists():
+                facts.ct["wall_coverage"] = wall_coverage_from_labels(np.load(str(labels_npy)))
+        if item.summary.get("stage") == "ct_mesh" and item.summary.get("solid_liquid_boundary_length_um") is not None:
+            mesh = item.summary
+            relaxing = float(mesh["solid_liquid_boundary_length_um"]) + float(mesh.get("relaxing_edge_length_um") or 0.0)
+            facts.ct = (facts.ct or {}) | {"relaxing_boundary_um": relaxing}
         if item.summary.get("stage") == "ct_decay":
             used = item.summary.get("params_used") or {}
             facts.bulk_t2_ms = used.get("bulk_t2_ms")
             facts.rho_um_per_ms = used.get("rho_solid_um_per_ms")
             facts.diffusion_um2_per_ms = used.get("diffusion_um2_per_ms")
+            facts.decay_end_fraction = item.summary.get("final_normalized_signal")
+            facts.ct = (facts.ct or {}) | {"pixel_surface_to_volume_per_um": item.summary.get("surface_to_volume_per_um")}
+            # The unnormalised magnetisation at t = 0 is the meshed water area (M0 = 1 per unit area).
+            curve_csv = next((path for path in (item.summary.get("simulation_stages") or {}).get("decay", []) if str(path).endswith(".csv")), None)
+            if curve_csv and Path(str(curve_csv)).exists():
+                first = pd.read_csv(str(curve_csv), nrows=1)
+                if "signal" in first:
+                    facts.ct["water_area_um2"] = float(first["signal"].iloc[0])
     facts.pore_diameter_um = summary.get("local_pore_diameter_um")
     return render_section(build_findings(facts, language), language)
 
@@ -747,8 +776,12 @@ def _add_inversion_report_figure(
     return str(figure_path)
 
 
-def interpret_results(results: list[AgentToolResult], output_dir: Path, language: str = "中文") -> AgentToolResult:
-    """Summarize generated T2 artifacts into a user-facing interpretation."""
+def interpret_results(results: list[AgentToolResult], output_dir: Path, language: str = "中文", sample_context: str = "") -> AgentToolResult:
+    """Summarize generated T2 artifacts into a user-facing interpretation.
+
+    ``sample_context`` is the user's description of the sample (for example "biomass-containing soil");
+    it selects material-specific literature rules such as the soil water-state classes.
+    """
 
     try:
         english = _is_english(language)
@@ -882,12 +915,11 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
             amp = amp[mask]
             spectrum_t2, spectrum_amp = t2, amp
             if t2.size and amp.size:
+                from .literature import class_fractions
+
                 max_idx = int(np.argmax(amp))
-                total_area = _trapezoid_area(amp, np.log10(t2)) if t2.size > 1 else float(amp[max_idx])
-                short_fraction = float(_trapezoid_area(amp[t2 < 10], np.log10(t2[t2 < 10])) / total_area) if np.sum(t2 < 10) > 1 and total_area > 0 else 0.0
-                mid_mask = (t2 >= 10) & (t2 < 1000)
-                mid_fraction = float(_trapezoid_area(amp[mid_mask], np.log10(t2[mid_mask])) / total_area) if np.sum(mid_mask) > 1 and total_area > 0 else 0.0
-                long_fraction = max(0.0, 1.0 - short_fraction - mid_fraction) if total_area > 0 else 0.0
+                # Bin sums on the logarithmic grid, so the three classes add up to 100%.
+                short_fraction, mid_fraction, long_fraction = class_fractions(t2, amp, (10.0, 1000.0))
                 summary.update(
                     {
                         "spectrum_file": str(spectrum_path),
@@ -902,14 +934,10 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
                 lines.append("## T2 Spectrum Interpretation" if english else "## T2 谱解释")
                 if english:
                     lines.append(f"- The main peak is around `{float(t2[max_idx]):.4g} ms`, which is the strongest T2 component in the current spectrum.")
-                    lines.append(f"- The short-T2 area fraction (<10 ms) is about `{short_fraction:.1%}`. This often indicates bound fluid, small pores, or strong surface relaxation.")
-                    lines.append(f"- The middle-T2 area fraction (10-1000 ms) is about `{mid_fraction:.1%}`. This often corresponds to more mobile pore fluid.")
-                    lines.append(f"- The long-T2 area fraction (>=1000 ms) is about `{long_fraction:.1%}`. This may indicate freer fluid or a long relaxation tail.")
+                    lines.append(f"- Area below 10 ms, 10-1000 ms and above 1000 ms: `{short_fraction:.1%}`, `{mid_fraction:.1%}`, `{long_fraction:.1%}`. These fixed bounds are an empirical division (short T2: bound fluid or strong surface relaxation; long T2: freer fluid); the material-specific classes, where they apply, are in the literature section below.")
                 else:
                     lines.append(f"- 主峰位置约在 `{float(t2[max_idx]):.4g} ms`，这是当前谱中幅值最高的 T2 组分。")
-                    lines.append(f"- 短 T2（<10 ms）面积占比约 `{short_fraction:.1%}`，通常更偏束缚流体、小孔或表面弛豫强的组分。")
-                    lines.append(f"- 中等 T2（10-1000 ms）面积占比约 `{mid_fraction:.1%}`，通常对应较可动的孔隙流体。")
-                    lines.append(f"- 长 T2（>=1000 ms）面积占比约 `{long_fraction:.1%}`，可能对应更自由的流体或长弛豫尾部。")
+                    lines.append(f"- <10 ms、10–1000 ms、≥1000 ms 的面积占比分别约为 `{short_fraction:.1%}`、`{mid_fraction:.1%}`、`{long_fraction:.1%}`。这三个固定区间是经验划分（短 T2 偏束缚流体或强表面弛豫，长 T2 偏自由流体），边界随材料而变；适用时，按材料的分类见下方文献依据部分。")
                 lines.append("")
 
         gaussian_runs = []
@@ -924,13 +952,17 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
                         "peak_id": int(row.get("peak_id", len(peak_rows) + 1)),
                         "signal_name": str(row.get("signal_name", "")),
                         "position_ms": _safe_float(row.get("position_ms")),
+                        "width_log10": _safe_float(row.get("width_log10")),
                         "area_fraction": _safe_float(row.get("area_fraction")),
                     }
                 )
             peak_count = _infer_peak_count_from_gaussian_summary_path(gaussian_summary_path) or len({row["peak_id"] for row in peak_rows})
+            stamp = gaussian_summary_path.stem.split("__")[-1]
+            fit_file = next(iter(sorted(gaussian_summary_path.parent.glob(f"*gaussian_f*{stamp}.xlsx"))), None)
             gaussian_runs.append(
                 {
                     "summary_file": str(gaussian_summary_path),
+                    "fit_file": str(fit_file) if fit_file else None,
                     "peak_count": peak_count,
                     "peaks": peak_rows,
                 }
@@ -965,7 +997,7 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
 
         if spectrum_t2 is not None:
             try:
-                literature_lines, cited = _literature_section(results, summary, spectrum_t2, spectrum_amp, gaussian_runs, language)
+                literature_lines, cited = _literature_section(results, summary, spectrum_t2, spectrum_amp, gaussian_runs, language, sample_context)
                 lines.extend(literature_lines)
                 summary["literature_citations"] = cited
                 # Structured copies so the model can quote them without the truncated message.

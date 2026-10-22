@@ -38,6 +38,8 @@ IDEAL_CASES = {
     "B_uncoupled_full": {"coupled": False, "large_water_saturation": 1.0, "small_water_saturation": 1.0},
     "C_coupled_bubble_Sw0p70": {"coupled": True, "large_water_saturation": 0.70, "small_water_saturation": 0.70},
     "D_uncoupled_corner_Sw0p30": {"coupled": False, "large_water_saturation": 0.30, "small_water_saturation": 0.30},
+    # Partly drained large pore with the same water volume per wetted wall as the saturated small pore.
+    "E_uncoupled_large_Sw0p40": {"coupled": False, "large_water_saturation": 0.40, "small_water_saturation": 1.0},
 }
 
 # Ordered rules on the file name; the first match wins.
@@ -71,7 +73,7 @@ def log(case: str, result) -> None:
 def run_measured(out: Path) -> dict:
     data = ROOT / "testData" / "ExperimentalDecay.xlsx"
     context = AgentRuntimeContext(workspace=out, uploaded_path=data, uploaded_paths=[data])
-    context.last_user_goal = "帮我对这个实验衰减数据做 T2 反演，用 L-curve 自动选平滑因子，再做两峰高斯分峰并解释结果"
+    context.last_user_goal = "这是维也纳含生物质土壤的 NMR 实验衰减数据，帮我做 T2 反演，用 L-curve 自动选平滑因子，再做两峰高斯分峰并解释结果"
     steps = [
         ("inspect_workbook_schema", {}),
         ("validate_workbook", {}),

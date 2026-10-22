@@ -98,7 +98,8 @@ prompt -> needs_ideal_parameter_confirmation -> dialog with live geometry previe
   because the water no longer touches the throat.
 - Gas-water interfaces and throat walls are no-flux; ρ applies to solid walls only.
 - The time axis defaults to five fast-diffusion T2 estimates, so the decay
-  reaches its baseline.
+  reaches its baseline; the implicit-Euler step is kept below 1/40 of the
+  shortest estimate (T2 bias under about 1.3%).
 - Each confirmed run writes `ideal_simulation/<coupled|uncoupled>__Sw..__run_<time>/`
   with the geometry preview and `ideal_run_config.json`. The next request asks
   for confirmation again.
@@ -127,12 +128,28 @@ detected spectral maxima.
 
 `interpret_results` adds a section that ties the numbers of each run to the
 papers in `docs/nmr_t2_literature_knowledge`, with AGU in-text citations and an
-AGU reference list. Examples: the selected α and the L-curve rule, early-echo
-misfit, the fast-diffusion number ρ·r/D, estimated versus inverted T2 peaks,
-coupling, partial saturation, bulk-dominated relaxation, and surface-relaxivity
-caveats for measured data. Only references verified against Crossref (DOI) or a
-book title page are cited; refresh them with
-`python scripts/enrich_literature_references.py`.
+AGU reference list. Each statement leads with what the number means for the
+sample and is emitted only when the agent has computed the quantity it rests on:
+
+- Measured decay of a soil or organic-rich sample (named in the request or in
+  `sample_description`): water-state classes (< 60 ms, 60–300 ms, > 300 ms;
+  Bayer et al., 2010), the share relaxing slower than 1 s against the about 2 s
+  of extracted pore water, two Gaussian water populations, and the bound-water
+  lower bound set by the first echo.
+- Ideal triangle pair: peaks against the per-pore fast-diffusion estimates
+  without coupling; with a throat, the fast-exchange limit, the exchange time and
+  the small-pore water merged into one peak; under partial saturation, the
+  capacity check of Zhou and Zhang (2025).
+- Segmented CT slice: the harmonic-mean T2 against the meshed S/V (exact for the
+  initial decay rate), the peak bias for ρ calibration, pixel versus mesh S/V,
+  bulk-relaxation share, wetted-wall fraction, spectral area above T2,bulk, and
+  unresolved Gaussian components.
+
+Only references verified against Crossref (DOI) or a book title page are cited;
+refresh them with `python scripts/enrich_literature_references.py`. The web
+LLM is instructed to lead its reply with these findings, keep their numbers and
+citations, and add no caveats that the findings do not state. When the six tool
+rounds are spent, one further call without tools writes the reply.
 
 ## Showcase Run of All Usages
 
@@ -140,7 +157,7 @@ book title page are cited; refresh them with
 python scripts/run_showcase_examples.py
 ```
 
-Runs the measured-decay inversion, four confirmed ideal-structure cases
+Runs the measured-decay inversion, five confirmed ideal-structure cases
 (coupled/uncoupled, full and partial saturation) and a segmented CT slice
 through the agent's tools without a language model. Outputs go to
 `outputs/showcase/<time>/` (git-ignored) with `manifest.json` and a Chinese

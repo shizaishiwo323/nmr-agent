@@ -10,3 +10,5 @@ __pycache__/
 
 # Reproducible showcase runs (scripts/run_showcase_examples.py)
 outputs/showcase/
+outputs/paper_cases/
+outputs/llm_check/

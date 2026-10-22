@@ -148,9 +148,13 @@ def solve_t2_nnls_matlab_compatible(
     reversed_smoothed = lfilter(np.ones(smooth_window, dtype=float) / float(smooth_window), [1.0], reversed_data)
 
     if reversed_smoothed.size >= smooth_window:
-        data_arr = reversed_smoothed[::-1][smooth_window - 1 :]
+        # After the reversal, sample i averages echoes i .. i+w-1. Keep the windows that lie fully
+        # inside the record (the last w-1 values are zero-padded) and time-stamp each one at its
+        # window centre; keeping the first time stamps instead shifts the decay by (w+1)/2 echoes.
         keep_count = time_arr.size - smooth_window + 1
-        time_arr = time_arr[:keep_count]
+        half = (smooth_window - 1) // 2
+        data_arr = reversed_smoothed[::-1][:keep_count]
+        time_arr = time_arr[half : half + keep_count]
     else:
         data_arr = np.array([], dtype=float)
         time_arr = np.array([], dtype=float)
