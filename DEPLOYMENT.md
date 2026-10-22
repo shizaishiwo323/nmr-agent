@@ -82,7 +82,7 @@ PNG input.
 
 If you still create an app from Streamlit Community Cloud, use:
 
-- Repository: `shizaishiwo323/t2-inversion-agent`
+- Repository: `shizaishiwo323/nmr-agent`
 - Branch: `main`
 - Main file path: `streamlit_app.py`
 - Python version: Python 3.11 in Advanced settings

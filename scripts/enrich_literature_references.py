@@ -171,7 +171,7 @@ def agu_reference(message: dict) -> tuple[str, str, int | None]:
 
 
 def crossref(doi: str) -> dict:
-    request = urllib.request.Request(f"https://api.crossref.org/works/{doi}", headers={"User-Agent": "t2-inversion-agent literature check"})
+    request = urllib.request.Request(f"https://api.crossref.org/works/{doi}", headers={"User-Agent": "nmr-agent literature check"})
     with urllib.request.urlopen(request, timeout=30) as response:
         return json.loads(response.read().decode("utf-8"))["message"]
 

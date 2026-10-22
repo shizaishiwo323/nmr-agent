@@ -8,7 +8,7 @@ Gaussian peak decomposition, result interpretation, and report generation.
 
 ## Live App
 
-[Open the deployed NMR Simulation and T2 Inversion Agent](https://t2-inversion-agent.streamlit.app/)
+[Open the deployed NMR Simulation and T2 Inversion Agent](https://nmr-agent.streamlit.app/)
 
 ## What It Does
 
