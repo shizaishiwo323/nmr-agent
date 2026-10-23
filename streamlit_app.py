@@ -2015,14 +2015,14 @@ def main() -> None:
 
     top_control_cols = st.columns([0.16, 0.54, 0.14, 0.16], gap="small")
     with top_control_cols[0]:
-        toggle_label = "展开顶部区域" if top_shell_collapsed else "收起顶部区域"
+        toggle_label = t(language, "expand_top" if top_shell_collapsed else "collapse_top")
         if st.button(toggle_label, width="content"):
             st.session_state.top_shell_collapsed = not top_shell_collapsed
             st.rerun()
 
     if top_shell_collapsed:
         with top_control_cols[1]:
-            st.markdown("<div class='t2-top-shell-collapsed-note'>顶部说明、任务管理和 API 设置已收起。</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='t2-top-shell-collapsed-note'>{t(language, 'top_collapsed_note')}</div>", unsafe_allow_html=True)
     else:
         with top_control_cols[2]:
             with st.popover(t(language, "api_settings"), use_container_width=True):
@@ -2098,7 +2098,7 @@ def main() -> None:
         st.markdown("<span class='t2-floating-model-anchor'></span>", unsafe_allow_html=True)
         selected_model = st.session_state.get("selected_model", DEFAULT_MODEL)
         thinking_state = bool(st.session_state.get("thinking_enabled", DEFAULT_THINKING_ENABLED))
-        model_badge = selected_model.replace("deepseek-", "").replace("-flash", " 快").replace("-pro", " 高")
+        model_badge = selected_model.replace("deepseek-", "").replace("-flash", " " + t(language, "model_fast")).replace("-pro", " " + t(language, "model_pro"))
         if thinking_state:
             model_badge = f"{model_badge}"
         with st.popover(model_badge, use_container_width=True):
