@@ -5,7 +5,9 @@ This directory has been standardized as a Python package for NMR T2 processing.
 ## Features
 
 - **NNLS inversion** with MATLAB-compatible core behavior
-- **L-curve regularization selection** with reciprocal-slope criterion
+- **L-curve regularization selection** with the slope-of-the-L-curve criterion
+  of Zou et al. (2016): the reciprocal of the absolute L-curve slope closest to
+  0.25 within 0.1–10 (Pet. Sci. 13, 237–246, https://doi.org/10.1007/s12182-016-0093-6)
 - **Paired plotting** for raw decay and T2 spectrum
 - **Gaussian peak decomposition** for spectrum interpretation
 

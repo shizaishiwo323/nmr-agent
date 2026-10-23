@@ -87,6 +87,11 @@ EXTRA_PAPERS = {
         "category": "05_soil_organic_matter",
         "selection_reason": "砂样 T2 随饱和度的变化取决于扩散区制、孔隙充填方式、ρ 与孔径（摘要）。",
     },
+    "Zou2016LCurveSlope": {
+        "doi": "10.1007/s12182-016-0093-6",
+        "category": "01_core_theory_inversion",
+        "selection_reason": "L-curve 斜率准则：用 L-curve 斜率绝对值的倒数选正则化参数，阈值取 [0.1, 10]，范数平滑取 5、曲率平滑取 0.25（Section 3.5）；本工具的默认反演采用此准则。",
+    },
     "Behroozmand2015Review": {
         "doi": "10.1007/s10712-014-9304-0",
         "category": "01_core_theory_inversion",

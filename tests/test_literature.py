@@ -52,7 +52,7 @@ def test_measured_rock_findings_drop_generic_caveats():
     assert "below the early echoes" in text and "underestimated" in text
     assert "hematite" not in text and "quartz" not in text
     lines, cited = lit.render_section(findings, "English")
-    assert "## References" in lines and "Hansen1992LCurve" in cited
+    assert "## References" in lines and "Zou2016LCurveSlope" in cited
 
 
 def test_soil_findings_give_water_states_and_two_populations():

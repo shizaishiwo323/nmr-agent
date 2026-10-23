@@ -4730,5 +4730,20 @@
     "title_similarity_to_card": 1.0,
     "reference_verified": true,
     "reference_source": "crossref"
+  },
+  {
+    "citation_key": "Zou2016LCurveSlope",
+    "agent_citation_key": "Zou2016LCurveSlope",
+    "card_md": "papers\\Zou2016LCurveSlope.md",
+    "doi": "10.1007/s12182-016-0093-6",
+    "category": "01_core_theory_inversion",
+    "selection_reason": "L-curve 斜率准则：用 L-curve 斜率绝对值的倒数选正则化参数，阈值取 [0.1, 10]，范数平滑取 5、曲率平滑取 0.25（Section 3.5）；本工具的默认反演采用此准则。",
+    "reference_agu": "Zou, Y.-L., Xie, R.-H., & Arad, A. (2016). Numerical estimation of choice of the regularization parameter for NMR T2 inversion. Petroleum Science, 13(2), 237–246. https://doi.org/10.1007/s12182-016-0093-6",
+    "in_text": "Zou et al., 2016",
+    "year": 2016,
+    "crossref_title": "Numerical estimation of choice of the regularization parameter for NMR T2 inversion",
+    "title_similarity_to_card": 1.0,
+    "reference_verified": true,
+    "reference_source": "crossref"
   }
 ]

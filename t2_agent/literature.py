@@ -639,10 +639,10 @@ def _inversion_basis(facts: AnalysisFacts, zh: bool) -> Finding | None:
             keys,
         )
     if facts.inversion_mode == "lcurve" and facts.alpha is not None:
-        keys = ["Hansen1992LCurve", "WhittallMacKay1989NNLS"]
         rule = facts.selection_rule or "ratio"
-        rule_zh = "斜率倒数最接近 0.25 的准则（本工具的规则，不是 Hansen 的最大曲率拐角）" if rule == "ratio" else "L-curve 最大曲率准则"
-        rule_en = "the slope-reciprocal ratio closest to 0.25 (this tool's rule, not Hansen's maximum-curvature corner)" if rule == "ratio" else "the maximum-curvature rule"
+        keys = ["Zou2016LCurveSlope", "WhittallMacKay1989NNLS"] if rule == "ratio" else ["Hansen1992LCurve", "WhittallMacKay1989NNLS"]
+        rule_zh = "L-curve 斜率准则：斜率绝对值的倒数在 0.1–10 内最接近 0.25（曲率平滑算子的推荐阈值）" if rule == "ratio" else "L-curve 最大曲率准则"
+        rule_en = "the slope-of-the-L-curve criterion, the reciprocal of the absolute slope closest to 0.25 within 0.1–10 (the threshold recommended for curvature smoothing)" if rule == "ratio" else "the maximum-curvature rule"
         return Finding(
             "regularization_sensitive",
             (f"平滑因子 α = {_fmt(facts.alpha)} 由 L-curve 在残差范数与谱粗糙度之间折中选出，选择规则为{rule_zh}；同一衰减可对应多种谱，因此峰位比峰数更稳健 {in_text(keys)}。"

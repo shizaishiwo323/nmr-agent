@@ -15,7 +15,9 @@ Gaussian peak decomposition, result interpretation, and report generation.
 - Guides beginner users through T2 inversion choices in plain language.
 - Detects flexible Excel layouts instead of assuming the first column is time.
 - Repairs safe nonstandard workbooks into `time_ms + signal` format.
-- Runs L-curve inversion when users do not know the smoothing factor.
+- Runs L-curve inversion when users do not know the smoothing factor; the
+  default selection is the slope-of-the-L-curve criterion of Zou et al. (2016),
+  and maximum curvature (Hansen, 1992) is available for noise-free simulations.
 - Runs fixed-regularization NNLS when users provide a smoothing factor.
 - Generates plots, Gaussian peak fits, interpretation notes, reports, and a
   zip download for all outputs created during a task.
@@ -206,6 +208,19 @@ use the Dockerfile rather than a plain Streamlit Community Cloud build. The
 Docker image supports the platform `PORT` environment variable and includes a
 Streamlit health check. If no Cloud secret is configured, users can still
 provide their own DeepSeek API key in the page.
+
+## Inversion References
+
+- Zou, Y.-L., Xie, R.-H., & Arad, A. (2016). Numerical estimation of choice of the
+  regularization parameter for NMR T2 inversion. Petroleum Science, 13(2), 237–246.
+  https://doi.org/10.1007/s12182-016-0093-6 (default smoothing-factor selection: the
+  reciprocal of the absolute L-curve slope closest to 0.25 within 0.1–10).
+- Hansen, P. C. (1992). Analysis of discrete ill-posed problems by means of the
+  L-curve. SIAM Review, 34(4), 561–580. https://doi.org/10.1137/1034115
+  (maximum-curvature option).
+- Whittall, K. P., & MacKay, A. L. (1989). Quantitative interpretation of NMR
+  relaxation data. Journal of Magnetic Resonance, 84(1), 134–152.
+  https://doi.org/10.1016/0022-2364(89)90011-5 (non-negative least squares).
 
 ## Safety Boundary
 
