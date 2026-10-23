@@ -647,10 +647,16 @@ def _literature_section(
             }
             facts.bulk_t2_ms = float(item.summary["ideal_config"].get("bulk_t2_ms", 3000.0))
         if item.summary.get("stage") == "ct_geometry":
-            facts.ct = (facts.ct or {}) | {"water_saturation_2d": item.summary.get("water_saturation_2d")}
+            facts.ct = (facts.ct or {}) | {
+                "water_saturation_2d": item.summary.get("water_saturation_2d"),
+                "porosity_2d": item.summary.get("porosity_2d"),
+                "pixel_size_um": item.summary.get("pixel_size_um"),
+            }
             labels_npy = item.summary.get("labels_npy")
             if labels_npy and Path(str(labels_npy)).exists():
-                facts.ct["wall_coverage"] = wall_coverage_from_labels(np.load(str(labels_npy)))
+                labels = np.load(str(labels_npy))
+                facts.ct["labels"] = labels
+                facts.ct["wall_coverage"] = wall_coverage_from_labels(labels)
         if item.summary.get("stage") == "ct_mesh" and item.summary.get("solid_liquid_boundary_length_um") is not None:
             mesh = item.summary
             relaxing = float(mesh["solid_liquid_boundary_length_um"]) + float(mesh.get("relaxing_edge_length_um") or 0.0)

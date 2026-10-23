@@ -211,6 +211,41 @@ def wall_coverage_from_labels(labels: np.ndarray) -> dict[str, float] | None:
     return {"wetted_wall_fraction": wet_wall / (wet_wall + dry_wall), "saturated_to_water_sv_ratio": float(pore_sv / water_sv)}
 
 
+def water_regions_from_labels(labels: np.ndarray, pixel_um: float, rho: float, bulk_t2_ms: float) -> dict[str, float] | None:
+    """Connected water regions of a CT label image and their fast-diffusion T2 from pixel-face S/V.
+
+    Relaxing faces are water faces next to solid or background and at the image border, as in
+    the forward model. Returns the region count, the water share and T2 of the largest region,
+    and the share and harmonic-mean T2 of all other regions.
+    """
+
+    from scipy import ndimage
+
+    lab = np.asarray(labels)
+    water, sink = lab == 1, (lab == 2) | (lab == 0)
+    regions, count = ndimage.label(water)
+    if count == 0:
+        return None
+
+    def faces(a: np.ndarray, b: np.ndarray) -> int:
+        return int(np.sum(a[:, :-1] & b[:, 1:]) + np.sum(a[:, 1:] & b[:, :-1]) + np.sum(a[:-1, :] & b[1:, :]) + np.sum(a[1:, :] & b[:-1, :]))
+
+    sizes, t2 = [], []
+    for k in range(1, count + 1):
+        mask = regions == k
+        edge = faces(mask, sink) + int(mask[0, :].sum() + mask[-1, :].sum() + mask[:, 0].sum() + mask[:, -1].sum())
+        sizes.append(mask.sum())
+        t2.append(1.0 / (1.0 / bulk_t2_ms + rho * edge / (mask.sum() * pixel_um)))
+    sizes, t2 = np.asarray(sizes, float), np.asarray(t2, float)
+    order = np.argsort(-sizes)
+    big, rest = order[0], order[1:]
+    out = {"count": int(count), "largest_share": float(sizes[big] / sizes.sum()), "largest_t2_ms": float(t2[big])}
+    if rest.size:
+        out["others_share"] = float(sizes[rest].sum() / sizes.sum())
+        out["others_t2_ms"] = float(sizes[rest].sum() / np.sum(sizes[rest] / t2[rest]))
+    return out
+
+
 # --------------------------------------------------------------------------
 # Measured decays
 # --------------------------------------------------------------------------
@@ -528,6 +563,21 @@ def _ct_findings(facts: AnalysisFacts, zh: bool) -> list[Finding]:
     wall = info.get("relaxing_boundary_um")
     area = info.get("water_area_um2")
     peak = facts.main_peak_ms
+    regions = None
+    if info.get("labels") is not None and info.get("pixel_size_um"):
+        regions = water_regions_from_labels(info["labels"], float(info["pixel_size_um"]), rho, bulk)
+    porosity, sw = info.get("porosity_2d"), info.get("water_saturation_2d")
+    if porosity is not None and sw is not None and peak:
+        lead_zh = f"CT 切片的二维孔隙度为 {porosity:.1%}，含水饱和度为 {sw:.1%}；T2 谱是一个主峰位于 {_fmt(peak)} ms 的宽峰。"
+        lead_en = f"The CT slice has a 2D porosity of {porosity:.1%} and a water saturation of {sw:.1%}; its T2 spectrum is one broad peak at {_fmt(peak)} ms. "
+        region_zh = region_en = ""
+        keys = ["BrownsteinTarr1979"]
+        if regions and regions.get("others_share"):
+            region_zh = (f"含水域由 {regions['count']} 个互不连通的水团组成：最大水团占 {_pct(regions['largest_share'])} 的水，按其边界 S/V 估计 T2 ≈ {_fmt(regions['largest_t2_ms'])} ms；"
+                         f"其余较小水团占 {_pct(regions['others_share'])}，S/V 更高，估计 T2 ≈ {_fmt(regions['others_t2_ms'])} ms，弛豫更快，构成谱的短 T2 一侧，因此谱是一个向短 T2 拖尾的不对称宽峰 {in_text(keys)}。")
+            region_en = (f"The water forms {regions['count']} disconnected regions: the largest holds {_pct(regions['largest_share'])} of the water with an S/V-based T2 of about {_fmt(regions['largest_t2_ms'])} ms, "
+                         f"while the smaller regions hold {_pct(regions['others_share'])} at a higher S/V (about {_fmt(regions['others_t2_ms'])} ms), relax faster and form the short-T2 side, so the spectrum is one asymmetric peak with a tail towards short T2 {in_text(keys)}.")
+        out.append(Finding("ct_porosity_and_water_regions", (lead_zh + region_zh) if zh else (lead_en + region_en), keys if region_zh else []))
     if t_hm and wall and area and peak:
         sv = wall / area
         predicted = 1.0 / _rate(bulk, rho, sv)

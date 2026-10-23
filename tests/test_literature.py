@@ -129,5 +129,8 @@ def test_ct_findings_check_sv_and_unresolved_components():
                 "pixel_surface_to_volume_per_um": 0.0484, "wall_coverage": lit.wall_coverage_from_labels(labels)}
     scenarios = [finding.scenario for finding in lit.build_findings(facts, "English")]
     assert scenarios[:3] == ["sv_first_moment_check", "rho_calibration_conditioning", "saturation_wall_coverage"]
+    facts.ct |= {"porosity_2d": 0.332, "labels": labels, "pixel_size_um": 4.6}
+    first = lit.build_findings(facts, "English")[0]
+    assert first.scenario == "ct_porosity_and_water_regions" and "33.2%" in first.text
     assert "unresolved_gaussian_components" in scenarios and "area_above_bulk_t2" in scenarios
     assert lit.wall_coverage_from_labels(labels)["wetted_wall_fraction"] < 1.0
