@@ -175,6 +175,11 @@ detected spectral maxima.
 
 ## Literature-Based Interpretation
 
+The full rule set (20 rules), the conditions under which each rule is applied
+and the 21 references it cites are listed in
+[`docs/interpretation_rules.md`](docs/interpretation_rules.md); the literature
+library (64 papers) is in `docs/nmr_t2_literature_knowledge/`.
+
 `interpret_results` adds a section that ties the numbers of each run to the
 papers in `docs/nmr_t2_literature_knowledge`, with AGU in-text citations and an
 AGU reference list. Each statement leads with what the number means for the
