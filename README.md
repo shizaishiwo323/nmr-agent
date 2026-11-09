@@ -37,8 +37,9 @@ temperature 0.2). Other models choose tools differently, so their replies can
 differ. The tools and solvers are the same, whichever model is used. The automated tests check the
 provider layer with a mock client; they do not call a live model.
 
-Without a key, the deterministic local workflows (ideal-structure and
-segmented-CT runs confirmed in their dialogs) still work.
+A key is needed for the chat, which drives all workflows. The key only pays
+for the model's replies: meshing, forward modelling, inversion and
+interpretation run inside the app.
 
 ## What It Does
 
