@@ -1,0 +1,304 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  :root { --ink: #0f172a; --muted: #64748b; --line: rgba(148, 163, 184, 0.45); --bg: #ffffff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Source Sans Pro", "Segoe UI", "Microsoft YaHei", sans-serif; color: var(--ink); background: transparent; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; font-size: 13px; margin: 2px 0 8px; }
+  .toolbar label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .toolbar input[type=range] { width: 110px; }
+  .hint { color: var(--muted); font-size: 12.5px; margin: 0 0 8px; line-height: 1.4; }
+  .stage { position: relative; margin: 0 auto; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; touch-action: none; background: #111; }
+  canvas.view { display: block; image-rendering: pixelated; image-rendering: crisp-edges; }
+  .marker { position: absolute; transform: translate(-50%, -50%); cursor: grab; user-select: none; touch-action: none; z-index: 3; display: flex; align-items: center; }
+  .marker.dragging { cursor: grabbing; z-index: 5; }
+  .dot { width: 26px; height: 26px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,.55); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+  .tag { position: absolute; white-space: nowrap; padding: 2px 7px; border-radius: 6px; font-size: 12px; font-weight: 600; color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,.35); pointer-events: none; }
+  .marker:focus-visible .dot { outline: 3px solid #2563eb; outline-offset: 2px; }
+  .loupe { position: absolute; width: 132px; height: 132px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 6px 18px rgba(0,0,0,.5); pointer-events: none; z-index: 6; display: none; overflow: hidden; }
+  .loupe canvas { width: 100%; height: 100%; image-rendering: pixelated; }
+  .loupe::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 0 1px rgba(0,0,0,.6); }
+  .readout { position: absolute; z-index: 6; pointer-events: none; background: rgba(15,23,42,.88); color: #fff; font-size: 12px; padding: 3px 7px; border-radius: 6px; display: none; white-space: nowrap; }
+  table.legend { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+  table.legend th { text-align: left; color: var(--muted); font-weight: 600; padding: 4px 6px; border-bottom: 1px solid var(--line); }
+  table.legend td { padding: 5px 6px; border-bottom: 1px solid rgba(148,163,184,.2); vertical-align: middle; }
+  .swatch { display: inline-block; width: 16px; height: 16px; border-radius: 4px; border: 1px solid rgba(0,0,0,.25); vertical-align: middle; margin-right: 6px; }
+  .chip { display: inline-block; padding: 1px 8px; border-radius: 999px; color: #fff; font-weight: 600; font-size: 12px; }
+  .changed { color: #b45309; font-weight: 600; font-size: 12px; }
+  .same { color: #15803d; font-size: 12px; }
+  button.reset { border: 1px solid var(--line); background: #fff; border-radius: 6px; padding: 3px 10px; cursor: pointer; font-size: 12.5px; }
+  button.reset:hover { background: #f1f5f9; }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <label><input type="checkbox" id="overlay" checked /> <span id="overlayLabel">Phase colours</span></label>
+  <label><span id="opacityLabel">Opacity</span> <input type="range" id="opacity" min="0" max="100" value="50" /></label>
+  <button class="reset" id="reset" type="button">Reset to AI guess</button>
+</div>
+<p class="hint" id="hint"></p>
+<div class="stage" id="stage">
+  <canvas class="view" id="view"></canvas>
+  <div class="loupe" id="loupe"><canvas id="loupeCanvas" width="132" height="132"></canvas></div>
+  <div class="readout" id="readout"></div>
+</div>
+<table class="legend" id="legend"></table>
+
+<script>
+(function () {
+  // Minimal Streamlit component protocol (no build step needed).
+  function send(type, data) {
+    window.parent.postMessage(Object.assign({ isStreamlitMessage: true, type: type }, data || {}), "*");
+  }
+  let lastHeight = 0;
+  function setHeight() {
+    // Measure the content, not the iframe viewport, or the frame grows on every render.
+    const height = Math.ceil(document.body.getBoundingClientRect().height) + 8;
+    if (Math.abs(height - lastHeight) < 2) return;
+    lastHeight = height;
+    send("streamlit:setFrameHeight", { height: height });
+  }
+  function setValue(value) { send("streamlit:setComponentValue", { value: value, dataType: "json" }); }
+
+  const state = {
+    args: null, revision: null, assignment: {}, aiAssignment: {}, markers: {}, entries: [],
+    img: null, srcCanvas: null, srcData: null, grayToValue: {}, scale: 1, eventId: 0,
+  };
+  const view = document.getElementById("view");
+  const stage = document.getElementById("stage");
+  const loupe = document.getElementById("loupe");
+  const loupeCanvas = document.getElementById("loupeCanvas");
+  const readout = document.getElementById("readout");
+  const overlayBox = document.getElementById("overlay");
+  const opacity = document.getElementById("opacity");
+
+  function t(key) { return (state.args && state.args.text && state.args.text[key]) || key; }
+  function phaseMeta(phase) { return state.args.phases[phase] || { color: [255, 255, 255], name: phase, short: "?" }; }
+  function rgb(c) { return "rgb(" + c[0] + "," + c[1] + "," + c[2] + ")"; }
+
+  function valueAt(ix, iy) {
+    if (!state.srcData) return null;
+    const x = Math.max(0, Math.min(state.img.width - 1, Math.floor(ix)));
+    const y = Math.max(0, Math.min(state.img.height - 1, Math.floor(iy)));
+    const gray = state.srcData.data[(y * state.img.width + x) * 4];
+    const value = state.grayToValue[gray];
+    return value === undefined ? null : String(value);
+  }
+
+  function draw() {
+    if (!state.img) return;
+    const ctx = view.getContext("2d");
+    ctx.imageSmoothingEnabled = false;
+    ctx.clearRect(0, 0, view.width, view.height);
+    ctx.drawImage(state.img, 0, 0, view.width, view.height);
+    if (overlayBox.checked) {
+      const w = state.img.width, h = state.img.height;
+      const off = document.createElement("canvas");
+      off.width = w; off.height = h;
+      const octx = off.getContext("2d");
+      const out = octx.createImageData(w, h);
+      const src = state.srcData.data;
+      const colorByGray = {};
+      state.entries.forEach(function (entry) {
+        const phase = state.assignment[String(entry.value)];
+        colorByGray[entry.gray] = phaseMeta(phase).color;
+      });
+      const alpha = Math.round(255 * Number(opacity.value) / 100);
+      for (let i = 0; i < w * h; i++) {
+        const c = colorByGray[src[i * 4]];
+        if (!c) continue;
+        out.data[i * 4] = c[0]; out.data[i * 4 + 1] = c[1]; out.data[i * 4 + 2] = c[2]; out.data[i * 4 + 3] = alpha;
+      }
+      octx.putImageData(out, 0, 0);
+      ctx.drawImage(off, 0, 0, view.width, view.height);
+    }
+  }
+
+  function placeMarkers() {
+    stage.querySelectorAll(".marker").forEach(function (el) { el.remove(); });
+    Object.keys(state.markers).forEach(function (phase) {
+      const pos = state.markers[phase];
+      const meta = phaseMeta(phase);
+      const value = Object.keys(state.assignment).find(function (v) { return state.assignment[v] === phase; });
+      const el = document.createElement("div");
+      el.className = "marker";
+      el.tabIndex = 0;
+      el.dataset.phase = phase;
+      el.setAttribute("role", "button");
+      el.setAttribute("aria-label", meta.name + " " + t("marker_aria") + " " + value);
+      el.style.left = (pos[0] * state.scale) + "px";
+      el.style.top = (pos[1] * state.scale) + "px";
+      const ink = (meta.color[0] * 0.299 + meta.color[1] * 0.587 + meta.color[2] * 0.114) > 160 ? "#1f2937" : "#fff";
+      const side = pos[0] * state.scale > view.width * 0.6 ? "right:30px" : "left:30px";
+      el.innerHTML = '<div class="dot" style="background:' + rgb(meta.color) + ';color:' + ink + '">' + meta.short + '</div>' +
+        '<div class="tag" style="background:' + rgb(meta.color) + ';color:' + ink + ';' + side + '">' + meta.name + ' · ' + value + '</div>';
+      attachDrag(el, phase);
+      stage.appendChild(el);
+    });
+  }
+
+  function renderLegend() {
+    const table = document.getElementById("legend");
+    let html = "<tr><th>" + t("col_value") + "</th><th>" + t("col_fraction") + "</th><th>" + t("col_phase") + "</th><th>" + t("col_ai") + "</th></tr>";
+    state.entries.forEach(function (entry) {
+      const key = String(entry.value);
+      const phase = state.assignment[key];
+      const ai = state.aiAssignment[key];
+      const meta = phaseMeta(phase);
+      const changed = ai && ai !== phase;
+      html += "<tr><td><span class='swatch' style='background:rgb(" + entry.gray + "," + entry.gray + "," + entry.gray + ")'></span>" + key + "</td>" +
+        "<td>" + (100 * entry.fraction).toFixed(1) + "%</td>" +
+        "<td><span class='chip' style='background:" + rgb(meta.color) + "'>" + meta.name + "</span></td>" +
+        "<td>" + (changed ? "<span class='changed'>" + t("changed_from") + " " + phaseMeta(ai).name + "</span>" : "<span class='same'>" + t("same_as_ai") + "</span>") + "</td></tr>";
+    });
+    table.innerHTML = html;
+  }
+
+  function emit(kind) {
+    state.eventId += 1;
+    setValue({
+      event_id: Date.now() + "-" + state.eventId,
+      kind: kind,
+      revision: state.revision,
+      assignment: state.assignment,
+      markers: state.markers,
+    });
+  }
+
+  function reassign(phase, value, dropPos) {
+    const oldValue = Object.keys(state.assignment).find(function (v) { return state.assignment[v] === phase; });
+    const oldPos = state.markers[phase].slice();
+    if (value === null || value === oldValue) {
+      state.markers[phase] = dropPos;
+      return;
+    }
+    const otherPhase = state.assignment[value];
+    state.assignment[value] = phase;
+    if (oldValue !== undefined) state.assignment[oldValue] = otherPhase;
+    state.markers[phase] = dropPos;
+    if (otherPhase && state.markers[otherPhase]) state.markers[otherPhase] = oldPos;
+  }
+
+  function showLoupe(ix, iy, px, py) {
+    const lctx = loupeCanvas.getContext("2d");
+    lctx.imageSmoothingEnabled = false;
+    const span = 22;
+    lctx.clearRect(0, 0, 132, 132);
+    lctx.drawImage(view, (ix - span / 2) * state.scale, (iy - span / 2) * state.scale, span * state.scale, span * state.scale, 0, 0, 132, 132);
+    const w = stage.clientWidth;
+    let lx = px + 24, ly = py - 150;
+    if (lx + 132 > w) lx = px - 156;
+    if (ly < 0) ly = py + 24;
+    loupe.style.left = lx + "px"; loupe.style.top = ly + "px"; loupe.style.display = "block";
+    const value = valueAt(ix, iy);
+    const phase = value === null ? null : state.assignment[value];
+    readout.textContent = t("under_cursor") + " " + (value === null ? "-" : value) + (phase ? " → " + phaseMeta(phase).name : "");
+    readout.style.left = lx + "px"; readout.style.top = (ly + 136) + "px"; readout.style.display = "block";
+  }
+
+  function attachDrag(el, phase) {
+    let dragging = false;
+    el.addEventListener("pointerdown", function (ev) {
+      dragging = true; el.classList.add("dragging"); el.setPointerCapture(ev.pointerId); ev.preventDefault();
+    });
+    el.addEventListener("pointermove", function (ev) {
+      if (!dragging) return;
+      const rect = stage.getBoundingClientRect();
+      const px = Math.max(0, Math.min(rect.width - 1, ev.clientX - rect.left));
+      const py = Math.max(0, Math.min(rect.height - 1, ev.clientY - rect.top));
+      el.style.left = px + "px"; el.style.top = py + "px";
+      showLoupe(px / state.scale, py / state.scale, px, py);
+    });
+    function end(ev) {
+      if (!dragging) return;
+      dragging = false; el.classList.remove("dragging");
+      loupe.style.display = "none"; readout.style.display = "none";
+      const rect = stage.getBoundingClientRect();
+      const px = Math.max(0, Math.min(rect.width - 1, ev.clientX - rect.left));
+      const py = Math.max(0, Math.min(rect.height - 1, ev.clientY - rect.top));
+      const ix = px / state.scale, iy = py / state.scale;
+      reassign(phase, valueAt(ix, iy), [ix, iy]);
+      draw(); placeMarkers(); renderLegend(); emit("drag");
+    }
+    el.addEventListener("pointerup", end);
+    el.addEventListener("pointercancel", end);
+    el.addEventListener("keydown", function (ev) {
+      const step = ev.shiftKey ? 10 : 2;
+      const pos = state.markers[phase].slice();
+      if (ev.key === "ArrowLeft") pos[0] -= step; else if (ev.key === "ArrowRight") pos[0] += step;
+      else if (ev.key === "ArrowUp") pos[1] -= step; else if (ev.key === "ArrowDown") pos[1] += step;
+      else return;
+      ev.preventDefault();
+      pos[0] = Math.max(0, Math.min(state.img.width - 1, pos[0]));
+      pos[1] = Math.max(0, Math.min(state.img.height - 1, pos[1]));
+      reassign(phase, valueAt(pos[0], pos[1]), pos);
+      draw(); placeMarkers(); renderLegend(); emit("keyboard");
+      const again = stage.querySelector('.marker[data-phase="' + phase + '"]');
+      if (again) again.focus();
+    });
+  }
+
+  function layout() {
+    if (!state.img) return;
+    const maxW = Math.max(240, document.body.clientWidth - 2);
+    const maxH = state.args.max_height || 560;
+    state.scale = Math.min(maxW / state.img.width, maxH / state.img.height);
+    view.width = Math.round(state.img.width * state.scale);
+    view.height = Math.round(state.img.height * state.scale);
+    stage.style.width = view.width + "px";
+    stage.style.height = view.height + "px";
+    draw(); placeMarkers(); renderLegend(); setHeight();
+  }
+
+  function onRender(args) {
+    const first = state.args === null;
+    state.args = args;
+    document.getElementById("overlayLabel").textContent = t("overlay");
+    document.getElementById("opacityLabel").textContent = t("opacity");
+    document.getElementById("reset").textContent = t("reset");
+    document.getElementById("hint").textContent = t("hint");
+    if (first || args.revision !== state.revision) {
+      state.revision = args.revision;
+      state.assignment = Object.assign({}, args.assignment);
+      state.aiAssignment = Object.assign({}, args.ai_assignment || {});
+      state.markers = JSON.parse(JSON.stringify(args.markers));
+      state.entries = args.entries;
+      state.grayToValue = {};
+      args.entries.forEach(function (entry) { state.grayToValue[entry.gray] = entry.value; });
+      if (first || state.imageSrc !== args.image) {
+        state.imageSrc = args.image;
+        const img = new Image();
+        img.onload = function () {
+          state.img = img;
+          state.srcCanvas = document.createElement("canvas");
+          state.srcCanvas.width = img.width; state.srcCanvas.height = img.height;
+          const sctx = state.srcCanvas.getContext("2d");
+          sctx.drawImage(img, 0, 0);
+          state.srcData = sctx.getImageData(0, 0, img.width, img.height);
+          layout();
+        };
+        img.src = args.image;
+      } else {
+        layout();
+      }
+    }
+  }
+
+  overlayBox.addEventListener("change", draw);
+  opacity.addEventListener("input", draw);
+  document.getElementById("reset").addEventListener("click", function () {
+    state.assignment = Object.assign({}, state.aiAssignment);
+    state.markers = JSON.parse(JSON.stringify(state.args.ai_markers || state.args.markers));
+    draw(); placeMarkers(); renderLegend(); emit("reset");
+  });
+  window.addEventListener("resize", function () { layout(); });
+  window.addEventListener("message", function (event) {
+    if (event.data && event.data.type === "streamlit:render") onRender(event.data.args);
+  });
+  send("streamlit:componentReady", { apiVersion: 1 });
+})();
+</script>
+</body>
+</html>

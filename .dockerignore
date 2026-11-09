@@ -1,0 +1,10 @@
+.git
+.pytest_cache
+__pycache__
+**/__pycache__
+runs
+.streamlit/secrets.toml
+streamlit_server_*.log
+*.pyc
+.env
+tests

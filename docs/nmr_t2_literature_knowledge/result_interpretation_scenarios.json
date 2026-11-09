@@ -1,0 +1,614 @@
+[
+ {
+  "id": "short_t2_dominant",
+  "name": "Short T2 main peak or high short-T2 area fraction",
+  "triggers": [
+   "main_peak_ms < 10",
+   "short_fraction high",
+   "spectrum shifts to shorter T2",
+   "simulated decay becomes faster in small pores"
+  ],
+  "explanation": "Interpret first as enhanced surface relaxation, small pores or a high surface-to-volume ratio, or restricted diffusion shortening the effective relaxation time. If the sample has susceptibility contrasts or a long echo spacing, also check for extra dephasing from internal gradients.",
+  "citations": [
+   "BrownsteinTarr1979",
+   "MullerPetke2015DiffusionRegimes",
+   "Mohnke2015TriangularPores",
+   "Keating2012NMRAssumptions",
+   "Dunn2002PorousMediaNMR",
+   "Kleinberg1994RelaxationMechanism",
+   "KeatingKnight2007IronOxides"
+  ],
+  "caution": "A short T2 alone does not prove that the pores are small; surface relaxivity, diffusion regime, internal gradients and data sampling all shift the peak position.",
+  "report_sentence": "A shortened T2 is usually consistent with small pores or a high surface-to-volume ratio enhancing surface relaxation, but this reading should be weighed against the diffusion regime and internal-gradient effects [@BrownsteinTarr1979; @MullerPetke2015DiffusionRegimes]."
+ },
+ {
+  "id": "long_t2_tail",
+  "name": "Long T2 tail or high long-T2 area fraction",
+  "triggers": [
+   "long_fraction high",
+   "tail extends > 1000 ms",
+   "peak near upper T2 bound"
+  ],
+  "explanation": "A long T2 can indicate weaker surface relaxation, larger pores or more free fluid; but if the peak sits against the upper inversion limit, it may be a boundary effect of the T2 search range, noise or regularization.",
+  "citations": [
+   "Whittall1991NNLS",
+   "Coates1999NMRLogging",
+   "Keating2012NMRAssumptions",
+   "Hurlimann1998EffectiveGradients"
+  ],
+  "caution": "When the peak lies near t2_max_ms, flag it first as a boundary/unstable signal and do not interpret it directly as a real very-long-T2 pore component.",
+  "report_sentence": "A long-T2 component can reflect weaker surface relaxation or more free fluid, but if the peak lies near the upper search limit, inverse-problem boundary effects and regularization sensitivity must be considered as well [@Whittall1991NNLS; @Coates1999NMRLogging]."
+ },
+ {
+  "id": "broad_or_merged_peaks",
+  "name": "Several expected pore populations appear as one broad or merged peak",
+  "triggers": [
+   "broad peak",
+   "expected two pore sizes but one spectral peak",
+   "peaks merge when pores are connected",
+   "spectrum smoother than pore-size distribution"
+  ],
+  "explanation": "Consider diffusive coupling or inter-pore exchange first: spins diffuse between pores of different sizes and the local relaxation environments are averaged. Excessive regularization can also merge neighbouring peaks, so check the L-curve or the fixed regularization setting at the same time.",
+  "citations": [
+   "Chi2015DiffusionalCoupling",
+   "Toumelin2003TemperatureDiffusiveCoupling",
+   "Fraga2013CarbonatePoreCoupling",
+   "Song2014PoreCouplingReview",
+   "Ramakrishnan1999Carbonates",
+   "Fleury2009PoreCoupling",
+   "Carneiro2014DiffusiveCoupling",
+   "Alhwety2014RockTypingDiffusiveCoupling",
+   "Borgia1998UniformPenalty"
+  ],
+  "caution": "A merged peak is not sufficient evidence for a single pore population; it can also arise from connectivity, diffusive coupling or inversion smoothing.",
+  "report_sentence": "A broad or merged peak can result from diffusive coupling between pores, where spins exchange between pore sizes and the local relaxation environments are averaged; such a result should not simply be equated with a single pore population [@Chi2015DiffusionalCoupling; @Song2014PoreCouplingReview]."
+ },
+ {
+  "id": "multimodal_spectrum",
+  "name": "Multimodal T2 spectrum",
+  "triggers": [
+   "two or more peaks",
+   "multimodal spectrum",
+   "gaussian peak table has multiple components"
+  ],
+  "explanation": "Several peaks can indicate different relaxation environments, pore scales or fluid states; however, the number of peaks depends on regularization, noise, the sampling window and the peak-decomposition model. Gaussian decomposition should be treated as a descriptive tool, not as the only physical classification.",
+  "citations": [
+   "Whittall1991NNLS",
+   "Coates1999NMRLogging",
+   "Grunewald2009PoreCoupling",
+   "Song2016T2T2",
+   "WhittallMacKay1989NNLS",
+   "Borgia1998UniformPenalty"
+  ],
+  "caution": "Describe the peaks as components in the report; do not claim that every Gaussian peak corresponds to a real pore population.",
+  "report_sentence": "A multimodal T2 spectrum suggests that several relaxation environments may be present, but neither the inversion nor the Gaussian decomposition by itself proves the same number of physical pore populations [@Whittall1991NNLS; @Grunewald2009PoreCoupling]."
+ },
+ {
+  "id": "regularization_sensitive",
+  "name": "Peak number, width or position changes markedly with the regularization factor",
+  "triggers": [
+   "regularization sensitivity",
+   "alpha change changes peaks",
+   "lcurve selected alpha",
+   "roughness_norm high",
+   "fixed regularization uncertain"
+  ],
+  "explanation": "This is the typical signature of the ill-posedness of inverse Laplace / multi-exponential inversion. Weak regularization follows noise more readily and produces sharp spikes; strong regularization is smoother but may merge real peaks.",
+  "citations": [
+   "Whittall1991NNLS",
+   "Coates1999NMRLogging",
+   "Schwartz2013T2T2Simulation",
+   "Yu2019T2T2",
+   "Hansen1992LCurve",
+   "Borgia1998UniformPenalty",
+   "WhittallMacKay1989NNLS"
+  ],
+  "caution": "Report the regularization method before interpreting the number of peaks; present the L-curve selection, the residual and the roughness together.",
+  "report_sentence": "The spectrum is sensitive to regularization, which means the peak shape contains an inverse-problem stability component; weaker regularization can amplify noise, whereas stronger regularization can smooth or merge neighbouring components [@Whittall1991NNLS; @Schwartz2013T2T2Simulation]."
+ },
+ {
+  "id": "noisy_oscillatory_or_false_peaks",
+  "name": "Oscillating spectrum, noise peaks, or signs of a negative/anomalous fit",
+  "triggers": [
+   "oscillatory spectrum",
+   "many narrow peaks",
+   "large residual",
+   "poor fit",
+   "noise amplified"
+  ],
+  "explanation": "Check first the signal-to-noise ratio of the input decay, the quality of the early points, the echo-train sampling, the T2 range and the regularization. The NNLS non-negativity constraint avoids negative spectral values but does not guarantee that every peak is physically meaningful.",
+  "citations": [
+   "Whittall1991NNLS",
+   "Coates1999NMRLogging",
+   "EchoTrainSimulation2021",
+   "WhittallMacKay1989NNLS",
+   "Borgia1998UniformPenalty"
+  ],
+  "caution": "Do not assign a physical mechanism to every narrow noise peak; first suggest re-running the L-curve, increasing smoothing or restricting the T2 range.",
+  "report_sentence": "An oscillating spectrum or several narrow peaks more likely reflects noise amplification and inversion instability; check the echo-train data quality and the regularization strength before interpreting it [@Whittall1991NNLS; @EchoTrainSimulation2021]."
+ },
+ {
+  "id": "peak_at_t2_bounds",
+  "name": "Peak near the T2 search boundary",
+  "triggers": [
+   "peak near t2_min_ms",
+   "peak near t2_max_ms",
+   "boundary component",
+   "spectrum mass at limits"
+  ],
+  "explanation": "A peak at the boundary usually means that the search-range setting affects the result or that the data do not constrain that time scale. A short-boundary peak may come from insufficient early sampling; a long-boundary peak may come from tail noise or an upper limit that is set too wide.",
+  "citations": [
+   "Whittall1991NNLS",
+   "Coates1999NMRLogging"
+  ],
+  "caution": "Report it as a boundary-sensitive component and run a sensitivity analysis on the T2 range and the sampling window.",
+  "report_sentence": "A peak near a boundary should be treated as a result sensitive to both the search range and the data constraints, and should be checked by adjusting the T2 range or the regularization [@Whittall1991NNLS]."
+ },
+ {
+  "id": "simulation_geometry_effect",
+  "name": "T2 peak position or width changes when the pore geometry changes",
+  "triggers": [
+   "geometry changes spectrum",
+   "triangular/circular/irregular pore",
+   "surface-to-volume ratio changed",
+   "connectivity changed"
+  ],
+  "explanation": "Pore shape, surface-to-volume ratio, connectivity and boundary conditions change the diffusion-relaxation eigenmodes, so changes in the T2 spectrum can be explained jointly by geometry and boundary relaxation.",
+  "citations": [
+   "BrownsteinTarr1979",
+   "Mohnke2015TriangularPores",
+   "Hagslatt2002RestrictiveGeometries",
+   "Mohnke2010PoreScaleSimulation"
+  ],
+  "caution": "Do not reduce the geometric effect to \"larger pores give longer T2\"; non-spherical pores, corners, partial saturation and connectivity all change the response.",
+  "report_sentence": "Geometry affects the T2 spectrum because restricted diffusion and the surface-relaxation boundary together change the diffusion-relaxation modes, not merely one equivalent pore size [@BrownsteinTarr1979; @Mohnke2015TriangularPores]."
+ },
+ {
+  "id": "random_walk_forward_model",
+  "name": "Random-walk forward result versus inverted T2 spectrum",
+  "triggers": [
+   "random walk simulation",
+   "Monte Carlo decay",
+   "forward simulated echo decay",
+   "compare simulated pore geometry with inverted spectrum"
+  ],
+  "explanation": "A random walk converts pore geometry, diffusion coefficient, surface relaxivity and field inhomogeneity into an echo decay; the same inversion workflow then yields a T2 spectrum, which makes it suitable for testing the mechanism chain from structure to spectrum.",
+  "citations": [
+   "Toumelin2007GeneralRandomWalk",
+   "Toumelin2003GeneralRandomWalk",
+   "Toumelin2002MonteCarloNMR",
+   "LucasOliveira2018RestrictedDiffusion",
+   "Liebig1993RandomWalk",
+   "Noetinger2016DiffusionRandomWalk",
+   "SCA2008PoreScaleNMRSimulation"
+  ],
+  "caution": "The inverted spectrum still depends on the inversion parameters; do not expect a one-to-one match between the true forward parameters and the recovered spectrum.",
+  "report_sentence": "A random-walk forward model establishes a testable mechanism chain from pore structure, diffusion and surface relaxation to the echo decay and T2 spectrum [@Toumelin2007GeneralRandomWalk; @Toumelin2002MonteCarloNMR]."
+ },
+ {
+  "id": "fem_fvm_mesh_model",
+  "name": "Interpreting FEM/FVM/COMSOL mesh-model results",
+  "triggers": [
+   "finite element simulation",
+   "finite volume simulation",
+   "COMSOL model",
+   "mesh boundary condition",
+   "PDE diffusion relaxation"
+  ],
+  "explanation": "Mesh methods solve the diffusion-relaxation equation and thus treat complex geometry, boundary surface relaxation and internal gradients explicitly. The interpretation should report the boundary conditions, mesh resolution, diffusion coefficient and surface relaxivity.",
+  "citations": [
+   "Tandon2018FiniteVolumeInternalGradients",
+   "Mitchell2019FiniteElementNMR",
+   "Ghomeshi2018FEMNMR",
+   "Oliveira2021COMSOLNMRGuide",
+   "Mohnke2010PoreScaleSimulation"
+  ],
+  "caution": "The credibility of a numerical solution depends on the mesh and the boundary conditions; if the result differs from a random walk, check the discretization and the boundary implementation first.",
+  "report_sentence": "FEM/FVM forward modelling places complex pore geometry, surface-relaxation boundaries and internal gradients in one diffusion-relaxation framework, and is therefore suited to interpreting geometry-controlled T2 responses [@Tandon2018FiniteVolumeInternalGradients; @Mitchell2019FiniteElementNMR]."
+ },
+ {
+  "id": "internal_gradient_shortening",
+  "name": "Internal gradients or field inhomogeneity shorten T2",
+  "triggers": [
+   "internal gradients enabled",
+   "field inhomogeneity",
+   "echo spacing changes T2",
+   "susceptibility contrast",
+   "long T2 suppressed"
+  ],
+  "explanation": "Internal field gradients acting together with diffusion cause additional dephasing, which can shorten the whole T2 spectrum or suppress the long-T2 components. The more the data depend on echo spacing, the more the gradient term should be considered.",
+  "citations": [
+   "Tandon2018FiniteVolumeInternalGradients",
+   "Gonzalez2020FieldInhomogeneities",
+   "Keating2012NMRAssumptions",
+   "Mohnke2010PoreScaleSimulation",
+   "KleinbergHorsfield1990TransverseRelaxation",
+   "Hurlimann1998EffectiveGradients",
+   "KeatingKnight2007IronOxides"
+  ],
+  "caution": "Do not attribute every T2 shortening to smaller pores; internal gradients are an important candidate for the mismatch between simulation and experiment.",
+  "report_sentence": "If the model includes internal gradients or field inhomogeneity, a shortened T2 may come from diffusion-induced dephasing and not only from smaller pores or enhanced surface relaxation [@Tandon2018FiniteVolumeInternalGradients; @Gonzalez2020FieldInhomogeneities]."
+ },
+ {
+  "id": "cpmg_sampling_trim",
+  "name": "Effect of CPMG sampling, early points and trim-from-peak on the inversion",
+  "triggers": [
+   "early rise before decay",
+   "trim_from_peak true/false",
+   "missing early echoes",
+   "echo spacing large",
+   "CPMG artifacts"
+  ],
+  "explanation": "The inversion knows only the input echo train: the early points determine whether short T2 can be recovered, tail noise affects long T2, and trim-from-peak changes the effective starting point and the amplitude normalization.",
+  "citations": [
+   "Whittall1991NNLS",
+   "EchoTrainSimulation2021",
+   "Tan2012T2T1Simulation",
+   "Toumelin2007GeneralRandomWalk"
+  ],
+  "caution": "If the raw simulated data first rise and then decay, trimming is a reasonable preprocessing step; for a clean real decay that starts at its maximum, excessive trimming can discard short-T2 information.",
+  "report_sentence": "T2 inversion is first limited by the echo-train sampling window and the quality of the early points, so trim-from-peak, echo spacing and tail noise should all be considered when judging the stability of the spectral shape [@Whittall1991NNLS; @EchoTrainSimulation2021]."
+ },
+ {
+  "id": "need_multidimensional_validation",
+  "name": "A 1D T2 spectrum cannot be interpreted uniquely; multidimensional NMR or extra evidence is needed",
+  "triggers": [
+   "ambiguous component assignment",
+   "pore coupling suspected",
+   "fluid type unclear",
+   "T2 peaks overlap",
+   "exchange suspected"
+  ],
+  "explanation": "A 1D T2 spectrum is a projection of several mechanisms. T2-T2 or T1-T2 can supply information on exchange, coupling and the correlation of different fluid or pore environments, and is a useful complement for complex interpretations.",
+  "citations": [
+   "Song2012MRPM",
+   "Schwartz2013T2T2Simulation",
+   "Song2016T2T2",
+   "Song2008T2T2",
+   "Johnson2014T2T2",
+   "Monteilhet2006T2T2",
+   "Guo2016MultidimensionalNMRSimulation",
+   "Kleinberg1994RelaxationMechanism"
+  ],
+  "caution": "Do not over-distinguish fluid types or pore populations from a 1D T2 result; use \"suggests\" rather than \"proves\".",
+  "report_sentence": "For complex samples with pronounced coupling or exchange, the 1D T2 peak positions and areas are not enough to assign pore populations or fluid types uniquely, and multidimensional NMR can provide stronger correlation constraints [@Song2012MRPM; @Song2016T2T2]."
+ },
+ {
+  "id": "matrix_mode_interpretation",
+  "name": "Eigenmode interpretation of multi-exponential decay",
+  "triggers": [
+   "matrix diagonalization",
+   "eigenvalue modes",
+   "multiple exponential modes",
+   "semi-analytical forward model"
+  ],
+  "explanation": "A multi-exponential decay can be understood as the superposition of several eigenmodes of the diffusion-relaxation operator. The eigenvalues depend on pore geometry, boundary relaxation, saturation history and connectivity.",
+  "citations": [
+   "Chang2000MatrixDiagonalization",
+   "Chang2001DrainageSaturationHistory",
+   "MatrixDiagonalization2002NMR",
+   "McCall1991RestrictedDiffusion"
+  ],
+  "caution": "A mode need not equal a discrete physical pore population; it is a response determined jointly by the mathematical representation and the physical structure.",
+  "report_sentence": "A multi-exponential decay can also be understood through the eigenmodes of the diffusion-relaxation operator, whose weights and decay rates are controlled jointly by geometry and boundary conditions [@Chang2000MatrixDiagonalization; @McCall1991RestrictedDiffusion]."
+ },
+ {
+  "id": "lbm_modeling",
+  "name": "Interpreting LBM pore-scale simulation",
+  "triggers": [
+   "LBM simulation",
+   "lattice Boltzmann",
+   "voxel pore image",
+   "complex boundaries"
+  ],
+  "explanation": "The lattice Boltzmann method simulates diffusion in complex boundaries on a discrete lattice and can be used to forward-model the NMR response from a digital pore structure.",
+  "citations": [
+   "Mohnke2014LBMNMR",
+   "Guyer2000LBMDiffusion"
+  ],
+  "caution": "LBM results depend on the lattice resolution, the boundary implementation and the surface-relaxation parameters; cross-check them against FEM or random-walk results.",
+  "report_sentence": "LBM can serve as a pore-scale forward method from a digital pore structure to the NMR decay response, and is particularly suited to diffusion problems with complex boundaries [@Mohnke2014LBMNMR; @Guyer2000LBMDiffusion]."
+ },
+ {
+  "id": "lcurve_flat_or_unstable",
+  "name": "Unclear L-curve or unstable automatic regularization selection",
+  "triggers": [
+   "lcurve corner unclear",
+   "flat lcurve",
+   "selected alpha at search bound",
+   "multiple comparable alpha values",
+   "regularization choice unstable"
+  ],
+  "explanation": "Automatic L-curve selection is an algorithmic decision of this tool. If the curve has no clear corner or the selected value lies near the search boundary, the trade-off between data fit and smoothing is not stable enough; treat the result as an exploratory interpretation and try adjusting the alpha range, the T2 range or the data preprocessing.",
+  "citations": [
+   "Whittall1991NNLS",
+   "Coates1999NMRLogging",
+   "Hansen1992LCurve"
+  ],
+  "caution": "The local knowledge base contains no paper that specifically establishes the current L-curve rule; these references support the need for regularization in the inversion and must not be written as \"a paper proposed this tool's L-curve selection criterion\".",
+  "report_sentence": "When the L-curve lacks a clear corner or the selected regularization lies near the search boundary, the inverted spectrum should be treated as regularization-sensitive; this reflects the stability trade-off between fit accuracy and smoothness that multi-exponential inversion requires [@Whittall1991NNLS; @Coates1999NMRLogging]."
+ },
+ {
+  "id": "gaussian_overfit_or_bad_residual",
+  "name": "Gaussian decomposition overfits or leaves a large residual",
+  "triggers": [
+   "gaussian residual high",
+   "too many gaussian peaks",
+   "components overlap strongly",
+   "peak count changes interpretation",
+   "fit improves but components become unphysical"
+  ],
+  "explanation": "A Gaussian decomposition is only an empirical approximation of the log-T2 spectral shape. If adding peaks improves only the numerical residual but leads to strong overlap, unstable area fractions or peak positions without physical interpretation, reduce the number of peaks or label the result as a descriptive fit.",
+  "citations": [
+   "Whittall1991NNLS",
+   "Coates1999NMRLogging",
+   "Grunewald2009PoreCoupling"
+  ],
+  "caution": "Whittall and Coates support the need for caution when interpreting inverted spectra and components; they are not the source of the Gaussian decomposition method.",
+  "report_sentence": "A Gaussian decomposition can help describe the T2 spectral shape, but the number of peaks and the area assignment depend on the stability of the inverted spectrum, noise and pore coupling; when peaks overlap strongly or the residual is abnormal, each peak should not be interpreted directly as an independent physical pore population [@Whittall1991NNLS; @Grunewald2009PoreCoupling]."
+ },
+ {
+  "id": "surface_relaxivity_sensitivity",
+  "name": "Changing surface relaxivity shifts the T2 peaks systematically",
+  "triggers": [
+   "surface relaxivity changes peak",
+   "rho_s sensitivity",
+   "same geometry different T2",
+   "surface relaxation parameter sweep"
+  ],
+  "explanation": "Surface relaxivity controls how strongly magnetization decays at the boundary. In models with identical geometry, raising the surface relaxivity usually shortens the effective T2 and strengthens the short-T2 components.",
+  "citations": [
+   "BrownsteinTarr1979",
+   "Mohnke2010PoreScaleSimulation",
+   "MullerPetke2015DiffusionRegimes",
+   "Kleinberg1994RelaxationMechanism",
+   "Foley1996ParamagneticIons",
+   "KeatingKnight2007IronOxides"
+  ],
+  "caution": "A change in surface relaxivity and a change in pore size can produce similar spectral shapes; separate them with a parameter sweep or independent constraints.",
+  "report_sentence": "For fixed geometry, a higher surface relaxivity strengthens boundary relaxation and shortens the effective T2, so a shift of the T2 peak does not necessarily represent only a change in pore size [@BrownsteinTarr1979; @Mohnke2010PoreScaleSimulation]."
+ },
+ {
+  "id": "mesh_resolution_boundary_condition_sensitivity",
+  "name": "Mesh resolution or boundary conditions change the simulation result",
+  "triggers": [
+   "mesh sensitivity",
+   "boundary condition sensitivity",
+   "FEM result changes with mesh",
+   "finite volume discretization changes decay"
+  ],
+  "explanation": "FEM/FVM models solve the diffusion-relaxation equation explicitly; the mesh resolution, the implementation of the surface-relaxation boundary and the internal-gradient term all affect the numerical decay. The simulation interpretation should report these settings and include a sensitivity check.",
+  "citations": [
+   "Tandon2018FiniteVolumeInternalGradients",
+   "Mitchell2019FiniteElementNMR",
+   "Oliveira2021COMSOLNMRGuide",
+   "Mohnke2010PoreScaleSimulation"
+  ],
+  "caution": "If a change in mesh or boundary conditions changes the T2 spectrum, treat it first as numerical sensitivity and not as a change in physical mechanism.",
+  "report_sentence": "The T2 response of a mesh-based forward model depends not only on the physical parameters but also on the mesh resolution and the implementation of the boundary conditions, so FEM/FVM results should be interpreted together with numerical sensitivity checks [@Tandon2018FiniteVolumeInternalGradients; @Oliveira2021COMSOLNMRGuide]."
+ },
+ {
+  "id": "acquisition_window_too_short_for_long_t2",
+  "name": "Acquisition window too short for a reliable long T2",
+  "triggers": [
+   "decay does not reach baseline",
+   "short acquisition window",
+   "long T2 beyond max time",
+   "tail poorly sampled",
+   "few late echoes"
+  ],
+  "explanation": "Long-T2 components need a sufficiently long echo train to be constrained stably. If the sampling window is too short or the tail noise is large, the inversion may express the unconstrained long time scales as a boundary peak or a long tail.",
+  "citations": [
+   "Whittall1991NNLS",
+   "Coates1999NMRLogging",
+   "EchoTrainSimulation2021"
+  ],
+  "caution": "Before interpreting a long tail, check the maximum sampling time, the tail signal-to-noise ratio and t2_max_ms; resample or narrow the T2 upper limit if necessary.",
+  "report_sentence": "If the echo train does not cover a sufficiently long part of the decay tail, the long-T2 components are strongly constrained by the sampling window and noise, and a long tail at the boundary should be interpreted with caution [@Whittall1991NNLS; @Coates1999NMRLogging]."
+ },
+ {
+  "id": "fast_diffusion_assumption_breakdown",
+  "name": "Fast-diffusion assumption fails or the mean pore-size estimate is unreliable",
+  "triggers": [
+   "outside fast diffusion regime",
+   "large pore with slow diffusion",
+   "surface relaxivity high",
+   "pore-size estimate inconsistent",
+   "T2-pore mapping breaks down"
+  ],
+  "explanation": "Many T2-to-pore-size conversions rely on the fast-diffusion approximation; when the diffusion length, pore scale, surface relaxivity or connected structure makes that approximation invalid, the mean pore-size estimate departs from the true pore structure.",
+  "citations": [
+   "MullerPetke2015DiffusionRegimes",
+   "Keating2012NMRAssumptions",
+   "Ramakrishnan1999Carbonates",
+   "BrownsteinTarr1979",
+   "Kleinberg1994RelaxationMechanism"
+  ],
+  "caution": "Do not convert a T2 distribution directly into a pore-size distribution before the fast-diffusion assumption has been verified.",
+  "report_sentence": "The direct correspondence between T2 and pore size usually relies on the fast-diffusion approximation; when the sample is in a non-fast-diffusion regime or strongly coupled, the pore-size distribution inferred from T2 may deviate from the real structure [@MullerPetke2015DiffusionRegimes; @Keating2012NMRAssumptions]."
+ },
+ {
+  "id": "paramagnetic_mineral_shortening",
+  "name": "Iron-bearing or paramagnetic minerals shorten T2 overall",
+  "triggers": [
+   "iron-bearing soil or sand",
+   "red or weathered geomaterial",
+   "T2 shorter than expected for known pore size",
+   "clay or iron oxide coating",
+   "same geometry different sample chemistry"
+  ],
+  "explanation": "Paramagnetic ions (Fe3+, Mn2+) and iron oxides on the pore wall markedly raise the surface relaxivity, giving a shorter T2 at the same pore size; strongly magnetic minerals such as magnetite also introduce internal gradients.",
+  "citations": [
+   "Kleinberg1994RelaxationMechanism",
+   "Foley1996ParamagneticIons",
+   "KeatingKnight2007IronOxides",
+   "Keating2012NMRAssumptions"
+  ],
+  "caution": "Do not convert a short T2 in an iron-bearing sample directly into small pores; a known or calibrated surface relaxivity, or another pore-size measurement, is needed as a constraint.",
+  "report_sentence": "Iron-bearing minerals raise the surface relaxivity markedly, so a short T2 in iron-bearing geomaterials does not necessarily mean smaller pores [@KeatingKnight2007IronOxides; @Foley1996ParamagneticIons]."
+ },
+ {
+  "id": "soil_water_state_classes",
+  "name": "Water-state classes for soil and organic-matter samples",
+  "triggers": [
+   "measured decay",
+   "user describes a soil, peat or organic-rich sample"
+  ],
+  "explanation": "Following the empirical classification of Bayer et al. (2010, p. 18), compute the fractions with T2 < 60 ms (micropore / tightly bound water), 60-300 ms (mesopore / loosely bound water) and > 300 ms (macropore / bulk water); compare with the T2B of about 2 s for pore water extracted from peat (Jaeger et al., 2010, p. 35) to judge whether free water is present; organic matter (hydrogel effect, paramagnetic centres) shortens T2 (Costabel & Stange, 2025).",
+  "citations": [
+   "Bayer2010SoilNMR",
+   "Jaeger2010PeatSwelling",
+   "CostabelStange2025Peat"
+  ],
+  "caution": "The class boundaries are empirical and differ slightly between studies; the classes describe the state of the water and are not a pore-size distribution.",
+  "report_sentence": "About X% of the signal comes from water bound in fine pores or by the matrix, so the water is predominantly in a bound state [@Bayer2010SoilNMR; @Jaeger2010PeatSwelling]."
+ },
+ {
+  "id": "two_water_populations",
+  "name": "Two distinguishable Gaussian water populations",
+  "triggers": [
+   "two Gaussian components",
+   "spectrum has two maxima",
+   "R² of the Gaussian fit available"
+  ],
+  "explanation": "Report the centres, areas and separation factor of the two components and interpret them by water-state class: the short-T2 population corresponds to confined water (in peat, water with T2 < 30 ms has a reduced diffusion coefficient, Jaeger et al., 2010, p. 37), and the long-T2 population to water in more open pores or inside intact plant cells (Mashhadi et al., 2025, Section 5.1).",
+  "citations": [
+   "Jaeger2010PeatSwelling",
+   "CostabelStange2025Peat",
+   "Mashhadi2025SDRPeat"
+  ],
+  "caution": "Treat them as two water populations only if the spectrum really shows two maxima.",
+  "report_sentence": "The spectrum is well described by two Gaussian components separated by a factor of N, which are two distinguishable water populations [@Jaeger2010PeatSwelling]."
+ },
+ {
+  "id": "echo_spacing_lower_bound",
+  "name": "Short-T2 water that has already decayed before the first echo",
+  "triggers": [
+   "measured decay with known first echo time"
+  ],
+  "explanation": "Components with T2 below about 3 x TE have mostly decayed before the first echo; water adsorbed on clay has T2 of about 0.05-0.13 ms (Peng et al., 2023) and unfrozen bound water in peat about 0.3 ms (Jaeger et al., 2010, p. 39), so the bound-water fraction is therefore a lower bound.",
+  "citations": [
+   "Peng2023Bentonite",
+   "Jaeger2010PeatSwelling",
+   "Coates1999NMRLogging"
+  ],
+  "caution": "This only states the direction (a lower bound) of the short-T2 fraction and does not estimate the missing amount.",
+  "report_sentence": "The bound-water fraction is a lower bound, because hydration water with T2 below about 3 x TE has decayed before the first echo [@Peng2023Bentonite]."
+ },
+ {
+  "id": "pore_coupling_exchange",
+  "name": "Coupled pore pair: fast-exchange limit and exchange time",
+  "triggers": [
+   "ideal structure with throat"
+  ],
+  "explanation": "From the geometry compute the fast-exchange limit given by the S/V of the whole water-filled domain, the throat exchange time tau = 1/k_ex (k_ex = D*w/L*(1/A_L + 1/A_S)) and the ratio of k_ex to the difference between the surface-relaxation rates of the two pores, to judge whether the two pores behave as one (McCall et al., 1991; Fleury & Soualem, 2009); report the amount of small-pore water merged into the single peak and the equivalent side length obtained from a single-pore reading (Grunewald & Knight, 2009); reduced saturation weakens coupling (Zhou et al., 2026).",
+  "citations": [
+   "McCall1991RestrictedDiffusion",
+   "Fleury2009PoreCoupling",
+   "Grunewald2009PoreCoupling",
+   "Zhou2026GRLExchange",
+   "Zhou2025WRRUnsaturated"
+  ],
+  "caution": "The exchange criterion is an order-of-magnitude judgement; the throat conductance estimate neglects the diffusive resistance of the pore mouth.",
+  "report_sentence": "The throat exchange time is about 1/N of T2, so the two pores behave as one pore, and a single peak does not mean a single pore population [@McCall1991RestrictedDiffusion; @Grunewald2009PoreCoupling]."
+ },
+ {
+  "id": "uncoupled_peaks_match_pores",
+  "name": "Uncoupled pore pair: peaks correspond to the individual pores",
+  "triggers": [
+   "ideal structure without throat"
+  ],
+  "explanation": "Compare each inverted peak with the fast-diffusion estimate for each pore (valid when rho*r/D << 1, Brownstein & Tarr, 1979), and compare the small-pore peak area with its water-volume fraction.",
+  "citations": [
+   "BrownsteinTarr1979",
+   "Zhou2025WRRUnsaturated"
+  ],
+  "caution": "When the estimates for the two pores are identical they fall on the same peak.",
+  "report_sentence": "The two pores are not connected, and the peak positions agree with the respective fast-diffusion estimates to within 10% [@BrownsteinTarr1979]."
+ },
+ {
+  "id": "partial_saturation_capacity",
+  "name": "Partial saturation: attribution of the short T2 and capacity check",
+  "triggers": [
+   "ideal structure with Sw < 1"
+  ],
+  "explanation": "A partially saturated large pore and a saturated small pore have the same T2 when the water volume and wetted area are the same; compare the fraction of the saturated total signal with T2 below the geometric midpoint of the two pores' saturated estimates against the saturation capacity of the small pore, and if it is exceeded the short T2 cannot be attributed to the small pore alone (Zhou & Zhang, 2025, Sections 4.2 and 7; Mohnke et al., 2015).",
+  "citations": [
+   "Zhou2025WRRUnsaturated",
+   "Mohnke2015TriangularPores"
+  ],
+  "caution": "The saturated volume of each pore must be known; this applies to built-in structures or samples with a saturated reference spectrum.",
+  "report_sentence": "This short-T2 signal exceeds the saturation capacity of the small pore and cannot be attributed to the small pore alone [@Zhou2025WRRUnsaturated]."
+ },
+ {
+  "id": "sv_first_moment_check",
+  "name": "Harmonic-mean T2 of a CT-derived simulated spectrum versus S/V",
+  "triggers": [
+   "CT simulation with mesh boundary lengths"
+  ],
+  "explanation": "Integrating the diffusion-relaxation equation over the water-filled domain gives an initial decay rate of 1/T2B + rho*S/V that is independent of the diffusion regime, so the amplitude-weighted harmonic-mean T2 of the spectrum is set by S/V; comparing it with the peak position shows which statistic should be used when comparing with measured spectra or back-calculating rho; the difference between the S/V of the pixel boundary and of the mesh boundary enters the rho calibration.",
+  "citations": [
+   "BrownsteinTarr1979"
+  ],
+  "caution": "The initial magnetization must be uniform; comparison with measurements requires the early echoes to be complete.",
+  "report_sentence": "The harmonic-mean T2 of the spectrum agrees with the prediction from the mesh S/V, so the simulated spectrum is fully determined by the geometry [@BrownsteinTarr1979]."
+ },
+ {
+  "id": "rho_calibration_conditioning",
+  "name": "Error amplification in the rho calibration when bulk relaxation dominates",
+  "triggers": [
+   "CT simulation",
+   "harmonic-mean T2 close to T2B"
+  ],
+  "explanation": "The share of the rate due to surface relaxation is s = 1 - T2/T2B; a relative error in T2 is amplified by a factor of about 1/s when rho is back-calculated.",
+  "citations": [
+   "BrownsteinTarr1979",
+   "Kleinberg1994RelaxationMechanism"
+  ],
+  "caution": "T2B must be measured separately on the same fluid.",
+  "report_sentence": "Bulk relaxation contributes most of the rate, so a 5% error in T2 is amplified to N% in rho [@BrownsteinTarr1979]."
+ },
+ {
+  "id": "saturation_wall_coverage",
+  "name": "Pore-wall wetted fraction in a partially saturated CT slice",
+  "triggers": [
+   "CT simulation with air phase"
+  ],
+  "explanation": "From the label image compute the fraction of pore wall covered by water and the change in S/V when the pores are completely filled; when the gas phase occupies the pore body while the wall stays wet, T2 hardly changes with saturation and the saturation should be read from the signal amplitude (Mohnke et al., 2015; Falzone & Keating, 2016); calibrating rho with the total pore-wall area biases it low (Behroozmand et al., 2015).",
+  "citations": [
+   "Mohnke2015TriangularPores",
+   "Falzone2016Saturation",
+   "Behroozmand2015Review"
+  ],
+  "caution": "Based on a two-dimensional pixel-face count.",
+  "report_sentence": "Water still covers most of the pore wall, T2 hardly changes with saturation, and the saturation should be read from the signal amplitude [@Mohnke2015TriangularPores; @Falzone2016Saturation]."
+ },
+ {
+  "id": "area_above_bulk_t2",
+  "name": "Spectral area above T2B",
+  "triggers": [
+   "simulated spectrum with area above the bulk T2"
+  ],
+  "explanation": "Relaxation slower than bulk water is physically impossible and results from smoothing broadening (Borgia et al., 1998); if the simulation duration is too short, the width, the upper edge and the component fractions should be recomputed with a duration of about 5 times T2 (Coates et al., 1999).",
+  "citations": [
+   "Borgia1998UniformPenalty",
+   "Coates1999NMRLogging"
+  ],
+  "caution": "The harmonic-mean T2 is unaffected.",
+  "report_sentence": "X% of the spectral area lies above T2B, which is broadening caused by smoothing [@Borgia1998UniformPenalty]."
+ },
+ {
+  "id": "unresolved_gaussian_components",
+  "name": "Unresolvable Gaussian components",
+  "triggers": [
+   "more Gaussian components than spectral maxima",
+   "components less than three times apart"
+  ],
+  "explanation": "When two components are less than about a factor of 3 apart and the spectrum has only one maximum, they describe the shape of one asymmetric peak and not two water populations (Borgia et al., 1998).",
+  "citations": [
+   "Borgia1998UniformPenalty"
+  ],
+  "caution": "The fractions change with the smoothing factor and the simulation duration.",
+  "report_sentence": "The two Gaussian components are only a factor of N apart and describe the shape of one peak, not two water populations [@Borgia1998UniformPenalty]."
+ }
+]

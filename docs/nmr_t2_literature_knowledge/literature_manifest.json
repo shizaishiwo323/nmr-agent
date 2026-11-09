@@ -1,0 +1,372 @@
+[
+  {
+    "citation_key": "BrownsteinTarr1979",
+    "category": "01_core_theory_inversion",
+    "selection_reason": "Classic theoretical basis for pore surface relaxation, restricted diffusion and the interpretation of T2 in terms of pore size.",
+    "agent_citation_key": "BrownsteinTarr1979",
+    "citation_key_original": "BrownsteinTarr1979"
+  },
+  {
+    "citation_key": "Whittall1991NNLS",
+    "category": "01_core_theory_inversion",
+    "selection_reason": "Key background on inverting multi-exponential decay / CPMG data with non-negative least-squares methods; supports the statement that the inversion is ill-posed and needs constraints or regularization.",
+    "agent_citation_key": "Whittall1991NNLS",
+    "citation_key_original": "Whittall1991"
+  },
+  {
+    "citation_key": "Song2012MRPM",
+    "category": "01_core_theory_inversion",
+    "selection_reason": "Theoretical review of NMR in porous media, T2/T2 and the interpretation of pore coupling.",
+    "agent_citation_key": "Song2012MRPM",
+    "citation_key_original": "Song2012"
+  },
+  {
+    "citation_key": "Ramakrishnan1999Carbonates",
+    "category": "01_core_theory_inversion",
+    "selection_reason": "Theoretical background on the interpretation of T2 distributions, diffusion and surface relaxation in complex pore systems such as carbonates.",
+    "agent_citation_key": "Ramakrishnan1999Carbonates",
+    "citation_key_original": "Ramakrishnan1999"
+  },
+  {
+    "citation_key": "Mohnke2015TriangularPores",
+    "category": "01_core_theory_inversion",
+    "selection_reason": "Idealized pore geometry / triangular-pore model and its simulation; useful for showing how geometry affects the T2 spectrum.",
+    "agent_citation_key": "Mohnke2015TriangularPores",
+    "citation_key_original": "Mohnke2015"
+  },
+  {
+    "citation_key": "MullerPetke2015DiffusionRegimes",
+    "category": "01_core_theory_inversion",
+    "selection_reason": "Diffusion regimes and the interpretation of the NMR response; supplements the physical background on diffusion limitation and coupling in simulation results.",
+    "agent_citation_key": "MullerPetke2015DiffusionRegimes",
+    "citation_key_original": "Muller2015"
+  },
+  {
+    "citation_key": "Keating2012NMRAssumptions",
+    "category": "01_core_theory_inversion",
+    "selection_reason": "Theoretical background on interpreting the NMR response in terms of hydrological and porous-media parameters.",
+    "agent_citation_key": "Keating2012NMRAssumptions",
+    "citation_key_original": "Keating2012"
+  },
+  {
+    "citation_key": "Dunn2002PorousMediaNMR",
+    "category": "01_core_theory_inversion",
+    "selection_reason": "Book chapters by Dunn et al. on surface relaxation, multi-exponential decay and the mechanisms of NMR in porous media.",
+    "agent_citation_key": "Dunn2002PorousMediaNMR",
+    "citation_key_original": "Dunn2002"
+  },
+  {
+    "citation_key": "Coates1999NMRLogging",
+    "category": "01_core_theory_inversion",
+    "selection_reason": "Standard NMR petrophysics textbook; a source for basic concepts, the interpretation of T2 distributions and application context.",
+    "agent_citation_key": "Coates1999NMRLogging",
+    "citation_key_original": "Coates1999"
+  },
+  {
+    "citation_key": "Toumelin2007GeneralRandomWalk",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Random-walk pore-scale forward simulation of NMR; directly supports the interpretation of simulated decays and T2 distributions.",
+    "agent_citation_key": "Toumelin2007GeneralRandomWalk",
+    "citation_key_original": "Toumelin2007"
+  },
+  {
+    "citation_key": "Toumelin2003GeneralRandomWalk",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "General random-walk method for simulating the pore-scale NMR response.",
+    "agent_citation_key": "Toumelin2003GeneralRandomWalk",
+    "citation_key_original": "Toumelin2003"
+  },
+  {
+    "citation_key": "Toumelin2003TemperatureDiffusiveCoupling",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Effects of temperature and diffusive coupling on the NMR response; useful for explaining peak broadening and peak shifts.",
+    "agent_citation_key": "Toumelin2003TemperatureDiffusiveCoupling",
+    "citation_key_original": "Toumelin2003"
+  },
+  {
+    "citation_key": "Toumelin2002MonteCarloNMR",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Monte Carlo / random-walk simulation of the NMR response; supports the forward-inversion chain.",
+    "agent_citation_key": "Toumelin2002MonteCarloNMR",
+    "citation_key_original": "Toumelin2002"
+  },
+  {
+    "citation_key": "Chi2015DiffusionalCoupling",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Diffusive coupling mixes the signals of different pore populations; an important basis for interpreting merged peaks and changes in spectral shape.",
+    "agent_citation_key": "Chi2015DiffusionalCoupling",
+    "citation_key_original": "Chi2015"
+  },
+  {
+    "citation_key": "Fraga2013CarbonatePoreCoupling",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Random-walk simulation of pore coupling in carbonates; supports the interpretation of T2 spectra for complex pore structures.",
+    "agent_citation_key": "Fraga2013CarbonatePoreCoupling",
+    "citation_key_original": "Fraga2013"
+  },
+  {
+    "citation_key": "Carneiro2014DiffusiveCoupling",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Simulation background on random walks and diffusive coupling; useful for explaining how pore-scale connectivity affects the spectral shape.",
+    "agent_citation_key": "Carneiro2014DiffusiveCoupling",
+    "citation_key_original": "Carneiro2014"
+  },
+  {
+    "citation_key": "Alhwety2014RockTypingDiffusiveCoupling",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Link between diffusive coupling, T2 distributions and rock-type interpretation in simulation and interpretation.",
+    "agent_citation_key": "Alhwety2014RockTypingDiffusiveCoupling",
+    "citation_key_original": "Alhwety2014"
+  },
+  {
+    "citation_key": "LucasOliveira2018RestrictedDiffusion",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Pore-scale random-walk / restricted-diffusion simulation; useful when comparing inverted spectra with the true pore structure.",
+    "agent_citation_key": "LucasOliveira2018RestrictedDiffusion",
+    "citation_key_original": "Lucas2018"
+  },
+  {
+    "citation_key": "Guo2016MultidimensionalNMRSimulation",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Numerical simulation of the multidimensional NMR response; background for T2/T1-T2/T2-T2 simulation.",
+    "agent_citation_key": "Guo2016MultidimensionalNMRSimulation",
+    "citation_key_original": "Guo2016"
+  },
+  {
+    "citation_key": "McCall1991RestrictedDiffusion",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Classic simulation reference for the NMR / diffusion theory in restricted geometries.",
+    "agent_citation_key": "McCall1991RestrictedDiffusion",
+    "citation_key_original": "Mccall1991"
+  },
+  {
+    "citation_key": "Liebig1993RandomWalk",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Early random-walk method; background supporting the choice of Monte Carlo simulation.",
+    "agent_citation_key": "Liebig1993RandomWalk",
+    "citation_key_original": "Leibig1993"
+  },
+  {
+    "citation_key": "Noetinger2016DiffusionRandomWalk",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Strong theoretical background on diffusion / random walks; a supplement for deeper theory.",
+    "agent_citation_key": "Noetinger2016DiffusionRandomWalk",
+    "citation_key_original": "Noetinger2016"
+  },
+  {
+    "citation_key": "Gonzalez2020FieldInhomogeneities",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Effect of field inhomogeneity / internal gradients on the NMR response; can explain sources of mismatch between simulation and inversion.",
+    "agent_citation_key": "Gonzalez2020FieldInhomogeneities",
+    "citation_key_original": "Gonzalez2020"
+  },
+  {
+    "citation_key": "SCA2008PoreScaleNMRSimulation",
+    "category": "02_pore_scale_simulation_random_walk",
+    "selection_reason": "Conference paper on pore-scale / random-walk simulation; a methodological supplement.",
+    "agent_citation_key": "SCA2008PoreScaleNMRSimulation",
+    "citation_key_original": "Sca2008"
+  },
+  {
+    "citation_key": "Tandon2018FiniteVolumeInternalGradients",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Finite-volume method and internal-gradient effects; useful for explaining the influence of boundary conditions and gradients in numerical models.",
+    "agent_citation_key": "Tandon2018FiniteVolumeInternalGradients",
+    "citation_key_original": "Tandon2018"
+  },
+  {
+    "citation_key": "Ghomeshi2018FEMNMR",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Background on FEM forward simulation; supports the interpretation of finite-element methods.",
+    "agent_citation_key": "Ghomeshi2018FEMNMR",
+    "citation_key_original": "Ghomeshi2018"
+  },
+  {
+    "citation_key": "Mitchell2019FiniteElementNMR",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Finite-element modelling of the NMR response; closely related to the simulation-inversion interpretation in this project.",
+    "agent_citation_key": "Mitchell2019FiniteElementNMR",
+    "citation_key_original": "Mitchel2019"
+  },
+  {
+    "citation_key": "Mohnke2010PoreScaleSimulation",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Pore-scale numerical simulation; background on internal gradients and surface relaxation.",
+    "agent_citation_key": "Mohnke2010PoreScaleSimulation",
+    "citation_key_original": "Mohnke2010"
+  },
+  {
+    "citation_key": "Schwartz2013T2T2Simulation",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Simulation and inversion interpretation for T2-T2 and related two-dimensional NMR; supports the interpretation of pore coupling and spectral shape.",
+    "agent_citation_key": "Schwartz2013T2T2Simulation",
+    "citation_key_original": "Schwartz2013"
+  },
+  {
+    "citation_key": "Hagslatt2002RestrictiveGeometries",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Simulation of diffusion and relaxation in restrictive geometries; useful for interpreting idealized pore simulations.",
+    "agent_citation_key": "Hagslatt2002RestrictiveGeometries",
+    "citation_key_original": "Hagslatt2002"
+  },
+  {
+    "citation_key": "Oliveira2021COMSOLNMRGuide",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Practical background on COMSOL / FEM modelling; a reference for reproducing numerical model setups.",
+    "agent_citation_key": "Oliveira2021COMSOLNMRGuide",
+    "citation_key_original": "Oliveira2021"
+  },
+  {
+    "citation_key": "Mohnke2014LBMNMR",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Background on LBM / pore-scale NMR simulation; suitable for comparison with random-walk and FEM approaches.",
+    "agent_citation_key": "Mohnke2014LBMNMR",
+    "citation_key_original": "Mohnke2014"
+  },
+  {
+    "citation_key": "Guyer2000LBMDiffusion",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Foundations of the lattice Boltzmann method; supports the interpretation of LBM simulations.",
+    "agent_citation_key": "Guyer2000LBMDiffusion",
+    "citation_key_original": "Guyer2000"
+  },
+  {
+    "citation_key": "Chang2000MatrixDiagonalization",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Matrix diagonalization / eigenmode methods; supports understanding of analytical and semi-analytical forward modelling.",
+    "agent_citation_key": "Chang2000MatrixDiagonalization",
+    "citation_key_original": "Chang2000"
+  },
+  {
+    "citation_key": "Chang2001DrainageSaturationHistory",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Simulation background on matrix methods and the effect of saturation and drainage conditions on the NMR response.",
+    "agent_citation_key": "Chang2001DrainageSaturationHistory",
+    "citation_key_original": "Chang2001"
+  },
+  {
+    "citation_key": "MatrixDiagonalization2002NMR",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Paper on matrix diagonalization methods; supplements the eigenvalue / eigenmode interpretation.",
+    "agent_citation_key": "MatrixDiagonalization2002NMR",
+    "citation_key_original": "S1979"
+  },
+  {
+    "citation_key": "Tan2012T2T1Simulation",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Numerical simulation of two-dimensional NMR and fluid identification; suitable for extending to multidimensional response interpretation.",
+    "agent_citation_key": "Tan2012T2T1Simulation",
+    "citation_key_original": "Tan2012"
+  },
+  {
+    "citation_key": "EchoTrainSimulation2021",
+    "category": "03_numerical_methods_fem_lbm_matrix",
+    "selection_reason": "Numerical background on the echo-train / CPMG response; a reference for decay generation and pre-inversion processing.",
+    "agent_citation_key": "EchoTrainSimulation2021",
+    "citation_key_original": "EchoTrainSimulation2021"
+  },
+  {
+    "citation_key": "Song2014PoreCouplingReview",
+    "category": "04_pore_coupling_t2t2_interpretation",
+    "selection_reason": "Short review of pore coupling and the interpretation of multi-peak spectra; suitable for citing in result discussion.",
+    "agent_citation_key": "Song2014PoreCouplingReview",
+    "citation_key_original": "Song2014"
+  },
+  {
+    "citation_key": "Grunewald2009PoreCoupling",
+    "category": "04_pore_coupling_t2t2_interpretation",
+    "selection_reason": "Combines experiment and interpretation with a focus on pore coupling; useful for interpreting simulated spectral shapes.",
+    "agent_citation_key": "Grunewald2009PoreCoupling",
+    "citation_key_original": "Grunewald2009"
+  },
+  {
+    "citation_key": "Fleury2009PoreCoupling",
+    "category": "04_pore_coupling_t2t2_interpretation",
+    "selection_reason": "Pore coupling and the interpretation of T2 distributions; a bridge between simulation results and experimental observations.",
+    "agent_citation_key": "Fleury2009PoreCoupling",
+    "citation_key_original": "X2009"
+  },
+  {
+    "citation_key": "Yu2019T2T2",
+    "category": "04_pore_coupling_t2t2_interpretation",
+    "selection_reason": "Interpretation of T2/T2 and related two-dimensional NMR; supports the analysis of complex spectral shapes and peak groups.",
+    "agent_citation_key": "Yu2019T2T2",
+    "citation_key_original": "Yu2019"
+  },
+  {
+    "citation_key": "Song2016T2T2",
+    "category": "04_pore_coupling_t2t2_interpretation",
+    "selection_reason": "Background on two-dimensional NMR and the interpretation of pore fluids; suitable for extending the result discussion.",
+    "agent_citation_key": "Song2016T2T2",
+    "citation_key_original": "X2016"
+  },
+  {
+    "citation_key": "Song2008T2T2",
+    "category": "04_pore_coupling_t2t2_interpretation",
+    "selection_reason": "Background on T2-T2 and the interpretation of pore coupling / exchange.",
+    "agent_citation_key": "Song2008T2T2",
+    "citation_key_original": "X2008"
+  },
+  {
+    "citation_key": "Johnson2014T2T2",
+    "category": "04_pore_coupling_t2t2_interpretation",
+    "selection_reason": "Background on the interpretation of T2-T2 / multidimensional NMR; supports the interpretation of complex T2 spectra.",
+    "agent_citation_key": "Johnson2014T2T2",
+    "citation_key_original": "X2014"
+  },
+  {
+    "citation_key": "Monteilhet2006T2T2",
+    "category": "04_pore_coupling_t2t2_interpretation",
+    "selection_reason": "Background on the T2-T2 method and spectral interpretation.",
+    "agent_citation_key": "Monteilhet2006T2T2",
+    "citation_key_original": "Monteilheit2006"
+  },
+  {
+    "citation_key": "Hansen1992LCurve",
+    "category": "01_core_theory_inversion",
+    "selection_reason": "Original reference for the L-curve method: the L-shaped curve of residual norm versus solution (semi)norm, and the relation between its corner and the choice of the regularization parameter.",
+    "agent_citation_key": "Hansen1992LCurve"
+  },
+  {
+    "citation_key": "WhittallMacKay1989NNLS",
+    "category": "01_core_theory_inversion",
+    "selection_reason": "Classic reference on interpreting relaxation data as a spectrum of relaxation times by least squares / linear programming; states explicitly that the solution is non-unique.",
+    "agent_citation_key": "WhittallMacKay1989NNLS"
+  },
+  {
+    "citation_key": "Borgia1998UniformPenalty",
+    "category": "01_core_theory_inversion",
+    "selection_reason": "Shows that a fixed smoothing coefficient broadens sharp peaks or splits a broad peak or tail into spurious multiple peaks, and proposes locally variable smoothing (UPEN).",
+    "agent_citation_key": "Borgia1998UniformPenalty"
+  },
+  {
+    "citation_key": "KleinbergHorsfield1990TransverseRelaxation",
+    "category": "05_relaxation_mechanism_mineralogy",
+    "selection_reason": "Measured T2 as a function of static field strength and CPMG pulse spacing: surface relaxation dominates at low field and short spacing, while diffusion in the gradient appears at high field and long spacing.",
+    "agent_citation_key": "KleinbergHorsfield1990TransverseRelaxation"
+  },
+  {
+    "citation_key": "Kleinberg1994RelaxationMechanism",
+    "category": "05_relaxation_mechanism_mineralogy",
+    "selection_reason": "Summarizes the relaxation mechanisms of pore fluids in rock: surface paramagnetic ions dominate, in the fast-diffusion regime the relaxation spectrum maps onto the S/V spectrum, and typical values of T1/T2 and surface relaxivity are given.",
+    "agent_citation_key": "Kleinberg1994RelaxationMechanism"
+  },
+  {
+    "citation_key": "Foley1996ParamagneticIons",
+    "category": "05_relaxation_mechanism_mineralogy",
+    "selection_reason": "Using synthetic calcium silicate powders with known iron/manganese concentrations, shows that surface relaxivity increases linearly with paramagnetic ion concentration and that oxide surfaces without paramagnetic ions still have appreciable relaxivity.",
+    "agent_citation_key": "Foley1996ParamagneticIons"
+  },
+  {
+    "citation_key": "Hurlimann1998EffectiveGradients",
+    "category": "05_relaxation_mechanism_mineralogy",
+    "selection_reason": "Analyses diffusion decay caused by internal gradients from susceptibility contrasts with the effective-gradient concept: only the decay in large pores increases markedly with echo spacing, and the effective gradient has an upper limit.",
+    "agent_citation_key": "Hurlimann1998EffectiveGradients"
+  },
+  {
+    "citation_key": "KeatingKnight2007IronOxides",
+    "category": "05_relaxation_mechanism_mineralogy",
+    "selection_reason": "Quartz sand coated with five iron oxides; quantitatively compares surface relaxivity and internal-gradient effects, directly relevant to unconsolidated geological materials.",
+    "agent_citation_key": "KeatingKnight2007IronOxides"
+  }
+]

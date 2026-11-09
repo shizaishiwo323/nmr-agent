@@ -1,0 +1,13 @@
+.DS_Store
+.env
+.streamlit/secrets.toml
+runs/
+T2process/outputs_standard_demo/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Reproducible showcase runs (scripts/run_showcase_examples.py)
+outputs/showcase/
+outputs/paper_cases/
+outputs/llm_check/

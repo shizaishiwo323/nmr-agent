@@ -1,0 +1,186 @@
+# Citation Registry
+
+This file maps each `[@citation_key]` used in agent reports to its verified reference, the literature note in `papers/` and the suggested retrieval tags. Entries without a verified reference are not cited in generated reports.
+
+- `[@BrownsteinTarr1979]` - Brownstein, K. R., & Tarr, C. E. (1979). Importance of classical diffusion in NMR studies of water in biological cells. Physical Review A, 19(6), 2446–2453. https://doi.org/10.1103/physreva.19.2446
+  - Note: `papers/BrownsteinTarr1979.md`
+  - Tags: `core_theory_inversion`, `eigenmodes`, `geometry`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Whittall1991NNLS]` - Whittall, K. P., Bronskill, M. J., & Henkelman, R. M. (1991). Investigation of analysis techniques for complicated NMR relaxation data. Journal of Magnetic Resonance, 95(2), 221–234. https://doi.org/10.1016/0022-2364(91)90213-d
+  - Note: `papers/Whittall1991NNLS.md`
+  - Tags: `component_assignment`, `core_theory_inversion`, `cpmg`, `echo_spacing`, `echo_train`, `gaussian_decomposition`, `ill_posed`, `inverse_laplace`, `nnls`, `overfitting`, `peak_count`, `pulse_sequence`, `regularization`, `regularized_inversion`, `sampling`
+- `[@Song2012MRPM]` - Song, Y.-Q. (2013). Magnetic Resonance of Porous Media (MRPM): A perspective. Journal of Magnetic Resonance, 229, 12–24. https://doi.org/10.1016/j.jmr.2012.11.010
+  - Note: `papers/Song2012MRPM.md`
+  - Tags: `core_theory_inversion`, `diffusive_coupling`, `eigenmodes`, `exchange`, `geometry`, `multidimensional_nmr`, `peak_merging`, `pore_coupling`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`, `t1_t2`, `t2_t2`
+- `[@Ramakrishnan1999Carbonates]` - reference not verified (not cited in generated reports)
+  - Note: `papers/Ramakrishnan1999Carbonates.md`
+  - Tags: `core_theory_inversion`, `diffusive_coupling`, `eigenmodes`, `exchange`, `geometry`, `peak_merging`, `pore_coupling`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Mohnke2015TriangularPores]` - Mohnke, O., Jorand, R., Nordlund, C., & Klitzsch, N. (2015). Understanding NMR relaxometry of partially water-saturated rocks. Hydrology and Earth System Sciences, 19(6), 2763–2773. https://doi.org/10.5194/hess-19-2763-2015
+  - Note: `papers/Mohnke2015TriangularPores.md`
+  - Tags: `core_theory_inversion`, `eigenmodes`, `geometry`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@MullerPetke2015DiffusionRegimes]` - Müller-Petke, M., Dlugosch, R., Lehmann-Horn, J., & Ronczka, M. (2015). Nuclear magnetic resonance average pore-size estimations outside the fast-diffusion regime. Geophysics, 80(3), D195–D206. https://doi.org/10.1190/geo2014-0167.1
+  - Note: `papers/MullerPetke2015DiffusionRegimes.md`
+  - Tags: `core_theory_inversion`, `eigenmodes`, `geometry`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Keating2012NMRAssumptions]` - Keating, K., & Knight, R. (2012). The effect of spatial variation in surface relaxivity on nuclear magnetic resonance relaxation rates. Geophysics, 77(5), E365–E377. https://doi.org/10.1190/geo2011-0462.1
+  - Note: `papers/Keating2012NMRAssumptions.md`
+  - Tags: `core_theory_inversion`, `dephasing`, `diffusive_coupling`, `echo_spacing`, `eigenmodes`, `exchange`, `field_inhomogeneity`, `geometry`, `internal_gradient`, `peak_merging`, `pore_coupling`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Dunn2002PorousMediaNMR]` - Dunn, K.-J., Bergman, D. J., & Latorraca, G. A. (2002). Nuclear magnetic resonance: Petrophysical and logging applications. Oxford, UK: Pergamon.
+  - Note: `papers/Dunn2002PorousMediaNMR.md`
+  - Tags: `core_theory_inversion`, `cpmg`, `dephasing`, `echo_spacing`, `echo_train`, `eigenmodes`, `field_inhomogeneity`, `geometry`, `internal_gradient`, `pore_shape`, `pore_size`, `pulse_sequence`, `restricted_diffusion`, `sampling`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Coates1999NMRLogging]` - Coates, G. R., Xiao, L., & Prammer, M. G. (1999). NMR logging: Principles and applications. Houston, TX: Halliburton Energy Services.
+  - Note: `papers/Coates1999NMRLogging.md`
+  - Tags: `component_assignment`, `core_theory_inversion`, `cpmg`, `echo_spacing`, `echo_train`, `gaussian_decomposition`, `ill_posed`, `inverse_laplace`, `nnls`, `overfitting`, `peak_count`, `pore_size`, `pulse_sequence`, `regularization`, `regularized_inversion`, `sampling`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Toumelin2007GeneralRandomWalk]` - Toumelin, E., Torres-Verdín, C., Sun, B., & Dunn, K.-J. (2007). Random-walk technique for simulating NMR measurements and 2D NMR maps of porous media with relaxing and permeable boundaries. Journal of Magnetic Resonance, 188(1), 83–96. https://doi.org/10.1016/j.jmr.2007.05.024
+  - Note: `papers/Toumelin2007GeneralRandomWalk.md`
+  - Tags: `cpmg`, `dephasing`, `echo_spacing`, `echo_train`, `eigenmodes`, `field_inhomogeneity`, `forward_simulation`, `geometry`, `internal_gradient`, `monte_carlo`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `pore_size`, `pulse_sequence`, `random_walk`, `restricted_diffusion`, `sampling`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Toumelin2003GeneralRandomWalk]` - Toumelin, E., Torres-Verdín, C., & Chen, S. (2003). Modeling of Multiple Echo-Time NMR Measurements for Complex Pore Geometries and Multiphase Saturations. SPE Reservoir Evaluation &amp; Engineering, 6(04), 234–243. https://doi.org/10.2118/85635-pa
+  - Note: `papers/Toumelin2003GeneralRandomWalk.md`
+  - Tags: `dephasing`, `diffusive_coupling`, `echo_spacing`, `eigenmodes`, `exchange`, `field_inhomogeneity`, `forward_simulation`, `geometry`, `internal_gradient`, `monte_carlo`, `peak_merging`, `pore_coupling`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `pore_size`, `random_walk`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Toumelin2003TemperatureDiffusiveCoupling]` - reference not verified (not cited in generated reports)
+  - Note: `papers/Toumelin2003TemperatureDiffusiveCoupling.md`
+  - Tags: `cpmg`, `diffusive_coupling`, `echo_spacing`, `echo_train`, `exchange`, `peak_merging`, `pore_coupling`, `pore_scale_simulation_random_walk`, `pore_size`, `pulse_sequence`, `sampling`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Toumelin2002MonteCarloNMR]` - reference not verified (not cited in generated reports)
+  - Note: `papers/Toumelin2002MonteCarloNMR.md`
+  - Tags: `diffusive_coupling`, `eigenmodes`, `exchange`, `forward_simulation`, `geometry`, `monte_carlo`, `peak_merging`, `pore_coupling`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `pore_size`, `random_walk`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Chi2015DiffusionalCoupling]` - Chi, L., & Heidari, Z. (2015). Diffusional coupling between microfractures and pore structure and its impact on nuclear magnetic resonance measurements in multiple-porosity systems. Geophysics, 80(1), D31–D42. https://doi.org/10.1190/geo2013-0467.1
+  - Note: `papers/Chi2015DiffusionalCoupling.md`
+  - Tags: `diffusive_coupling`, `eigenmodes`, `exchange`, `forward_simulation`, `geometry`, `monte_carlo`, `peak_merging`, `pore_coupling`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `pore_size`, `random_walk`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Fraga2013CarbonatePoreCoupling]` - reference not verified (not cited in generated reports)
+  - Note: `papers/Fraga2013CarbonatePoreCoupling.md`
+  - Tags: `diffusive_coupling`, `exchange`, `forward_simulation`, `monte_carlo`, `peak_merging`, `pore_coupling`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_size`, `random_walk`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Carneiro2014DiffusiveCoupling]` - reference not verified (not cited in generated reports)
+  - Note: `papers/Carneiro2014DiffusiveCoupling.md`
+  - Tags: `diffusive_coupling`, `exchange`, `forward_simulation`, `monte_carlo`, `peak_merging`, `pore_coupling`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_size`, `random_walk`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Alhwety2014RockTypingDiffusiveCoupling]` - reference not verified (not cited in generated reports)
+  - Note: `papers/Alhwety2014RockTypingDiffusiveCoupling.md`
+  - Tags: `dephasing`, `diffusive_coupling`, `echo_spacing`, `exchange`, `field_inhomogeneity`, `forward_simulation`, `internal_gradient`, `monte_carlo`, `peak_merging`, `pore_coupling`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_size`, `random_walk`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@LucasOliveira2018RestrictedDiffusion]` - Lucas-Oliveira, E., Araujo-Ferreira, A. G., Trevizan, W. A., Fortulan, C. A., & Bonagamba, T. J. (2018). Computational approach to integrate 3D X-ray microtomography and NMR data. Journal of Magnetic Resonance, 292, 16–24. https://doi.org/10.1016/j.jmr.2018.05.001
+  - Note: `papers/LucasOliveira2018RestrictedDiffusion.md`
+  - Tags: `eigenmodes`, `forward_simulation`, `geometry`, `monte_carlo`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `pore_size`, `random_walk`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Guo2016MultidimensionalNMRSimulation]` - Guo, J., Xie, R., Zou, Y., & Ding, Y. (2016). Numerical simulation of multi-dimensional NMR response in tight sandstone. Journal of Geophysics and Engineering, 13(3), 285–294. https://doi.org/10.1088/1742-2132/13/3/285
+  - Note: `papers/Guo2016MultidimensionalNMRSimulation.md`
+  - Tags: `cpmg`, `echo_spacing`, `echo_train`, `eigenmodes`, `exchange`, `forward_simulation`, `geometry`, `monte_carlo`, `multidimensional_nmr`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `pulse_sequence`, `random_walk`, `restricted_diffusion`, `sampling`, `t1_t2`, `t2_t2`
+- `[@McCall1991RestrictedDiffusion]` - McCall, K. R., Johnson, D. L., & Guyer, R. A. (1991). Magnetization evolution in connected pore systems. Physical Review B, 44(14), 7344–7355. https://doi.org/10.1103/physrevb.44.7344
+  - Note: `papers/McCall1991RestrictedDiffusion.md`
+  - Tags: `analytical_forward_model`, `eigenmodes`, `eigenvalues`, `geometry`, `matrix_diagonalization`, `pore_scale_simulation_random_walk`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Liebig1993RandomWalk]` - reference not verified (not cited in generated reports)
+  - Note: `papers/Liebig1993RandomWalk.md`
+  - Tags: `eigenmodes`, `forward_simulation`, `geometry`, `monte_carlo`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `random_walk`, `restricted_diffusion`
+- `[@Noetinger2016DiffusionRandomWalk]` - Noetinger, B., Roubinet, D., Russian, A., Le Borgne, T., Delay, F., Dentz, M., de Dreuzy, J.-R., & Gouze, P. (2016). Random Walk Methods for Modeling Hydrodynamic Transport in Porous and Fractured Media from Pore to Reservoir Scale. Transport in Porous Media, 115(2), 345–385. https://doi.org/10.1007/s11242-016-0693-z
+  - Note: `papers/Noetinger2016DiffusionRandomWalk.md`
+  - Tags: `eigenmodes`, `forward_simulation`, `geometry`, `monte_carlo`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `random_walk`, `restricted_diffusion`
+- `[@Gonzalez2020FieldInhomogeneities]` - Gonzalez, J. L., de Faria, E. L., Albuquerque, M. P., Albuquerque, M. P., Bom, C. R., Freitas, J. C. C., & Correia, M. D. (2020). Simulations of NMR Relaxation in a Real Porous Structure: Pre-asymptotic Behavior to the Localization Regime. Applied Magnetic Resonance, 51(6), 581–595. https://doi.org/10.1007/s00723-020-01200-6
+  - Note: `papers/Gonzalez2020FieldInhomogeneities.md`
+  - Tags: `dephasing`, `echo_spacing`, `eigenmodes`, `field_inhomogeneity`, `forward_simulation`, `geometry`, `internal_gradient`, `monte_carlo`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `random_walk`, `restricted_diffusion`
+- `[@SCA2008PoreScaleNMRSimulation]` - reference not verified (not cited in generated reports)
+  - Note: `papers/SCA2008PoreScaleNMRSimulation.md`
+  - Tags: `eigenmodes`, `forward_simulation`, `geometry`, `monte_carlo`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `pore_size`, `random_walk`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Tandon2018FiniteVolumeInternalGradients]` - Tandon, S., & Heidari, Z. (2018). Effect of Internal Magnetic-Field Gradients on Nuclear-Magnetic-Resonance Measurements and Nuclear-Magnetic-Resonance-Based Pore-Network Characterization. SPE Reservoir Evaluation &amp; Engineering, 21(03), 609–625. https://doi.org/10.2118/181532-pa
+  - Note: `papers/Tandon2018FiniteVolumeInternalGradients.md`
+  - Tags: `dephasing`, `echo_spacing`, `eigenmodes`, `field_inhomogeneity`, `finite_element`, `finite_volume`, `geometry`, `internal_gradient`, `mesh`, `numerical_methods_fem_lbm_matrix`, `pde_solver`, `pore_shape`, `restricted_diffusion`
+- `[@Ghomeshi2018FEMNMR]` - Ghomeshi, S., Kryuchkov, S., & Kantzas, A. (2018). An investigation into the effects of pore connectivity on T NMR relaxation. Journal of Magnetic Resonance, 289, 79–91. https://doi.org/10.1016/j.jmr.2018.02.007
+  - Note: `papers/Ghomeshi2018FEMNMR.md`
+  - Tags: `eigenmodes`, `finite_element`, `finite_volume`, `geometry`, `mesh`, `numerical_methods_fem_lbm_matrix`, `pde_solver`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Mitchell2019FiniteElementNMR]` - Mitchell, J., Souza, A., Fordham, E., & Boyd, A. (2019). A finite element approach to forward modeling of nuclear magnetic resonance measurements in coupled pore systems. The Journal of Chemical Physics, 150(15), 154708. https://doi.org/10.1063/1.5092159
+  - Note: `papers/Mitchell2019FiniteElementNMR.md`
+  - Tags: `eigenmodes`, `finite_element`, `finite_volume`, `geometry`, `mesh`, `numerical_methods_fem_lbm_matrix`, `pde_solver`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Mohnke2010PoreScaleSimulation]` - reference not verified (not cited in generated reports)
+  - Note: `papers/Mohnke2010PoreScaleSimulation.md`
+  - Tags: `dephasing`, `echo_spacing`, `eigenmodes`, `field_inhomogeneity`, `finite_element`, `finite_volume`, `geometry`, `internal_gradient`, `mesh`, `numerical_methods_fem_lbm_matrix`, `pde_solver`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Schwartz2013T2T2Simulation]` - Schwartz, L. M., Johnson, D. L., Mitchell, J., Chandrasekera, T. C., & Fordham, E. J. (2013). Modeling two-dimensional magnetic resonance measurements in coupled pore systems. Physical Review E, 88(3), 032813. https://doi.org/10.1103/physreve.88.032813
+  - Note: `papers/Schwartz2013T2T2Simulation.md`
+  - Tags: `diffusive_coupling`, `exchange`, `ill_posed`, `inverse_laplace`, `multidimensional_nmr`, `nnls`, `numerical_methods_fem_lbm_matrix`, `peak_merging`, `pore_coupling`, `regularization`, `regularized_inversion`, `t1_t2`, `t2_t2`
+- `[@Hagslatt2002RestrictiveGeometries]` - Hagslätt, H., Jönsson, B., Nydén, M., & Söderman, O. (2003). Predictions of pulsed field gradient NMR echo-decays for molecules diffusing in various restrictive geometries. Simulations of diffusion propagators based on a finite element method. Journal of Magnetic Resonance, 161(2), 138–147. https://doi.org/10.1016/s1090-7807(02)00039-3
+  - Note: `papers/Hagslatt2002RestrictiveGeometries.md`
+  - Tags: `eigenmodes`, `geometry`, `numerical_methods_fem_lbm_matrix`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Oliveira2021COMSOLNMRGuide]` - reference not verified (not cited in generated reports)
+  - Note: `papers/Oliveira2021COMSOLNMRGuide.md`
+  - Tags: `eigenmodes`, `finite_element`, `finite_volume`, `geometry`, `mesh`, `numerical_methods_fem_lbm_matrix`, `pde_solver`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Mohnke2014LBMNMR]` - reference not verified (not cited in generated reports)
+  - Note: `papers/Mohnke2014LBMNMR.md`
+  - Tags: `diffusive_coupling`, `eigenmodes`, `exchange`, `geometry`, `lattice_boltzmann`, `lbm`, `numerical_methods_fem_lbm_matrix`, `peak_merging`, `pore_coupling`, `pore_network`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Guyer2000LBMDiffusion]` - reference not verified (not cited in generated reports)
+  - Note: `papers/Guyer2000LBMDiffusion.md`
+  - Tags: `eigenmodes`, `geometry`, `lattice_boltzmann`, `lbm`, `numerical_methods_fem_lbm_matrix`, `pore_network`, `pore_shape`, `restricted_diffusion`
+- `[@Chang2000MatrixDiagonalization]` - reference not verified (not cited in generated reports)
+  - Note: `papers/Chang2000MatrixDiagonalization.md`
+  - Tags: `analytical_forward_model`, `eigenmodes`, `eigenvalues`, `geometry`, `matrix_diagonalization`, `numerical_methods_fem_lbm_matrix`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Chang2001DrainageSaturationHistory]` - reference not verified (not cited in generated reports)
+  - Note: `papers/Chang2001DrainageSaturationHistory.md`
+  - Tags: `analytical_forward_model`, `eigenmodes`, `eigenvalues`, `geometry`, `matrix_diagonalization`, `numerical_methods_fem_lbm_matrix`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@MatrixDiagonalization2002NMR]` - Chang, D., & Ioannidis, M. A. (2002). Magnetization Evolution in Network Models of Porous Rock under Conditions of Drainage and Imbibition. Journal of Colloid and Interface Science, 253(1), 159–170. https://doi.org/10.1006/jcis.2002.8472
+  - Note: `papers/MatrixDiagonalization2002NMR.md`
+  - Tags: `analytical_forward_model`, `eigenmodes`, `eigenvalues`, `geometry`, `matrix_diagonalization`, `numerical_methods_fem_lbm_matrix`, `pore_shape`, `restricted_diffusion`
+- `[@Tan2012T2T1Simulation]` - Tan, M.-J., Zou, Y.-L., Zhang, J.-Y., & Zhao, X. (2012). Numerical simulation of (T2, T1) 2D NMR and fluid responses. Applied Geophysics, 9(4), 401–413. https://doi.org/10.1007/s11770-012-0351-3
+  - Note: `papers/Tan2012T2T1Simulation.md`
+  - Tags: `cpmg`, `echo_spacing`, `echo_train`, `exchange`, `forward_simulation`, `monte_carlo`, `multidimensional_nmr`, `numerical_methods_fem_lbm_matrix`, `pore_scale`, `pulse_sequence`, `random_walk`, `sampling`, `t1_t2`, `t2_t2`
+- `[@EchoTrainSimulation2021]` - Ge, X., Fan, Y., Liu, J., Zhao, J., Zeng, B., & Xing, D. (2021). Numerical investigating the low field NMR response of representative pores at different pulse sequence parameters. Computers &amp; Geosciences, 151, 104761. https://doi.org/10.1016/j.cageo.2021.104761
+  - Note: `papers/EchoTrainSimulation2021.md`
+  - Tags: `cpmg`, `echo_spacing`, `echo_train`, `numerical_methods_fem_lbm_matrix`, `pulse_sequence`, `sampling`
+- `[@Song2014PoreCouplingReview]` - Song, Y.-Q., Carneiro, G., Schwartz, L. M., & Johnson, D. L. (2014). Experimental Identification of Diffusive Coupling Using 2D NMR. Physical Review Letters, 113(23), 235503. https://doi.org/10.1103/physrevlett.113.235503
+  - Note: `papers/Song2014PoreCouplingReview.md`
+  - Tags: `diffusive_coupling`, `exchange`, `multidimensional_nmr`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `pore_size`, `short_t2`, `surface_relaxation`, `surface_relaxivity`, `t1_t2`, `t2_t2`
+- `[@Grunewald2009PoreCoupling]` - Grunewald, E., & Knight, R. (2009). A laboratory study of NMR relaxation times and pore coupling in heterogeneous media. Geophysics, 74(6), E215–E221. https://doi.org/10.1190/1.3223712
+  - Note: `papers/Grunewald2009PoreCoupling.md`
+  - Tags: `component_assignment`, `diffusive_coupling`, `exchange`, `gaussian_decomposition`, `overfitting`, `peak_count`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `pore_size`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Fleury2009PoreCoupling]` - Fleury, M., & Soualem, J. (2009). Quantitative analysis of diffusional pore coupling from T2-store-T2 NMR experiments. Journal of Colloid and Interface Science, 336(1), 250–259. https://doi.org/10.1016/j.jcis.2009.03.051
+  - Note: `papers/Fleury2009PoreCoupling.md`
+  - Tags: `diffusive_coupling`, `exchange`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `pore_size`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Yu2019T2T2]` - Yu, Z., Zhang, Y., Xiao, L., & Liao, G. (2019). Characterization of porous media by T2-T2 correlation beyond fast diffusion limit. Magnetic Resonance Imaging, 56, 19–23. https://doi.org/10.1016/j.mri.2018.10.008
+  - Note: `papers/Yu2019T2T2.md`
+  - Tags: `exchange`, `ill_posed`, `inverse_laplace`, `multidimensional_nmr`, `nnls`, `pore_coupling_t2t2_interpretation`, `pore_size`, `regularization`, `regularized_inversion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`, `t1_t2`, `t2_t2`
+- `[@Song2016T2T2]` - Song, R., Song, Y.-Q., Vembusubramanian, M., & Paulsen, J. L. (2016). The robust identification of exchange from T2–T2 time-domain features. Journal of Magnetic Resonance, 265, 164–171. https://doi.org/10.1016/j.jmr.2016.02.001
+  - Note: `papers/Song2016T2T2.md`
+  - Tags: `diffusive_coupling`, `exchange`, `ill_posed`, `inverse_laplace`, `multidimensional_nmr`, `nnls`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `regularization`, `regularized_inversion`, `t1_t2`, `t2_t2`
+- `[@Song2008T2T2]` - Song, Y.-Q., Zielinski, L., & Ryu, S. (2008). Two-Dimensional NMR of Diffusion Systems. Physical Review Letters, 100(24), 248002. https://doi.org/10.1103/physrevlett.100.248002
+  - Note: `papers/Song2008T2T2.md`
+  - Tags: `diffusive_coupling`, `exchange`, `multidimensional_nmr`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `pore_size`, `short_t2`, `surface_relaxation`, `surface_relaxivity`, `t1_t2`, `t2_t2`
+- `[@Johnson2014T2T2]` - Johnson, D. L., & Schwartz, L. M. (2014). Analytic theory of two-dimensional NMR in systems with coupled macro- and micropores. Physical Review E, 90(3), 032407. https://doi.org/10.1103/physreve.90.032407
+  - Note: `papers/Johnson2014T2T2.md`
+  - Tags: `diffusive_coupling`, `exchange`, `multidimensional_nmr`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `t1_t2`, `t2_t2`
+- `[@Monteilhet2006T2T2]` - Monteilhet, L., Korb, J.-P., Mitchell, J., & McDonald, P. J. (2006). Observation of exchange of micropore water in cement pastes by two-dimensional T2–T2 nuclear magnetic resonance relaxometry. Physical Review E, 74(6), 061404. https://doi.org/10.1103/physreve.74.061404
+  - Note: `papers/Monteilhet2006T2T2.md`
+  - Tags: `diffusive_coupling`, `exchange`, `ill_posed`, `inverse_laplace`, `multidimensional_nmr`, `nnls`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `regularization`, `regularized_inversion`, `t1_t2`, `t2_t2`
+- `[@Hansen1992LCurve]` - Hansen, P. C. (1992). Analysis of Discrete Ill-Posed Problems by Means of the L-Curve. SIAM Review, 34(4), 561–580. https://doi.org/10.1137/1034115
+  - Note: `papers/Hansen1992LCurve.md`
+  - Tags: `core_theory_inversion`, `ill_posed`, `lcurve`, `regularization`, `regularization_parameter`, `regularized_inversion`, `tikhonov`
+- `[@WhittallMacKay1989NNLS]` - Whittall, K. P., & MacKay, A. L. (1989). Quantitative interpretation of NMR relaxation data. Journal of Magnetic Resonance, 84(1), 134–152. https://doi.org/10.1016/0022-2364(89)90011-5
+  - Note: `papers/WhittallMacKay1989NNLS.md`
+  - Tags: `component_assignment`, `core_theory_inversion`, `ill_posed`, `inverse_laplace`, `nnls`, `nonuniqueness`, `peak_count`, `regularized_inversion`
+- `[@Borgia1998UniformPenalty]` - Borgia, G. C., Brown, R. J. S., & Fantazzini, P. (1998). Uniform-Penalty Inversion of Multiexponential Decay Data. Journal of Magnetic Resonance, 132(1), 65–77. https://doi.org/10.1006/jmre.1998.1387
+  - Note: `papers/Borgia1998UniformPenalty.md`
+  - Tags: `core_theory_inversion`, `false_peaks`, `multimodal`, `peak_broadening`, `peak_splitting`, `regularization`, `regularized_inversion`, `smoothing`
+- `[@KleinbergHorsfield1990TransverseRelaxation]` - Kleinberg, R. L., & Horsfield, M. A. (1990). Transverse relaxation processes in porous sedimentary rock. Journal of Magnetic Resonance, 88(1), 9–19. https://doi.org/10.1016/0022-2364(90)90104-h
+  - Note: `papers/KleinbergHorsfield1990TransverseRelaxation.md`
+  - Tags: `cpmg`, `echo_spacing`, `internal_gradient`, `relaxation_mechanism`, `restricted_diffusion`, `surface_relaxation`, `susceptibility_contrast`
+- `[@Kleinberg1994RelaxationMechanism]` - Kleinberg, R. L., Kenyon, W. E., & Mitra, P. P. (1994). Mechanism of NMR Relaxation of Fluids in Rock. Journal of Magnetic Resonance, Series A, 108(2), 206–214. https://doi.org/10.1006/jmra.1994.1112
+  - Note: `papers/Kleinberg1994RelaxationMechanism.md`
+  - Tags: `fast_diffusion`, `mineralogy`, `paramagnetic`, `pore_size`, `relaxation_mechanism`, `short_t2`, `surface_relaxation`, `surface_relaxivity`, `t1_t2`
+- `[@Foley1996ParamagneticIons]` - Foley, I., Farooqui, S. A., & Kleinberg, R. L. (1996). Effect of Paramagnetic Ions on NMR Relaxation of Fluids at Solid Surfaces. Journal of Magnetic Resonance, Series A, 123(1), 95–104. https://doi.org/10.1006/jmra.1996.0218
+  - Note: `papers/Foley1996ParamagneticIons.md`
+  - Tags: `iron`, `manganese`, `mineralogy`, `paramagnetic`, `relaxation_mechanism`, `surface_relaxivity`, `t1_t2`
+- `[@Hurlimann1998EffectiveGradients]` - Hürlimann, M. D. (1998). Effective Gradients in Porous Media Due to Susceptibility Differences. Journal of Magnetic Resonance, 131(2), 232–240. https://doi.org/10.1006/jmre.1998.1364
+  - Note: `papers/Hurlimann1998EffectiveGradients.md`
+  - Tags: `cpmg`, `diffusion`, `echo_spacing`, `internal_gradient`, `long_t2_suppressed`, `susceptibility_contrast`
+- `[@KeatingKnight2007IronOxides]` - Keating, K., & Knight, R. (2007). A laboratory study to determine the effect of iron oxides on proton NMR measurements. Geophysics, 72(1), E27–E32. https://doi.org/10.1190/1.2399445
+  - Note: `papers/KeatingKnight2007IronOxides.md`
+  - Tags: `geomaterial`, `internal_gradient`, `iron`, `mineralogy`, `paramagnetic`, `short_t2`, `surface_relaxivity`, `unconsolidated_sand`
+- `[@Bayer2010SoilNMR]` - Bayer, J. V., Jaeger, F., & Schaumann, G. E. (2010). Proton Nuclear Magnetic Resonance (NMR) Relaxometry in Soil Science Applications. The Open Magnetic Resonance Journal, 3(1), 15–26. https://doi.org/10.2174/1874769801003010015
+  - Note: `papers/Bayer2010SoilNMR.md`
+- `[@Jaeger2010PeatSwelling]` - Jaeger, F., Shchegolikhina, A., Van As, H., & Schaumann, G. E. (2010). Proton NMR Relaxometry as a Useful Tool to Evaluate Swelling Processes in Peat Soils. The Open Magnetic Resonance Journal, 3(1), 27–45. https://doi.org/10.2174/1874769801003010027
+  - Note: `papers/Jaeger2010PeatSwelling.md`
+- `[@CostabelStange2025Peat]` - Costabel, S., & Stange, C. F. (2025). Nuclear magnetic resonance relaxometry to characterise the decomposition degree of peat soils. Geoderma, 456, 117244. https://doi.org/10.1016/j.geoderma.2025.117244
+  - Note: `papers/CostabelStange2025Peat.md`
+- `[@Mashhadi2025SDRPeat]` - Mashhadi, S. R., Keating, K., Petersen, R. J., Parra, A. O., Costabel, S., Beisembina, G., Hiller, T., & Grombacher, D. (2025). Hydraulic conductivity estimation by NMR data in unconsolidated geological materials: insights from SDR model calibrations. Journal of Hydrology, 662, 134060. https://doi.org/10.1016/j.jhydrol.2025.134060
+  - Note: `papers/Mashhadi2025SDRPeat.md`
+- `[@Peng2023Bentonite]` - Peng, L., Zhang, F., Dong, Y., & Zhang, C. (2023). Water partitioning and migration in unsaturated bentonites by low‐field NMR characterization. Vadose Zone Journal, 22(6), e20284. https://doi.org/10.1002/vzj2.20284
+  - Note: `papers/Peng2023Bentonite.md`
+- `[@Zhou2025WRRUnsaturated]` - Zhou, J., & Zhang, C. (2025). How Does Pore Structure Affect the NMR Relaxation in Unsaturated Porous Media: A Simulation Study. Water Resources Research, 61(2), e2024WR038139. https://doi.org/10.1029/2024wr038139
+  - Note: `papers/Zhou2025WRRUnsaturated.md`
+- `[@Zhou2026GRLExchange]` - Zhou, J., Schröer, L., Cnudde, V., & Zhang, C. (2026). How Does Fluid Exchange Between Pores in Unsaturated Porous Media? Geophysical Research Letters, 53(5), e2025GL120450. https://doi.org/10.1029/2025gl120450
+  - Note: `papers/Zhou2026GRLExchange.md`
+- `[@Falzone2016Saturation]` - Falzone, S., & Keating, K. (2016). A laboratory study to determine the effect of pore size, surface relaxivity, and saturation on NMR T2 relaxation measurements. Near Surface Geophysics, 14(1), 57–69. https://doi.org/10.3997/1873-0604.2016001
+  - Note: `papers/Falzone2016Saturation.md`
+- `[@Behroozmand2015Review]` - Behroozmand, A. A., Keating, K., & Auken, E. (2015). A Review of the Principles and Applications of the NMR Technique for Near-Surface Characterization. Surveys in Geophysics, 36(1), 27–85. https://doi.org/10.1007/s10712-014-9304-0
+  - Note: `papers/Behroozmand2015Review.md`
+- `[@Zou2016LCurveSlope]` - Zou, Y.-L., Xie, R.-H., & Arad, A. (2016). Numerical estimation of choice of the regularization parameter for NMR T2 inversion. Petroleum Science, 13(2), 237–246. https://doi.org/10.1007/s12182-016-0093-6
+  - Note: `papers/Zou2016LCurveSlope.md`
