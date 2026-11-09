@@ -11,6 +11,7 @@ from uuid import uuid4
 
 import pandas as pd
 import streamlit as st
+from openai import APIError
 
 from t2_agent import ct_ui, ideal_ui
 from t2_agent.agent import AgentRuntimeContext, execute_agent_tool, run_agent_turn
@@ -1870,6 +1871,17 @@ def run_agent_prompt(
                         }
                     )
                     result.assistant_message = (result.assistant_message + "\n\n" + fallback.message).strip()
+            except APIError as exc:
+                # Wrong key, no credit, unknown model or unreachable endpoint: tell the user
+                # instead of showing a server traceback.
+                message = t(language, "llm_api_error", detail=describe_api_error(exc))
+                st.session_state.display_messages.append(("assistant", message))
+                st.session_state.display_traces.append(live_trace)
+                st.session_state.display_artifacts.append([])
+                st.session_state.display_tool_results.append([])
+                save_current_file_state()
+                status.update(label=t(language, "llm_api_error_status"), state="error")
+                return
             finally:
                 context.stage_callback = None
             st.session_state.agent_messages = result.messages
@@ -1884,6 +1896,21 @@ def run_agent_prompt(
             for tool_result in result.tool_results:
                 st.write(f"{tool_result.status}: {tool_result.message}")
             status.update(label=t(language, "done_status"), state="complete")
+
+
+def describe_api_error(exc: Exception) -> str:
+    """Short, key-free description of an error returned by the LLM provider."""
+
+    status = getattr(exc, "status_code", None)
+    body = getattr(exc, "body", None)
+    detail = ""
+    if isinstance(body, dict):
+        error = body.get("error", body)
+        detail = str(error.get("message", "")) if isinstance(error, dict) else str(error)
+    if not detail:
+        detail = str(getattr(exc, "message", "") or exc.__class__.__name__)
+    detail = detail[:300]
+    return f"HTTP {status}: {detail}" if status else detail
 
 
 def run_local_demo_prompt(prompt: str, live_results_container=None, live_chat_container=None) -> None:

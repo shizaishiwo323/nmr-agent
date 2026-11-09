@@ -80,3 +80,13 @@ def test_agent_turn_runs_with_openai_provider(tmp_path):
     assert call["model"] == "gpt-4.1"
     assert call["tools"] and call["tool_choice"] == "auto"
     assert "extra_body" not in call
+
+
+def test_api_error_description_is_short_and_has_no_key():
+    from streamlit_app import describe_api_error
+
+    class FakeStatusError(Exception):
+        status_code = 402
+        body = {"error": {"message": "Insufficient Balance", "type": "insufficient_balance_error"}}
+
+    assert describe_api_error(FakeStatusError()) == "HTTP 402: Insufficient Balance"
