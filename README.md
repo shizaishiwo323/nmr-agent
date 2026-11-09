@@ -20,6 +20,22 @@ provider and paste your own key (see below). The key stays in your browser
 session and is not stored by the app. The app sleeps when idle, so the first
 visit can take a minute to wake up.
 
+## How to Cite
+
+If you use this code, the web app or results produced with them, please cite
+the following publications:
+
+- Wang, B., Zhou, J., Rembert, F., Heck, L., Bate, B., & Zhang, C. (2026).
+  Tracking spatiotemporal mineral dissolution through quantitative nuclear
+  magnetic resonance signatures. *Geophysical Research Letters*, 53(14).
+  https://doi.org/10.1029/2026gl124613
+- Zhou, J., & Zhang, C. (2025). How does pore structure affect the NMR
+  relaxation in unsaturated porous media: A simulation study. *Water Resources
+  Research*, 61(2). https://doi.org/10.1029/2024wr038139
+- Zhou, J., Schröer, L., Cnudde, V., & Zhang, C. (2026). How does fluid exchange
+  between pores in unsaturated porous media? *Geophysical Research Letters*,
+  53(5). https://doi.org/10.1029/2025gl120450
+
 ## Language Models
 
 The agent calls the model through the OpenAI Python client and the standard
