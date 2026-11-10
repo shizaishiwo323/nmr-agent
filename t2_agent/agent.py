@@ -14,6 +14,7 @@ from .llm import LLMConfig, create_chat_completion
 from .guidance import build_parameter_guidance, infer_requested_plan
 from .models import AgentToolResult
 from .skills import render_skill_prompt
+from .paper_tools import PAPER_TOOL_NAMES, paper_tool_specs, run_paper_tool
 from .ct_workflow import inspect_ct_phase_image, is_ct_upload, request_ct_run
 from .ideal_workflow import request_ideal_run
 from .tools import (
@@ -440,6 +441,7 @@ def build_tool_specs() -> list[dict[str, Any]]:
                 },
             },
         },
+        *paper_tool_specs(),
     ]
 
 
@@ -732,6 +734,11 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
 
     if name == "process_uploaded_files_batch":
         result = process_uploaded_files_batch(args, context, response_language=response_language)
+        context.results.append(result)
+        return result
+
+    if name in PAPER_TOOL_NAMES:
+        result = run_paper_tool(name, args, context, language=response_language)
         context.results.append(result)
         return result
 
@@ -1218,7 +1225,10 @@ def run_agent_turn(
         "For the first version, only 2D simulation is supported, and mesh generation must use pyGIMLi triangular meshing. "
         "For the ordinary first-version ideal-triangle simulation, run only the 1D T2 workflow. "
         "If the user explicitly asks for the local NMR simulator or ideal triangle mesh demonstration, call run_local_nmr_triangle_demo; it uses the repository-bundled simulator and still sends the simulated decay into the existing fixed NNLS T2 inversion pipeline. "
-        "Do not attempt D-T2 unless a future tool explicitly supports it. "
+        "Paper cases (Sections 3 and 5 of the manuscript) have their own tools, which also compute D-T2 and T1-T2: simulate_pore_shapes (equal-area circle, equilateral and 30-60-90 triangles), simulate_saturation_series (corner water at several saturations), simulate_contact_angle_series (contact angles at equal water area), simulate_dual_pore_exchange (compartment exchange model) and simulate_ct_slice_pixel_grid (finite-volume pixel solver for a segmented TIF). "
+        "Use them when the user asks for these comparisons, for D-T2 or T1-T2 maps, or to reproduce a paper figure; pass only values the user stated, the defaults are the manuscript settings. Saturations are fractions (15.3% -> 0.153). "
+        "When explaining their results, use the summary numbers: shape cases differ only in perimeter at equal area; corner water relaxes with the wedge S/V, so a saturated calibration reads it as a much smaller pore; a larger contact angle at equal water area shortens the wetted wall and lengthens T2; two pores stay separate only while k_ex is small compared with the difference of their relaxation rates. These tools return the manuscript-style figure as the first artifact. "
+        "D-T2 and T1-T2 are available only through these paper-case tools. "
         "When the user asks for the whole local T2 simulation flow, call run_2d_simulation_full_workflow so mesh, decay, T2 inversion, and optional Gaussian decomposition are connected. "
         "When the user only asks for T2 inversion, keep using the existing T2 workbook tools and do not force simulation. "
         "When the user has uploaded data and asks to inspect, run, or interpret it, first call inspect_workbook_schema, then call validate_workbook. "

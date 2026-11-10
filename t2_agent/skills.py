@@ -52,10 +52,16 @@ T2_AGENT_SKILLS = [
 ]
 
 
+def _all_skills() -> list[dict[str, str]]:
+    from .paper_tools import PAPER_SKILLS
+
+    return T2_AGENT_SKILLS + PAPER_SKILLS
+
+
 def render_skill_prompt() -> str:
     """Render skills into compact instructions for the LLM system prompt."""
 
     lines = ["Available T2 skills/tools:"]
-    for skill in T2_AGENT_SKILLS:
+    for skill in _all_skills():
         lines.append(f"- {skill['name']}: {skill['purpose']} Use when: {skill['when_to_use']}")
     return "\n".join(lines)
