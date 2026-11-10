@@ -39,7 +39,6 @@ INTRO_QUERY_KEY = "hide_t2_agent_intro"
 TURN_ARTIFACT_EXPANDER_MARKER_CLASS = "t2-turn-artifact-expander-marker"
 TURN_RESULT_EXPANDER_MARKER_CLASS = "t2-turn-result-expander-marker"
 CT_STAGE_TITLES = {
-    "paper_case": ("论文算例", "Paper case"),
     "ct_geometry": ("几何：相态映射与裁剪", "Geometry: phase mapping and crop"),
     "ct_mesh": ("PyGIMLi 网格划分", "PyGIMLi meshing"),
     "ct_decay": ("NMR 衰减求解", "NMR decay solve"),

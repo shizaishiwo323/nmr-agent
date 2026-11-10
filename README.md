@@ -153,28 +153,6 @@ prompt -> needs_ideal_parameter_confirmation -> dialog with live geometry previe
   with the geometry preview and `ideal_run_config.json`. The next request asks
   for confirmation again.
 
-## Paper Cases (Sections 3 and 5 of the manuscript)
-
-`t2_agent/paper_sim/` contains the forward and inverse calculations of the
-controlled cases and the pixel-grid CT solver used in the manuscript, with the
-Table 1 settings as defaults. The agent calls them through five tools; each run
-writes a manuscript-style figure (PNG 600 dpi and PDF), a workbook and a JSON
-summary.
-
-| Tool | Case | Responses |
-|---|---|---|
-| `simulate_pore_shapes` | Equal-area circle, equilateral and 30°-60°-90° triangles (Fig. 4) | T2, D–T2, T1–T2 |
-| `simulate_saturation_series` | Corner water in an equilateral pore at several saturations (Fig. 6) | T2, D–T2, T1–T2 |
-| `simulate_contact_angle_series` | Contact angles at equal water area (Fig. 7) | T2, D–T2, T1–T2 |
-| `simulate_dual_pore_exchange` | Two pores, effective compartment exchange k_ex = D_eff / l_c² (Fig. 5) | T2 |
-| `simulate_ct_slice_pixel_grid` | Finite-volume solution on the CT pixel grid, L-curve inversion (Fig. 9) | T2 |
-
-T2 uses consistent-mass FEM on pyGIMLi meshes with a generalized Lanczos
-evaluation; D–T2 (narrow-pulse PFG) and T1–T2 (saturation recovery) propagate
-the magnetization with Crank–Nicolson steps; surface relaxation acts on
-solid–water edges only. `tests/test_paper_sim.py` checks the ported
-calculations against values in the manuscript.
-
 ## Report Figures
 
 `interpret_results` adds one publication-style figure (600 dpi PNG) to each
